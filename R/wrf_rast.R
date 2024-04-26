@@ -7,11 +7,12 @@
 #' @param map (optional) file with lat-lon variables and grid information
 #' @param level only for 4d data, default is 1 (surface)
 #' @param latlon logical (default is FALSE), set TRUE project the output to "+proj=longlat +datum=WGS84 +no_defs"
-#' @param as_polygons logical, true to return a poligon instead of a raster
+#' @param method method passed to terra::projection, default is bilinear
+#' @param as_polygons logical, true to return a SpatVector instead of SpatRaster
 #' @param verbose display additional information
 #' @param ... extra arguments passed to ncdf4::ncvar_get
 #'
-#' @import terra, ncdf4, sf
+#' @import terra ncdf4 sf
 #'
 #' @export
 #' @examples {
@@ -29,6 +30,7 @@ wrf_rast <- function(file = file.choose(),
                      map,
                      level = 1,
                      latlon = FALSE,
+                     method = 'bilinear',
                      as_polygons = FALSE,
                      verbose = FALSE,
                      ...){
@@ -38,7 +40,7 @@ wrf_rast <- function(file = file.choose(),
       wrfchem <- ncdf4::nc_open(file)                                                     # nocov
       if(verbose)                                                                         # nocov
         cat(paste0('reading Times from ', file,'\n'))                                     # nocov
-      TIME   <- ncvar_get(wrfchem,'Times')                                                # nocov
+      TIME   <- ncdf4::ncvar_get(wrfchem,'Times')                                         # nocov
       TIME   <- as.POSIXlt(TIME, tz = "UTC", format="%Y-%m-%d_%H:%M:%OS", optional=FALSE) # nocov
       if(verbose)                                                                         # nocov
         cat('returning Times in POSIXct\n')                                               # nocov
@@ -155,13 +157,6 @@ wrf_rast <- function(file = file.choose(),
   xmx <- xmn + ncols*dx             # Right border
   ymn <- ymx - nrows*dy             # Bottom border
 
-  # Create a raster
-  r <- terra::rast(resolution = dx,
-                   xmin = xmn,
-                   xmax = xmx,
-                   ymin = ymn,
-                   ymax = ymx,
-                   crs = geogrd.proj)
 
   f2 <- function(a, wh){
     dims <- seq_len(length(dim(a)))                # nocov
@@ -171,16 +166,29 @@ wrf_rast <- function(file = file.choose(),
   }
 
   if(is.matrix(POL)){
+    # Create a single-layer SpatRaster
+    r <- terra::rast(resolution = dx,
+                     xmin = xmn,
+                     xmax = xmx,
+                     ymin = ymn,
+                     ymax = ymx,
+                     crs = geogrd.proj)
     r[]       <- rev(c(POL))
     names(r)  <- paste(name)
   }else{
-    r         <- raster::brick(r,nl = dim(POL)[3])          # nocov start
     if(length(dim(POL)) == 4){
       cat('rast::brick only support 3d data, using level',level,'\n')
       POL <- POL[,,level,,drop = T]
     }
-    r[,,]     <- f2(POL,2)
-    ndim      <- length(dim(POL))
+    # Create a multi-layer SpatRaster
+    r <- terra::rast(resolution = dx,
+                     xmin = xmn,
+                     xmax = xmx,
+                     ymin = ymn,
+                     ymax = ymx,
+                     nlyrs = dim(POL)[3],
+                     crs = geogrd.proj)
+    r[]       <- rev(c(f2(POL,1)))
 
     if('Times' %in% names(wrf$var)){              # this is new!
       ntimes    <- length(ncvar_get(wrf,'Times'))
@@ -189,11 +197,12 @@ wrf_rast <- function(file = file.choose(),
       ntimes    <- 1
     }
 
+    ndim      <- length(dim(POL))
     if(ntimes == 1 & ndim > 2){
-      if(nlayers(r) == dim(r)[3])
+      if(nlyr(r) == dim(r)[3])
         names(r)  <- paste(name,'level',formatC(1:dim(r)[3],width = 2, format = "d", flag = "0"),sep="_")
     }else{
-      if(nlayers(r) == length(ncvar_get(wrf,'Times')))
+      if(nlyr(r) == length(ncvar_get(wrf,'Times')))
         names(r)  <- paste(name,ncvar_get(wrf,'Times'),sep="_")
     }
   }                                                         # nocov end
@@ -202,14 +211,14 @@ wrf_rast <- function(file = file.choose(),
 
   if(as_polygons){
     if(latlon){
-      return(st_transform(x   = st_as_sf(rasterToPolygons(r)),           # nocov
-                          crs = st_crs('+proj=longlat')))                # nocov
+      return( terra::project(terra::as.polygons(r,round=FALSE, aggregate=FALSE, values=TRUE),
+                             "+proj=longlat +datum=WGS84 +no_defs") )
     }else{
-      return(st_as_sf(rasterToPolygons(r)))                              # nocov
+      return(terra::as.polygons(r,round=FALSE, aggregate=FALSE, values=TRUE)) # nocov
     }
   }else{
     if(latlon){
-      return(terra::project(r,"+proj=longlat +datum=WGS84 +no_defs"))    # nocov
+      return(terra::project(x = r,y = "+proj=longlat +datum=WGS84 +no_defs",method = method))    # nocov
     }else{
       return(r)                                 # nocov
     }

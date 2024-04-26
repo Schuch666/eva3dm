@@ -2,7 +2,7 @@
 % Please edit documentation in R/wrf_rast.R
 \name{wrf_rast}
 \alias{wrf_rast}
-\title{Creates rast object wrf file}
+\title{Creates SpatRaster object from wrf file}
 \usage{
 wrf_rast(
   file = file.choose(),
@@ -10,6 +10,7 @@ wrf_rast(
   map,
   level = 1,
   latlon = FALSE,
+  method = "bilinear",
   as_polygons = FALSE,
   verbose = FALSE,
   ...
@@ -26,14 +27,16 @@ wrf_rast(
 
 \item{latlon}{logical (default is FALSE), set TRUE project the output to "+proj=longlat +datum=WGS84 +no_defs"}
 
-\item{as_polygons}{logical, true to return a poligon instead of a raster}
+\item{method}{method passed to terra::projection, default is bilinear}
+
+\item{as_polygons}{logical, true to return a SpatVector instead of SpatRaster}
 
 \item{verbose}{display additional information}
 
 \item{...}{extra arguments passed to ncdf4::ncvar_get}
 }
 \description{
-Creates a rast (terra R-package) object from a variable from wrf file (or another compatible NetCDF)
+Creates a SpatRaster (terra R-package) object from a variable from wrf file (or another compatible NetCDF)
 }
 \examples{
 {
