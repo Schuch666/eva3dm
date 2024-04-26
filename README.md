@@ -1,0 +1,19 @@
+# eval3dmodel
+An R-package focusing on evaluation of weather and air quality models.
+
+The functions include:
+- `ncdump()` ...
+- `meta()` ...
+
+- `wrf_rast()` extract variables and create SpatRaster or SpatVector from WRF outputs and input files (and compatible NetCDF files);
+- `rast_to_netcdf()` ...
+
+Post-processing:
+- `extract_serie()` extarct and save time-series from WRF outputs and input files (and compatible NetCDF files);
+- `extract_mean()` ...
+- `extract_8h_max()` ...
+
+
+- `MDA8()` ...
+
+Visualization:
