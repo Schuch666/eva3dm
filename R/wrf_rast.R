@@ -13,6 +13,7 @@
 #' @param ... extra arguments passed to ncdf4::ncvar_get
 #'
 #' @import terra ncdf4 sf
+#' @importFrom utils menu
 #'
 #' @export
 #' @examples {

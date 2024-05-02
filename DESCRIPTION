@@ -11,7 +11,7 @@ Authors@R: c(
          )
 Maintainer: Daniel Schuch <underschuch@gmail.com>
 Description: Functions to post-process, visualize and evaluate results from 3d Meteorological and Air Quality models against observations.
-Imports: terra, ncdf4, sf
+Imports: terra, ncdf4, sf, methods
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
