@@ -1,7 +1,9 @@
 Package: eval3dmodel
 Type: Package
 Title: Evaluation of 3d Meteorological and Air Quality models
+Description: Functions to post-process, visualize and evaluate results from 3d Meteorological and Air Quality models against observations.
 Version: 0.1.0
+Date: 2024-05-03
 Authors@R: c(
   person(given = "Daniel",
          family = "Schuch",
@@ -10,7 +12,6 @@ Authors@R: c(
          comment = c(ORCID = "0000-0001-5977-4519"))
          )
 Maintainer: Daniel Schuch <underschuch@gmail.com>
-Description: Functions to post-process, visualize and evaluate results from 3d Meteorological and Air Quality models against observations.
 Imports: terra, ncdf4, sf, methods
 License: MIT + file LICENSE
 Encoding: UTF-8
