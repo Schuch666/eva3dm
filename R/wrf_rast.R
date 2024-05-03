@@ -38,14 +38,14 @@ wrf_rast <- function(file = file.choose(),
 
   if(!is.na(name)){
     if(name == 'time'){
-      wrfchem <- ncdf4::nc_open(file)                                                     # nocov
-      if(verbose)                                                                         # nocov
-        cat(paste0('reading Times from ', file,'\n'))                                     # nocov
-      TIME   <- ncdf4::ncvar_get(wrfchem,'Times')                                         # nocov
-      TIME   <- as.POSIXlt(TIME, tz = "UTC", format="%Y-%m-%d_%H:%M:%OS", optional=FALSE) # nocov
-      if(verbose)                                                                         # nocov
-        cat('returning Times in POSIXct\n')                                               # nocov
-      return(TIME)                                                                        # nocov
+      wrfchem <- ncdf4::nc_open(file)                                                   # nocov
+      if(verbose)                                                                       # nocov
+        cat(paste0('reading Times from ', file,'\n'))                                   # nocov
+      TIME <- ncdf4::ncvar_get(wrfchem,'Times')                                         # nocov
+      TIME <- as.POSIXlt(TIME, tz = "UTC", format="%Y-%m-%d_%H:%M:%OS", optional=FALSE) # nocov
+      if(verbose)                                                                       # nocov
+        cat('returning Times in POSIXct\n')                                             # nocov
+      return(TIME)                                                                      # nocov
     }
   }
   if(verbose) cat(paste0('reading ',name,' from ', file,'\n'))      # nocov

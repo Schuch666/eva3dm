@@ -16,8 +16,6 @@
 #'
 #' @return data.frame
 #'
-#' @importFrom methods missingArg
-#'
 #' @export
 #'
 #' @examples
@@ -193,7 +191,7 @@ stats <- function(model, observation,
                                      `NMB (%)` = NMB,
                                      `NME (%)` = NME))
 
-  if(!missingArg(rname))
+  if(!missing(rname))
     row.names(table_stats) <- rname
 
   return(table_stats)
