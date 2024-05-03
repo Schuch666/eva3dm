@@ -16,7 +16,6 @@
 #'
 #' @return data.frame
 #'
-#' @importFrom stats cor
 #' @importFrom methods missingArg
 #'
 #' @export
@@ -112,14 +111,11 @@ stats <- function(model, observation,
     return(res)
   }
 
-  ## correlation coefficient
-  # when SD=0; will return(NA)
-  # r <- function(x, mod = "mod", obs = "obs", ...) {
-  #   x <- na.omit(x[, c(mod, obs)])
-  #   res <- suppressWarnings(stats::cor.test(x[[mod]], x[[obs]], ...))
-  #
-  #   data.frame(r = res$estimate, P = res$p.value)
-  # }
+  correlation <- function(x,y){
+    r <- sum((x - sum(x) / length(x)) * (y - sum(y) / length(y))) /
+      sqrt(sum((x - sum(x) / length(x))^2) * sum((y - sum(y) / length(y))^2))
+    return(r)
+  }
 
   if(length(model) != length(observation))
     stop("mo and ob need to have the same length!") # nocov
@@ -185,7 +181,7 @@ stats <- function(model, observation,
   table_stats <- as.data.frame(cbind(n    = length(observation),
                                      Obs  = Obs,
                                      Sim  = Mod,
-                                     r    = cor(model,observation),
+                                     r    = correlation(model,observation),
                                      IOA  = IOA(model,observation),
                                      FA2  = FA2(model,observation),
                                      RMSE = sqrt(mean((observation - model)^2)),

@@ -64,7 +64,7 @@ wrf_rast <- function(file = file.choose(),
     coord_file = file                                               # nocov
   }else{                                                            # nocov
     coord_file = map                                                # nocov
-    cat('using coods and grid information from',map,'file\n')        # nocov
+    cat('using coods and grid information from',map,'file\n')       # nocov
   }
 
   coordNC <- tryCatch(suppressWarnings(ncdf4::nc_open(coord_file)),
