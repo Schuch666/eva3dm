@@ -21,12 +21,12 @@
 #' @examples
 #' model <- 1:100
 #' data  <- model + rnorm(100,0.2)
-#' stats(model = model, observation = data)
+#' stat(model = model, observation = data)
 #'
 
-stats <- function(model, observation,
-                  wd = FALSE, cutoff = NA, cutoff_NME = NA, nobs = 8,
-                  rname, verbose = T, ...){
+stat <- function(model, observation,
+                 wd = FALSE, cutoff = NA, cutoff_NME = NA, nobs = 8,
+                 rname, verbose = T, ...){
 
   wind_direction <- function(obs,mod, verbose = F){
     for(i in 1:length(mod)){
@@ -60,7 +60,7 @@ stats <- function(model, observation,
       cat(length(mo),'values left\n')
 
       if(length(mo) < nobs){
-        RESULT <- stats((1:199)/100,(1:199)/100)
+        RESULT <- stat((1:199)/100,(1:199)/100)
         RESULT$n = 0
         return(RESULT)
       }
@@ -73,7 +73,7 @@ stats <- function(model, observation,
 
       cat(length(mo),'values left\n')
       if(length(mo) < nobs){
-        RESULT <- stats((1:199)/100,(1:199)/100)
+        RESULT <- stat((1:199)/100,(1:199)/100)
         RESULT$n = 0
         return(RESULT)
       }
@@ -133,7 +133,7 @@ stats <- function(model, observation,
     cat(length(model),'values left\n')
 
     if(length(model) < nobs){
-      RESULT <- stats((1:199)/100,(1:199)/100)
+      RESULT <- stat((1:199)/100,(1:199)/100)
       RESULT$n = 0
       return(RESULT)
     }
@@ -146,7 +146,7 @@ stats <- function(model, observation,
 
     cat(length(model),'values left\n')
     if(length(model) < nobs){
-      RESULT <- stats((1:199)/100,(1:199)/100)
+      RESULT <- stat((1:199)/100,(1:199)/100)
       RESULT$n = 0
       return(RESULT)
     }
