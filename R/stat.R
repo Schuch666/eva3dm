@@ -28,25 +28,35 @@ stat <- function(model, observation,
                  wd = FALSE, cutoff = NA, cutoff_NME = NA, nobs = 8,
                  rname, verbose = T, ...){
 
-  wind_direction <- function(obs,mod, verbose = F){
-    for(i in 1:length(mod)){
-      diff_value <- mod[i] - obs[i]
-      if(abs(diff_value)>180){
-        temp_value <- 360 - abs(diff_value)
-        if(diff_value < 0){
-          previous <- mod[i]
-          mod[i] <- obs[i] + temp_value
-          if(verbose)
-            cat(paste("model WD was changed from",previous,"to", mod[i],'\n'))
-        } else {
-          previous <- mod[i]
-          mod[i] <- obs[i] - temp_value
-          if(verbose)
-            cat(paste("model WD was changed from",previous,"to", mod[i],'\n'))
-        }
-      }
+  IOA <- function(sim,obs){
+    Om          <- mean(obs, na.rm=TRUE)
+    denominator <- sum( ( abs(sim - Om) + abs(obs - Om)  )^2 )
+
+    if (denominator != 0) {
+      d <- 1 - ( sum( (obs - sim)^2 ) / denominator )
+    } else {
+      d <- NA
+      warning("'sum((abs(sim-Om)+abs(obs-Om))^2)=0', it is not possible to compute 'IoA'")
     }
-    return(mod)
+    return(d)
+  }
+
+  FA2 <- function(mod,obs) {
+    ratio <- mod / obs
+    ratio <- na.omit(ratio)
+    len   <- length(ratio)
+    if (len > 0) {
+      res <- length(which(ratio >= 0.5 & ratio <= 2)) / len
+    } else {
+      res <- NA
+    }
+    return(res)
+  }
+
+  correlation <- function(x,y){
+    r <- sum((x - sum(x) / length(x)) * (y - sum(y) / length(y))) /
+      sqrt(sum((x - sum(x) / length(x))^2) * sum((y - sum(y) / length(y))^2))
+    return(r)
   }
 
   MFBE_cutoff <- function(mo,ob,nobs,cutoff = cutoff_NME){
@@ -84,36 +94,27 @@ stat <- function(model, observation,
     return(NME)
   }
 
-  IOA <- function(sim,obs){
-    Om          <- mean(obs, na.rm=TRUE)
-    denominator <- sum( ( abs(sim - Om) + abs(obs - Om)  )^2 )
-
-    if (denominator != 0) {
-      d <- 1 - ( sum( (obs - sim)^2 ) / denominator )
-    } else {
-      d <- NA
-      warning("'sum((abs(sim-Om)+abs(obs-Om))^2)=0', it is not possible to compute 'IoA'")
+  wind_direction <- function(obs,mod, verbose = F){
+    for(i in 1:length(mod)){
+      diff_value <- mod[i] - obs[i]
+      if(abs(diff_value)>180){
+        temp_value <- 360 - abs(diff_value)
+        if(diff_value < 0){
+          previous <- mod[i]
+          mod[i] <- obs[i] + temp_value
+          if(verbose)
+            cat(paste("model WD was changed from",previous,"to", mod[i],'\n'))
+        } else {
+          previous <- mod[i]
+          mod[i] <- obs[i] - temp_value
+          if(verbose)
+            cat(paste("model WD was changed from",previous,"to", mod[i],'\n'))
+        }
+      }
     }
-    return(d)
+    return(mod)
   }
 
-  FA2 <- function(mod,obs) {
-    ratio <- mod / obs
-    ratio <- na.omit(ratio)
-    len   <- length(ratio)
-    if (len > 0) {
-      res <- length(which(ratio >= 0.5 & ratio <= 2)) / len
-    } else {
-      res <- NA
-    }
-    return(res)
-  }
-
-  correlation <- function(x,y){
-    r <- sum((x - sum(x) / length(x)) * (y - sum(y) / length(y))) /
-      sqrt(sum((x - sum(x) / length(x))^2) * sum((y - sum(y) / length(y))^2))
-    return(r)
-  }
 
   if(length(model) != length(observation))
     stop("mo and ob need to have the same length!") # nocov
