@@ -12,6 +12,8 @@ wrf_rast(
   latlon = FALSE,
   method = "bilinear",
   as_polygons = FALSE,
+  flip_h = FALSE,
+  flip_v = FALSE,
   verbose = FALSE,
   ...
 )
@@ -31,6 +33,10 @@ wrf_rast(
 
 \item{as_polygons}{logical, true to return a SpatVector instead of SpatRaster}
 
+\item{flip_h}{horizontal flip (by rows)}
+
+\item{flip_v}{vertical flip (by cols)}
+
 \item{verbose}{display additional information}
 
 \item{...}{extra arguments passed to ncdf4::ncvar_get}
@@ -46,7 +52,6 @@ wrf <- paste(system.file("extdata", package = "eval3dmodel"),
 
 r <- wrf_rast(file=wrf, name='XLAT')
 
-library(terra)
-plot(r, axes = TRUE)
+plot_rast(r)
 }
 }

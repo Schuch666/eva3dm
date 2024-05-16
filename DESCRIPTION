@@ -18,3 +18,4 @@ Encoding: UTF-8
 LazyData: true
 BugReports: https://github.com/Schuch666/eval3dmodel/issues/
 RoxygenNote: 7.2.3
+Depends: R (>= 3.5.0)

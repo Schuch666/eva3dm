@@ -9,6 +9,8 @@
 #' @param latlon logical (default is FALSE), set TRUE project the output to "+proj=longlat +datum=WGS84 +no_defs"
 #' @param method method passed to terra::projection, default is bilinear
 #' @param as_polygons logical, true to return a SpatVector instead of SpatRaster
+#' @param flip_h horizontal flip (by rows)
+#' @param flip_v vertical flip (by cols)
 #' @param verbose display additional information
 #' @param ... extra arguments passed to ncdf4::ncvar_get
 #'
@@ -23,8 +25,7 @@
 #'
 #' r <- wrf_rast(file=wrf, name='XLAT')
 #'
-#' library(terra)
-#' plot(r, axes = TRUE)
+#' plot_rast(r)
 #'}
 wrf_rast <- function(file = file.choose(),
                      name = NA,
@@ -33,6 +34,8 @@ wrf_rast <- function(file = file.choose(),
                      latlon = FALSE,
                      method = 'bilinear',
                      as_polygons = FALSE,
+                     flip_h = FALSE,
+                     flip_v = FALSE,
                      verbose = FALSE,
                      ...){
 
@@ -209,6 +212,9 @@ wrf_rast <- function(file = file.choose(),
   }                                                         # nocov end
 
   ncdf4::nc_close(wrf)
+
+  if(flip_h) r <- terra::flip(r,direction='horizontal')
+  if(flip_v) r <- terra::flip(r,direction='vertical')
 
   if(as_polygons){
     if(latlon){

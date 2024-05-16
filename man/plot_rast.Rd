@@ -2,65 +2,63 @@
 % Please edit documentation in R/plot_rast.R
 \name{plot_rast}
 \alias{plot_rast}
-\title{Plot raster object}
+\title{Plot rast (SpatRaster) object}
 \usage{
 plot_rast(
   r,
+  color,
+  ncolor = 21,
   log = FALSE,
-  min = -3,
-  max,
-  legend.shrink = 0.98,
-  legend.width = 3,
-  axe = !llaxis,
-  llaxis = F,
-  int = 10,
   proj = FALSE,
-  col = c("white", colorRampPalette(colors = c("#D1F5B1", "#FFDE24FC", "#C70000"))(39)),
-  x_adjust = 0,
-  y_adjust = 0,
-  zlim = c(cellStats(r, "min"), cellStats(r, "max")),
-  hard_zlim = TRUE,
+  plg = list(tic = "none", shrink = 0.98),
+  pax = list(),
+  axe = FALSE,
+  grid = FALSE,
+  latitude = FALSE,
+  longitude = FALSE,
+  add_grid = FALSE,
+  add_range = TRUE,
   ...
 )
 }
 \arguments{
 \item{r}{raster}
 
+\item{color}{color scale}
+
+\item{ncolor}{number of colors}
+
 \item{log}{TRUE to plot in log-scale}
 
-\item{min}{log of minimum for plot (default is -3)}
+\item{proj}{TRUE to project the raster to lat-lon}
 
-\item{max}{log of maximum for plot}
+\item{plg}{list of parameters passed to terra::add_legend}
 
-\item{legend.shrink}{legend height (default is 0.98)}
+\item{pax}{list of parameters passed to graphics::axis}
 
-\item{legend.width}{legend width (default is 3)}
+\item{axe}{plot axis}
 
-\item{axe}{to plot axis}
+\item{grid}{add grid}
 
-\item{llaxis}{to plot custom axis}
+\item{latitude}{add a latitude axis}
 
-\item{int}{argument passed to latitude / longitude functions}
+\item{longitude}{add a longitude axis}
 
-\item{proj}{TRUE to project the raster to latlon}
+\item{add_grid}{add a lat-lon grid (graticule style)}
 
-\item{col}{color}
+\item{add_range}{add legend with max, average and min r values}
 
-\item{x_adjust}{to raster shift dx}
-
-\item{y_adjust}{to raster shift dy}
-
-\item{zlim}{zlimits to be passed to plot}
-
-\item{hard_zlim}{bolean, default TRUE, use the maximum color if value is higher than lim[2] and lower than lim[1]}
-
-\item{...}{arguments to be passing to stats and plot}
+\item{...}{arguments to be passing to terra::plot}
 }
 \description{
-functions that modified plot from raster package
+Custon plot for SpatRaster (terra R-package) object based on terra package
 }
 \examples{
-m <- readRDS(paste0(system.file("extdata",package="hackWRF"),"/model.Rds"))
+wrf <- paste(system.file("extdata", package = "eval3dmodel"),
+                         "/wrfinput_d01", sep="")
 
+r <- wrf_rast(file=wrf, name='XLAT')
+
+plot_rast(r)
 
 }
