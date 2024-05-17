@@ -13,11 +13,13 @@
 #' @param grid add grid
 #' @param latitude add a latitude axis
 #' @param longitude  add a longitude axis
+#' @param int interval of latitude and longitude lines
 #' @param add_grid add a lat-lon grid (graticule style)
+#' @param int_grig interval of grid lines
 #' @param add_range add legend with max, average and min r values
 #' @param ... arguments to be passing to terra::plot
 #'
-#' @import terra
+#' @import terra sf
 #'
 #' @export
 #'
@@ -40,7 +42,9 @@ plot_rast <- function(r,
                       grid=FALSE,
                       latitude = FALSE,
                       longitude = FALSE,
+                      int = 10,
                       add_grid = FALSE,
+                      grid_int = 10,
                       add_range = TRUE,
                       # log = FALSE,
                       # min,max,
@@ -57,118 +61,32 @@ plot_rast <- function(r,
                "#7F95B4","#8B9FBC","#97A9C3","#A3B3CB","#AFBED2",
                "#BBC8DA","#C7D2E1","#D3DCE8","#DFE6F0","#EBF0F7",
                "#F7FBFF")
-    # colorRampPalette(c("#08306b", "#f7fbff"))(21)
   }else{
     if(is.function(color)){
       color <- color(ncolor)
     }
   }
 
-  # longitude_proj <- function(proj, int = 10, side = 1,lmin = -180, lmax = 180, ...){
-  #   vet_lat <- seq(lmin,lmax,by = int)
-  #   lab_lat <- c(paste0(seq(-lmin,int,by=-int),"\u00baW"),'0',
-  #                paste0(seq(int,lmax,by=int),"\u00baE"))
-  #
-  #   usr <- par('usr')
-  #   tn <- 100
-  #   tx <- seq(usr[1], usr[2], length.out = tn)
-  #   ty <- rep(usr[3], tn)
-  #
-  #   pontos           <- cbind(x = tx, y = ty)
-  #   firstPoints      <- SpatialPoints(coords = pontos)
-  #   crs(firstPoints) <- proj
-  #   tt               <- spTransform(x = firstPoints,
-  #                                   CRSobj = CRS("+proj=longlat +datum=WGS84 +no_defs"))
-  #   axis_coords      <- coordinates(tt)
-  #   tfcn             <- approxfun(axis_coords[,1], tx)
-  #
-  #   axis(side,at = tfcn(vet_lat),labels = lab_lat, ... )
-  # }
-  #
-  # latitude_proj <- function(proj, int = 10,side = 2,lmin = -80, lmax = 80, ...){
-  #   vet_lon <- seq(lmin,lmax,by = int)
-  #   lab_lon <- c(paste0(seq(-lmin,int,by=-int),"\u00baS"),'0',
-  #                paste0(seq(int,lmax,by=int),"\u00baN"))
-  #
-  #   usr <- par('usr')
-  #   tn  <- 100
-  #   tx  <- rep(usr[1], tn)
-  #   ty  <- seq(usr[3], usr[4], length.out=tn)
-  #
-  #   # print(tx)
-  #   # print(ty)
-  #   #
-  #   # print(usr)
-  #   #
-  #   # e <- unlist(terra:::get.clip())
-  #   # print(e)
-  #   # print(class(e))
-  #   #
-  #   # tn  <- 100
-  #   # tx  <- rep(as.numeric(e[1]), tn)
-  #   # ty  <- seq(as.numeric(e[3]), as.numeric(e[4]), length.out=tn)
-  #   #
-  #   # print(tx)
-  #   # print(ty)
-  #
-  #   pontos           <- cbind(x = tx, y = ty)
-  #   firstPoints      <- SpatialPoints(coords = pontos)
-  #   crs(firstPoints) <- proj
-  #   tt               <- spTransform(x = firstPoints,
-  #                                   CRSobj = CRS("+proj=longlat +datum=WGS84 +no_defs"))
-  #   axis_coords      <- coordinates(tt)
-  #   tfcn             <- approxfun(axis_coords[,2], ty)
-  #
-  #   axis(side,at = tfcn(vet_lon),labels = lab_lon, ... )
-  # }
-
-  # grid_proj <- function(proj, int = 10, lty = 3, col = "#666666",
-  #                       lat_min = -80,  lat_max = 80,
-  #                       lon_min = -160, lon_max = 160,
-  #                       ...){
-  #
-  #   for(lat in seq(lat_min,lat_max,by = int)){
-  #     M          <- matrix(data = lat, nrow = 1000/int, ncol = 2)
-  #     M[,1]      <- seq(-160,160,along.with = M[,1])
-  #     line1      <- Line(M)
-  #     linea      <- Lines(line1, ID = "a")
-  #     firstLine  <- SpatialLines(LinesList = list(linea))
-  #     crs(firstLine) <- "+proj=longlat +datum=WGS84 +no_defs"
-  #     firstLine_proj <- spTransform(x = firstLine, CRSobj = CRS(proj))
-  #     terra::lines(firstLine_proj, lty = lty, col = col,...)
-  #   }
-  #   for(lon in seq(lon_min,lon_max,by = int)){
-  #     M          <- matrix(data = lon, nrow = 2000/int, ncol = 2)
-  #     M[,2]      <- seq(-80,80,along.with = M[,2])
-  #     line1      <- Line(M)
-  #     linea      <- Lines(line1, ID = "a")
-  #     firstLine  <- SpatialLines(LinesList = list(linea))
-  #     crs(firstLine) <- "+proj=longlat +datum=WGS84 +no_defs"
-  #     firstLine_proj <- spTransform(x = firstLine, CRSobj = CRS(proj))
-  #     terra::lines(firstLine_proj, lty = lty, col = col,...)
-  #   }
-  # }
-
   extra <- function(){
-    proj <- crs(r,proj=TRUE)
-    # if(latitude)
-    #   latitude_proj(proj)
-    # if(longitude)
-    #   longitude_proj(proj)
-    # if(add_grid)
-    #   grid_proj(proj,lat_max = 0,lat_min = -30)
-    # if(add_range)
-    #   legend_range(as.matrix(r))
-    # terra::add_box()
+    if(add_grid){
+      lats  <- seq(-40,10,   by = grid_int)
+      longs <- seq(-180,180, by = grid_int)
+      terra::lines(terra::graticule(lon = longs,lat = lats,crs = terra::crs(r,proj=TRUE)),
+                   lty = 3, col = "#666666",lwd = 1.2)
+    }
+    if(add_range)
+      legend_range(as.matrix(r))
+    terra::add_box()
   }
 
   if(proj){
     r <- project(r,"+proj=longlat +datum=WGS84 +no_defs")
   }
 
-  terra::plot(r, col = color, plg = plg, pax = pax,axe = axe, grid = grid, fun = extra, ...)
+  p <- terra::plot(r, col = color, plg = plg, pax = pax,axe = axe, grid = FALSE, fun = extra, cex = cex, ...)
+  .plot.latlon(x = p,proj = terra::crs(r,proj=TRUE))
 
-    # if(hard_zlim & !log){
+  # if(hard_zlim & !log){
   #   r[r[] < zlim[1] ] = zlim[1]
   #   r[r[] > zlim[2] ] = zlim[2]
   # }

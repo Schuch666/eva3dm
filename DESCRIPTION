@@ -12,7 +12,7 @@ Authors@R: c(
          comment = c(ORCID = "0000-0001-5977-4519"))
          )
 Maintainer: Daniel Schuch <underschuch@gmail.com>
-Imports: terra, ncdf4, sf
+Imports: terra, ncdf4, sf, sp
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

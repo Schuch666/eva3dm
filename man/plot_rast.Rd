@@ -16,7 +16,9 @@ plot_rast(
   grid = FALSE,
   latitude = FALSE,
   longitude = FALSE,
+  int = 10,
   add_grid = FALSE,
+  grid_int = 10,
   add_range = TRUE,
   ...
 )
@@ -44,11 +46,15 @@ plot_rast(
 
 \item{longitude}{add a longitude axis}
 
+\item{int}{interval of latitude and longitude lines}
+
 \item{add_grid}{add a lat-lon grid (graticule style)}
 
 \item{add_range}{add legend with max, average and min r values}
 
 \item{...}{arguments to be passing to terra::plot}
+
+\item{int_grig}{interval of grid lines}
 }
 \description{
 Custon plot for SpatRaster (terra R-package) object based on terra package

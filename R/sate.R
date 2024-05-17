@@ -9,13 +9,14 @@
 #' @param n number of points from the boundary removed, default is 5
 #' @param min minimum value cutoff
 #' @param max maximum value cutoff
+#' @param rname passed to stat
 #' @param verbose set TRUE to display additional information
 #'
 #' @import terra
 #'
 #' @export
 
-sate <- function(mo,ob,n = 6, min = NA, max = NA,verbose = T){
+sate <- function(mo,ob,n = 6, min = NA, max = NA,rname,verbose = T){
 
   cut_boundary <- function(x, n,value = NA){
     if(n < 1) return(x)
@@ -47,5 +48,9 @@ sate <- function(mo,ob,n = 6, min = NA, max = NA,verbose = T){
     obser[obser > max] = NA
   }
 
-  return(stat(model = model, observation = obser))
+  if(missing(rname)){
+    return(stat(model = model, observation = obser))
+  }else{
+    return(stat(model = model, observation = obser, rname = rname))
+  }
 }

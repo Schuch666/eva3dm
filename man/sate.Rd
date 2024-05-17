@@ -4,7 +4,7 @@
 \alias{sate}
 \title{Functions to model evaluation using satellite}
 \usage{
-sate(mo, ob, n = 6, min = NA, max = NA, verbose = T)
+sate(mo, ob, n = 6, min = NA, max = NA, rname, verbose = T)
 }
 \arguments{
 \item{mo}{raster with model}
@@ -16,6 +16,8 @@ sate(mo, ob, n = 6, min = NA, max = NA, verbose = T)
 \item{min}{minimum value cutoff}
 
 \item{max}{maximum value cutoff}
+
+\item{rname}{passed to stat}
 
 \item{verbose}{set TRUE to display additional information}
 }
