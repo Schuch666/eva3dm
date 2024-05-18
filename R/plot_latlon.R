@@ -1,13 +1,12 @@
 #' @import terra
 #'
-.plot.latlon <- function(x,proj,int, tn = 100) {
+.plot.latlon <- function(x,proj,int,e,tn = 100) {
 
   # latitude
-  lmin = -80
-  lmax = 80
-  vet_lon <- seq(lmin,lmax,by = int)
-  lab_lon <- c(paste0(seq(-lmin,int,by=-int),"\u00baS"),'0',
-               paste0(seq(int,lmax,by=int),"\u00baN"))
+  vet_lon <- seq(-80,80,by = int)
+  # lab_lon <- c(paste0(seq(80,int,by=-int),"\u00baS"),'0',
+  #              paste0(seq(int,80,by=int),"\u00baN"))
+  lab_lon <- terra:::retro_labels(vet_lon, lat=TRUE)
 
   usr <- par('usr')
   tx  <- rep(usr[1], tn)
@@ -19,13 +18,11 @@
   tfcn         <- approxfun(axis_coords[,2], ty) # talvez trocar!
 
   # longitude
-  lmin = -180
-  lmax = 180
-  vet_lat <- seq(lmin,lmax,by = int)
-  lab_lat <- c(paste0(seq(-lmin,int,by=-int),"\u00baW"),'0',
-               paste0(seq(int,lmax,by=int),"\u00baE"))
+  vet_lat <- seq(-180,180,by = int)
+  # lab_lat <- c(paste0(seq(180,int,by=-int),"\u00baW"),'0',
+  #              paste0(seq(int,180,by=int),"\u00baE"))
+  lab_lat <- terra:::retro_labels(vet_lat, lat=FALSE)
 
-  usr <- par('usr')
   tx <- seq(usr[1], usr[2], length.out = tn)
   ty <- rep(usr[3], tn)
 
@@ -76,10 +73,22 @@
     x$axs$yat <- NULL
   }
 
-  yat  <- tfcn(vet_lon)
-  ylab <- lab_lon
+  min_lon <- as.numeric(e[1])
+  max_lon <- as.numeric(e[2])
+  min_lat <- as.numeric(e[3])
+  max_lat <- as.numeric(e[4])
 
-  xat  <- tfcn2(vet_lat)
+  valid_lat <- tfcn2(vet_lat)
+  valid_lon <- tfcn(vet_lon)
+
+  valid_lon[ valid_lon > max_lat ] = NA
+  valid_lon[ valid_lon < min_lat ] = NA
+  valid_lat[ valid_lat > max_lon ] = NA
+  valid_lat[ valid_lat < min_lon ] = NA
+
+  yat  <- valid_lon
+  ylab <- lab_lon
+  xat  <- valid_lat
   xlab <- lab_lat
 
   sides <- unique(x$axs$side)

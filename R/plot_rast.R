@@ -10,12 +10,11 @@
 #' @param plg list of parameters passed to terra::add_legend
 #' @param pax list of parameters passed to graphics::axis
 #' @param axe plot axis
-#' @param grid add grid
+#' @param grid add grid (graticule style)
 #' @param latitude add a latitude axis
 #' @param longitude  add a longitude axis
 #' @param int interval of latitude and longitude lines
-#' @param add_grid add a lat-lon grid (graticule style)
-#' @param int_grig interval of grid lines
+#' @param grid_int interval of grid lines
 #' @param add_range add legend with max, average and min r values
 #' @param ... arguments to be passing to terra::plot
 #'
@@ -39,17 +38,14 @@ plot_rast <- function(r,
                       plg=list(tic = 'none',shrink=0.98),
                       pax=list(),
                       axe=FALSE,
-                      grid=FALSE,
+                      grid=TRUE,
                       latitude = FALSE,
                       longitude = FALSE,
                       int = 10,
-                      add_grid = FALSE,
                       grid_int = 10,
                       add_range = TRUE,
                       # log = FALSE,
                       # min,max,
-                      # axe = !llaxis, llaxis = F,
-                      # int = 10,
                       ...){
 
   if(missing(r))
@@ -67,11 +63,25 @@ plot_rast <- function(r,
     }
   }
 
+  e_o     <- ext(r)
+  Points  <- vect(cbind(x = e_o[1:2], y = e_o[3:4]), type="points",
+                  crs =  terra::crs(r,proj=TRUE))
+  proj_p  <- project(Points,"+proj=longlat +datum=WGS84 +no_defs")
+  e_p     <- ext(proj_p)
+  min_lon <- as.numeric(e_p[1])
+  max_lon <- as.numeric(e_p[2])
+  min_lat <- as.numeric(e_p[3])
+  max_lat <- as.numeric(e_p[4])
+
+  vet_lon <- seq(-80,80,by = int)
+  vet_lon <- vet_lon[vet_lon > min_lon - int & vet_lon < max_lon + int]
+  vet_lat <- seq(-180,180,by = int)
+  vet_lat <- vet_lat[vet_lat > min_lat - int & vet_lat < max_lat + int]
+
   extra <- function(){
-    if(add_grid){
-      lats  <- seq(-40,10,   by = grid_int)
-      longs <- seq(-180,180, by = grid_int)
-      terra::lines(terra::graticule(lon = longs,lat = lats,crs = terra::crs(r,proj=TRUE)),
+    if(grid){
+      terra::lines(terra::graticule(lon = vet_lon,lat = vet_lat,
+                                    crs = terra::crs(r,proj=TRUE)),
                    lty = 3, col = "#666666",lwd = 1.2)
     }
     if(add_range)
@@ -83,8 +93,8 @@ plot_rast <- function(r,
     r <- project(r,"+proj=longlat +datum=WGS84 +no_defs")
   }
 
-  p <- terra::plot(r, col = color, plg = plg, pax = pax,axe = axe, grid = FALSE, fun = extra, cex = cex, ...)
-  .plot.latlon(x = p,int = int, proj = terra::crs(r,proj=TRUE))
+  p <- terra::plot(r, col = color, plg = plg, pax = pax,axe = axe, grid = FALSE, fun = extra, ...)
+  .plot.latlon(x = p,proj = terra::crs(r,proj=TRUE),int = int,e = e_o)
 
   # if(hard_zlim & !log){
   #   r[r[] < zlim[1] ] = zlim[1]

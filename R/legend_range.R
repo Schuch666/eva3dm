@@ -5,6 +5,7 @@
 #' @param text.width Longitude in decimals
 #' @param dig vector with number of digits for plot
 #' @param xjust passed to legend
+#' @param yjust passed to legend
 #' @param horiz passed to legend
 #' @param x.intersp passed to legend
 #' @param y.intersp passed to legend

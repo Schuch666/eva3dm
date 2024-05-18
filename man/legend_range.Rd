@@ -31,6 +31,8 @@ legend_range(
 
 \item{xjust}{passed to legend}
 
+\item{yjust}{passed to legend}
+
 \item{horiz}{passed to legend}
 
 \item{y.intersp}{passed to legend}
