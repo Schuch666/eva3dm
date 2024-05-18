@@ -4,9 +4,9 @@
 
   # latitude
   vet_lon <- seq(-80,80,by = int)
-  # lab_lon <- c(paste0(seq(80,int,by=-int),"\u00baS"),'0',
-  #              paste0(seq(int,80,by=int),"\u00baN"))
-  lab_lon <- terra:::retro_labels(vet_lon, lat=TRUE)
+  lab_lon <- c(paste0(seq(80,int,by=-int),"\u00baS"),'0',
+               paste0(seq(int,80,by=int),"\u00baN"))
+  # lab_lon <- terra::retro_labels(vet_lon, lat=TRUE)
 
   usr <- par('usr')
   tx  <- rep(usr[1], tn)
@@ -19,9 +19,9 @@
 
   # longitude
   vet_lat <- seq(-180,180,by = int)
-  # lab_lat <- c(paste0(seq(180,int,by=-int),"\u00baW"),'0',
-  #              paste0(seq(int,180,by=int),"\u00baE"))
-  lab_lat <- terra:::retro_labels(vet_lat, lat=FALSE)
+  lab_lat <- c(paste0(seq(180,int,by=-int),"\u00baW"),'0',
+               paste0(seq(int,180,by=int),"\u00baE"))
+  # lab_lat <- terra::retro_labels(vet_lat, lat=FALSE)
 
   tx <- seq(usr[1], usr[2], length.out = tn)
   ty <- rep(usr[3], tn)
