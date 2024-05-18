@@ -1,6 +1,6 @@
-#' @import terra sp sf
+#' @import terra
 #'
-.plot.latlon <- function(x,proj,int = 10, tn = 100) {
+.plot.latlon <- function(x,proj,int, tn = 100) {
 
   # latitude
   lmin = -80
@@ -13,14 +13,10 @@
   tx  <- rep(usr[1], tn)
   ty  <- seq(usr[3], usr[4], length.out=tn)
 
-  pontos           <- cbind(x = tx, y = ty)
-  firstPoints      <- SpatialPoints(coords = pontos) # aqui
-  crs(firstPoints) <- proj                           # aqui (ERRO)
-  tt               <- spTransform(x = firstPoints,   # aqui
-                                  CRSobj = CRS("+proj=longlat +datum=WGS84 +no_defs"))
-  axis_coords      <- coordinates(tt)                # aqui
-  tfcn             <- approxfun(axis_coords[,2], ty) # talvez trocar!
-  # axis(side,at = tfcn(vet_lon),labels = lab_lon, ... )
+  firstPoints  <- vect(cbind(x = tx, y = ty), type="points",crs = proj)
+  tt           <- project(firstPoints,"+proj=longlat +datum=WGS84 +no_defs")
+  axis_coords  <- crds(tt)
+  tfcn         <- approxfun(axis_coords[,2], ty) # talvez trocar!
 
   # longitude
   lmin = -180
@@ -33,14 +29,10 @@
   tx <- seq(usr[1], usr[2], length.out = tn)
   ty <- rep(usr[3], tn)
 
-  pontos           <- cbind(x = tx, y = ty)
-  firstPoints      <- SpatialPoints(coords = pontos)  # aqui
-  crs(firstPoints) <- proj                            # aqui
-  tt               <- spTransform(x = firstPoints,    # aqui
-                                  CRSobj = CRS("+proj=longlat +datum=WGS84 +no_defs"))
-  axis_coords      <- coordinates(tt)                 # aqui
-  tfcn2            <- approxfun(axis_coords[,1], tx)  # talvez trocar
-  # axes(side,at = tfcn2(vet_lat),labels = lab_lat, ... )
+  firstPoints  <- vect(cbind(x = tx, y = ty), type="points",crs = proj)
+  tt           <- project(firstPoints,"+proj=longlat +datum=WGS84 +no_defs")
+  axis_coords  <- crds(tt)
+  tfcn2        <- approxfun(axis_coords[,1], tx) # talvez trocar!
 
   if (is.null(x$axs$cex.axis)) {
     x$axs$cex.axis = 1
@@ -86,6 +78,7 @@
 
   yat  <- tfcn(vet_lon)
   ylab <- lab_lon
+
   xat  <- tfcn2(vet_lat)
   xlab <- lab_lat
 

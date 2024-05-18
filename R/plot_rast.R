@@ -19,7 +19,7 @@
 #' @param add_range add legend with max, average and min r values
 #' @param ... arguments to be passing to terra::plot
 #'
-#' @import terra sf
+#' @import terra
 #'
 #' @export
 #'
@@ -84,7 +84,7 @@ plot_rast <- function(r,
   }
 
   p <- terra::plot(r, col = color, plg = plg, pax = pax,axe = axe, grid = FALSE, fun = extra, cex = cex, ...)
-  .plot.latlon(x = p,proj = terra::crs(r,proj=TRUE))
+  .plot.latlon(x = p,int = int, proj = terra::crs(r,proj=TRUE))
 
   # if(hard_zlim & !log){
   #   r[r[] < zlim[1] ] = zlim[1]
