@@ -7,9 +7,9 @@
 sate(mo, ob, n = 6, min = NA, max = NA, rname, verbose = T)
 }
 \arguments{
-\item{mo}{raster with model}
+\item{mo}{rast with model}
 
-\item{ob}{raster with observations}
+\item{ob}{rast with observations}
 
 \item{n}{number of points from the boundary removed, default is 5}
 

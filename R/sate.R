@@ -4,8 +4,8 @@
 #'
 #' @return a data.frame
 #'
-#' @param mo raster with model
-#' @param ob raster with observations
+#' @param mo rast with model
+#' @param ob rast with observations
 #' @param n number of points from the boundary removed, default is 5
 #' @param min minimum value cutoff
 #' @param max maximum value cutoff
@@ -17,6 +17,19 @@
 #' @export
 
 sate <- function(mo,ob,n = 6, min = NA, max = NA,rname,verbose = T){
+
+  if(missing(mo))
+    stop('model input is missing!')
+
+  if(missing(ob))
+    stop('observation input is missing!')
+
+  if(class(mo) %in% c('RasterLayer','RasterBrick')){
+    mo <- rast(mo)
+  }
+  if(class(ob) %in% c('RasterLayer','RasterBrick')){
+    ob <- rast(ob)
+  }
 
   cut_boundary <- function(x, n,value = NA){
     if(n < 1) return(x)
