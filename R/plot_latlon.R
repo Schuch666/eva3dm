@@ -1,4 +1,4 @@
-#' @import terra
+#' @import terra graphics
 #'
 .plot.latlon <- function(x,proj,int,e,tn = 100) {
 
@@ -15,7 +15,7 @@
   firstPoints  <- vect(cbind(x = tx, y = ty), type="points",crs = proj)
   tt           <- project(firstPoints,"+proj=longlat +datum=WGS84 +no_defs")
   axis_coords  <- crds(tt)
-  tfcn         <- approxfun(axis_coords[,2], ty) # talvez trocar!
+  tfcn         <- approxfun(axis_coords[,2], ty)
 
   # longitude
   vet_lat <- seq(-180,180,by = int)
@@ -29,7 +29,7 @@
   firstPoints  <- vect(cbind(x = tx, y = ty), type="points",crs = proj)
   tt           <- project(firstPoints,"+proj=longlat +datum=WGS84 +no_defs")
   axis_coords  <- crds(tt)
-  tfcn2        <- approxfun(axis_coords[,1], tx) # talvez trocar!
+  tfcn2        <- approxfun(axis_coords[,1], tx)
 
   if (is.null(x$axs$cex.axis)) {
     x$axs$cex.axis = 1
