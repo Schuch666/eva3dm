@@ -81,10 +81,10 @@
   valid_lat <- tfcn2(vet_lat)
   valid_lon <- tfcn(vet_lon)
 
-  valid_lon[ valid_lon > max_lat ] = NA
-  valid_lon[ valid_lon < min_lat ] = NA
-  valid_lat[ valid_lat > max_lon ] = NA
-  valid_lat[ valid_lat < min_lon ] = NA
+  valid_lon[ valid_lon >= max_lat ] = NA
+  valid_lon[ valid_lon <= min_lat ] = NA
+  valid_lat[ valid_lat >= max_lon ] = NA
+  valid_lat[ valid_lat <= min_lon ] = NA
 
   yat  <- valid_lon
   ylab <- lab_lon
@@ -301,5 +301,5 @@ get.clip <- function() {
   # } else {
   #   e[i[1],-1]
   # }
-  return(1)
+  return(0)
 }
