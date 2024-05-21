@@ -15,7 +15,7 @@
   firstPoints  <- vect(cbind(x = tx, y = ty), type="points",crs = proj)
   tt           <- project(firstPoints,"+proj=longlat +datum=WGS84 +no_defs")
   axis_coords  <- crds(tt)
-  tfcn         <- approxfun(axis_coords[,2], ty)
+  tfcn         <- custom_approxfun(axis_coords[,2], ty)
 
   # longitude
   vet_lat <- seq(-180,180,by = int)
@@ -29,7 +29,7 @@
   firstPoints  <- vect(cbind(x = tx, y = ty), type="points",crs = proj)
   tt           <- project(firstPoints,"+proj=longlat +datum=WGS84 +no_defs")
   axis_coords  <- crds(tt)
-  tfcn2        <- approxfun(axis_coords[,1], tx)
+  tfcn2        <- custom_approxfun(axis_coords[,1], tx)
 
   if (is.null(x$axs$cex.axis)) {
     x$axs$cex.axis = 1
@@ -116,7 +116,7 @@
   y <- x$axs
   retro <- isTRUE(y$retro)
   if (retro && (!x$lonlat)) {
-    warn("plot", "'retro' labels can only be used with lonlat data")
+    warning("'retro' labels can only be used with lonlat data")
     retro <- FALSE
   }
   y$retro <- y$lab <- y$tick <- NULL
@@ -217,4 +217,89 @@
     text(usr[1], posy, x$ylab, pos=2, offset=x$axs$line.lab, srt=90, cex=x$axs$cex.lab, xpd=TRUE)
   }
   # x
+}
+
+custom_approxfun <- function(x, y, method = "linear", rule = 1) {
+  if (length(x) != length(y)) {
+    stop("x and y must have the same length")
+  }
+  if (any(diff(x) <= 0)) {
+    stop("x must be strictly increasing")
+  }
+
+  interpolate <- function(new_x) {
+    n <- length(x)
+    if (method != "linear") {
+      stop("Only linear interpolation is supported")
+    }
+
+    if (any(new_x < x[1]) || any(new_x > x[n])) {
+      if (rule == 1) {
+        new_x <- pmax(pmin(new_x, x[n]), x[1])
+      } else {
+        stop("new_x values out of bounds and rule != 1")
+      }
+    }
+
+    y_new <- numeric(length(new_x))
+
+    for (i in seq_along(new_x)) {
+      if (new_x[i] <= x[1]) {
+        y_new[i] <- y[1]
+      } else if (new_x[i] >= x[n]) {
+        y_new[i] <- y[n]
+      } else {
+        j <- which(x <= new_x[i])
+        j <- j[length(j)]
+        y_new[i] <- y[j] + (y[j + 1] - y[j]) * (new_x[i] - x[j]) / (x[j + 1] - x[j])
+      }
+    }
+    return(y_new)
+  }
+
+  return(interpolate)
+}
+
+retro_labels <- function(x, lat=TRUE) {
+  if ((is.null(x)) || (!is.numeric(x))) {
+    return(x)
+  }
+  if ((length(x) > 1) && (min(diff(x)) <= 1/120)) {
+    d <- floor(x)
+    m <- floor(60*(x - d))
+    s <- round(3600*(x - d - m/60))
+  } else {
+    d <- floor(x)
+    m <- round(60*(x - d))
+    s <- 0
+  }
+
+  if (lat) {
+    h <- c("S", "", "N")[sign(d)+2]
+  } else {
+    h <- c("W", "", "E")[sign(d)+2]
+  }
+  d <- abs(d)
+  i <- (s == 0) & (m == 0)
+  j <- (s == 0) & (m != 0)
+
+  m <- formatC(m, width=2, flag="0")
+  s <- formatC(s, width=2, flag="0")
+  r <- paste0(d, "\u00B0" , m, "'", s, '"', h)
+  r[i] <- paste0(d[i], "\u00B0" , h[i])
+  r[j] <- paste0(d[j], "\u00B0" , m[j], "'", h[j])
+  r
+}
+
+get.clip <- function() {
+  # d <- grDevices::dev.cur()
+  # dev <- paste(names(d), d[[1]], sep="_")
+  # e <- .terra_environment$devs
+  # i <- match(dev, e[,1])[1]
+  # if (is.na(i)) {
+  #   NULL
+  # } else {
+  #   e[i[1],-1]
+  # }
+  return(1)
 }
