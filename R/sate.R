@@ -11,12 +11,15 @@
 #' @param max maximum value cutoff
 #' @param rname passed to stat
 #' @param verbose set TRUE to display additional information
+#' @param ... other arguments passed to stat
+#'
+#' @note If a YOU DIED error message appears, means you are removing all the valid values using the arguments min or max.
 #'
 #' @import terra
 #'
 #' @export
 
-sate <- function(mo,ob,n = 6, min = NA, max = NA,rname,verbose = T){
+sate <- function(mo,ob,n = 6, min = NA, max = NA,rname,verbose = T, ...){
 
   if(missing(mo))
     stop('model input is missing!')
@@ -78,9 +81,11 @@ sate <- function(mo,ob,n = 6, min = NA, max = NA,rname,verbose = T){
   model <- as.vector(model)
   obser <- as.vector(obser)
 
+  if(length(model) < 1 | length(obser) < 1) stop('YOU DIED')
+
   if(missing(rname)){
-    return(stat(model = model, observation = obser))
+    return(stat(model = model, observation = obser, ...))
   }else{
-    return(stat(model = model, observation = obser, rname = rname))
+    return(stat(model = model, observation = obser, rname = rname, ...))
   }
 }
