@@ -14,7 +14,7 @@
 #' @param verbose display additional information
 #' @param ... extra arguments passed to ncdf4::ncvar_get
 #'
-#' @import terra ncdf4 sf
+#' @import terra ncdf4
 #' @importFrom utils menu
 #'
 #' @export
@@ -51,7 +51,7 @@ wrf_rast <- function(file = file.choose(),
       return(TIME)                                                                      # nocov
     }
   }
-  if(verbose) cat(paste0('reading ',name,' from ', file,'\n'))      # nocov
+  if(verbose) cat(paste0('reading ',name,' from ', file,'\n'))                          # nocov
 
   wrf <- ncdf4::nc_open(file)
   if(is.na(name)){                                                  # nocov start
@@ -149,12 +149,20 @@ wrf_rast <- function(file = file.choose(),
     stop(paste0('Error: Asymmetric grid cells not supported. DX=', dx, ', DY=', dy))  # nocov
   }
 
-  pontos     <- sf::st_multipoint(x = as.matrix(cbind(x, y)), dim = "XY")           # nocov
-  coords     <- sf::st_sfc(x = pontos, crs = "+proj=longlat +datum=WGS84 +no_defs") # nocov
-  transform  <- sf::st_transform(x = coords, crs = geogrd.proj)                     # nocov
-  projcoords <- sf::st_coordinates(transform)[,1:2]                                 # nocov
+  # USING the sf R-package
+  # pontos     <- sf::st_multipoint(x = as.matrix(cbind(x, y)), dim = "XY")
+  # coords     <- sf::st_sfc(x = pontos, crs = "+proj=longlat +datum=WGS84 +no_defs")
+  # transform  <- sf::st_transform(x = coords, crs = geogrd.proj)
+  # projcoords <- sf::st_coordinates(transform)[,1:2]
 
-  # coordinates here refere to the cell center,
+  # USING the terra R-package
+  pontos     <- terra::vect(cbind(x, y),
+                            type = "points",
+                            crs = "+proj=longlat +datum=WGS84 +no_defs")
+  transform  <- terra::project(pontos, geogrd.proj)
+  projcoords <- terra::crds(transform)[,1:2]
+
+  # coordinates here are the cell center,
   # We need to calculate the boundaries for the raster file
   xmn <- projcoords[1,1] - dx/2.0   # Left border
   ymx <- projcoords[1,2] + dy/2.0   # upper border
