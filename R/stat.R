@@ -115,7 +115,6 @@ stat <- function(model, observation,
     return(mod)
   }
 
-
   if(length(model) != length(observation))
     stop("mo and ob need to have the same length!") # nocov
 

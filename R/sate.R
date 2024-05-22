@@ -32,17 +32,31 @@ sate <- function(mo,ob,n = 6, min = NA, max = NA,rname,verbose = T){
   }
 
   cut_boundary <- function(x, n,value = NA){
+
     if(n < 1) return(x)
-    A       <- matrix(values(x),
-                      ncol  = ncol(x),
-                      nrow  = nrow(x),
-                      byrow = T)
-    A[1:n,] = value
-    A[,1:n] = value
-    A[(nrow(A)-n+1):nrow(A),] = value
-    A[,(ncol(A)-n+1):ncol(A)] = value
-    values(x) <- A
-    return(x)
+
+    if(nlyr(x) == 1){ # for 2d rast
+      A       <- matrix(values(x),
+                        ncol  = ncol(x),
+                        nrow  = nrow(x),
+                        byrow = T)
+      A[1:n,] = value
+      A[,1:n] = value
+      A[(nrow(A)-n+1):nrow(A),] = value
+      A[,(ncol(A)-n+1):ncol(A)] = value
+      values(x) <- A
+      return(x)
+    }
+
+    if(nlyr(x) >= 2){ # for 3d rast
+      A       <- as.array(x)
+      A[1:n,,] = value
+      A[,1:n,] = value
+      A[(nrow(A)-n+1):nrow(A),,] = value
+      A[,(ncol(A)-n+1):ncol(A),] = value
+      values(x) <- A
+      return(x)
+    }
   }
 
   if(verbose) cat(paste0('removing ',n,' points for the model (y) boundaryes ...\n'))
@@ -60,6 +74,9 @@ sate <- function(mo,ob,n = 6, min = NA, max = NA,rname,verbose = T){
     model[model > max] = NA
     obser[obser > max] = NA
   }
+
+  model <- as.vector(model)
+  obser <- as.vector(obser)
 
   if(missing(rname)){
     return(stat(model = model, observation = obser))
