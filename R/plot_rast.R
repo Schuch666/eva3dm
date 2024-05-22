@@ -85,7 +85,7 @@ plot_rast <- function(r,
                    lty = 3, col = "#666666",lwd = 1.2)
     }
     if(add_range)
-      legend_range(as.matrix(r))
+      legend_range(r)
     terra::add_box()
   }
 

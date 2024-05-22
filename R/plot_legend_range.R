@@ -1,7 +1,7 @@
-#' Get the distance in kilometers between two points.
+#' Plot a legend with the range (min, max and average) of the input.
 #'
-#' @param x raster or array
-#' @param y raster or array to mean (x is used only for the range in this case)
+#' @param x rast or array
+#' @param y rast or array to mean (x is used only for the range in this case)
 #' @param text.width Longitude in decimals
 #' @param dig vector with number of digits for plot
 #' @param xjust passed to legend
@@ -14,7 +14,7 @@
 #' @param label_mean label in case y is provided
 #' @param ... extra arguments passed to legend
 #'
-#' @note for use with raster use before any change of projection
+#' @note for use with rast use before any change of projection
 #' @note text.width can vary depending on map dimensions
 #'
 #' @examples
@@ -37,19 +37,23 @@ legend_range <- function(x, y,
                          label_mean = 'ALL:',
                          ...){
 
-  # if(class(x)[1] == 'Raster' ||
-  #    class(x)[1] == 'RasterLayer' ||
-  #    class(x)[1] == 'RasterBrick'){
-  #   x <- raster_to_ncdf(x)
-  # }
-  #
-  # if(!missing(y)){
-  #   if(class(y)[1] == 'Raster' ||
-  #      class(y)[1] == 'RasterLayer' ||
-  #      class(y)[1] == 'RasterBrick'){
-  #     y <- raster_to_ncdf(y)
-  #   }
-  # }
+  if(class(x) %in% c('Raster','RasterLayer','RasterBrick')){
+    x <- rast(x)
+  }
+  if(!missing(y)){
+    if(class(y) %in% c('Raster','RasterLayer','RasterBrick')){
+      y <- rast(y)
+    }
+  }
+
+  if(class(x) %in% c('SpatRaster')){
+    x <- as.array(x)
+  }
+  if(!missing(y)){
+    if(class(y) %in% c('SpatRaster')){
+      y <- as.array(y)
+    }
+  }
 
   mi <- paste('Min:', formatC(min(x, na.rm = TRUE), digits = dig[1], format = "f"),unit)
   if(missing(y)){

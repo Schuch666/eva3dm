@@ -16,19 +16,19 @@
 #'
 #' @examples
 #'
-#' sample <- read.stat(paste0(system.file("extdata", package = "eval3dmodel"),"/sample.csv"),
+#' sample <- read_stat(paste0(system.file("extdata", package = "eval3dmodel"),"/sample.csv"),
 #'                     verbose = TRUE)
 #' dir.create(file.path(tempdir(), "stats"))
 #'
-#' write.stat(file    = paste0(file.path(tempdir(), "stats"),'/sample.txt'),
+#' write_stat(file    = paste0(file.path(tempdir(), "stats"),'/sample.txt'),
 #'            stat    = sample,
 #'            verbose = TRUE)
 #'
-#' write.stat(file    = paste0(file.path(tempdir(), "stats"),'/sample.csv'),
+#' write_stat(file    = paste0(file.path(tempdir(), "stats"),'/sample.csv'),
 #'            stat    = sample,
 #'            verbose = TRUE)
 #'
-write.stat <- function(stat,file, sep = ';',dec = '.', verbose = FALSE, ...){
+write_stat <- function(stat,file, sep = ';',dec = '.', verbose = FALSE, ...){
   if(verbose)
     cat('writing', file,'\n')
   if(substr(file,nchar(file)-3,nchar(file)) == '.csv'){
@@ -52,13 +52,13 @@ write.stat <- function(stat,file, sep = ';',dec = '.', verbose = FALSE, ...){
 #' @export
 #'
 #' @examples
-#' sample <- read.stat(file    = paste0(system.file("extdata", package = "eval3dmodel"),"/sample.txt"),
+#' sample <- read_stat(file    = paste0(system.file("extdata", package = "eval3dmodel"),"/sample.txt"),
 #'                     verbose = TRUE)
 #'
-#' sample <- read.stat(file    = paste0(system.file("extdata", package = "eval3dmodel"),"/sample.csv"),
+#' sample <- read_stat(file    = paste0(system.file("extdata", package = "eval3dmodel"),"/sample.csv"),
 #'                     verbose = TRUE)
 #'
-read.stat <- function(file, sep = ';',dec = '.',verbose = FALSE, rm.last = FALSE, ...){
+read_stat <- function(file, sep = ';',dec = '.',verbose = FALSE, rm.last = FALSE, ...){
   if(verbose)
     cat('reading', file,'\n')
   if(substr(file,nchar(file)-3,nchar(file)) == '.csv'){
