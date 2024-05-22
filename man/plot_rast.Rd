@@ -8,17 +8,18 @@ plot_rast(
   r,
   color,
   ncolor = 21,
-  log = FALSE,
   proj = FALSE,
   plg = list(tic = "none", shrink = 0.98),
   pax = list(),
-  axe = FALSE,
+  latlon = FALSE,
   grid = TRUE,
-  latitude = FALSE,
-  longitude = FALSE,
+  latitude = TRUE,
+  longitude = TRUE,
   int = 10,
   grid_int = 10,
   add_range = TRUE,
+  log = FALSE,
+  hard_zlim = F,
   ...
 )
 }
@@ -29,15 +30,13 @@ plot_rast(
 
 \item{ncolor}{number of colors}
 
-\item{log}{TRUE to plot in log-scale}
-
 \item{proj}{TRUE to project the raster to lat-lon}
 
 \item{plg}{list of parameters passed to terra::add_legend}
 
 \item{pax}{list of parameters passed to graphics::axis}
 
-\item{axe}{plot axis}
+\item{latlon}{plot lat-lon axis (defoult), FALSE for r original axis}
 
 \item{grid}{add grid (graticule style)}
 
@@ -50,6 +49,10 @@ plot_rast(
 \item{grid_int}{interval of grid lines}
 
 \item{add_range}{add legend with max, average and min r values}
+
+\item{log}{plot in log scale}
+
+\item{hard_zlim}{hard lim}
 
 \item{...}{arguments to be passing to terra::plot}
 }

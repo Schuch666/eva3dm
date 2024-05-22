@@ -9,13 +9,15 @@
 #' @param proj TRUE to project the raster to lat-lon
 #' @param plg list of parameters passed to terra::add_legend
 #' @param pax list of parameters passed to graphics::axis
-#' @param axe plot axis
+#' @param latlon plot lat-lon axis (defoult), FALSE for r original axis
 #' @param grid add grid (graticule style)
 #' @param latitude add a latitude axis
-#' @param longitude  add a longitude axis
+#' @param longitude add a longitude axis
 #' @param int interval of latitude and longitude lines
 #' @param grid_int interval of grid lines
 #' @param add_range add legend with max, average and min r values
+#' @param log plot in log scale
+#' @param hard_zlim hard lim
 #' @param ... arguments to be passing to terra::plot
 #'
 #' @import terra
@@ -33,23 +35,32 @@
 plot_rast <- function(r,
                       color,
                       ncolor = 21,
-                      log = FALSE,
                       proj = FALSE,
                       plg=list(tic = 'none',shrink=0.98),
                       pax=list(),
-                      axe=FALSE,
+                      latlon=FALSE,
                       grid=TRUE,
-                      latitude = FALSE,
-                      longitude = FALSE,
+                      latitude = TRUE,
+                      longitude = TRUE,
                       int = 10,
                       grid_int = 10,
                       add_range = TRUE,
-                      # log = FALSE,
+                      log = FALSE,
+                      hard_zlim = F,
+                      zlim,
                       # min,max,
                       ...){
 
   if(missing(r))
     stop('r is missing!')
+
+  if(hard_zlim & !log){
+    r2 <- r
+    r2[r[] < zlim[1] ] = zlim[1]
+    r2[r[] > zlim[2] ] = zlim[2]
+  }else{
+    r2 <- r
+  }
 
   if(missing(color)){
     color <- c("#08306B","#133A72","#1F4479","#2B4E81","#375888",
@@ -64,7 +75,8 @@ plot_rast <- function(r,
   }
 
   e_o     <- ext(r)
-  Points  <- vect(cbind(x = e_o[1:2], y = e_o[3:4]), type="points",
+  Points  <- vect(cbind(x = e_o[1:2], y = e_o[3:4]),
+                  type="points",
                   crs =  terra::crs(r,proj=TRUE))
   proj_p  <- project(Points,"+proj=longlat +datum=WGS84 +no_defs")
   e_p     <- ext(proj_p)
@@ -93,13 +105,8 @@ plot_rast <- function(r,
     r <- project(r,"+proj=longlat +datum=WGS84 +no_defs")
   }
 
-  p <- terra::plot(r, col = color, plg = plg, pax = pax,axe = axe, grid = FALSE, fun = extra, ...)
-  .plot.latlon(x = p,proj = terra::crs(r,proj=TRUE),int = int,e = e_o)
-
-  # if(hard_zlim & !log){
-  #   r[r[] < zlim[1] ] = zlim[1]
-  #   r[r[] > zlim[2] ] = zlim[2]
-  # }
+  p <- terra::plot(r2, col = color, plg = plg, pax = pax,axe = !latlon, grid = FALSE, fun = extra, ...)
+  if(latlon) .plot.latlon(x = p,proj = terra::crs(r,proj=TRUE),int = int,e = e_o)
 
   # Rlog10 <- function(r,min){
   #   test <- suppressWarnings(log10(x = r))
@@ -148,9 +155,5 @@ plot_rast <- function(r,
   #        # col           = col,
   #        # zlim          = zlim,
   #        ...)
-  # }
-  # if(llaxis){
-  #   latitude(int = int)
-  #   longitude(int = int)
   # }
 }

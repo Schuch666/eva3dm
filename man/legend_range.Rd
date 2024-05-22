@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_legend_range.R
 \name{legend_range}
 \alias{legend_range}
-\title{Get the distance in kilometers between two points.}
+\title{Plot a legend with the range (min, max and average) of the input.}
 \usage{
 legend_range(
   x,
@@ -21,9 +21,9 @@ legend_range(
 )
 }
 \arguments{
-\item{x}{raster or array}
+\item{x}{rast or array}
 
-\item{y}{raster or array to mean (x is used only for the range in this case)}
+\item{y}{rast or array to mean (x is used only for the range in this case)}
 
 \item{text.width}{Longitude in decimals}
 
@@ -48,10 +48,10 @@ legend_range(
 \item{...}{extra arguments passed to legend}
 }
 \description{
-Get the distance in kilometers between two points.
+Plot a legend with the range (min, max and average) of the input.
 }
 \note{
-for use with raster use before any change of projection
+for use with rast use before any change of projection
 
 text.width can vary depending on map dimensions
 }
