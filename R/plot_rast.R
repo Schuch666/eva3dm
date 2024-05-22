@@ -17,7 +17,9 @@
 #' @param grid_int interval of grid lines
 #' @param add_range add legend with max, average and min r values
 #' @param log plot in log scale
-#' @param hard_zlim hard lim
+#' @param zlim zlim
+#' @param min minimum for log scale (defoul is -3)
+#' @param max maximum for lo scale
 #' @param ... arguments to be passing to terra::plot
 #'
 #' @import terra
@@ -38,7 +40,7 @@ plot_rast <- function(r,
                       proj = FALSE,
                       plg=list(tic = 'none',shrink=0.98),
                       pax=list(),
-                      latlon=FALSE,
+                      latlon=TRUE,
                       grid=TRUE,
                       latitude = TRUE,
                       longitude = TRUE,
@@ -46,15 +48,15 @@ plot_rast <- function(r,
                       grid_int = 10,
                       add_range = TRUE,
                       log = FALSE,
-                      hard_zlim = F,
                       zlim,
-                      # min,max,
+                      min = -3,
+                      max,
                       ...){
 
   if(missing(r))
     stop('r is missing!')
 
-  if(hard_zlim & !log){
+  if(!missing(zlim) & !log){
     r2 <- r
     r2[r[] < zlim[1] ] = zlim[1]
     r2[r[] > zlim[2] ] = zlim[2]
@@ -105,55 +107,37 @@ plot_rast <- function(r,
     r <- project(r,"+proj=longlat +datum=WGS84 +no_defs")
   }
 
-  p <- terra::plot(r2, col = color, plg = plg, pax = pax,axe = !latlon, grid = FALSE, fun = extra, ...)
-  if(latlon) .plot.latlon(x = p,proj = terra::crs(r,proj=TRUE),int = int,e = e_o)
+  if(log){
+    Rlog10 <- function(r,min){
+      test <- suppressWarnings(log10(x = r))
+      test[is.infinite(test)] <- min
+      test[test[] < min ] = min
+      return(test)
+    }
 
-  # Rlog10 <- function(r,min){
-  #   test <- suppressWarnings(log10(x = r))
-  #   test[is.infinite(test)] <- min
-  #   test[test[] < min ] = min
-  #   return(test)
-  # }
-  #
-  # if(log){
-  #   r_log  <- Rlog10(r = r,min = min)
-  #   rng    <- range(r_log[], na.rm = T)
-  #   if(missing(max)){
-  #     at     <- seq(round(rng[1], 1),round(rng[2], 1),by = 1)
-  #   }else{
-  #     at     <- seq(round(min, 1),round(max, 1),by = 1)
-  #   }
-  #   label <- paste0('10^',at)
-  #   label <- parse(text = label)
-  #   label[at == 0] = '  1'
-  #
-  #   arg <- list(at=at, labels=label)
-  #
-  #   if(missing(max)){
-  #     plot(x             = r_log,
-  #          legend.shrink = legend.shrink,
-  #          legend.width  = legend.width,
-  #          axe           = axe,
-  #          axis.args     = arg,
-  #          col           = col,
-  #          ...)
-  #   }else{
-  #     plot(x             = r_log,
-  #          legend.shrink = legend.shrink,
-  #          legend.width  = legend.width,
-  #          axe           = axe,
-  #          axis.args     = arg,
-  #          col           = col,
-  #          zlim          = c(min,max),
-  #          ...)
-  #   }
-  # }else{
-  #   plot(x             = r,
-  #        # legend.shrink = legend.shrink,
-  #        # legend.width  = legend.width,
-  #        # axe           = axe,
-  #        # col           = col,
-  #        # zlim          = zlim,
-  #        ...)
-  # }
+    r_log  <- Rlog10(r = r,min = min)
+    rng    <- range(r_log[], na.rm = T)
+
+    if(missing(max)){
+      max <- as.numeric(global(r_log,'mean', na.rm = TRUE))
+    }
+
+    at    <- seq(round(min, 1),round(max, 1),by = 1)
+    at    <- at[at <= as.numeric(global(r_log,'max', na.rm = TRUE))]
+    at    <- at[at >= as.numeric(global(r_log,'min', na.rm = TRUE))]
+
+    label <- paste0('10^',at)
+    label <- parse(text = label)
+    label[at == 0] = '  1'
+
+    arg <- list(at=at, labels=label)
+
+    print(arg)
+
+    p <- terra::plot(r_log, col = color, plg = c(plg,new), pax = pax,axe = !latlon, grid = FALSE,fun = extra, zlim = c(min,max),...)
+    if(latlon) .plot.latlon(x = p,proj = terra::crs(r,proj=TRUE),int = int,e = e_o)
+  }else{
+    p <- terra::plot(r2, col = color, plg = plg, pax = pax,axe = !latlon, grid = FALSE, fun = extra, ...)
+    if(latlon) .plot.latlon(x = p,proj = terra::crs(r,proj=TRUE),int = int,e = e_o)
+  }
 }

@@ -11,7 +11,7 @@ plot_rast(
   proj = FALSE,
   plg = list(tic = "none", shrink = 0.98),
   pax = list(),
-  latlon = FALSE,
+  latlon = TRUE,
   grid = TRUE,
   latitude = TRUE,
   longitude = TRUE,
@@ -19,7 +19,9 @@ plot_rast(
   grid_int = 10,
   add_range = TRUE,
   log = FALSE,
-  hard_zlim = F,
+  zlim,
+  min = -3,
+  max,
   ...
 )
 }
@@ -52,7 +54,11 @@ plot_rast(
 
 \item{log}{plot in log scale}
 
-\item{hard_zlim}{hard lim}
+\item{zlim}{zlim}
+
+\item{min}{minimum for log scale (defoul is -3)}
+
+\item{max}{maximum for lo scale}
 
 \item{...}{arguments to be passing to terra::plot}
 }
