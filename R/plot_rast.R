@@ -116,10 +116,11 @@ plot_rast <- function(r,
     }
 
     r_log  <- Rlog10(r = r,min = min)
-    rng    <- range(r_log[], na.rm = T)
 
     if(missing(max)){
       max <- as.numeric(global(r_log,'mean', na.rm = TRUE))
+    }else{
+      r_log[r_log[] > max ] = max
     }
 
     at    <- seq(round(min, 1),round(max, 1),by = 1)
@@ -132,9 +133,7 @@ plot_rast <- function(r,
 
     arg <- list(at=at, labels=label)
 
-    print(arg)
-
-    p <- terra::plot(r_log, col = color, plg = c(plg,new), pax = pax,axe = !latlon, grid = FALSE,fun = extra, zlim = c(min,max),...)
+    p <- terra::plot(r_log, col = color, plg = c(plg,arg), pax = pax,axe = !latlon, grid = FALSE,fun = extra, ...)
     if(latlon) .plot.latlon(x = p,proj = terra::crs(r,proj=TRUE),int = int,e = e_o)
   }else{
     p <- terra::plot(r2, col = color, plg = plg, pax = pax,axe = !latlon, grid = FALSE, fun = extra, ...)
