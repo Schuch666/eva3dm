@@ -11,12 +11,12 @@ plot_rast(
   proj = FALSE,
   plg = list(tic = "none", shrink = 0.98),
   pax = list(),
-  latlon = TRUE,
-  grid = TRUE,
   latitude = TRUE,
   longitude = TRUE,
   int = 10,
+  grid = TRUE,
   grid_int = int,
+  grid_col = "#666666",
   add_range = TRUE,
   log = FALSE,
   zlim,
@@ -38,17 +38,17 @@ plot_rast(
 
 \item{pax}{list of parameters passed to graphics::axis}
 
-\item{latlon}{plot lat-lon axis (defoult), FALSE for r original axis}
-
-\item{grid}{add grid (graticule style)}
-
 \item{latitude}{add a latitude axis}
 
 \item{longitude}{add a longitude axis}
 
 \item{int}{interval of latitude and longitude lines}
 
+\item{grid}{add grid (graticule style)}
+
 \item{grid_int}{interval of grid lines}
+
+\item{grid_col}{color for grid lines}
 
 \item{add_range}{add legend with max, average and min r values}
 

@@ -5,21 +5,20 @@
 #' @param r raster
 #' @param color color scale
 #' @param ncolor number of colors
-#' @param log TRUE to plot in log-scale
 #' @param proj TRUE to project the raster to lat-lon
 #' @param plg list of parameters passed to terra::add_legend
 #' @param pax list of parameters passed to graphics::axis
-#' @param latlon plot lat-lon axis (defoult), FALSE for r original axis
-#' @param grid add grid (graticule style)
 #' @param latitude add a latitude axis
 #' @param longitude add a longitude axis
 #' @param int interval of latitude and longitude lines
+#' @param grid add grid (graticule style)
 #' @param grid_int interval of grid lines
+#' @param grid_col color for grid lines
 #' @param add_range add legend with max, average and min r values
-#' @param log plot in log scale
 #' @param zlim zlim
+#' @param log TRUE to plot in log-scale
 #' @param min minimum for log scale (defoul is -3)
-#' @param max maximum for lo scale
+#' @param max maximum for log scale
 #' @param ... arguments to be passing to terra::plot
 #'
 #' @import terra
@@ -40,12 +39,12 @@ plot_rast <- function(r,
                       proj = FALSE,
                       plg=list(tic = 'none',shrink=0.98),
                       pax=list(),
-                      latlon=TRUE,
-                      grid=TRUE,
                       latitude = TRUE,
                       longitude = TRUE,
                       int = 10,
+                      grid=TRUE,
                       grid_int = int,
+                      grid_col = "#666666",
                       add_range = TRUE,
                       log = FALSE,
                       zlim,
@@ -55,6 +54,12 @@ plot_rast <- function(r,
 
   if(missing(r))
     stop('r is missing!')
+
+  if(latitude | longitude){
+    latlon = TRUE
+  }else{
+    latlon = FALSE
+  }
 
   if(!missing(zlim) & !log){
     r2 <- r
@@ -107,7 +112,7 @@ plot_rast <- function(r,
     if(grid){
       terra::lines(terra::graticule(lon = vet_lon,lat = vet_lat,
                                     crs = terra::crs(r,proj=TRUE)),
-                   lty = 3, col = "#666666",lwd = 1.2)
+                   lty = 3, col = grid_col,lwd = 1.2)
     }
     if(add_range)
       legend_range(r)
