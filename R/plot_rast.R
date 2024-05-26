@@ -45,7 +45,7 @@ plot_rast <- function(r,
                       latitude = TRUE,
                       longitude = TRUE,
                       int = 10,
-                      grid_int = 10,
+                      grid_int = int,
                       add_range = TRUE,
                       log = FALSE,
                       zlim,
@@ -94,6 +94,12 @@ plot_rast <- function(r,
 
   if(latlon){
     ax  <- latlon(r = r,int = int,e = e_o)
+    if(latitude & !longitude){
+      ax$side <- 2
+    }
+    if(longitude & !latitude){
+      ax$side <- 1
+    }
     pax <- c(pax,ax)
   }
 

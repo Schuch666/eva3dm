@@ -16,7 +16,7 @@ plot_rast(
   latitude = TRUE,
   longitude = TRUE,
   int = 10,
-  grid_int = 10,
+  grid_int = int,
   add_range = TRUE,
   log = FALSE,
   zlim,
