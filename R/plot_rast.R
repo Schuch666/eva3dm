@@ -15,6 +15,7 @@
 #' @param grid_int interval of grid lines
 #' @param grid_col color for grid lines
 #' @param add_range add legend with max, average and min r values
+#' @param ndig number of digits for legend_range
 #' @param zlim zlim
 #' @param log TRUE to plot in log-scale
 #' @param min minimum for log scale (defoul is -3)
@@ -46,6 +47,7 @@ plot_rast <- function(r,
                       grid_int = int,
                       grid_col = "#666666",
                       add_range = TRUE,
+                      ndig = 2,
                       log = FALSE,
                       zlim,
                       min = -3,
@@ -115,7 +117,7 @@ plot_rast <- function(r,
                    lty = 3, col = grid_col,lwd = 1.2)
     }
     if(add_range)
-      legend_range(r)
+      legend_range(r,dig = c(ndig,ndig,ndig))
     terra::add_box()
   }
 

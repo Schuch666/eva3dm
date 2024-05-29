@@ -4,12 +4,14 @@
 \alias{interp}
 \title{interpolation}
 \usage{
-interp(x, y, verbose = F)
+interp(x, y, method = "bilinear", verbose = F)
 }
 \arguments{
 \item{x}{rast to be interpolated}
 
 \item{y}{target of the interpolation}
+
+\item{method}{passed to terra::resample}
 
 \item{verbose}{display additional information (not used)}
 }

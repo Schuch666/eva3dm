@@ -18,6 +18,7 @@ plot_rast(
   grid_int = int,
   grid_col = "#666666",
   add_range = TRUE,
+  ndig = 2,
   log = FALSE,
   zlim,
   min = -3,
@@ -52,13 +53,15 @@ plot_rast(
 
 \item{add_range}{add legend with max, average and min r values}
 
-\item{log}{plot in log scale}
+\item{ndig}{number of digits for legend_range}
+
+\item{log}{TRUE to plot in log-scale}
 
 \item{zlim}{zlim}
 
 \item{min}{minimum for log scale (defoul is -3)}
 
-\item{max}{maximum for lo scale}
+\item{max}{maximum for log scale}
 
 \item{...}{arguments to be passing to terra::plot}
 }

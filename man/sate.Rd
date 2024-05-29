@@ -4,7 +4,17 @@
 \alias{sate}
 \title{Functions to model evaluation using satellite}
 \usage{
-sate(mo, ob, n = 6, min = NA, max = NA, rname, verbose = T, ...)
+sate(
+  mo,
+  ob,
+  n = 6,
+  min = NA,
+  max = NA,
+  rname,
+  method = "bilinear",
+  verbose = T,
+  ...
+)
 }
 \arguments{
 \item{mo}{rast with model}
@@ -18,6 +28,8 @@ sate(mo, ob, n = 6, min = NA, max = NA, rname, verbose = T, ...)
 \item{max}{maximum value cutoff}
 
 \item{rname}{passed to stat}
+
+\item{method}{passed to terra::resample}
 
 \item{verbose}{set TRUE to display additional information}
 

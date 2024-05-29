@@ -10,6 +10,7 @@
 #' @param min minimum value cutoff
 #' @param max maximum value cutoff
 #' @param rname passed to stat
+#' @param method passed to terra::resample
 #' @param verbose set TRUE to display additional information
 #' @param ... other arguments passed to stat
 #'
@@ -19,7 +20,7 @@
 #'
 #' @export
 
-sate <- function(mo,ob,n = 6, min = NA, max = NA,rname,verbose = T, ...){
+sate <- function(mo,ob,n = 6, min = NA, max = NA,rname, method = 'bilinear',verbose = T, ...){
 
   if(missing(mo))
     stop('model input is missing!')
@@ -65,7 +66,7 @@ sate <- function(mo,ob,n = 6, min = NA, max = NA,rname,verbose = T, ...){
   if(verbose) cat(paste0('removing ',n,' points for the model (y) boundaryes ...\n'))
   model <- cut_boundary(mo, n = n)
   if(verbose) cat('interpolating obs. (x) to model grid (y)...\n')
-  obser <- interp(x = ob, y = mo, verbose = verbose)
+  obser <- interp(x = ob, y = mo, method = method, verbose = verbose)
 
   if(!is.na(min)){
     if(verbose) cat('seting min value to',min,'\n')
