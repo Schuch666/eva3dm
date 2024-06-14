@@ -9,7 +9,7 @@ interp(x, y, method = "bilinear", verbose = F)
 \arguments{
 \item{x}{rast to be interpolated}
 
-\item{y}{target of the interpolation}
+\item{y}{target rast of the interpolation}
 
 \item{method}{passed to terra::resample}
 

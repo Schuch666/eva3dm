@@ -155,12 +155,14 @@ wrf_rast <- function(file = file.choose(),
   # transform  <- sf::st_transform(x = coords, crs = geogrd.proj)
   # projcoords <- sf::st_coordinates(transform)[,1:2]
 
+  # cbind(x, y)[,1:2] need to be changed to work with wrfbiochemi
+
   # USING the terra R-package
-  pontos     <- terra::vect(cbind(x, y),
+  pontos     <- terra::vect(cbind(x, y)[,1:2],    # [,1:2] is for faster version
                             type = "points",
                             crs = "+proj=longlat +datum=WGS84 +no_defs")
   transform  <- terra::project(pontos, geogrd.proj)
-  projcoords <- terra::crds(transform)[,1:2]
+  projcoords <- terra::crds(transform) # slower version if is placed [,1:2] here
 
   # coordinates here are the cell center,
   # We need to calculate the boundaries for the raster file
@@ -202,7 +204,7 @@ wrf_rast <- function(file = file.choose(),
                      crs = geogrd.proj)
     r[]       <- rev(c(f2(POL,1)))
 
-    if('Times' %in% names(wrf$var)){              # this is new!
+    if('Times' %in% names(wrf$var)){
       ntimes    <- length(ncvar_get(wrf,'Times'))
     }else{
       cat('variable Times not found\n')
