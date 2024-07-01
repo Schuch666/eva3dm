@@ -1,6 +1,6 @@
 #' Calculate evaluation statistics from numerical vectors
 #'
-#' @description Calculate statistical indexes (Number of pairs, observation average, model average, correlation, Index Of Agreement, Factor of 2, Root Mean Square Error, Mean Bias, Mean error, Gross Error, Mean Factor Bias, Mean Factor Error, Normalized Mean Bias, and Normalized Mean Bias) for model evaluation
+#' @description Calculate statistical indexes (Number of pairs, observation average, model average, correlation, Index Of Agreement, Factor of 2, Root Mean Square Error, Mean Bias, Mean error, Normalized Mean Bias, and Normalized Mean Bias) for model evaluation
 #'
 #' @param model numeric vector with paired model data
 #' @param observation numeric vector with paired observation data
@@ -164,8 +164,8 @@ stat <- function(model, observation,
   MNGE	= mean(abs(model-observation)/observation)
   NMB	  = 100 * (Mod-Obs)/Obs
   s     = model + observation
-  MFB   = 200 * mean(model/s - observation/s )
-  MFE   = 200 * mean(abs( model/s - observation/s ))
+  # MFB   = 200 * mean(model/s - observation/s )
+  # MFE   = 200 * mean(abs( model/s - observation/s ))
 
   if(is.na(cutoff_NME)){
     NME	  = 100 * MAGE / Obs
@@ -185,9 +185,9 @@ stat <- function(model, observation,
                                      RMSE = sqrt(mean((observation - model)^2)),
                                      MB   = MB,
                                      ME   = MAGE,
-                                     GE   = MAGE,
-                                     `MFB (%)` = MFB,
-                                     `MFE (%)` = MFE,
+                                     # GE   = MAGE,
+                                     # `MFB (%)` = MFB,
+                                     # `MFE (%)` = MFE,
                                      `NMB (%)` = NMB,
                                      `NME (%)` = NME))
 
