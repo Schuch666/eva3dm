@@ -12,11 +12,11 @@ The package include Post-processing functions:
 
 Utility functions:
 
-➞ `ncdump()` print a `ncdump -h` equivalent command for a NetCDF file;
+✔ `ncdump()` print a `ncdump -h` equivalent command for a NetCDF file;
 
-➞ `vars()` return the name of the variables on NetCDF file;
+✔ `vars()` return the name of the variables on NetCDF file;
 
-➞ `atr()` read and write attributes from a Netcdf file;
+✔ `atr()` read and write attributes from a Netcdf file;
 
 ✔ `wrf_rast()` extract variables and create `SpatRaster` or `SpatVector` from WRF outputs and input files (and compatible NetCDF files);
 
