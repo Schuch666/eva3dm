@@ -37,7 +37,7 @@ atr <- function(file = NA,var = '?', att = NA, action="get", value=NA, verbose=F
     file <- file.choose()   # nocov
     cat(paste(file,"\n"))   # nocov
   }
-  if(action != "read")
+  if(!action %in% c("read","get"))
     to_write <- T
   else
     to_write <- F
@@ -65,7 +65,7 @@ atr <- function(file = NA,var = '?', att = NA, action="get", value=NA, verbose=F
       cat(paste0(var," attribute ",att,":\n"))
       cat(paste0(ATR$value,"\n"))
     }
-    if(action == 'get') return(ATR)
+    if(action == 'get') return(ATR$value)
   }else{
     if(is.na(value))
       stop("nothing to write") # nocov

@@ -4,7 +4,7 @@ An R-package focusing on evaluation of weather and air quality models.
 
 The package include Post-processing functions:
 
-➞ `extract_serie()` extract and save time-series from WRF outputs and input files (and compatible NetCDF files);
+✔ `extract_serie()` extract and save time-series from WRF outputs and input files (and compatible NetCDF files);
 
 ➞ `extract_mean()` extract, average (or max, min, etc) and save variables at surface level;
 
@@ -42,7 +42,7 @@ Visualization:
 
 ✔ `plot_rast()` custom plot for `rast` objects;
 
-➞ `plor_diff()` custom plot for absolute or relative difference of `rast` objects;
+➞ `plot_diff()` custom plot for absolute or relative difference of `rast` objects;
 
 ➞ `overlay()` custom plot to overlay points on `plot_rast()` plot;
 
