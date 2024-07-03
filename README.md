@@ -6,9 +6,9 @@ The package include Post-processing functions:
 
 ✔ `extract_serie()` extract and save time-series from WRF outputs and input files (and compatible NetCDF files);
 
-➞ `extract_mean()` extract, average (or max, min, etc) and save variables at surface level;
+✔ `extract_mean()` extract, average (or max, min, etc) and save variables at surface level;
 
-➞ `extract_8h_max()` extract, calculate maximum (or avarage, max, min) 8h average at surface level;
+✔ `extract_8h_max()` extract, calculate maximum (or avarage, max, min) 8h average at surface level;
 
 Utility functions:
 
