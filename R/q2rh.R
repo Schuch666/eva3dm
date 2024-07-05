@@ -6,7 +6,7 @@
 #' @param t vector of temperature (in K)
 #' @param p pressure (in Pa)
 #'
-#' @notes default values are from standard atmosphere (288.15 K / 101325 Pa)
+#' @note default values are from standard atmosphere (288.15 K / 101325 Pa)
 #'
 #' @export
 #'

@@ -16,6 +16,9 @@ q2rh(q, t = 288.15, p = 101325)
 \description{
 function to convert absolute humidity to relative humidity.
 }
+\note{
+default values are from standard atmosphere (288.15 K / 101325 Pa)
+}
 \examples{
 q2rh(q = 0.0002038, t = 302.45, p = 100800)
 

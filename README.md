@@ -22,7 +22,7 @@ Utility functions:
 
 ✔ `rast_to_netcdf()` convert `rast` to an array compatible to a NetCDF WRF file;
 
-➞ `MDA8()` calculate MAD8 for time-series.
+➞ `mda8()`calculate MAD8 for time-series.
 
 ✔ `rh2q2()`, `q2rh()`, etc.
 
