@@ -24,7 +24,7 @@ Utility functions:
 
 ➞ `MDA8()` calculate MAD8 for time-series.
 
-➞ `rh2q2()`, `q2rh()`, etc.
+✔ `rh2q2()`, `q2rh()`, etc.
 
 Model evaluation functions:
 
