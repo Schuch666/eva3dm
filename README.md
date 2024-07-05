@@ -20,7 +20,7 @@ Utility functions:
 
 ✔ `wrf_rast()` extract variables and create `SpatRaster` or `SpatVector` from WRF outputs and input files (and compatible NetCDF files);
 
-➞ `rast_to_netcdf()` convert `rast` to an array compatible to a NetCDF WRF file;
+✔ `rast_to_netcdf()` convert `rast` to an array compatible to a NetCDF WRF file;
 
 ➞ `MDA8()` calculate MAD8 for time-series.
 
