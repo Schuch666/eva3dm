@@ -149,20 +149,14 @@ wrf_rast <- function(file = file.choose(),
     stop(paste0('Error: Asymmetric grid cells not supported. DX=', dx, ', DY=', dy))  # nocov
   }
 
-  # USING the sf R-package
-  # pontos     <- sf::st_multipoint(x = as.matrix(cbind(x, y)), dim = "XY")
-  # coords     <- sf::st_sfc(x = pontos, crs = "+proj=longlat +datum=WGS84 +no_defs")
-  # transform  <- sf::st_transform(x = coords, crs = geogrd.proj)
-  # projcoords <- sf::st_coordinates(transform)[,1:2]
-
   # cbind(x, y)[,1:2] need to be changed to work with wrfbiochemi
 
   # USING the terra R-package
-  pontos     <- terra::vect(cbind(x, y)[,1:2],    # [,1:2] is for faster version
+  pontos     <- terra::vect(cbind(x, y)[,1:2],
                             type = "points",
                             crs = "+proj=longlat +datum=WGS84 +no_defs")
   transform  <- terra::project(pontos, geogrd.proj)
-  projcoords <- terra::crds(transform) # slower version if is placed [,1:2] here
+  projcoords <- terra::crds(transform)
 
   # coordinates here are the cell center,
   # We need to calculate the boundaries for the raster file
