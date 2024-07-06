@@ -4,7 +4,7 @@
 \alias{mda8}
 \title{Maximum Daily 8-hr Average}
 \usage{
-mda8(data, time = "date", var)
+mda8(data, time = "date", var, verbose = TRUE)
 }
 \arguments{
 \item{data}{data.frame with time column and variable columns to be processed}
@@ -12,6 +12,8 @@ mda8(data, time = "date", var)
 \item{time}{name of the time column (defoult is date)}
 
 \item{var}{name of the columns to be calculated}
+
+\item{verbose}{display additional information}
 }
 \value{
 data.frame
