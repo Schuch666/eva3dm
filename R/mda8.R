@@ -7,39 +7,17 @@
 #' @param var name of the columns to be calculated
 #' @param verbose display additional information
 #' @return data.frame
+#'
+#' @importFrom stats as.formula
 #' @export
 #'
 mda8 <- function(data, time = 'date', var, verbose = TRUE) {
+
+  ma8h <- ma8h(data = data, time = time, var = var, verbose = verbose)
+
   if(verbose)
-    cat('calculating MDA8 ... \n')
+    cat('calculating daily maximum ... \n')
+  output <- daily(data = data, time = time, var = var, verbose = F, stat = max)
 
-  data[[time]] <- as.POSIXct(data[[time]])
-
-  if(missing(var)){
-    VARS  = names(data)[!names(data) %in% time]
-  }
-  var           <- VARS[1]
-  data$roll_avg <- NA
-  for (i in seq_along(data[[var]])) {
-    start_time       <- data[[time]][i]
-    end_time         <- start_time + 8*3600
-    within_8hr       <- data[[time]] >= start_time & data[[time]] < end_time
-    data$roll_avg[i] <- mean(data[[var]][within_8hr], na.rm = TRUE)
-  }
-  data$date          <- as.Date(data[[time]])
-  output             <- aggregate(roll_avg ~ date, data = data, FUN = max, na.rm = TRUE)
-
-  for(var in VARS[-1]){
-    data$roll_avg <- NA
-    for (i in seq_along(data[[var]])) {
-      start_time       <- data[[time]][i]
-      end_time         <- start_time + 8*3600
-      within_8hr       <- data[[time]] >= start_time & data[[time]] < end_time
-      data$roll_avg[i] <- mean(data[[var]][within_8hr], na.rm = TRUE)
-    }
-    daily_max          <- aggregate(roll_avg ~ date, data = data, FUN = max, na.rm = TRUE)
-    output             <- cbind(output,var = daily_max[,2])
-  }
-  names(output) <- c(time,VARS)
   return(output)
 }
