@@ -1,6 +1,12 @@
 # eval3dmodel
 
-An R-package focusing on evaluation of weather and air quality models.
+An R-package focusing on evaluation of weather and air quality models. 
+
+The following workflow is recommended:
+- *Pre-processing of observations*: download, check the data quality, process data for evaluation, process of site-list if plan to extract time-series from the model.
+- *Pre-processing of model output*: extraction and pre-processing
+- *Model Evaluation*: `eval()` (to evaluate time-series) or `sate()` (to evaluate against satellite products), available to perform statistical (more details in `stat()`) and categorical (more details in `cate()`) evaluation.
+- *Visualization*: try some of the visualization functions from this package or other packages.
 
 The package include:
 
@@ -34,11 +40,11 @@ The package include:
 
 ➞ `eval()` data pairing and evaluation against time-series;
 
+✔ `sate()` evaluateion ainst satellite observation;
+
 ✔ `stat()` calculate statistical indexes;
 
 ✖ `cate()` calculate categorical evaluation;
-
-✔ `sate()` evaluateion ainst satellite observation;
 
 ✔ `write_stat()` and `read_stat()` to write and read evaluation results.
 
