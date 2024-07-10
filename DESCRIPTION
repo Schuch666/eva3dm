@@ -12,8 +12,8 @@ Authors@R: c(
          comment = c(ORCID = "0000-0001-5977-4519"))
          )
 Maintainer: Daniel Schuch <underschuch@gmail.com>
-Imports: terra, ncdf4, utils, stats
 License: MIT + file LICENSE
+Imports: terra, ncdf4, utils
 Encoding: UTF-8
 BugReports: https://github.com/Schuch666/eval3dmodel/issues/
 RoxygenNote: 7.2.3

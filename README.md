@@ -2,7 +2,9 @@
 
 An R-package focusing on evaluation of weather and air quality models.
 
-The package include Post-processing functions:
+The package include:
+
+## Model Post-processing functions:
 
 ✔ `extract_serie()` extract and save time-series from WRF outputs and input files (and compatible NetCDF files);
 
@@ -10,7 +12,7 @@ The package include Post-processing functions:
 
 ✔ `extract_8h_max()` extract, calculate maximum (or avarage, max, min) 8h average at surface level;
 
-Utility functions:
+## NetCDF Utility functions:
 
 ✔ `ncdump()` print a `ncdump -h` equivalent command for a NetCDF file;
 
@@ -22,11 +24,13 @@ Utility functions:
 
 ✔ `rast_to_netcdf()` convert `rast` to an array compatible to a NetCDF WRF file;
 
-✔ `mda8()`, `ma8h()`, and `daily()` calculate that calculate time-series;
+## Data pre-processing functions:
+
+✔ `mda8()`, `ma8h()`, `hourly()`, and `daily()` process and calculate calculate time-series;
 
 ✔ `rh2q2()`, `q2rh()`, etc.
 
-Model evaluation functions:
+## Model evaluation functions:
 
 ➞ `eval()` data pairing and evaluation against time-series;
 
@@ -38,7 +42,7 @@ Model evaluation functions:
 
 ✔ `write_stat()` and `read_stat()` to write and read evaluation results.
 
-Visualization:
+## Visualization:
 
 ✔ `plot_rast()` custom plot for `rast` objects;
 
