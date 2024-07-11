@@ -3,9 +3,9 @@
 An R-package focusing on evaluation of weather and air quality models. 
 
 The following workflow is recommended:
-- *Pre-processing of observations*: download (METAR can be downloded using the R-package [riem](https://docs.ropensci.org/riem/) or [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site, and Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar/home.do) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites), QA of the observation data, process observation data for evaluation, process of site-list if plan to extract time-series from the model.
-- *Pre-processing of model output*: extraction and pre-processing
-- *Model Evaluation*: `eval()` (to evaluate time-series) or `sate()` (to evaluate against satellite products), available to perform statistical (more details in `stat()`) and categorical (more details in `cate()`) evaluation.
+- *Pre-processing of observations*: download (METAR can be downloded using the R-package [riem](https://docs.ropensci.org/riem/) or [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site, and Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar/home.do) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites), QA of the observation data, process observation data for evaluation, process of site-list if plan to extract time-series from the model;
+- *Pre-processing of model output*: extraction and pre-processing of model outputs;
+- *Model Evaluation*: `eval()` (to evaluate time-series) or `sate()` (to evaluate against satellite products), available to perform statistical (more details in `stat()`) and categorical (more details in `cate()`) evaluation;
 - *Visualization*: try some of the visualization functions from this package or other packages.
 
 The package include:
