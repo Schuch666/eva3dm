@@ -2,7 +2,7 @@
 % Please edit documentation in R/rast_to_netcdf.R
 \name{rast_to_netcdf}
 \alias{rast_to_netcdf}
-\title{Function to convert (and save) a SpatRaster object to an array (and save on a Netcdf file)}
+\title{Function to convert/save a SpatRaster array/Netcdf}
 \usage{
 rast_to_netcdf(r, file, name, verbose = TRUE)
 }
