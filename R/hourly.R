@@ -31,10 +31,10 @@ hourly <- function(data, time = 'date', var, stat = mean, min_offset = 30,
                    numerical = TRUE, verbose = TRUE){
 
   if(verbose)
-    cat('pre-processsing hourly data ... \n')
+    cat('processing hourly data ... \n')
 
   data               <- as.data.frame(data)
-  data[[time]]       <- as.POSIXct(as.Date(data[[time]]),tz = 'UTC')
+  data[[time]]       <- as.POSIXct(data[[time]],tz = 'UTC')
   data[[time]]       <- data[[time]] + min_offset*60
   data$hour_internal <- format(data[[time]], "%Y-%m-%d %H:00:00")
   data$hour_internal <- as.POSIXct(data$hour_internal,tz = 'UTC')
@@ -52,6 +52,6 @@ hourly <- function(data, time = 'date', var, stat = mean, min_offset = 30,
     hourly_average[is.nan(hourly_average[,i])     ,i] = NA
     hourly_average[is.infinite(hourly_average[,i]),i] = NA
   }
-  class(hourly_average) <- append(class(hourly_average),"hourly")
+  class(hourly_average) <- c("data.frame","hourly")
   return(hourly_average)
 }

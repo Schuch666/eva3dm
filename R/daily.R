@@ -29,8 +29,7 @@
 daily <- function(data, time = 'date', var, stat = mean, min_offset = 0,
                   hour_offset = 0, numerical = TRUE, verbose = TRUE) {
 
-  if(verbose)
-    cat('calculating daily statistcis ... \n')
+  if(verbose) cat('processing daily statistcis ... \n')
 
   data                <- as.data.frame(data)
   data[[time]]        <- as.POSIXct(as.Date(data[[time]]),tz = 'UTC')
@@ -51,6 +50,6 @@ daily <- function(data, time = 'date', var, stat = mean, min_offset = 0,
     hourly_average[is.nan(hourly_average[,i])     ,i] = NA
     hourly_average[is.infinite(hourly_average[,i]),i] = NA
   }
-  class(hourly_average) <- append(class(hourly_average),"daily")
+  class(hourly_average) <- c("data.frame","daily")
   return(hourly_average)
 }

@@ -4,20 +4,35 @@
 \alias{ma8h}
 \title{Calculate 8-hour moving average}
 \usage{
-ma8h(data, time = "date", var, verbose = TRUE)
+ma8h(data, time = "date", var, verbose = TRUE, ...)
 }
 \arguments{
 \item{data}{data.frame with time column and variable columns to be processed}
 
-\item{time}{name of the time column (defoult is date) in POSIXct}
+\item{time}{name of the time column (default is date) in POSIXct}
 
 \item{var}{name of the columns to be calculated}
 
 \item{verbose}{display additional information}
+
+\item{...}{parameters passed to hourly}
 }
 \value{
 data.frame
 }
 \description{
 function to calculate Ozone 8-hour moving average for a data.frame
+}
+\examples{
+model_file <- paste(system.file("extdata", package = "eval3dmodel"),
+                                "/model_o3_ugm3_36km.Rds", sep="")
+model      <- readRDS(model_file)
+model_8h   <- ma8h(model)
+plot(model$date,model$Campinas, pch = 19,
+     main = expression(O[3]~~'['*mu*g*m^-3*']'))
+points(model_8h$date,model_8h$Campinas, col = 'blue', pch = 19)
+legend('topleft',bty = 'n',
+       pch = 19,
+       legend = c('hourly','8h-mov average'),
+       col = c('black','blue'))
 }
