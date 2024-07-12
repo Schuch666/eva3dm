@@ -14,6 +14,7 @@ Authors@R: c(
 Maintainer: Daniel Schuch <underschuch@gmail.com>
 License: MIT + file LICENSE
 Imports: terra, ncdf4, utils
+Suggests: riem
 Encoding: UTF-8
 BugReports: https://github.com/Schuch666/eval3dmodel/issues/
 RoxygenNote: 7.2.3

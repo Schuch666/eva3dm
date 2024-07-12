@@ -2,7 +2,7 @@
 % Please edit documentation in R/daily.R
 \name{daily}
 \alias{daily}
-\title{Maximum Daily 8-hr Average}
+\title{Calculate daily mean, min or max}
 \usage{
 daily(data, time = "date", var, stat = mean, verbose = TRUE)
 }

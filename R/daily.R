@@ -1,4 +1,4 @@
-#' Maximum Daily 8-hr Average
+#' Calculate daily mean, min or max
 #'
 #' @description function to calculate Ozone Maximum Daily 8-hr Average or 8-hr moving Average for a data.frame
 #'
@@ -17,6 +17,7 @@ daily <- function(data, time = 'date', var, stat = mean, verbose = TRUE) {
   if(verbose)
     cat('calculating daily statistcis ... \n')
 
+  data         <- as.data.frame(data)
   data[[time]] <- as.POSIXct(as.Date(data[[time]]),tz = 'UTC')
 
   if(missing(var)){

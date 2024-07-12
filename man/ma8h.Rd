@@ -2,7 +2,7 @@
 % Please edit documentation in R/ma8h.R
 \name{ma8h}
 \alias{ma8h}
-\title{8-hour moving average}
+\title{Calculate 8-hour moving average}
 \usage{
 ma8h(data, time = "date", var, verbose = TRUE)
 }

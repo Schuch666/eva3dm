@@ -1,4 +1,4 @@
-#' 8-hour moving average
+#' Calculate 8-hour moving average
 #'
 #' @description function to calculate Ozone 8-hour moving average for a data.frame
 #'
