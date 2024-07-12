@@ -6,8 +6,8 @@
 #' @param time name of the time column (default is date) in POSIXct
 #' @param var name of the columns to be calculated
 #' @param stat function of the statistics to calculate (default is mean)
-#' @param min_offset minutes of observation fro previous hour (default is 30)
-#' @param numerical TRUE (defoult) include only numerical columns
+#' @param min_offset minutes of observation from previous hour (default is 30)
+#' @param numerical TRUE (default) include only numerical columns
 #' @param verbose display additional information
 #' @return data.frame including only numerical columns
 #'

@@ -4,7 +4,16 @@
 \alias{daily}
 \title{Calculate daily mean, min or max}
 \usage{
-daily(data, time = "date", var, stat = mean, verbose = TRUE)
+daily(
+  data,
+  time = "date",
+  var,
+  stat = mean,
+  min_offset = 0,
+  hour_offset = 0,
+  numerical = TRUE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{data}{data.frame with time column and variable columns to be processed}
@@ -15,6 +24,12 @@ daily(data, time = "date", var, stat = mean, verbose = TRUE)
 
 \item{stat}{function of the statistics to calculate (default is mean)}
 
+\item{min_offset}{minutes of observation from previous hour (default is 0)}
+
+\item{hour_offset}{hours of observation from previous day (default is 0)}
+
+\item{numerical}{TRUE (defoult) include only numerical columns}
+
 \item{verbose}{display additional information}
 }
 \value{
@@ -22,4 +37,17 @@ data.frame
 }
 \description{
 function to calculate Ozone Maximum Daily 8-hr Average or 8-hr moving Average for a data.frame
+}
+\examples{
+sites <- c("OAKB")
+for(site in sites){
+cat('downloading METAR from:',site,'...\n')
+DATA <- riem::riem_measures(station    = sites,
+                            date_start = "2012-01-01",
+                            date_end   = "2012-02-01")
+}
+data_daily_mean <- daily(DATA,time = 'valid')
+data_daily_min  <- daily(DATA[1:7],time = 'valid',stat = min)
+data_daily_max  <- daily(DATA[1:7],time = 'valid',stat = max)
+
 }

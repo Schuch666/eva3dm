@@ -4,7 +4,15 @@
 \alias{hourly}
 \title{Calculate hourly mean, min or max}
 \usage{
-hourly(data, time = "date", var, stat = mean, verbose = TRUE)
+hourly(
+  data,
+  time = "date",
+  var,
+  stat = mean,
+  min_offset = 30,
+  numerical = TRUE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{data}{data.frame with time column and variable columns to be processed}
@@ -15,10 +23,16 @@ hourly(data, time = "date", var, stat = mean, verbose = TRUE)
 
 \item{stat}{function of the statistics to calculate (default is mean)}
 
+\item{min_offset}{minutes of observation from previous hour (default is 30)}
+
+\item{numerical}{TRUE (default) include only numerical columns}
+
 \item{verbose}{display additional information}
 }
 \value{
 data.frame including only numerical columns
+
+data.frame
 }
 \description{
 function to calculate Ozone Maximum Daily 8-hr Average or 8-hr moving Average for a data.frame
