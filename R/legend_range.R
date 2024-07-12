@@ -1,4 +1,4 @@
-#' Plot a legend with the range (min, max and average) of the input.
+#' Plot a legend with the range of values
 #'
 #' @param x rast or array
 #' @param y rast or array to mean (x is used only for the range in this case)

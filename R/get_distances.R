@@ -1,4 +1,4 @@
-#' Get the distance in kilometers between two points.
+#' Get the distance in kilometers between two points
 #'
 #' @param lat1 Latitude in decimals
 #' @param long1 Longitude in decimals

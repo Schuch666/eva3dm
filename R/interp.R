@@ -1,4 +1,4 @@
-#' @title interpolation
+#' @title Interpolation (project and resample)
 #'
 #' @description function to project and interpolate rast
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/interp.R
 \name{interp}
 \alias{interp}
-\title{interpolation}
+\title{Interpolation (project and resample)}
 \usage{
 interp(x, y, method = "bilinear", verbose = F)
 }
