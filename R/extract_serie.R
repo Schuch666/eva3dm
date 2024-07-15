@@ -25,7 +25,7 @@
 #'
 #' @note FOR WACCM time-series, use the options: use_datesec=T, latitude='lat', longitude='lon', new=T
 #'
-#' @import ncdf4
+#' @import ncdf4 terra
 #'
 #' @export
 #'
@@ -39,12 +39,11 @@
 #' cat('Example 3: METAR soundings over Brazil\n')
 #' stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/soundings.Rds"))
 #'
-#' cat('Example 4: Brazilian Air Quality: CETESB (SP), RAMQAr (ES) and SMAC (RJ)\n')
-#' stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/stations.Rds"))
-#'
-#' cat('Example 5: AIRNET sites\n')
+#' cat('Example 4: AIRNET sites\n')
 #' stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/aeronet.Rds"))
 #'
+#' cat('Example 5: Brazilian Air Quality: CETESB (SP), RAMQAr (ES) and SMAC (RJ)\n')
+#' stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/stations.Rds"))
 #'
 #' files    <- dir(path = system.file("extdata",package="eval3dmodel"),
 #'                 pattern = 'wrf.day',
@@ -53,7 +52,7 @@
 #' folder <- file.path(tempdir(),"SERIE")
 #'
 #' # extract data for 3 locations
-#' extract_serie(filelist = files, point = stations[1:3,],prefix = paste0(folder,'/serie'))
+#' extract_serie(filelist = files, point = stations,prefix = paste0(folder,'/serie'))
 #'
 
 extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
@@ -62,6 +61,16 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
                           latitude = 'XLAT',longitude = 'XLONG',
                           use_TFLAG = FALSE,use_datesec = FALSE,
                           verbose = TRUE){
+
+  # ## TERRA R-package is not ready
+  # if(class(point) %in% 'SpatVector'){
+  #   ge    <- terra::as.data.frame(terra::geom(point))
+  #   new_p <- data.frame(lon = ge[,'x'],
+  #                       lat = ge[,'y'],
+  #                       stringsAsFactors = F)
+  #   row.names(new_p) <- terra::as.data.frame(point)$id
+  #   point            <- new_p
+  # }
 
   output_file  <- paste0(prefix,'.',variable,'.Rds')
 

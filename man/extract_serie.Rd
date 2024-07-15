@@ -72,12 +72,11 @@ stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/metar-
 cat('Example 3: METAR soundings over Brazil\n')
 stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/soundings.Rds"))
 
-cat('Example 4: Brazilian Air Quality: CETESB (SP), RAMQAr (ES) and SMAC (RJ)\n')
-stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/stations.Rds"))
-
-cat('Example 5: AIRNET sites\n')
+cat('Example 4: AIRNET sites\n')
 stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/aeronet.Rds"))
 
+cat('Example 5: Brazilian Air Quality: CETESB (SP), RAMQAr (ES) and SMAC (RJ)\n')
+stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/stations.Rds"))
 
 files    <- dir(path = system.file("extdata",package="eval3dmodel"),
                 pattern = 'wrf.day',
@@ -86,6 +85,6 @@ dir.create(file.path(tempdir(),"SERIE"))
 folder <- file.path(tempdir(),"SERIE")
 
 # extract data for 3 locations
-extract_serie(filelist = files, point = stations[1:3,],prefix = paste0(folder,'/serie'))
+extract_serie(filelist = files, point = stations,prefix = paste0(folder,'/serie'))
 
 }
