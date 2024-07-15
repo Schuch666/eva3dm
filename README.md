@@ -44,7 +44,7 @@ The package include:
 
 ✔ `stat()` calculate statistical indexes;
 
-✖ `cate()` calculate categorical evaluation;
+✔ `cate()` calculate categorical evaluation;
 
 ✔ `write_stat()` and `read_stat()` to write and read evaluation results.
 

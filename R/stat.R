@@ -8,9 +8,8 @@
 #' @param cutoff (optionally the maximum) valid value for observation
 #' @param cutoff_NME (optionally the maximum) valid value for observation for NME, MFB and MFE
 #' @param nobs minimum number of observations
-#' @param verbose display additional information
 #' @param rname row name
-#' @param ... extra arguments passed to scatter plot
+#' @param verbose display additional information
 #'
 #' @note the option wd = TRUE apply a rotation of 360 on model wind direction to minimize the angular difference.
 #'
@@ -26,7 +25,7 @@
 
 stat <- function(model, observation,
                  wd = FALSE, cutoff = NA, cutoff_NME = NA, nobs = 8,
-                 rname, verbose = T, ...){
+                 rname, verbose = T){
 
   IOA <- function(sim,obs){
     Om          <- mean(obs, na.rm=TRUE)
@@ -116,7 +115,7 @@ stat <- function(model, observation,
   }
 
   if(length(model) != length(observation))
-    stop("mo and ob need to have the same length!") # nocov
+    stop("model and observation need to have the same length!") # nocov
 
   NA_mod <- is.na(model)
   NA_obs <- is.na(observation)
