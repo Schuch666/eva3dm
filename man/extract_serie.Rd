@@ -18,6 +18,7 @@ extract_serie(
   longitude = "XLONG",
   use_TFLAG = FALSE,
   use_datesec = FALSE,
+  id = "id",
   verbose = TRUE
 )
 }
@@ -48,6 +49,8 @@ extract_serie(
 
 \item{use_datesec}{use the variable date and datesec (WACCM / CAM-Chem) instead of Times (WRF)}
 
+\item{id}{name of the column with station names, if point is a SpatVector (points) from terra package}
+
 \item{verbose}{display additional information}
 }
 \description{
@@ -64,19 +67,19 @@ FOR WACCM time-series, use the options: use_datesec=T, latitude='lat', longitude
 }
 \examples{
 cat('Example 1: INMET stations for 2015\n')
-stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/inmet_2015.Rds"))
+stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/BR-inmet_2015.Rds"))
 
 cat('Example 2: METAR stations of Brazil\n')
-stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/metar-br.Rds"))
+stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/BR-metar.Rds"))
 
 cat('Example 3: METAR soundings over Brazil\n')
-stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/soundings.Rds"))
+stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/BR-soundings.Rds"))
 
-cat('Example 4: AIRNET sites\n')
-stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/aeronet.Rds"))
+cat('Example 4: Global AERONET sites\n')
+stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/Global-aeronet.Rds"))
 
 cat('Example 5: Brazilian Air Quality: CETESB (SP), RAMQAr (ES) and SMAC (RJ)\n')
-stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/stations.Rds"))
+stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/BR-AQ.Rds"))
 
 files    <- dir(path = system.file("extdata",package="eval3dmodel"),
                 pattern = 'wrf.day',
@@ -85,6 +88,6 @@ dir.create(file.path(tempdir(),"SERIE"))
 folder <- file.path(tempdir(),"SERIE")
 
 # extract data for 3 locations
-extract_serie(filelist = files, point = stations,prefix = paste0(folder,'/serie'))
+extract_serie(filelist = files, point = stations[1:3,],prefix = paste0(folder,'/serie'))
 
 }

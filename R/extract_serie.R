@@ -15,6 +15,7 @@
 #' @param longitude name of longitude coordinade variable in the netcdf
 #' @param use_TFLAG use the variable TFLAG (CMAQ / smoke) instead of Times (WRF)
 #' @param use_datesec use the variable date and datesec (WACCM / CAM-Chem) instead of Times (WRF)
+#' @param id name of the column with station names, if point is a SpatVector (points) from terra package
 #' @param verbose display additional information
 #'
 #' @note The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3rd dimention (z).
@@ -31,19 +32,19 @@
 #'
 #' @examples
 #' cat('Example 1: INMET stations for 2015\n')
-#' stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/inmet_2015.Rds"))
+#' stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/BR-inmet_2015.Rds"))
 #'
 #' cat('Example 2: METAR stations of Brazil\n')
-#' stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/metar-br.Rds"))
+#' stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/BR-metar.Rds"))
 #'
 #' cat('Example 3: METAR soundings over Brazil\n')
-#' stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/soundings.Rds"))
+#' stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/BR-soundings.Rds"))
 #'
-#' cat('Example 4: AIRNET sites\n')
-#' stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/aeronet.Rds"))
+#' cat('Example 4: Global AERONET sites\n')
+#' stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/Global-aeronet.Rds"))
 #'
 #' cat('Example 5: Brazilian Air Quality: CETESB (SP), RAMQAr (ES) and SMAC (RJ)\n')
-#' stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/stations.Rds"))
+#' stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/BR-AQ.Rds"))
 #'
 #' files    <- dir(path = system.file("extdata",package="eval3dmodel"),
 #'                 pattern = 'wrf.day',
@@ -52,25 +53,25 @@
 #' folder <- file.path(tempdir(),"SERIE")
 #'
 #' # extract data for 3 locations
-#' extract_serie(filelist = files, point = stations,prefix = paste0(folder,'/serie'))
+#' extract_serie(filelist = files, point = stations[1:3,],prefix = paste0(folder,'/serie'))
 #'
 
 extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
                           prefix = 'serie',new = 'check', return.nearest = FALSE,
                           fast = FALSE, use_ij = FALSE,
                           latitude = 'XLAT',longitude = 'XLONG',
-                          use_TFLAG = FALSE,use_datesec = FALSE,
+                          use_TFLAG = FALSE,use_datesec = FALSE,id = 'id',
                           verbose = TRUE){
 
-  # ## TERRA R-package is not ready
-  # if(class(point) %in% 'SpatVector'){
-  #   ge    <- terra::as.data.frame(terra::geom(point))
-  #   new_p <- data.frame(lon = ge[,'x'],
-  #                       lat = ge[,'y'],
-  #                       stringsAsFactors = F)
-  #   row.names(new_p) <- terra::as.data.frame(point)$id
-  #   point            <- new_p
-  # }
+  if(class(point) %in% 'SpatVector'){
+    ge    <- terra::as.data.frame(terra::geom(point))
+    new_p <- data.frame(lon = ge[,'x'],
+                        lat = ge[,'y'],
+                        stringsAsFactors = F)
+    new_id <- terra::as.data.frame(point)
+    row.names(new_p) <- new_id[,id]
+    point  <- new_p
+  }
 
   output_file  <- paste0(prefix,'.',variable,'.Rds')
 
