@@ -14,6 +14,7 @@
 #' @note The field argument '4d' / '2dz' is used to read a 4d/3d variable droping the 3rd dimention (z).
 #'
 #' @import ncdf4
+#' @importFrom terra roll
 #'
 #' @export
 #'
@@ -30,16 +31,16 @@ extract_max_8h <- function(filelist, variable = "o3", field = "4d",
                            prefix = "max_8h", units = "ug m-3", meta = T,
                            filename,verbose = TRUE){
 
-  moving_average <- function(x, n = 8) {
-    if (n > length(x)) {
-      stop("Window size 'n' should be less than or equal to the length of the vector 'x'.")
-    }
-    result <- numeric(length(x) - n + 1)
-    for (i in 1:(length(x) - n + 1)) {
-      result[i] <- mean(x[i:(i + n - 1)])
-    }
-    return(result)
-  }
+  # moving_average <- function(x, n = 8) {
+  #   if (n > length(x)) {
+  #     stop("Window size 'n' should be less than or equal to the length of the vector 'x'.")
+  #   }
+  #   result <- numeric(length(x) - n + 1)
+  #   for (i in 1:(length(x) - n + 1)) {
+  #     result[i] <- mean(x[i:(i + n - 1)])
+  #   }
+  #   return(result)
+  # }
 
   if(missing(filename)){
     output_filename   <- paste0(prefix,'.',variable,'.nc')
@@ -81,7 +82,8 @@ extract_max_8h <- function(filelist, variable = "o3", field = "4d",
 
     for(i in 1:dim(var)[1]){
       for(j in 1:dim(var)[2]){
-        moving_max[i,j] <- max(moving_average(var[i,j,],n = 8),na.rm = T)
+        # moving_max[i,j] <- max(moving_average(var[i,j,],n = 8),na.rm = T)
+        moving_max[i,j] <- max(terra::roll(var[i,j,],8,mean,'around',na.rm=T),na.rm = T)
       }
     }
     return(moving_max)
