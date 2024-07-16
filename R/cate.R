@@ -1,6 +1,6 @@
-#' Calculate evaluation statistics from numerical vectors
+#' Calculate categorical statistics from numerical vectors in related to a threshold
 #'
-#' @description Calculate statistical indexes (Number of pairs, observation average, model average, correlation, Index Of Agreement, Factor of 2, Root Mean Square Error, Mean Bias, Mean error, Normalized Mean Bias, and Normalized Mean Bias) for model evaluation
+#' @description Calculate traditional statistics from two numerical vectors in related to a threshold
 #'
 #' @param model numeric vector with paired model data
 #' @param observation numeric vector with paired observation data
@@ -8,13 +8,11 @@
 #' @param cutoff (optionally the maximum) valid value for observation
 #' @param nobs minimum number of observations
 #' @param rname row name
-#' @param to.plot TRUE to plot a scatterplot
+#' @param to.plot TRUE to plot a scatter-plot
 #' @param verbose display additional information
-#' @param ...
+#' @param ... arguments passed to plot
 #'
-#' @note the option wd = TRUE apply a rotation of 360 on model wind direction to minimize the angular difference.
-#'
-#' @return data.frame
+#' @return a data.frame including: Accuracy (A); Critical Success Index (CSI); Probability of Detection (POD); Bias(B); False Alarm Ratio (FAR); Heidke Skill Score (HSS); Pearce skill Score (PSS) in %.
 #'
 #' @export
 #'
@@ -72,23 +70,32 @@ cate <- function(model, observation, threshold,
     }else{
       plot(observation,model, col = 'blue', pch = 19, ...)
     }
-    abline(h = threshold, col = 'gray',lty = 3)
-    abline(v = threshold, col = 'gray',lty = 3)
+    min_all <- min(observation, model, na.rm = TRUE)
+    max_all <- max(observation, model, na.rm = TRUE)
+    delta   <- 0.1*(max_all - min_all)
+    lines(x = c(min_all-delta,max_all+delta),
+          y = c(threshold,threshold),
+          col = 'gray',lty = 3)
+    lines(x = c(threshold,threshold),
+          y = c(min_all-delta,max_all+delta),
+          col = 'gray',lty = 3)
   }
 
-  a     = sum(model >  threshold & observation <= threshold)
-  b     = sum(model >  threshold & observation >  threshold)
-  c     = sum(model <= threshold & observation <= threshold)
-  d     = sum(model <= threshold & observation >  threshold)
+  a = sum(model >  threshold & observation <= threshold)
+  b = sum(model >  threshold & observation >  threshold)
+  c = sum(model <= threshold & observation <= threshold)
+  d = sum(model <= threshold & observation >  threshold)
 
   table_stats <- as.data.frame(cbind(n    = length(observation),
                                      Obs  = mean(observation, na.rm = TRUE),
                                      Sim  = mean(model, na.rm = TRUE),
-                                     Acc	= (b + c) / (a+b+c+d),
-                                     CSI  = b / (a+b+d),
-                                     POD  = (a+b) / (b+b),
-                                     Bias	= (a+b) / (b+d),
-                                     FAR	= a / (a+b)
+                                     A   	= 100 * (b + c) / (a+b+c+d),
+                                     CSI  = 100 * b / (a+b+d),
+                                     POD  = 100 * b / (b+d),
+                                     B	  = 100 * (a+b) / (b+d),
+                                     FAR	= 100 * a / (a+b),
+                                     HSS  = 200 * (b*c-a*d) / ((b+d)*(c+d)+(a+b)*(a+c)),
+                                     PSS  = 100 * (b*c - a*d) / ((a+c) * (b+d))
                                      ))
 
   if(!missing(rname))

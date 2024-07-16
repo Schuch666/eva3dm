@@ -40,7 +40,7 @@ The package include:
 
 ➞ `eval()` data pairing and evaluation against time-series;
 
-✔ `sate()` evaluateion ainst satellite observation;
+✔ `sate()` evaluation against satellite observation;
 
 ✔ `stat()` calculate statistical indexes;
 

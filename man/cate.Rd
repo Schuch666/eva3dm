@@ -2,7 +2,7 @@
 % Please edit documentation in R/cate.R
 \name{cate}
 \alias{cate}
-\title{Calculate evaluation statistics from numerical vectors}
+\title{Calculate categorical statistics from numerical vectors in related to a threshold}
 \usage{
 cate(
   model,
@@ -29,20 +29,17 @@ cate(
 
 \item{rname}{row name}
 
-\item{to.plot}{TRUE to plot a scatterplot}
+\item{to.plot}{TRUE to plot a scatter-plot}
 
 \item{verbose}{display additional information}
 
-\item{...}{}
+\item{...}{arguments passed to plot}
 }
 \value{
-data.frame
+a data.frame including: Accuracy (A); Critical Success Index (CSI); Probability of Detection (POD); Bias(B); False Alarm Ratio (FAR); Heidke Skill Score (HSS); Pearce skill Score (PSS) in %.
 }
 \description{
-Calculate statistical indexes (Number of pairs, observation average, model average, correlation, Index Of Agreement, Factor of 2, Root Mean Square Error, Mean Bias, Mean error, Normalized Mean Bias, and Normalized Mean Bias) for model evaluation
-}
-\note{
-the option wd = TRUE apply a rotation of 360 on model wind direction to minimize the angular difference.
+Calculate traditional statistics from two numerical vectors in related to a threshold
 }
 \examples{
 model <- 0.02 * 1:100
