@@ -12,6 +12,10 @@ cate(
   nobs = 8,
   rname,
   to.plot = F,
+  col = "#4444bb",
+  pch = 19,
+  lty = 3,
+  lcol = "#333333",
   verbose = T,
   ...
 )
@@ -30,6 +34,14 @@ cate(
 \item{rname}{row name}
 
 \item{to.plot}{TRUE to plot a scatter-plot}
+
+\item{col}{color for points}
+
+\item{pch}{pch of points}
+
+\item{lty}{lty of threshold lines}
+
+\item{lcol}{col of threshold lines}
 
 \item{verbose}{display additional information}
 

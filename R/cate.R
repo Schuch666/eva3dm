@@ -9,6 +9,10 @@
 #' @param nobs minimum number of observations
 #' @param rname row name
 #' @param to.plot TRUE to plot a scatter-plot
+#' @param col color for points
+#' @param pch pch of points
+#' @param lty lty of threshold lines
+#' @param lcol col of threshold lines
 #' @param verbose display additional information
 #' @param ... arguments passed to plot
 #'
@@ -25,7 +29,9 @@
 
 cate <- function(model, observation, threshold,
                  cutoff = NA, nobs = 8,
-                 rname, to.plot = F, verbose = T, ...){
+                 rname, to.plot = F, col = '#4444bb', pch = 19,
+                 lty = 3,lcol = '#333333',
+                 verbose = T, ...){
 
   if(length(model) != length(observation))
     stop("model and observation need to have the same length!") # nocov
@@ -41,44 +47,42 @@ cate <- function(model, observation, threshold,
 
     model        <- model[observation >= cutoff[1]]
     observation  <- observation[observation >= cutoff[1]]
-
     cat(length(model),'values left\n')
-
-    if(length(model) < nobs){
-      RESULT <- stat((1:199)/100,(1:199)/100)
-      RESULT$n = 0
-      return(RESULT)
-    }
   }
   if(length(cutoff)>1){
     cat('using',cutoff[2],'for max cutoff\n')
 
     model       <- model[observation < cutoff[2]]
     observation <- observation[observation < cutoff[2]]
-
     cat(length(model),'values left\n')
-    if(length(model) < nobs){
-      RESULT <- stat((1:199)/100,(1:199)/100)
-      RESULT$n = 0
-      return(RESULT)
-    }
+  }
+
+  if(length(model) < nobs){
+    warning('Valid number of observatios lesseer than nobs')
+    RESULT     <- cate(NA,NA,1,nobs = 0)
+    RESULT$n   = length(model)
+    RESULT$Obs = mean(observation, na.rm = TRUE)
+    RESULT$Sim = mean(model, na.rm = TRUE)
   }
 
   if(to.plot){
+    range_all <- range(observation,model, na.rm = TRUE)
     if(!missing(rname)){
-      plot(observation,model, col = 'blue', pch = 19, main = rname, ...)
+      plot(observation,model, col = col, pch = pch, main = rname,
+           xlim = range_all, ylim = range_all, ...)
     }else{
-      plot(observation,model, col = 'blue', pch = 19, ...)
+      plot(observation,model, col = col, pch = pch,
+           xlim = range_all, ylim = range_all, ...)
     }
     min_all <- min(observation, model, na.rm = TRUE)
     max_all <- max(observation, model, na.rm = TRUE)
     delta   <- 0.1*(max_all - min_all)
     lines(x = c(min_all-delta,max_all+delta),
           y = c(threshold,threshold),
-          col = 'gray',lty = 3)
+          col = lcol,lty = lty)
     lines(x = c(threshold,threshold),
           y = c(min_all-delta,max_all+delta),
-          col = 'gray',lty = 3)
+          col = lcol,lty = lty)
   }
 
   a = sum(model >  threshold & observation <= threshold)
@@ -98,7 +102,13 @@ cate <- function(model, observation, threshold,
                                      PSS  = 100 * (b*c - a*d) / ((a+c) * (b+d))
                                      ))
 
+  if(is.nan(table_stats$HSS))
+    table_stats$HSS = 0
+  if(is.nan(table_stats$PSS))
+    table_stats$PSS = 0
+
   if(!missing(rname))
     row.names(table_stats) <- rname
+
   return(table_stats)
 }
