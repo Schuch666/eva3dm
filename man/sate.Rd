@@ -12,6 +12,7 @@ sate(
   max = NA,
   rname,
   method = "bilinear",
+  eval_function = stat,
   verbose = T,
   ...
 )
@@ -31,6 +32,8 @@ sate(
 
 \item{method}{passed to terra::resample}
 
+\item{eval_function}{evaluation function (default is stat)}
+
 \item{verbose}{set TRUE to display additional information}
 
 \item{...}{other arguments passed to stat}
@@ -43,4 +46,20 @@ functions to evaluate the spatial performance using satellite
 }
 \note{
 If a YOU DIED error message appears, means you are removing all the valid values using the arguments min or max.
+
+If cate() is used for eval_function, the argument threshold must be included (see example).
+}
+\examples{
+model_o3 <- terra::rast(paste0(system.file("extdata",package="eval3dmodel"),
+                              "/camx_no2.Rds"))
+omi_o3   <- terra::rast(paste0(system.file("extdata",package="eval3dmodel"),
+                              "/omi_no2.Rds"))
+
+# generate the statistical indexes
+sate(mo = model_o3,ob = omi_o3,rname = 'NO2_statistical')
+
+# generate categorical evaluation using 3.0 as threshold
+sate(mo = model_o3,ob = omi_o3,rname = 'NO2_categorical',
+     eval_function = cate, threshold = 3.0)
+
 }

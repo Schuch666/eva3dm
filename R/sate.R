@@ -11,16 +11,32 @@
 #' @param max maximum value cutoff
 #' @param rname passed to stat
 #' @param method passed to terra::resample
+#' @param eval_function evaluation function (default is stat)
 #' @param verbose set TRUE to display additional information
 #' @param ... other arguments passed to stat
 #'
 #' @note If a YOU DIED error message appears, means you are removing all the valid values using the arguments min or max.
+#' @note If cate() is used for eval_function, the argument threshold must be included (see example).
 #'
 #' @import terra
 #'
+#' @examples
+#' model_o3 <- terra::rast(paste0(system.file("extdata",package="eval3dmodel"),
+#'                               "/camx_no2.Rds"))
+#' omi_o3   <- terra::rast(paste0(system.file("extdata",package="eval3dmodel"),
+#'                               "/omi_no2.Rds"))
+#'
+#' # generate the statistical indexes
+#' sate(mo = model_o3,ob = omi_o3,rname = 'NO2_statistical')
+#'
+#' # generate categorical evaluation using 3.0 as threshold
+#' sate(mo = model_o3,ob = omi_o3,rname = 'NO2_categorical',
+#'      eval_function = cate, threshold = 3.0)
+#'
 #' @export
 
-sate <- function(mo,ob,n = 6, min = NA, max = NA,rname, method = 'bilinear',verbose = T, ...){
+sate <- function(mo,ob,n = 6, min = NA, max = NA,rname, method = 'bilinear',
+                 eval_function = stat, verbose = T, ...){
 
   if(missing(mo))
     stop('model input is missing!')
@@ -85,8 +101,8 @@ sate <- function(mo,ob,n = 6, min = NA, max = NA,rname, method = 'bilinear',verb
   if(length(model) < 1 | length(obser) < 1) stop('YOU DIED')
 
   if(missing(rname)){
-    return(stat(model = model, observation = obser, ...))
+    return(eval_function(model = model, observation = obser, ...))
   }else{
-    return(stat(model = model, observation = obser, rname = rname, ...))
+    return(eval_function(model = model, observation = obser, rname = rname, ...))
   }
 }
