@@ -13,10 +13,11 @@
 #' @param pch pch of points
 #' @param lty lty of threshold lines
 #' @param lcol col of threshold lines
+#' @param lim limit for x and y
 #' @param verbose display additional information
 #' @param ... arguments passed to plot
 #'
-#' @return a data.frame including: Accuracy (A); Critical Success Index (CSI); Probability of Detection (POD); Bias(B); False Alarm Ratio (FAR); Heidke Skill Score (HSS); Pearce skill Score (PSS) in %.
+#' @return a data.frame including: Accuracy (A); Critical Success Index (CSI); Probability of Detection (POD); Bias(B); False Alarm Ratio (FAR); Heidke Skill Score (HSS); Pearce skill Score (PSS) in %. The number of valid observations (n), average of observations (Obs) and model (Mod) and the used threshold (thr) are also included for additional information.
 #'
 #' @export
 #'
@@ -30,7 +31,7 @@
 cate <- function(model, observation, threshold,
                  cutoff = NA, nobs = 8,
                  rname, to.plot = F, col = '#4444bb', pch = 19,
-                 lty = 3,lcol = '#333333',
+                 lty = 3,lcol = '#333333',lim,
                  verbose = T, ...){
 
   if(length(model) != length(observation))
@@ -66,16 +67,17 @@ cate <- function(model, observation, threshold,
   }
 
   if(to.plot){
-    range_all <- range(observation,model, na.rm = TRUE)
+    if(missing(lim))
+      lim <- range(observation,model,threshold, na.rm = TRUE)
     if(!missing(rname)){
       plot(observation,model, col = col, pch = pch, main = rname,
-           xlim = range_all, ylim = range_all, ...)
+           xlim = lim, ylim = lim, ...)
     }else{
       plot(observation,model, col = col, pch = pch,
-           xlim = range_all, ylim = range_all, ...)
+           xlim = lim, ylim = lim, ...)
     }
-    min_all <- min(observation, model, na.rm = TRUE)
-    max_all <- max(observation, model, na.rm = TRUE)
+    min_all <- min(observation, model,threshold, na.rm = TRUE)
+    max_all <- max(observation, model,threshold, na.rm = TRUE)
     delta   <- 0.1*(max_all - min_all)
     lines(x = c(min_all-delta,max_all+delta),
           y = c(threshold,threshold),
@@ -93,6 +95,7 @@ cate <- function(model, observation, threshold,
   table_stats <- as.data.frame(cbind(n    = length(observation),
                                      Obs  = mean(observation, na.rm = TRUE),
                                      Sim  = mean(model, na.rm = TRUE),
+                                     thr  = threshold,
                                      A   	= 100 * (b + c) / (a+b+c+d),
                                      CSI  = 100 * b / (a+b+d),
                                      POD  = 100 * b / (b+d),

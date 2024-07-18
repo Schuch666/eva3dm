@@ -16,6 +16,7 @@ cate(
   pch = 19,
   lty = 3,
   lcol = "#333333",
+  lim,
   verbose = T,
   ...
 )
@@ -43,12 +44,14 @@ cate(
 
 \item{lcol}{col of threshold lines}
 
+\item{lim}{limit for x and y}
+
 \item{verbose}{display additional information}
 
 \item{...}{arguments passed to plot}
 }
 \value{
-a data.frame including: Accuracy (A); Critical Success Index (CSI); Probability of Detection (POD); Bias(B); False Alarm Ratio (FAR); Heidke Skill Score (HSS); Pearce skill Score (PSS) in %.
+a data.frame including: Accuracy (A); Critical Success Index (CSI); Probability of Detection (POD); Bias(B); False Alarm Ratio (FAR); Heidke Skill Score (HSS); Pearce skill Score (PSS) in %. The number of valid observations (n), average of observations (Obs) and model (Mod) and the used threshold (thr) are also included for additional information.
 }
 \description{
 Calculate traditional statistics from two numerical vectors in related to a threshold
