@@ -13,6 +13,7 @@
 #' @param add add to existing plot
 #' @param plg list of parameters passed to terra::add_legend
 #' @param pax list of parameters passed to graphics::axis
+#' @param expand to extand the plot region
 #' @param ... arguments to be passing to terra::plot
 #'
 #' @import terra
@@ -50,6 +51,7 @@ overlay <- function(p,z,
                     add      = TRUE,
                     plg      = list(tic = 'none',shrink=1.00),
                     pax      = list(),
+                    expand   = 1.0,
                     ...){
 
   if(symmetry){
@@ -59,9 +61,10 @@ overlay <- function(p,z,
   }
 
   if(add == F){
-    r <- rast(x = terra::ext(p))
+    r <- rast(x = expand * terra::ext(p))
     values(r) = 666
-    terra::plot(r,col = col,
+    terra::plot(r,
+                col = col,
                 range = lim,
                 legend =TRUE,
                 axes =TRUE,

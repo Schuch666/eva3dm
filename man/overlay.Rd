@@ -16,6 +16,7 @@ overlay(
   add = TRUE,
   plg = list(tic = "none", shrink = 1),
   pax = list(),
+  expand = 1,
   ...
 )
 }
@@ -41,6 +42,8 @@ overlay(
 \item{plg}{list of parameters passed to terra::add_legend}
 
 \item{pax}{list of parameters passed to graphics::axis}
+
+\item{expand}{to extand the plot region}
 
 \item{...}{arguments to be passing to terra::plot}
 }
