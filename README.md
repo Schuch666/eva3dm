@@ -54,6 +54,6 @@ The package include:
 
 ➞ `plot_diff()` custom plot for absolute or relative difference of `rast` objects;
 
-➞ `overlay()` custom plot to overlay points on `plot_rast()` plot;
+✔ `overlay()` custom plot to overlay points or plot point-data;
 
 ✔ `legend_range()` custom legend, display max, min and average;
