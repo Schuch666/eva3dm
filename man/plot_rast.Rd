@@ -20,7 +20,7 @@ plot_rast(
   add_range = TRUE,
   ndig = 2,
   log = FALSE,
-  zlim,
+  range,
   min = -3,
   max,
   ...
@@ -57,7 +57,7 @@ plot_rast(
 
 \item{log}{TRUE to plot in log-scale}
 
-\item{zlim}{zlim}
+\item{range}{range to plot}
 
 \item{min}{minimum for log scale (defoul is -3)}
 

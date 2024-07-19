@@ -7,7 +7,7 @@
 overlay(
   p,
   z,
-  col = hcl.colors(41, "Blue-Red"),
+  col,
   lim = range(z, na.rm = TRUE),
   symmetry = TRUE,
   pch = 19,
@@ -16,7 +16,7 @@ overlay(
   add = TRUE,
   plg = list(tic = "none", shrink = 1),
   pax = list(),
-  expand = 1,
+  expand = 1.15,
   ...
 )
 }
@@ -43,7 +43,7 @@ overlay(
 
 \item{pax}{list of parameters passed to graphics::axis}
 
-\item{expand}{to extand the plot region}
+\item{expand}{to expand the plot region}
 
 \item{...}{arguments to be passing to terra::plot}
 }
@@ -60,14 +60,14 @@ p     <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),
                         "/BR-AQ.Rds"))
 p$id  <- row.names(p)
 point <- terra::vect(p)
-point$NMB <- 1:45 - 20
+point$NMB <- 1:45 - 20 # some values to plot
 
-terra::plot(BR, main = 'add points')
+terra::plot(BR, main = 'add points',xlim = c(-52,-37),ylim = c(-25,-18))
 terra::lines(BR)
 terra::lines(masp, col = 'gray')
 overlay(point,point$NMB,cex = 1.4)
 
-overlay(point,point$NMB,cex = 1.4, add = F, main = 'main plot')
+overlay(point,point$NMB,cex = 1.4, add = F, main = 'new plot')
 terra::lines(BR)
 terra::lines(masp, col = 'gray')
 

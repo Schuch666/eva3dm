@@ -16,7 +16,7 @@
 #' @param grid_col color for grid lines
 #' @param add_range add legend with max, average and min r values
 #' @param ndig number of digits for legend_range
-#' @param zlim zlim
+#' @param range range to plot
 #' @param log TRUE to plot in log-scale
 #' @param min minimum for log scale (defoul is -3)
 #' @param max maximum for log scale
@@ -49,7 +49,7 @@ plot_rast <- function(r,
                       add_range = TRUE,
                       ndig = 2,
                       log = FALSE,
-                      zlim,
+                      range,
                       min = -3,
                       max,
                       ...){
@@ -63,13 +63,16 @@ plot_rast <- function(r,
     latlon = FALSE
   }
 
-  if(!missing(zlim) & !log){
+  if(!missing(range) & !log){
     r2 <- r
-    r2[r[] < zlim[1] ] = zlim[1]
-    r2[r[] > zlim[2] ] = zlim[2]
+    r2[r[] < range[1] ] = range[1]
+    r2[r[] > range[2] ] = range[2]
   }else{
     r2 <- r
   }
+
+  if(missing(range))
+    range <- as.numeric(global(r2,'range'))
 
   if(missing(color)){
     color <- c("#08306B","#133A72","#1F4479","#2B4E81","#375888",
@@ -151,9 +154,11 @@ plot_rast <- function(r,
 
     arg <- list(at=at, labels=label)
 
-    terra::plot(r_log, col = color, plg = c(plg,arg), pax = pax,axe = T, grid = FALSE,fun = extra, ...)
+    terra::plot(r_log, col = color, plg = c(plg,arg), pax = pax,axe = T,
+                grid = FALSE,fun = extra, range = range, ...)
   }else{
-    terra::plot(r, col = color, plg = plg, pax = pax,axe = T, grid = FALSE,fun = extra, ...)
+    terra::plot(r2, col = color, plg = plg, pax = pax,axe = T,
+                grid = FALSE,fun = extra, range = range, ...)
   }
 }
 
