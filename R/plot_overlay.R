@@ -37,7 +37,7 @@
 #' terra::lines(masp, col = 'gray')
 #' overlay(point,point$NMB,cex = 1.4)
 #'
-#' overlay(point,point$NMB,cex = 1.4, add = F, main = 'new plot')
+#' overlay(point,point$NMB,cex = 1.4, add = FALSE, main = 'new plot')
 #' terra::lines(BR)
 #' terra::lines(masp, col = 'gray')
 #'
@@ -53,7 +53,7 @@ overlay <- function(p,z,col,
                     expand   = 1.15,
                     ...){
 
-  if(missingArg(col))
+  if(missing(col))
     col <- c("#1B2C62","#204385","#265CA9","#4082C2",
              "#5DA9DB","#80C4EA","#A4DDF7","#C1E7F8",
              "#DEF2FA","#F2FAFD","#FFFFFF","#FFFFFF",

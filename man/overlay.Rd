@@ -67,7 +67,7 @@ terra::lines(BR)
 terra::lines(masp, col = 'gray')
 overlay(point,point$NMB,cex = 1.4)
 
-overlay(point,point$NMB,cex = 1.4, add = F, main = 'new plot')
+overlay(point,point$NMB,cex = 1.4, add = FALSE, main = 'new plot')
 terra::lines(BR)
 terra::lines(masp, col = 'gray')
 

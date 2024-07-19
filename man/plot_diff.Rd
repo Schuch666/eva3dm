@@ -5,12 +5,14 @@
 \title{Plot rast (SpatRaster) object}
 \usage{
 plot_diff(
-  a,
-  b,
+  x,
+  y,
   col,
+  absolute = T,
+  relative = T,
   lim_1 = NA,
   lim_2 = NA,
-  file,
+  units = c("", expression("\%")),
   w = 800,
   h = 1200,
   pt = 18,
@@ -18,15 +20,21 @@ plot_diff(
 )
 }
 \arguments{
-\item{a}{SpatVector points}
+\item{x}{SpatVector points}
 
-\item{b}{values to plot}
+\item{y}{values to plot}
 
 \item{col}{color}
+
+\item{absolute}{to plot absolute difference}
+
+\item{relative}{to plot relative difference}
 
 \item{lim_1}{range of values for scale}
 
 \item{lim_2}{calculate symmetrical scale}
+
+\item{units}{units annotation}
 
 \item{w}{width for png function}
 
@@ -35,11 +43,9 @@ plot_diff(
 \item{pt}{fond size for png function}
 
 \item{...}{arguments to be passing to terra::plot}
-
-\item{save}{name to save a .png file instead of plot}
 }
 \description{
-Custon plot for SpatRaster (terra R-package) object based on terra package
+Custon diffrerence plots (x - y) of plot for SpatRaster (terra R-package) object based on terra package
 }
 \examples{
 print('oi')

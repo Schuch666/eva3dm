@@ -10,7 +10,7 @@
 #' @param lim_1 range of values for scale
 #' @param lim_2 calculate symmetrical scale
 #' @param units units annotation
-#' @param save name to save a .png file instead of plot
+### #' @param file name to save a .png file instead of plot
 #' @param w width for png function
 #' @param h height for png function
 #' @param pt fond size for png function
@@ -29,11 +29,11 @@ plot_diff <- function(x,y,col,
                       relative = T,
                       lim_1 = NA, lim_2 = NA,
                       units = c('',expression("%")),
-                      file,
+                      # file,
                       w = 800, h = 1200, pt = 18,
                       ...){
 
-  if(missingArg(col))
+  if(missing(col))
     col <- c("#1B2C62","#204385","#265CA9","#4082C2",
              "#5DA9DB","#80C4EA","#A4DDF7","#C1E7F8",
              "#DEF2FA","#F2FAFD","#FFFFFF","#FFFFFF",
@@ -55,28 +55,28 @@ plot_diff <- function(x,y,col,
   lim_2[1] <- -max(abs(range(lim_2)))
   lim_2[2] <- max(abs(range(lim_2)))
 
-  if(!missingArg(file)){
-    cat('saving plot_diff in',file,'...\n')
-    png(filename = file,
-        width = w,
-        height = h,
-        pointsize = pt)
-  }
+  # if(!missing(file)){
+  #   cat('saving plot_diff in',file,'...\n')
+  #   png(filename = file,
+  #       width = w,
+  #       height = h,
+  #       pointsize = pt)
+  # }
 
-  if(absolute & relative){
-    p <- par(mfrow=c(2,1))
-    on.exit(par(p))
-  }
+  # if(absolute & relative){
+  #   p <- grDevices::par(mfrow=c(2,1))
+  #   on.exit(grDevices::par(p))
+  # }
 
   if(absolute){
-    plot_rast(diff, col = col,range = lim_1,main = 'absolute')
-    mtext(units[1], side=3, line=2.2,adj = 1)
+    plot_rast(diff, color = col,range = lim_1,main = 'absolute')
+    # mtext(units[1], side=3, line=2.2,adj = 1)
   }
   if(relative){
-    plot_rast(rel, col = col,range = lim_2, main = 'relative')
-    mtext(units[2], side=3, line=2.2,adj = 1)
+    plot_rast(rel, color = col,range = lim_2, main = 'relative')
+    # mtext(units[2], side=3, line=2.2,adj = 1)
   }
 
-  if(!missingArg(file))
-    garbage <- dev.off()
+  # if(!missing(file))
+  #   garbage <- grDevices::dev.off()
 }
