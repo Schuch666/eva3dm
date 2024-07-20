@@ -10,10 +10,10 @@
 #' @param lim_1 range of values for scale
 #' @param lim_2 calculate symmetrical scale
 #' @param units units annotation
-### #' @param file name to save a .png file instead of plot
-#' @param w width for png function
-#' @param h height for png function
-#' @param pt fond size for png function
+# ' @param file name to save a .png file instead of plot
+# ' @param w width for png function
+# ' @param h height for png function
+# ' @param pt fond size for png function
 #' @param ... arguments to be passing to terra::plot
 #'
 #' @import terra
@@ -30,7 +30,7 @@ plot_diff <- function(x,y,col,
                       lim_1 = NA, lim_2 = NA,
                       units = c('',expression("%")),
                       # file,
-                      w = 800, h = 1200, pt = 18,
+                      # w = 800, h = 1200, pt = 18,
                       ...){
 
   if(missing(col))
@@ -57,23 +57,27 @@ plot_diff <- function(x,y,col,
 
   # if(!missing(file)){
   #   cat('saving plot_diff in',file,'...\n')
-  #   png(filename = file,
-  #       width = w,
-  #       height = h,
-  #       pointsize = pt)
+  #   grDevices::png(filename = file,
+  #                  width = w,
+  #                  height = h,
+  #                  pointsize = pt)
   # }
 
   # if(absolute & relative){
-  #   p <- grDevices::par(mfrow=c(2,1))
-  #   on.exit(grDevices::par(p))
+  #   p <- graphics::par(mfrow=c(2,1))
+  #   on.exit(graphics::par(p))
   # }
 
   if(absolute){
-    plot_rast(diff, color = col,range = lim_1,main = 'absolute')
+    plot_rast(diff, color = col,range = lim_1,
+              plg = list(tic = 'none',shrink=0.98, title = units[1]))
+    # terra::add_mtext(text = units[1], side = 3, line=0.0, adj = 1)
     # mtext(units[1], side=3, line=2.2,adj = 1)
   }
   if(relative){
-    plot_rast(rel, color = col,range = lim_2, main = 'relative')
+    plot_rast(rel, color = col,range = lim_2,
+              plg = list(tic = 'none',shrink=0.98, title = units[2]))
+    # terra::add_mtext(text = units[2], side = 3, line=0.0, adj = 1)
     # mtext(units[2], side=3, line=2.2,adj = 1)
   }
 

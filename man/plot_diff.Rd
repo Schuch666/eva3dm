@@ -13,9 +13,6 @@ plot_diff(
   lim_1 = NA,
   lim_2 = NA,
   units = c("", expression("\%")),
-  w = 800,
-  h = 1200,
-  pt = 18,
   ...
 )
 }
@@ -35,12 +32,6 @@ plot_diff(
 \item{lim_2}{calculate symmetrical scale}
 
 \item{units}{units annotation}
-
-\item{w}{width for png function}
-
-\item{h}{height for png function}
-
-\item{pt}{fond size for png function}
 
 \item{...}{arguments to be passing to terra::plot}
 }
