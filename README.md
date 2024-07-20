@@ -52,7 +52,7 @@ The package include:
 
 ✔ `plot_rast()` custom plot for `rast` objects;
 
-➞ `plot_diff()` custom plot for absolute or relative difference of `rast` objects;
+✔ `plot_diff()` custom plot for absolute or relative difference of `rast` objects;
 
 ✔ `overlay()` custom plot to overlay points or plot point-data;
 
