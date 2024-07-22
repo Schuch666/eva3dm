@@ -9,7 +9,8 @@
 #' @export
 #'
 #' @examples
-#' ncdump(file = paste0(system.file("extdata",package="eval3dmodel"),'/wrfinput_d01'))
+#' ncdump(file = paste0(system.file("extdata",package="eval3dmodel"),
+#'                      '/wrfinput_d01'))
 #'
 
 ncdump <- function(file = file.choose()){

@@ -33,12 +33,16 @@ plot_diff(
 
 \item{units}{units annotation}
 
-\item{...}{arguments to be passing to terra::plot}
+\item{...}{arguments to be passing to plot_raster}
 }
 \description{
-Custon diffrerence plots (x - y) of plot for SpatRaster (terra R-package) object based on terra package
+Custon difference plots (x - y) of plot for SpatRaster (terra R-package) object based on terra package
 }
 \examples{
-print('oi')
 
+folder <- system.file("extdata",package="eval3dmodel")
+wrf    <- paste0(folder,"/wrfinput_d01")
+A      <- wrf_rast(wrf,'XLAT')
+B      <- wrf_rast(wrf,'XLONG')
+plot_diff(A,B,int = 2)
 }

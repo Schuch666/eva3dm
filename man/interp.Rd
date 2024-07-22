@@ -18,3 +18,16 @@ interp(x, y, method = "bilinear", verbose = F)
 \description{
 function to project and interpolate rast
 }
+\examples{
+model_o3 <- terra::rast(paste0(system.file("extdata",package="eval3dmodel"),
+                              "/camx_no2.Rds"))
+omi_o3   <- terra::rast(paste0(system.file("extdata",package="eval3dmodel"),
+                              "/omi_no2.Rds"))
+
+# interpolate omi O3 column to model grid
+omi_o3c_interp_model <- interp(omi_o3,model_o3)
+
+# interpolate model o3 column to omi grid
+model_o3c_interp_omi <- interp(omi_o3,model_o3)
+
+}

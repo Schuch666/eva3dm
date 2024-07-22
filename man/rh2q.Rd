@@ -4,7 +4,7 @@
 \alias{rh2q}
 \title{Convert relative humidity to absolute humidity}
 \usage{
-rh2q(rh, temp)
+rh2q(rh, temp = 15)
 }
 \arguments{
 \item{rh}{vector of relative humidity (in percentage)}
@@ -13,4 +13,11 @@ rh2q(rh, temp)
 }
 \description{
 function to convert humidity to absolute humidity using tetens formula, assuming standart atmosphere conditions.
+}
+\note{
+default values are from standard atmosphere (288.15 K)
+}
+\examples{
+rh2q(99)
+
 }
