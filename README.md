@@ -18,17 +18,7 @@ The package include:
 
 ✔ `extract_8h_max()` extract, calculate maximum (or avarage, max, min) 8h average at surface level;
 
-## NetCDF Utility functions:
-
-✔ `ncdump()` print a `ncdump -h` equivalent command for a NetCDF file;
-
-✔ `vars()` return the name of the variables on NetCDF file;
-
-✔ `atr()` read and write attributes from a Netcdf file;
-
-✔ `wrf_rast()` extract variables and create `SpatRaster` or `SpatVector` from WRF outputs and input files (and compatible NetCDF files);
-
-✔ `rast_to_netcdf()` convert `rast` to an array compatible to a NetCDF WRF file;
+✔ `wrf_rast()` extract variables and create `SpatRaster` or `SpatVector` from WRF outputs and input files (and compatible NetCDF files) and the contrapart `rast_to_netcdf()` that converts `rast` to an array compatible to a NetCDF WRF file;
 
 ## Data pre-processing functions:
 
@@ -42,13 +32,19 @@ The package include:
 
 ✔ `sat()` evaluation against satellite observation;
 
-✔ `stat()` calculate statistical indexes;
+✔ `stat()` calculate statistical indexes (available for `eva()` and `sat()`);
 
-✔ `cate()` calculate categorical evaluation;
+✔ `cate()` calculate categorical evaluation (available for `eva()` and `sat()`);
 
 ✔ `write_stat()` and `read_stat()` to write and read evaluation results.
 
-## Visualization:
+## Visualization and Utility functions:
+
+✔ `ncdump()` print a `ncdump -h` equivalent command for a NetCDF file;
+
+✔ `vars()` return the name of the variables on NetCDF file;
+
+✔ `atr()` read and write attributes from a Netcdf file;
 
 ✔ `plot_rast()` custom plot for `rast` objects;
 

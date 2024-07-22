@@ -26,13 +26,7 @@
 #'
 #' @note Special thanks to Kiarash and Libo to help to test the wind direction option.
 #'
-#' @references
-#'
-#' Mughal MO, Lynch M, Yu F, McGann B, Jeanneret F, Sutton J (2017)
-#' Wind modeling, validation and sensitivity study using Weather
-#' Research and Forecasting model in complex terrain. Environ
-#' Model Softw 90:107–125. https://doi.org/10.1016/j.envsoft.2017.
-#' 01.009
+#' @seealso \code{\link{stat}} for additional information about the statistical evaluation and \code{\link{cate}} for categorical evaluation.
 #'
 #' @export
 #'

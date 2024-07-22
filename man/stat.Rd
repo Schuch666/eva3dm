@@ -47,3 +47,22 @@ data  <- model + rnorm(100,0.2)
 stat(model = model, observation = data)
 
 }
+\references{
+Emery, C. and Tai., E. 2001. Enhanced Meteorological Modeling and Performance Evaluation
+for Two Texas Ozone Episodes.
+
+Monk, K. et al. 2019. Evaluation of Regional Air Quality Models over Sydney and Australia:
+Part 1—Meteorological Model Comparison. Atmosphere 10(7), p. 374. doi: 10.3390/atmos10070374.
+
+Ramboll. 2018. PacWest Newport Meteorological Performance Evaluation.
+
+Zhang, Y. et al. 2019. Multiscale Applications of Two Online-Coupled Meteorology-Chemistry
+Models during Recent Field Campaigns in Australia, Part I: Model Description and WRF/Chem-ROMS
+Evaluation Using Surface and Satellite Data and Sensitivity to Spatial Grid Resolutions.
+Atmosphere 10(4), p. 189. doi: 10.3390/atmos10040189.
+
+Emery, C., Liu, Z., Russell, A.G., Odman, M.T., Yarwood, G. and Kumar, N. 2017.
+Recommendations on statistics and benchmarks to assess photochemical model performance.
+Journal of the Air & Waste Management Association 67(5), pp. 582–598.
+doi: 10.1080/10962247.2016.1265027.
+}

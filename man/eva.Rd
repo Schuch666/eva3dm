@@ -72,10 +72,6 @@ obs   <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),
 table <- eva(mo = model, ob = obs, station = "VVIbes")
 print(table)
 
-# new tests with no data will be discated
-table <- eva(mo = model, ob = obs, station = "VVIbes")
-print(table)
-
 # if the station are not in the input data frame a message is displayed
 # and the function return an empty row
 table <- eva(mo = model, ob = obs, station = "Ibirapuera")
@@ -96,10 +92,6 @@ table <- eva(mo = model, ob = obs, station = "Americana",
 print(table)
 
 }
-\references{
-Mughal MO, Lynch M, Yu F, McGann B, Jeanneret F, Sutton J (2017)
-Wind modeling, validation and sensitivity study using Weather
-Research and Forecasting model in complex terrain. Environ
-Model Softw 90:107–125. https://doi.org/10.1016/j.envsoft.2017.
-01.009
+\seealso{
+\code{\link{stat}} for additional information about the statistical evaluation and \code{\link{cate}} for categorical evaluation.
 }

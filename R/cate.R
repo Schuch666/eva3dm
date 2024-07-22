@@ -19,6 +19,12 @@
 #'
 #' @return a data.frame including: Accuracy (A); Critical Success Index (CSI); Probability of Detection (POD); Bias(B); False Alarm Ratio (FAR); Heidke Skill Score (HSS); Pearce skill Score (PSS) in %. The number of valid observations (n), average of observations (Obs) and model (Mod) and the used threshold (thr) are also included for additional information.
 #'
+#' @references
+#' Yu, S., Mathur, R., Schere, K., Kang, D., Pleim, J., Young, J., ... & Rao, S. T. (2008).
+#' Evaluation of real‐time PM2. 5 forecasts and process analysis for PM2. 5 formation over
+#' the eastern United States using the Eta‐CMAQ forecast model during the 2004 ICARTT study.
+#' Journal of Geophysical Research: Atmospheres, 113(D6).
+#'
 #' @export
 #'
 #' @examples
