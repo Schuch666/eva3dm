@@ -24,7 +24,7 @@ The package include:
 
 ✔ `mda8()`, `ma8h()`, `hourly()`, and `daily()` process and calculate calculate time-series;
 
-✔ `rh2q2()`, `q2rh()`, etc.
+✔ `rh2q2()`, `q2rh()`, that convert humidity units.
 
 ## Model evaluation functions:
 
