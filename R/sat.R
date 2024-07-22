@@ -27,16 +27,16 @@
 #'                               "/omi_no2.Rds"))
 #'
 #' # generate the statistical indexes
-#' sate(mo = model_o3,ob = omi_o3,rname = 'NO2_statistical')
+#' sat(mo = model_o3,ob = omi_o3,rname = 'NO2_statistical')
 #'
 #' # generate categorical evaluation using 3.0 as threshold
-#' sate(mo = model_o3,ob = omi_o3,rname = 'NO2_categorical',
-#'      eval_function = cate, threshold = 3.0)
+#' sat(mo = model_o3,ob = omi_o3,rname = 'NO2_categorical',
+#'     eval_function = cate, threshold = 3.0)
 #'
 #' @export
 
-sate <- function(mo,ob,n = 6, min = NA, max = NA,rname, method = 'bilinear',
-                 eval_function = stat, verbose = T, ...){
+sat <- function(mo,ob,n = 6, min = NA, max = NA,rname, method = 'bilinear',
+                eval_function = stat, verbose = T, ...){
 
   if(missing(mo))
     stop('model input is missing!')
