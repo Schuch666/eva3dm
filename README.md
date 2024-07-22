@@ -46,6 +46,8 @@ The package include:
 
 ✔ `atr()` read and write attributes from a Netcdf file;
 
+✔ `interp()` Interpolation (project and resample);
+
 ✔ `plot_rast()` custom plot for `rast` objects;
 
 ✔ `plot_diff()` custom plot for absolute or relative difference of `rast` objects;
