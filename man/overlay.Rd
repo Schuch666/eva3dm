@@ -51,12 +51,12 @@ overlay(
 Custon plot for SpatRaster (terra R-package) object based on terra package
 }
 \examples{
-masp  <- terra::vect(paste0(system.file("extdata",package="eval3dmodel"),
+masp  <- terra::vect(paste0(system.file("extdata",package="NH4"),
                            "/masp.shp"))
-BR    <- terra::vect(paste0(system.file("extdata",package="eval3dmodel"),
+BR    <- terra::vect(paste0(system.file("extdata",package="NH4"),
                             "/BR.shp"))
 
-p     <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),
+p     <- readRDS(paste0(system.file("extdata",package="NH4"),
                         "/BR-AQ.Rds"))
 p$id  <- row.names(p)
 point <- terra::vect(p)

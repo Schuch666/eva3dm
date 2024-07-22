@@ -19,7 +19,7 @@ rast_to_netcdf(r, file, name, verbose = TRUE)
 Conversion of SpatRaster to array and opcionally save on a Netcdf File.
 }
 \examples{
-folder   <- system.file("extdata",package="eval3dmodel")
+folder   <- system.file("extdata",package="NH4")
 wrf_file <- paste0(folder,"/wrf.day1.o3.nc")
 
 Rast     <- wrf_rast(wrf_file,'o3')

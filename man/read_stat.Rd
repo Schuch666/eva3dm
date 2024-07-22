@@ -23,10 +23,10 @@ read_stat(file, sep = ";", dec = ".", verbose = FALSE, rm.last = FALSE, ...)
 Function to read stats and evaluation output
 }
 \examples{
-sample <- read_stat(file    = paste0(system.file("extdata", package = "eval3dmodel"),"/sample.txt"),
+sample <- read_stat(file    = paste0(system.file("extdata", package = "eva3dm"),"/sample.txt"),
                     verbose = TRUE)
 
-sample <- read_stat(file    = paste0(system.file("extdata", package = "eval3dmodel"),"/sample.csv"),
+sample <- read_stat(file    = paste0(system.file("extdata", package = "eva3dm"),"/sample.csv"),
                     verbose = TRUE)
 
 }

@@ -10,9 +10,9 @@
 #' @import terra
 #'
 #' @examples
-#' model_o3 <- terra::rast(paste0(system.file("extdata",package="eval3dmodel"),
+#' model_o3 <- terra::rast(paste0(system.file("extdata",package="eva3dm"),
 #'                               "/camx_no2.Rds"))
-#' omi_o3   <- terra::rast(paste0(system.file("extdata",package="eval3dmodel"),
+#' omi_o3   <- terra::rast(paste0(system.file("extdata",package="eva3dm"),
 #'                               "/omi_no2.Rds"))
 #'
 #' # interpolate omi O3 column to model grid

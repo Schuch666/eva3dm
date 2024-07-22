@@ -19,7 +19,7 @@
 #'
 #' @examples
 #' dir.create(file.path(tempdir(), "MEAN"))
-#' folder <- system.file("extdata",package="eval3dmodel")
+#' folder <- system.file("extdata",package="eva3dm")
 #' wrf_file <- paste0(folder,"/wrf.day1.o3.nc")
 #' extract_mean(filelist = wrf_file,prefix = paste0(file.path(tempdir(),"MEAN"),'/mean'))
 #'

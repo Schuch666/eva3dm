@@ -62,9 +62,9 @@ If station == 'ALL' (default) all the columns from observations are combined in 
 Special thanks to Kiarash and Libo to help to test the wind direction option.
 }
 \examples{
-model <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),
+model <- readRDS(paste0(system.file("extdata",package="eva3dm"),
                         "/model.Rds"))
-obs   <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),
+obs   <- readRDS(paste0(system.file("extdata",package="eva3dm"),
                         "/obs.Rds"))
 
 # if there is no observed data

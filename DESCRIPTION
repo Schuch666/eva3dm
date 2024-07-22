@@ -1,4 +1,4 @@
-Package: eval3dmodel
+Package: eva3dm
 Type: Package
 Title: Evaluation of 3d Meteorological and Air Quality models
 Description: Functions to post-process, visualize and evaluate results from 3d Meteorological and Air Quality models against observations.
@@ -16,6 +16,6 @@ License: MIT + file LICENSE
 Imports: terra, ncdf4, utils
 Suggests: riem
 Encoding: UTF-8
-BugReports: https://github.com/Schuch666/eval3dmodel/issues/
+BugReports: https://github.com/Schuch666/eva3dm/issues/
 RoxygenNote: 7.2.3
 Depends: R (>= 3.5.0)

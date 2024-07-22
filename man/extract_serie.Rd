@@ -67,21 +67,21 @@ FOR WACCM time-series, use the options: use_datesec=T, latitude='lat', longitude
 }
 \examples{
 cat('Example 1: INMET stations for 2015\n')
-stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/BR-inmet_2015.Rds"))
+stations <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/BR-inmet_2015.Rds"))
 
 cat('Example 2: METAR stations of Brazil\n')
-stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/BR-metar.Rds"))
+stations <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/BR-metar.Rds"))
 
 cat('Example 3: METAR soundings over Brazil\n')
-stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/BR-soundings.Rds"))
+stations <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/BR-soundings.Rds"))
 
 cat('Example 4: Global AERONET sites\n')
-stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/Global-aeronet.Rds"))
+stations <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/Global-aeronet.Rds"))
 
 cat('Example 5: Brazilian Air Quality: CETESB (SP), RAMQAr (ES) and SMAC (RJ)\n')
-stations <- readRDS(paste0(system.file("extdata",package="eval3dmodel"),"/BR-AQ.Rds"))
+stations <- readRDS(paste0(system.file("extdata",package="NH4"),"/BR-AQ.Rds"))
 
-files    <- dir(path = system.file("extdata",package="eval3dmodel"),
+files    <- dir(path = system.file("extdata",package="eva3dm"),
                 pattern = 'wrf.day',
                 full.names = TRUE)
 dir.create(file.path(tempdir(),"SERIE"))

@@ -27,7 +27,7 @@
 #' @export
 #'
 #' @examples
-#' wrf <- paste(system.file("extdata", package = "eval3dmodel"),
+#' wrf <- paste(system.file("extdata", package = "NH4"),
 #'                          "/wrfinput_d01", sep="")
 #'
 #' r <- wrf_rast(file=wrf, name='XLAT')

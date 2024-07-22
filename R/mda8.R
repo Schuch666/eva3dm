@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples
-#' model_file <- paste(system.file("extdata", package = "eval3dmodel"),
+#' model_file <- paste(system.file("extdata", package = "eva3dm"),
 #'                     "/model_o3_ugm3_36km.Rds", sep="")
 #' model      <- readRDS(model_file)
 #' model_mda8 <- mda8(model)

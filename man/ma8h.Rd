@@ -24,7 +24,7 @@ data.frame
 function to calculate Ozone 8-hour moving average for a data.frame
 }
 \examples{
-model_file <- paste(system.file("extdata", package = "eval3dmodel"),
+model_file <- paste(system.file("extdata", package = "eva3dm"),
                                 "/model_o3_ugm3_36km.Rds", sep="")
 model      <- readRDS(model_file)
 model_8h   <- ma8h(model)

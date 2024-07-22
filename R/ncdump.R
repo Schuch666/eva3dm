@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-#' ncdump(file = paste0(system.file("extdata",package="eval3dmodel"),
+#' ncdump(file = paste0(system.file("extdata",package="NH4"),
 #'                      '/wrfinput_d01'))
 #'
 

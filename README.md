@@ -1,4 +1,4 @@
-# eval3dmodel
+# eva3dm
 
 An R-package focusing on evaluation of weather and air quality models. 
 

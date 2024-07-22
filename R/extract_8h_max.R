@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' dir.create(file.path(tempdir(), "MDA8"))
-#' folder <- system.file("extdata",package="eval3dmodel")
+#' folder <- system.file("extdata",package="eva3dm")
 #' wrf_file <- paste0(folder,"/test_small_o3.nc")
 #' extract_max_8h(filelist = wrf_file,
 #'                prefix = paste0(file.path(tempdir(),"MDA8"),'/mean'),

@@ -22,7 +22,7 @@ data.frame
 function to calculate Ozone Maximum Daily 8-hr Average or 8-hr moving Average for a data.frame
 }
 \examples{
-model_file <- paste(system.file("extdata", package = "eval3dmodel"),
+model_file <- paste(system.file("extdata", package = "eva3dm"),
                     "/model_o3_ugm3_36km.Rds", sep="")
 model      <- readRDS(model_file)
 model_mda8 <- mda8(model)

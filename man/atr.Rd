@@ -23,7 +23,7 @@ atr(file = NA, var = "?", att = NA, action = "get", value = NA, verbose = F)
 Read and write metadata information of a NetCDF files
 }
 \examples{
-nc <- paste0(system.file("extdata",package="eval3dmodel"),'/wrfinput_d01')
+nc <- paste0(system.file("extdata",package="eva3dm"),'/wrfinput_d01')
 atr(nc,0, action = 'print')
 atr(nc,'Times', action = 'print')
 atr(nc,'XLAT', action = 'print')

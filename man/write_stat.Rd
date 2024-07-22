@@ -25,7 +25,7 @@ is provided to the function will save using write.csv otherwise the function wri
 }
 \examples{
 
-sample <- read_stat(paste0(system.file("extdata", package = "eval3dmodel"),"/sample.csv"),
+sample <- read_stat(paste0(system.file("extdata", package = "eva3dm"),"/sample.csv"),
                     verbose = TRUE)
 dir.create(file.path(tempdir(), "stats"))
 
