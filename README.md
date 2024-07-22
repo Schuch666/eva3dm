@@ -38,9 +38,9 @@ The package include:
 
 ## Model evaluation functions:
 
-➞ `eval()` data pairing and evaluation against time-series;
+➞ `eva()` data pairing and evaluation against time-series;
 
-✔ `sate()` evaluation against satellite observation;
+✔ `sat()` evaluation against satellite observation;
 
 ✔ `stat()` calculate statistical indexes;
 
