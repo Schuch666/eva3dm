@@ -2,7 +2,7 @@ Package: eva3dm
 Type: Package
 Title: Evaluation of 3d Meteorological and Air Quality models
 Description: Functions to post-process, visualize and evaluate results from 3d Meteorological and Air Quality models against observations.
-Version: 0.5.0
+Version: 0.5.1
 Date: 2024-07-22
 Authors@R: c(
   person(given = "Daniel",
