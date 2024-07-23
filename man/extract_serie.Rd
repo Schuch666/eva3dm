@@ -79,7 +79,7 @@ cat('Example 4: Global AERONET sites\n')
 stations <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/Global-aeronet.Rds"))
 
 cat('Example 5: Brazilian Air Quality: CETESB (SP), RAMQAr (ES) and SMAC (RJ)\n')
-stations <- readRDS(paste0(system.file("extdata",package="NH4"),"/BR-AQ.Rds"))
+stations <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/BR-AQ.Rds"))
 
 files    <- dir(path = system.file("extdata",package="eva3dm"),
                 pattern = 'wrf.day',

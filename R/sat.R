@@ -21,9 +21,9 @@
 #' @import terra
 #'
 #' @examples
-#' model_o3 <- terra::rast(paste0(system.file("extdata",package="NH4"),
+#' model_o3 <- terra::rast(paste0(system.file("extdata",package="eva3dm"),
 #'                               "/camx_no2.Rds"))
-#' omi_o3   <- terra::rast(paste0(system.file("extdata",package="NH4"),
+#' omi_o3   <- terra::rast(paste0(system.file("extdata",package="eva3dm"),
 #'                               "/omi_no2.Rds"))
 #'
 #' # generate the statistical indexes

@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples
-#' folder   <- system.file("extdata",package="NH4")
+#' folder   <- system.file("extdata",package="eva3dm")
 #' wrf_file <- paste0(folder,"/wrf.day1.o3.nc")
 #'
 #' Rast     <- wrf_rast(wrf_file,'o3')

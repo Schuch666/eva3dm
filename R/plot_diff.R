@@ -18,7 +18,7 @@
 #'
 #' @examples
 #'
-#' folder <- system.file("extdata",package="NH4")
+#' folder <- system.file("extdata",package="eva3dm")
 #' wrf    <- paste0(folder,"/wrfinput_d01")
 #' A      <- wrf_rast(wrf,'XLAT')
 #' B      <- wrf_rast(wrf,'XLONG')

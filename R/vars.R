@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @examples
-#' vars(paste0(system.file("extdata",package="NH4"),'/wrfinput_d01'))
+#' vars(paste0(system.file("extdata",package="eva3dm"),'/wrfinput_d01'))
 #'
 
 vars <- function(file = NA, action="get", verbose=F){

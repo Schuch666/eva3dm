@@ -13,7 +13,7 @@ ncdump(file = file.choose())
 Read a NetCDF and print the medatada
 }
 \examples{
-ncdump(file = paste0(system.file("extdata",package="NH4"),
+ncdump(file = paste0(system.file("extdata",package="eva3dm"),
                      '/wrfinput_d01'))
 
 }

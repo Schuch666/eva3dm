@@ -21,12 +21,12 @@
 #' @export
 #'
 #' @examples
-#' masp  <- terra::vect(paste0(system.file("extdata",package="NH4"),
+#' masp  <- terra::vect(paste0(system.file("extdata",package="eva3dm"),
 #'                            "/masp.shp"))
-#' BR    <- terra::vect(paste0(system.file("extdata",package="NH4"),
+#' BR    <- terra::vect(paste0(system.file("extdata",package="eva3dm"),
 #'                             "/BR.shp"))
 #'
-#' p     <- readRDS(paste0(system.file("extdata",package="NH4"),
+#' p     <- readRDS(paste0(system.file("extdata",package="eva3dm"),
 #'                         "/BR-AQ.Rds"))
 #' p$id  <- row.names(p)
 #' point <- terra::vect(p)
