@@ -85,7 +85,7 @@ eva <- function(mo, ob, station = 'ALL', wd = FALSE, fair = NULL,
     a_number          <- 666 * 60 * 60 * 24 * 365 + 161 * 60 * 60 * 24
     for(i in seq_along(common_sites)){
       if(verbose)
-        cat(common_sites[i],'\n')
+        cat(common_sites[i],' ')
       new_mo            <- data.frame(date = mo$date,
                                       ALL  = mo[[common_sites[i]]])
       new_mo$date       <- new_mo$date + (i- 1) * a_number
@@ -96,6 +96,7 @@ eva <- function(mo, ob, station = 'ALL', wd = FALSE, fair = NULL,
       new_ob$date       <- new_ob$date + (i - 1) * a_number
       combination_obs   <- rbind(combination_obs, new_ob)
     }
+    if(verbose) cat('...\n')
     mo <- combination_model
     ob <- combination_obs
   }else{
