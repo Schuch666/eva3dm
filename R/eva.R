@@ -19,6 +19,8 @@
 #' @param eval_function evaluation function (default is stat)
 #' @param ... arguments to be passing to stats and plot
 #'
+#' @note fair can be a data.frame or a character string to be used for the analisys, alternativally the function %i% can be used: model_d01 %i% model_d02 instead.
+#'
 #' @note for wind direction a rotation of 360 (or -360) is applied to minimize the wind direction difference.
 #'
 #' @note If station == 'ALL' (default) all the columns from observations are combined in one column
@@ -162,4 +164,26 @@ eva <- function(mo, ob, station = 'ALL', wd = FALSE, fair = NULL,
     }
   }
   return(RESULT)
+}
+
+#' Returns the common columns
+#' @description results of d01 in d02 style syntax
+#'
+#' @param x data.frame
+#' @param y data.frame or character string
+#'
+#' @note a message is always displayed to keep easy to track and debug issues (with the results and the evaluation process).
+#'
+#' @export
+#'
+#'
+`%i%` <- function(x, y){
+  cat('using',deparse(substitute(x)),'in',deparse(substitute(y)),'\n')
+  if(is.data.frame(y)){
+    x <- x[,names(x) %in% names(y)]
+  }
+  if(is.character(y)){
+    x <- x[,names(x) %in% y]
+  }
+  return(x)
 }

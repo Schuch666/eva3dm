@@ -54,6 +54,8 @@ perform the time pairing of observations and model data and can calculate the st
 categorical evaluation.
 }
 \note{
+fair can be a data.frame or a character string to be used for the analisys, alternativally the function %i% can be used: model_d01 %i% model_d02 instead.
+
 for wind direction a rotation of 360 (or -360) is applied to minimize the wind direction difference.
 
 If station == 'ALL' (default) all the columns from observations are combined in one column
