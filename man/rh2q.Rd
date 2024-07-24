@@ -7,17 +7,38 @@
 rh2q(rh, temp = 15)
 }
 \arguments{
-\item{rh}{vector of relative humidity (in percentage)}
+\item{rh}{vector (or data.frame) of relative humidity (in percentage)}
 
-\item{temp}{vector of temperature (in celcius)}
+\item{temp}{vector (or data.frame) of temperature (in Celsius)}
+}
+\value{
+value of data.frame, units are g/g.
 }
 \description{
-function to convert humidity to absolute humidity using tetens formula, assuming standart atmosphere conditions.
+function to convert humidity to absolute humidity using Tetens formula, assuming standard atmosphere conditions.
 }
 \note{
 default values are from standard atmosphere (288.15 K)
+
+if rh and temp arguments are data.frame, both need to have the same number of lines and columns, first column (time column) will be ignored.
 }
 \examples{
-rh2q(99)
+# for a singfle value
+rh2q(rh = 99, temp = 25)
 
+# vector of rh values
+rh2q(rh = c(0,seq(1,100, by = 4)), temp = 25)
+
+# vector of values for rh and temp
+rh2q(rh = c(0,seq(1,100, by = 4)), temp = 10:35)
+
+# rh is data.frame and temp is a value
+times <- seq(as.POSIXct('2024-01-01',tz = 'UTC'),
+             as.POSIXct('2024-01-02',tz = 'UTC'),
+             by = 'hour')
+rh2q(rh   = data.frame(time = times, a = seq(1,100, by = 4)),temp = 25)
+
+# using both rh and temp are data.frames
+rh2q(rh   = data.frame(time = times, a = seq(1,100, by = 4)),
+     temp = data.frame(time = times, a = 11:35))
 }
