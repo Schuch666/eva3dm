@@ -97,6 +97,15 @@ plot_rast <- function(r,
   min_lat <- as.numeric(e_p[3])
   max_lat <- as.numeric(e_p[4])
 
+  delta_x     <- abs(max_lat - min_lat)
+  delta_y     <- abs(max_lon - min_lon)
+  small_delta <- min(delta_x,delta_y)
+
+  if(int >= 1.1 * small_delta){
+    int      = pretty(x = small_delta,n = 10)[1]
+    grid_int = int
+  }
+
   vet_lon <- seq(-80,80,by = int)
   vet_lon <- vet_lon[vet_lon > min_lon - int & vet_lon < max_lon + int]
   vet_lat <- seq(-180,180,by = int)
