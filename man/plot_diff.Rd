@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_diff.R
 \name{plot_diff}
 \alias{plot_diff}
-\title{Plot rast (SpatRaster) object}
+\title{Plot the difference from two rast (SpatRaster) object}
 \usage{
 plot_diff(
   x,

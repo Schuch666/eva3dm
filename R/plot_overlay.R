@@ -1,4 +1,4 @@
-#' Plot rast (SpatRaster) object
+#' Plot or add points using a color scale
 #'
 #' @description Custon plot for SpatRaster (terra R-package) object based on terra package
 #'

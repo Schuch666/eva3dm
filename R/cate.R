@@ -1,4 +1,4 @@
-#' Calculate categorical statistics from numerical vectors in related to a threshold
+#' Calculate categorical statistics in related to a threshold
 #'
 #' @description Calculate traditional statistics from two numerical vectors in related to a threshold
 #'

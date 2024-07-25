@@ -1,6 +1,6 @@
 # eva3dm
 
-An R-package focusing on evaluation of weather and air quality models. 
+An R-package focusing on **EVA**luation of **3D** weather and air quality **M**odels. 
 
 The following workflow is recommended:
 - *Pre-processing of observations*: download (METAR can be downloded using the R-package [riem](https://docs.ropensci.org/riem/) or [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site, and Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar/home.do) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites), QA of the observation data, process observation data for evaluation, process of site-list if plan to extract time-series from the model; A range of satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website; 

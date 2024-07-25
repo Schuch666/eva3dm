@@ -16,6 +16,7 @@ eva(
   nobs = 8,
   rname = station,
   eval_function = stat,
+  time = "date",
   verbose = TRUE,
   ...
 )
@@ -25,7 +26,7 @@ eva(
 
 \item{ob}{data.frame with observation data}
 
-\item{station}{name of the station or "ALL", see notes}
+\item{station}{name of the station or "ALL" (default), see notes}
 
 \item{wd}{default is FALSE, see notes}
 
@@ -39,9 +40,11 @@ eva(
 
 \item{nobs}{minimum number of valid observations, default is 8}
 
-\item{rname}{name of the output row (default is station)}
+\item{rname}{row name of the output (default is station argument)}
 
 \item{eval_function}{evaluation function (default is stat)}
+
+\item{time}{name of the time column (containing time in POSIXct)}
 
 \item{verbose}{display additional information}
 
@@ -54,7 +57,7 @@ perform the time pairing of observations and model data and can calculate the st
 categorical evaluation.
 }
 \note{
-fair can be a data.frame or a character string to be used for the analisys, alternativally the function %i% can be used: model_d01 %i% model_d02 instead.
+fair can be a data.frame or a character string to be used for the analysis, alternatively the function %IN% can be used: model_d01 %IN% model_d02 instead.
 
 for wind direction a rotation of 360 (or -360) is applied to minimize the wind direction difference.
 

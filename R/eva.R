@@ -7,19 +7,20 @@
 #'
 #' @param mo data.frame with model data
 #' @param ob data.frame with observation data
-#' @param station name of the station or "ALL", see notes
-#' @param rname name of the output row (default is station)
+#' @param station name of the station or "ALL" (default), see notes
+#' @param rname row name of the output (default is station argument)
 #' @param fair model data.frame (or list of names) to perform a fair comparison, see notes
 #' @param wd default is FALSE, see notes
 #' @param cutoff minimum (optionally the maximum) valid value for observation
 #' @param cutoff_NME minimum (optionally the maximum) valid value for observation for NME
 #' @param no_tz ignore tz from input (force GMT)
 #' @param nobs minimum number of valid observations, default is 8
-#' @param verbose display additional information
 #' @param eval_function evaluation function (default is stat)
+#' @param time name of the time column (containing time in POSIXct)
+#' @param verbose display additional information
 #' @param ... arguments to be passing to stats and plot
 #'
-#' @note fair can be a data.frame or a character string to be used for the analisys, alternativally the function %i% can be used: model_d01 %i% model_d02 instead.
+#' @note fair can be a data.frame or a character string to be used for the analysis, alternatively the function %IN% can be used: model_d01 %IN% model_d02 instead.
 #'
 #' @note for wind direction a rotation of 360 (or -360) is applied to minimize the wind direction difference.
 #'
@@ -65,7 +66,16 @@
 eva <- function(mo, ob, station = 'ALL', wd = FALSE, fair = NULL,
                 cutoff = NA, cutoff_NME = NA, no_tz = FALSE,
                 nobs = 8, rname = station, eval_function = stat,
-                verbose = TRUE, ...){
+                time = 'date', verbose = TRUE, ...){
+
+  if(!is.data.frame(mo))
+    stop('mo must be a data.frame')
+  if(!is.data.frame(ob))
+    stop('ob must be a data.frame')
+  if(!time %in% names(mo))
+    stop('mo must have a column named date with times (POSIXct)')
+  if(!time %in% names(ob))
+    stop('ob must have a column named date with times (POSIXct)')
 
   if(station == "ALL"){
     cat('combining all stations...\n')
@@ -88,12 +98,12 @@ eva <- function(mo, ob, station = 'ALL', wd = FALSE, fair = NULL,
     for(i in seq_along(common_sites)){
       if(verbose)
         cat(common_sites[i],' ')
-      new_mo            <- data.frame(date = mo$date,
+      new_mo            <- data.frame(date = mo[,time],
                                       ALL  = mo[[common_sites[i]]])
       new_mo$date       <- new_mo$date + (i- 1) * a_number
       combination_model <- rbind(combination_model, new_mo)
 
-      new_ob            <- data.frame(date = ob$date,
+      new_ob            <- data.frame(date = ob[,time],
                                       ALL  = ob[[common_sites[i]]])
       new_ob$date       <- new_ob$date + (i - 1) * a_number
       combination_obs   <- rbind(combination_obs, new_ob)
@@ -118,16 +128,16 @@ eva <- function(mo, ob, station = 'ALL', wd = FALSE, fair = NULL,
     }
   }
 
-  model        <- mo[,c("date",station)]
-  names(model) <- c("date","model")
-  obser        <- ob[,c("date",station)]
-  names(obser) <- c("date","obser")
+  model        <- mo[,c(time,station)]
+  names(model) <- c(time,"model")
+  obser        <- ob[,c(time,station)]
+  names(obser) <- c(time,"obser")
   if(no_tz){
     f <- function(x,tz="GMT") return(as.POSIXct(as.numeric(x), origin="1970-01-01", tz=tz))
     model$date <- f(model$date)
     obser$date <- f(model$date)
   }
-  DATA  <- merge(model, obser, by = "date", all.x = TRUE)
+  DATA  <- merge(model, obser, by = time, all.x = TRUE)
   A     <- DATA$model
   B     <- DATA$obser
 
@@ -167,7 +177,7 @@ eva <- function(mo, ob, station = 'ALL', wd = FALSE, fair = NULL,
 }
 
 #' Returns the common columns
-#' @description results of d01 in d02 style syntax
+#' @description results of 'd01 in d02' style syntax
 #'
 #' @param x data.frame
 #' @param y data.frame or character string
@@ -176,8 +186,40 @@ eva <- function(mo, ob, station = 'ALL', wd = FALSE, fair = NULL,
 #'
 #' @export
 #'
+#' @examples
+#' times <- seq(as.POSIXct('2024-01-01',tz = 'UTC'),
+#'              as.POSIXct('2024-01-02',tz = 'UTC'),
+#'              by = 'hour')
+#' randon_stuff <- rnorm(25,10)
 #'
-`%i%` <- function(x, y){
+#' observation <- data.frame(date   = times,
+#'                           site_1 = randon_stuff,
+#'                           site_3 = randon_stuff,
+#'                           site_4 = randon_stuff,
+#'                           site_5 = randon_stuff,
+#'                           site_6 = randon_stuff,
+#'                           site_7 = randon_stuff)
+#'
+#' model_d01 <- data.frame(date  = times,
+#'                         site_1=randon_stuff+1,
+#'                         site_2=randon_stuff+2,
+#'                         site_3=randon_stuff+3,
+#'                         site_4=randon_stuff+4)
+#'
+#' model_d02 <- data.frame(date  = times,
+#'                         site_1=randon_stuff-1,
+#'                         site_3=randon_stuff-3)
+#'
+#' # multiline
+#' model_d01_in_d02 <- model_d01 %IN% model_d02
+#' eva(mo = model_d01_in_d02, ob = observation, rname = 'd01 in d02')
+#'
+#' # or single line
+#' eva(mo = model_d01 %IN% model_d02, ob = observation, rname = 'd01 in d02')
+#' # or
+#' eva(mo = model_d01, ob = observation %IN% model_d02, rname = 'd01 in d02')
+#'
+`%IN%` <- function(x, y){
   cat('using',deparse(substitute(x)),'in',deparse(substitute(y)),'\n')
   if(is.data.frame(y)){
     x <- x[,names(x) %in% names(y)]

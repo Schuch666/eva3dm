@@ -1,4 +1,4 @@
-#' Plot rast (SpatRaster) object
+#' Plot the difference from two rast (SpatRaster) object
 #'
 #' @description Custon difference plots (x - y) of plot for SpatRaster (terra R-package) object based on terra package
 #'

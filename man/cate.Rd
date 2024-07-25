@@ -2,7 +2,7 @@
 % Please edit documentation in R/cate.R
 \name{cate}
 \alias{cate}
-\title{Calculate categorical statistics from numerical vectors in related to a threshold}
+\title{Calculate categorical statistics in related to a threshold}
 \usage{
 cate(
   model,

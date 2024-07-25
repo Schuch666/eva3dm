@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_overlay.R
 \name{overlay}
 \alias{overlay}
-\title{Plot rast (SpatRaster) object}
+\title{Plot or add points using a color scale}
 \usage{
 overlay(
   p,
