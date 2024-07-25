@@ -13,7 +13,7 @@ plot_rast(
   pax = list(),
   latitude = TRUE,
   longitude = TRUE,
-  int = 1,
+  int = 10,
   grid = TRUE,
   grid_int = int,
   grid_col = "#666666",

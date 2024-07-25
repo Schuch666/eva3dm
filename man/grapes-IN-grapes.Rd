@@ -16,6 +16,8 @@ results of 'd01 in d02' style syntax
 }
 \note{
 a message is always displayed to keep easy to track and debug issues (with the results and the evaluation process).
+
+can be used to crop rast objects, such as arguments of sat() function
 }
 \examples{
 times <- seq(as.POSIXct('2024-01-01',tz = 'UTC'),

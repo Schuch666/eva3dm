@@ -184,6 +184,8 @@ eva <- function(mo, ob, station = 'ALL', wd = FALSE, fair = NULL,
 #'
 #' @note a message is always displayed to keep easy to track and debug issues (with the results and the evaluation process).
 #'
+#' @note can be used to crop rast objects, such as arguments of sat() function
+#'
 #' @export
 #' @import terra
 #'

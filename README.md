@@ -36,7 +36,9 @@ The package include:
 
 ✔ `cate()` calculate categorical evaluation (available for `eva()` and `sat()`);
 
-✔ `write_stat()` and `read_stat()` to write and read evaluation results.
+✔ `%IN%` allows fair evaluation on function-call level for `eva()` and `sat()`;
+
+✔ `write_stat()` and `read_stat()` to write and read evaluation results for `eva()` and `sat()`.
 
 ## Visualization and Utility functions:
 
