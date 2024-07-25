@@ -185,6 +185,7 @@ eva <- function(mo, ob, station = 'ALL', wd = FALSE, fair = NULL,
 #' @note a message is always displayed to keep easy to track and debug issues (with the results and the evaluation process).
 #'
 #' @export
+#' @import terra
 #'
 #' @examples
 #' times <- seq(as.POSIXct('2024-01-01',tz = 'UTC'),
@@ -220,7 +221,19 @@ eva <- function(mo, ob, station = 'ALL', wd = FALSE, fair = NULL,
 #' eva(mo = model_d01, ob = observation %IN% model_d02, rname = 'd01 in d02')
 #'
 `%IN%` <- function(x, y){
+
+  if('SpatRaster' %in% class(x) & 'SpatRaster' %in% class(y)){
+    cat('croping',deparse(substitute(x)),'with',deparse(substitute(y)),'\n')
+    return(crop(x,y))
+  }
+
   cat('using',deparse(substitute(x)),'in',deparse(substitute(y)),'\n')
+
+  if(!is.data.frame(x))
+    stop('x must be a data.frame')
+  if(!is.data.frame(y) & !is.character(y))
+    stop('y must be a data.frame or character')
+
   if(is.data.frame(y)){
     x <- x[,names(x) %in% names(y)]
   }
