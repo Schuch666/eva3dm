@@ -45,7 +45,6 @@ write_stat <- function(stat,file, sep = ';',dec = '.', verbose = FALSE, ...){
 #' @param file model data.frame
 #' @param sep the field separator string, passed to read.table function
 #' @param dec he string to use for decimal points, passed to read.table function
-#' @param rm.last to remove the last line (summary)
 #' @param ... arguments passed to read.table functions
 #' @param verbose display additional information
 #'
@@ -58,7 +57,7 @@ write_stat <- function(stat,file, sep = ';',dec = '.', verbose = FALSE, ...){
 #' sample <- read_stat(file    = paste0(system.file("extdata", package = "eva3dm"),"/sample.csv"),
 #'                     verbose = TRUE)
 #'
-read_stat <- function(file, sep = ';',dec = '.',verbose = FALSE, rm.last = FALSE, ...){
+read_stat <- function(file, sep = ';',dec = '.',verbose = FALSE, ...){
   if(verbose)
     cat('reading', file,'\n')
   if(substr(file,nchar(file)-3,nchar(file)) == '.csv'){
@@ -69,9 +68,6 @@ read_stat <- function(file, sep = ';',dec = '.',verbose = FALSE, rm.last = FALSE
   }else{
     stat <- read.table(file = file, sep = sep, dec = dec, ...)
     names(stat) <- gsub("....", " (%)", names(stat), fixed = T)
-  }
-  if(rm.last){
-    stat <- stat[-nrow(stat),]
   }
   return(stat)
 }
