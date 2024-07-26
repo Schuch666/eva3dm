@@ -18,7 +18,7 @@ The package include:
 
 ✔ `extract_8h_max()` extract, calculate maximum (or avarage, max, min) 8h average at surface level;
 
-✔ `wrf_rast()` extract variables and create `SpatRaster` or `SpatVector` from WRF outputs and input files (and compatible NetCDF files) and the contrapart `rast_to_netcdf()` that converts `rast` to an array compatible to a NetCDF WRF file;
+✔ `wrf_rast()` extract variables and create `SpatRaster` or `SpatVector` from WRF files (and compatible NetCDF files) and the contrapart `rast_to_netcdf()` that converts `rast` to an array compatible to a NetCDF WRF file;
 
 ## Data pre-processing functions:
 
