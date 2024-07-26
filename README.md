@@ -14,9 +14,9 @@ The package include:
 
 ✔ `extract_serie()` extract and save time-series from WRF outputs and input files (and compatible NetCDF files);
 
-✔ `extract_mean()` extract, average (or max, min, etc) and save variables at surface level;
+✔ `extract_mean()` extract, average (or max, min, etc) and save variables in a NetCDF file;
 
-✔ `extract_8h_max()` extract, calculate maximum (or avarage, max, min) 8h average at surface level;
+✔ `extract_8h_max()` extract, calculate maximum (or avarage, max, min) 8h average and save variables in a NetCDF file;
 
 ✔ `wrf_rast()` extract variables and create `SpatRaster` or `SpatVector` from WRF files (and compatible NetCDF files) and the contrapart `rast_to_netcdf()` that converts `rast` to an array compatible to a NetCDF WRF file;
 
