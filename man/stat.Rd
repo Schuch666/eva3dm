@@ -65,4 +65,8 @@ Emery, C., Liu, Z., Russell, A.G., Odman, M.T., Yarwood, G. and Kumar, N. 2017.
 Recommendations on statistics and benchmarks to assess photochemical model performance.
 Journal of the Air & Waste Management Association 67(5), pp. 582–598.
 doi: 10.1080/10962247.2016.1265027.
+
+Zhai, H., Huang, L., Emery, C., Zhang, X., Wang, Y., Yarwood, G., ... & Li, L. (2024).
+Recommendations on benchmarks for photochemical air quality model applications
+in China—NO2, SO2, CO and PM10. Atmospheric Environment, 319, 120290.
 }

@@ -4,9 +4,11 @@
 \name{eva3dm-package}
 \alias{eva3dm}
 \alias{eva3dm-package}
-\title{eva3dm: Evaluation of 3d Meteorological and Air Quality models}
+\title{eva3dm: EVAluation of 3D meteorological and air quality Models}
 \description{
-Functions to post-process, visualize and evaluate results from 3d Meteorological and Air Quality models against observations.
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
+Functions to post-process, visualize and evaluate results from 3d Meteorological and Air Quality models with surface and satellite observations.
 }
 \seealso{
 Useful links:

@@ -24,17 +24,17 @@ The package include:
 
 ✔ `mda8()`, `ma8h()`, `hourly()`, and `daily()` process and calculate calculate time-series;
 
-✔ `rh2q2()`, `q2rh()`, that convert humidity units.
+✔ `rh2q()`, `q2rh()`, that convert humidity units.
 
 ## Model evaluation functions:
 
-✔ `eva()` data pairing and time-series evaluation;
+✔ `eva()` data pairing and evaluation for time-series;
 
-✔ `sat()` satellite evaluation;
+✔ `sat()` evaluation for satellite image;
 
-✔ `stat()` calculate statistical indexes (available for `eva()` and `sat()`);
+✔ `stat()` calculate statistical metrics (integrated in `eva()` and `sat()`);
 
-✔ `cate()` calculate categorical evaluation (available for `eva()` and `sat()`);
+✔ `cate()` calculate categorical metrics (integrated in `eva()` and `sat()`);
 
 ✔ `%IN%` allows fair evaluation on function-call level for `eva()` and `sat()`;
 
