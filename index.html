@@ -5,14 +5,21 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Evaluation of 3d Meteorological and Air Quality models • eva3dm</title>
+<title>EVAluation of 3D meteorological and air quality Models • eva3dm</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Evaluation of 3d Meteorological and Air Quality models">
-<meta name="description" content="Functions to post-process, visualize and evaluate results from 3d Meteorological and Air Quality models against observations.">
-<meta property="og:description" content="Functions to post-process, visualize and evaluate results from 3d Meteorological and Air Quality models against observations.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="EVAluation of 3D meteorological and air quality Models">
+<meta name="description" content="Functions to post-process, visualize and evaluate results from 3d Meteorological and Air Quality models with surface and satellite observations.">
+<meta property="og:description" content="Functions to post-process, visualize and evaluate results from 3d Meteorological and Air Quality models with surface and satellite observations.">
+<meta property="og:image" content="https://schuch666.github.io/eva3dm/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -55,8 +62,10 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="eva3dm">eva3dm<a class="anchor" aria-label="anchor" href="#eva3dm"></a>
-</h1></div>
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="eva3dm">eva3dm<a class="anchor" aria-label="anchor" href="#eva3dm"></a>
+</h1>
+</div>
 <p>An R-package focusing on <strong>EVA</strong>luation of <strong>3D</strong> weather and air quality <strong>M</strong>odels.</p>
 <p>The following workflow is recommended: - <em>Pre-processing of observations</em>: download (METAR can be downloded using the R-package <a href="https://docs.ropensci.org/riem/" class="external-link">riem</a> or <a href="https://mesonet.agron.iastate.edu/request/download.phtml" class="external-link">Iowa State University</a> site, and Air Quality data for Brazil can be downloaded using the R-package <a href="https://github.com/ropensci/qualR" class="external-link">qualR</a>, or <a href="https://qualar.cetesb.sp.gov.br/qualar/home.do" class="external-link">QUALAR</a> and <a href="https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore" class="external-link">MonitorAir</a> sites), QA of the observation data, process observation data for evaluation, process of site-list if plan to extract time-series from the model; A range of satellite products are available at <a href="https://giovanni.gsfc.nasa.gov/giovanni/" class="external-link">NASA giovanni</a> website; - <em>Pre-processing of model output</em>: extraction and pre-processing of model outputs; - <em>Model Evaluation</em>: <code><a href="reference/eva.html">eva()</a></code> (to evaluate time-series) or <code><a href="reference/sat.html">sat()</a></code> (to evaluate against satellite products), available to perform statistical (more details in <code><a href="reference/stat.html">stat()</a></code>) and categorical (more details in <code><a href="reference/cate.html">cate()</a></code>) evaluation; - <em>Visualization</em>: try some of the visualization functions from this package or other packages.</p>
 <p>The package include:</p>
@@ -65,22 +74,22 @@
 </h2>
 <p>✔ <code><a href="reference/extract_serie.html">extract_serie()</a></code> extract and save time-series from WRF outputs and input files (and compatible NetCDF files);</p>
 <p>✔ <code><a href="reference/extract_mean.html">extract_mean()</a></code> extract, average (or max, min, etc) and save variables in a NetCDF file;</p>
-<p>✔ <code>extract_8h_max()</code> extract, calculate maximum (or avarage, max, min) 8h average and save variables in a NetCDF file;</p>
+<p>✔ <code><a href="reference/extract_max_8h.html">extract_max_8h()</a></code> extract, calculate maximum (or avarage, max, min) 8h average and save variables in a NetCDF file;</p>
 <p>✔ <code><a href="reference/wrf_rast.html">wrf_rast()</a></code> extract variables and create <code>SpatRaster</code> or <code>SpatVector</code> from WRF files (and compatible NetCDF files) and the contrapart <code><a href="reference/rast_to_netcdf.html">rast_to_netcdf()</a></code> that converts <code>rast</code> to an array compatible to a NetCDF WRF file;</p>
 </div>
 <div class="section level2">
 <h2 id="data-pre-processing-functions">Data pre-processing functions:<a class="anchor" aria-label="anchor" href="#data-pre-processing-functions"></a>
 </h2>
 <p>✔ <code><a href="reference/mda8.html">mda8()</a></code>, <code><a href="reference/ma8h.html">ma8h()</a></code>, <code><a href="reference/hourly.html">hourly()</a></code>, and <code><a href="reference/daily.html">daily()</a></code> process and calculate calculate time-series;</p>
-<p>✔ <code>rh2q2()</code>, <code><a href="reference/q2rh.html">q2rh()</a></code>, that convert humidity units.</p>
+<p>✔ <code><a href="reference/rh2q.html">rh2q()</a></code>, <code><a href="reference/q2rh.html">q2rh()</a></code>, that convert humidity units.</p>
 </div>
 <div class="section level2">
 <h2 id="model-evaluation-functions">Model evaluation functions:<a class="anchor" aria-label="anchor" href="#model-evaluation-functions"></a>
 </h2>
-<p>✔ <code><a href="reference/eva.html">eva()</a></code> data pairing and time-series evaluation;</p>
-<p>✔ <code><a href="reference/sat.html">sat()</a></code> satellite evaluation;</p>
-<p>✔ <code><a href="reference/stat.html">stat()</a></code> calculate statistical indexes (available for <code><a href="reference/eva.html">eva()</a></code> and <code><a href="reference/sat.html">sat()</a></code>);</p>
-<p>✔ <code><a href="reference/cate.html">cate()</a></code> calculate categorical evaluation (available for <code><a href="reference/eva.html">eva()</a></code> and <code><a href="reference/sat.html">sat()</a></code>);</p>
+<p>✔ <code><a href="reference/eva.html">eva()</a></code> data pairing and evaluation for time-series;</p>
+<p>✔ <code><a href="reference/sat.html">sat()</a></code> evaluation for satellite image;</p>
+<p>✔ <code><a href="reference/stat.html">stat()</a></code> calculate statistical metrics (integrated in <code><a href="reference/eva.html">eva()</a></code> and <code><a href="reference/sat.html">sat()</a></code>);</p>
+<p>✔ <code><a href="reference/cate.html">cate()</a></code> calculate categorical metrics (integrated in <code><a href="reference/eva.html">eva()</a></code> and <code><a href="reference/sat.html">sat()</a></code>);</p>
 <p>✔ <code>%IN%</code> allows fair evaluation on function-call level for <code><a href="reference/eva.html">eva()</a></code> and <code><a href="reference/sat.html">sat()</a></code>;</p>
 <p>✔ <code><a href="reference/write_stat.html">write_stat()</a></code> and <code><a href="reference/read_stat.html">read_stat()</a></code> to write and read evaluation results for <code><a href="reference/eva.html">eva()</a></code> and <code><a href="reference/sat.html">sat()</a></code>.</p>
 </div>
@@ -91,8 +100,8 @@
 <p>✔ <code><a href="reference/vars.html">vars()</a></code> return the name of the variables on NetCDF file;</p>
 <p>✔ <code><a href="reference/atr.html">atr()</a></code> read and write attributes from a Netcdf file;</p>
 <p>✔ <code><a href="reference/interp.html">interp()</a></code> Interpolation (project and resample);</p>
-<p>✔ <code><a href="reference/plot_rast.html">plot_rast()</a></code> custom plot for <code>rast</code> objects;</p>
-<p>✔ <code><a href="reference/plot_diff.html">plot_diff()</a></code> custom plot for absolute or relative difference of <code>rast</code> objects;</p>
+<p>✔ <code><a href="reference/plot_rast.html">plot_rast()</a></code> custom plot for terra <code>SpatRaster</code> objects;</p>
+<p>✔ <code><a href="reference/plot_diff.html">plot_diff()</a></code> custom plot for absolute or relative difference of terra <code>SpatRaster</code> objects;</p>
 <p>✔ <code><a href="reference/overlay.html">overlay()</a></code> custom plot to overlay points or plot point-data;</p>
 <p>✔ <code><a href="reference/legend_range.html">legend_range()</a></code> custom legend, display max, min and average;</p>
 </div>
