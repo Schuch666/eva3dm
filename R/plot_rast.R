@@ -3,7 +3,7 @@
 #' @description Custon plot for SpatRaster (terra R-package) object based on terra package
 #'
 #' @param r raster
-#' @param color color scale
+#' @param color color scale, or name of a custom color scale (see notes)
 #' @param ncolor number of colors
 #' @param proj TRUE to project the raster to lat-lon
 #' @param plg list of parameters passed to terra::add_legend
@@ -23,6 +23,8 @@
 #' @param ... arguments to be passing to terra::plot
 #'
 #' @import terra
+#'
+#' @note color scale includes: 'eva3r' (default), 'eva4', 'blues' and 'diff'
 #'
 #' @export
 #'
@@ -75,24 +77,14 @@ plot_rast <- function(r,
     range <- as.numeric(global(r2,'range'))
 
   if(missing(color)){
-    # # blue
-    # color <- c("#08306B","#133A72","#1F4479","#2B4E81","#375888",
-    #            "#436290","#4F6C97","#5B779E","#6781A6","#738BAD",
-    #            "#7F95B4","#8B9FBC","#97A9C3","#A3B3CB","#AFBED2",
-    #            "#BBC8DA","#C7D2E1","#D3DCE8","#DFE6F0","#EBF0F7",
-    #            "#F7FBFF")
-    # # eva 4 colors
-    # color <- c("#AD7AD7","#A36DCC","#9A60C1","#9153B6","#8846AB",
-    #            "#7F39A0","#762C94","#6D208A","#743199","#7B42A9",
-    #            "#8253B9","#8964C8","#9075D8","#9786E8","#9F98F8",
-    #            "#948DED","#8A83E2","#7F78D7","#756ECC","#6A63C1",
-    #            "#6059B6","#564FAC","#6162A2","#6D7699","#798A90",
-    #            "#849E86","#90B27D","#9CC674","#A8DA6B","#9CCF63",
-    #            "#90C55B","#85BB53","#79B04B","#6EA643","#629C3B",
-    #            "#579234","#6D9838","#839F3C","#9AA540","#B0AC45",
-    #            "#C7B249","#DDB94D","#F4C052","#EDB44D","#E6A948",
-    #            "#DF9D43","#D9923E","#D28639","#CB7B34","#C5702F")
-    # eva 3 colors
+    color <- 'eva3r'
+  }else{
+    if(is.function(color)){
+      color <- color(ncolor)
+    }
+  }
+  if(color[1] == 'eva3r')
+    # eva 3 colors reverse
     color <- rev(c("#AD7AD7","#A670CF","#9F67C7","#995EBF","#9255B7",
                    "#8C4CAF","#8542A7","#7F39A0","#783098","#722790",
                    "#6E228C","#732E97","#783AA2","#7D47AD","#8253B9",
@@ -104,11 +96,35 @@ plot_rast <- function(r,
                    "#A1D466","#99CC60","#90C55B","#88BE55","#80B650",
                    "#78AF4A","#6FA844","#67A03F","#5F9939","#579234"))
 
-  }else{
-    if(is.function(color)){
-      color <- color(ncolor)
-    }
-  }
+  if(color[1] == 'eva4')
+    # eva 4 colors
+    color <- c("#AD7AD7","#A36DCC","#9A60C1","#9153B6","#8846AB",
+               "#7F39A0","#762C94","#6D208A","#743199","#7B42A9",
+               "#8253B9","#8964C8","#9075D8","#9786E8","#9F98F8",
+               "#948DED","#8A83E2","#7F78D7","#756ECC","#6A63C1",
+               "#6059B6","#564FAC","#6162A2","#6D7699","#798A90",
+               "#849E86","#90B27D","#9CC674","#A8DA6B","#9CCF63",
+               "#90C55B","#85BB53","#79B04B","#6EA643","#629C3B",
+               "#579234","#6D9838","#839F3C","#9AA540","#B0AC45",
+               "#C7B249","#DDB94D","#F4C052","#EDB44D","#E6A948",
+               "#DF9D43","#D9923E","#D28639","#CB7B34","#C5702F")
+
+  if(color[1] == 'blues')
+    # desaturated blue
+    color <- c("#08306B","#133A72","#1F4479","#2B4E81","#375888",
+               "#436290","#4F6C97","#5B779E","#6781A6","#738BAD",
+               "#7F95B4","#8B9FBC","#97A9C3","#A3B3CB","#AFBED2",
+               "#BBC8DA","#C7D2E1","#D3DCE8","#DFE6F0","#EBF0F7",
+               "#F7FBFF")
+
+  if(color[1] == 'diff')
+    # diff including dark_blue - cyan - white - orange - dark_red
+    color <- c("#1B2C62","#204385","#265CA9","#4082C2",
+               "#5DA9DB","#80C4EA","#A4DDF7","#C1E7F8",
+               "#DEF2FA","#F2FAFD","#FFFFFF","#FFFFFF",
+               "#FEFAE6","#FDF0B4","#FDDA7C","#FEBC48",
+               "#FB992F","#F7762B","#E84E29","#D72828",
+               "#B81B22","#97161A","#921519")
 
   e_o     <- ext(r)
   Points  <- vect(cbind(x = e_o[1:2], y = e_o[3:4]),

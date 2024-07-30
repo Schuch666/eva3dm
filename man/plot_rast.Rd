@@ -29,7 +29,7 @@ plot_rast(
 \arguments{
 \item{r}{raster}
 
-\item{color}{color scale}
+\item{color}{color scale, or name of a custom color scale (see notes)}
 
 \item{ncolor}{number of colors}
 
@@ -67,6 +67,9 @@ plot_rast(
 }
 \description{
 Custon plot for SpatRaster (terra R-package) object based on terra package
+}
+\note{
+color scale includes: 'eva3r' (default), 'eva4', 'blues' and 'diff'
 }
 \examples{
 wrf <- paste(system.file("extdata", package = "eva3dm"),
