@@ -4,7 +4,7 @@
 \name{eva3dm-package}
 \alias{eva3dm}
 \alias{eva3dm-package}
-\title{eva3dm: EVAluation of 3D meteorological and air quality Models}
+\title{eva3dm: Evaluation of 3D Meteorological and Air Quality Models}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
