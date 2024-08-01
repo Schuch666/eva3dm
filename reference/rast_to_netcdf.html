@@ -74,10 +74,6 @@
 <span class="r-in"><span><span class="va">wrf_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">folder</span>,<span class="st">"/wrf.day1.o3.nc"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Rast</span>     <span class="op">&lt;-</span> <span class="fu"><a href="wrf_rast.html">wrf_rast</a></span><span class="op">(</span><span class="va">wrf_file</span>,<span class="st">'o3'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> o3 attribute MemoryOrder:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> XYZ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> o3 attribute units:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ppmv</span>
 <span class="r-in"><span><span class="va">A</span>        <span class="op">&lt;-</span> <span class="fu">rast_to_netcdf</span><span class="op">(</span><span class="va">Rast</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
