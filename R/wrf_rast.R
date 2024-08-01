@@ -80,9 +80,9 @@ wrf_rast <- function(file = file.choose(),
   } else if ("XLONG" %in% coordvarList & "XLAT" %in% coordvarList) {
     inNCLon <- ncdf4::ncvar_get(coordNC, "XLONG")
     inNCLat <- ncdf4::ncvar_get(coordNC, "XLAT")
-  } else if ("lon" %in% coordvarList & "lat" %in% coordvarList) {        # nocov
-    inNCLon <- ncdf4::ncvar_get(coordNC, "lon")                          # nocov
-    inNCLat <- ncdf4::ncvar_get(coordNC, "lat")                          # nocov
+  } else if ("lon" %in% coordvarList & "lat" %in% coordvarList) {            # nocov
+    inNCLon <- ncdf4::ncvar_get(coordNC, "lon")                              # nocov
+    inNCLat <- ncdf4::ncvar_get(coordNC, "lat")                              # nocov
   } else if ("longitude" %in% coordvarList & "latitude" %in% coordvarList) { # nocov
     inNCLon <- ncdf4::ncvar_get(coordNC, "longitude")                        # nocov
     inNCLat <- ncdf4::ncvar_get(coordNC, "latitude")                         # nocov
@@ -149,8 +149,6 @@ wrf_rast <- function(file = file.choose(),
     stop(paste0('Error: Asymmetric grid cells not supported. DX=', dx, ', DY=', dy))  # nocov
   }
 
-  # cbind(x, y)[,1:2] need to be changed to work with wrfbiochemi
-
   # USING the terra R-package
   pontos     <- terra::vect(cbind(x, y)[,1:2],
                             type = "points",
@@ -164,7 +162,6 @@ wrf_rast <- function(file = file.choose(),
   ymx <- projcoords[1,2] + dy/2.0   # upper border
   xmx <- xmn + ncols*dx             # Right border
   ymn <- ymx - nrows*dy             # Bottom border
-
 
   f2 <- function(a, wh){
     dims <- seq_len(length(dim(a)))                # nocov
@@ -216,6 +213,12 @@ wrf_rast <- function(file = file.choose(),
   }                                                         # nocov end
 
   ncdf4::nc_close(wrf)
+
+  mem_order <- atr(file = file, var = name, att = 'MemoryOrder', verbose = F, action = 'get')
+  if(mem_order %in% c('XY','XY ')) r <- terra::flip(r,direction='horizontal')
+
+  u <- atr(file = file, var = name, att = 'units', verbose = F, action = 'get')
+  if(u != 0) units(r) <- u
 
   if(flip_h) r <- terra::flip(r,direction='horizontal')
   if(flip_v) r <- terra::flip(r,direction='vertical')
