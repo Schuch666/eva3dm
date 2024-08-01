@@ -1,6 +1,6 @@
 Package: eva3dm
 Type: Package
-Title: EVAluation of 3D meteorological and air quality Models
+Title: Evaluation of 3D Meteorological and Air Quality Models
 Version: 0.5.6
 Date: 2024-07-22
 Description: Functions to post-process, visualize and evaluate results from 3d Meteorological and Air Quality models with surface and satellite observations.
@@ -20,4 +20,3 @@ BugReports: https://github.com/Schuch666/eva3dm/issues/
 RoxygenNote: 7.3.2
 Depends: R (>= 3.5.0)
 URL: https://schuch666.github.io/eva3dm/
-LazyData: no
