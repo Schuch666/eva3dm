@@ -4,7 +4,7 @@
 \alias{atr}
 \title{Read and write attributes on a NetCDF file}
 \usage{
-atr(file = NA, var = "?", att = NA, action = "get", value = NA, verbose = F)
+atr(file = NA, var = "?", att = NA, action = "na", value = NA, verbose = T)
 }
 \arguments{
 \item{file}{file name}
@@ -13,7 +13,7 @@ atr(file = NA, var = "?", att = NA, action = "get", value = NA, verbose = F)
 
 \item{att}{attribute names (NA for get all attnames)}
 
-\item{action}{Print, write or get (return the value) an attribute}
+\item{action}{"na" (only print), "write" or "get" (return the value) of an attribute}
 
 \item{value}{value to write}
 
@@ -24,15 +24,15 @@ Read and write metadata information of a NetCDF files
 }
 \examples{
 nc <- paste0(system.file("extdata",package="eva3dm"),'/wrfinput_d01')
-atr(nc,0, action = 'print')
-atr(nc,'Times', action = 'print')
-atr(nc,'XLAT', action = 'print')
-atr(nc,'XLONG', action = 'print')
+atr(nc,0)
+atr(nc,'Times')
+atr(nc,'XLAT')
+atr(nc,'XLONG')
 
-atr(nc,'XLONG','MemoryOrder', action = 'print')
-atr(nc,'XLONG','description', action = 'print')
-atr(nc,'XLONG','units', action = 'print')
-atr(nc,'XLONG','stagger', action = 'print')
-atr(nc,'XLONG','FieldType', action = 'print')
+atr(nc,'XLONG','MemoryOrder')
+atr(nc,'XLONG','description')
+atr(nc,'XLONG','units')
+atr(nc,'XLONG','stagger')
+atr(nc,'XLONG','FieldType')
 
 }
