@@ -1,4 +1,4 @@
-# eva3dm
+# eva3dm <img src="man/figures/logo.gif" align="right" alt="" width="140" />
 
 An R-package focusing on **EVA**luation of **3D** weather and air quality **M**odels. 
 
