@@ -4,4 +4,4 @@
 ^docs$
 ^pkgdown$
 ^\.github$
-^man\figures\logo.gif
+^man\figures\*.gif
