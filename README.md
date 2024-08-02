@@ -1,4 +1,7 @@
 # eva3dm <img src="man/figures/logo.gif" align="right" alt="" width="140" />
+<!-- badges: start -->
+[![Licence:MIT](https://img.shields.io/github/license/hyperium/hyper.svg)](https://opensource.org/licenses/MIT) 
+<!-- badges: end -->  
 
 An R-package focusing on **EVA**luation of **3D** weather and air quality **M**odels. 
 
