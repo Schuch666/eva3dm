@@ -63,9 +63,11 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="eva3dm">eva3dm<a class="anchor" aria-label="anchor" href="#eva3dm"></a>
+<img src="logo.png" class="logo" alt=""><h1 id="eva3dm-">eva3dm <a class="anchor" aria-label="anchor" href="#eva3dm-"></a>
 </h1>
 </div>
+<!-- badges: start -->
+
 <p>An R-package focusing on <strong>EVA</strong>luation of <strong>3D</strong> weather and air quality <strong>M</strong>odels.</p>
 <p>The following workflow is recommended: - <em>Pre-processing of observations</em>: download (METAR can be downloded using the R-package <a href="https://docs.ropensci.org/riem/" class="external-link">riem</a> or <a href="https://mesonet.agron.iastate.edu/request/download.phtml" class="external-link">Iowa State University</a> site, and Air Quality data for Brazil can be downloaded using the R-package <a href="https://github.com/ropensci/qualR" class="external-link">qualR</a>, or <a href="https://qualar.cetesb.sp.gov.br/qualar/home.do" class="external-link">QUALAR</a> and <a href="https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore" class="external-link">MonitorAir</a> sites), QA of the observation data, process observation data for evaluation, process of site-list if plan to extract time-series from the model; A range of satellite products are available at <a href="https://giovanni.gsfc.nasa.gov/giovanni/" class="external-link">NASA giovanni</a> website; - <em>Pre-processing of model output</em>: extraction and pre-processing of model outputs; - <em>Model Evaluation</em>: <code><a href="reference/eva.html">eva()</a></code> (to evaluate time-series) or <code><a href="reference/sat.html">sat()</a></code> (to evaluate against satellite products), available to perform statistical (more details in <code><a href="reference/stat.html">stat()</a></code>) and categorical (more details in <code><a href="reference/cate.html">cate()</a></code>) evaluation; - <em>Visualization</em>: try some of the visualization functions from this package or other packages.</p>
 <p>The package include:</p>
@@ -138,7 +140,12 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/github/license/hyperium/hyper.svg" alt="Licence:MIT"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
