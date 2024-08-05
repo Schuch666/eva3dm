@@ -7,10 +7,11 @@
 #'
 #' @param mo data.frame with model data
 #' @param ob data.frame with observation data
-#' @param station name of the station or "ALL" (default), see notes
 #' @param rname row name of the output (default is station argument)
-#' @param fair model data.frame (or list of names) to perform a fair comparison, see notes
+#' @param table data.frame to append the results
+#' @param station name of the station or "ALL" (default), see notes
 #' @param wd default is FALSE, see notes
+#' @param fair model data.frame (or list of names) to perform a fair comparison, see notes
 #' @param cutoff minimum (optionally the maximum) valid value for observation
 #' @param cutoff_NME minimum (optionally the maximum) valid value for observation for NME
 #' @param no_tz ignore tz from input (force GMT)
@@ -63,9 +64,10 @@
 #'              eval_function = cate, threshold = 10)
 #' print(table)
 #'
-eva <- function(mo, ob, station = 'ALL', wd = FALSE, fair = NULL,
+eva <- function(mo, ob, rname = station, table = NULL,
+                station = 'ALL', wd = FALSE, fair = NULL,
                 cutoff = NA, cutoff_NME = NA, no_tz = FALSE,
-                nobs = 8, rname = station, eval_function = stat,
+                nobs = 8, eval_function = stat,
                 time = 'date', verbose = TRUE, ...){
 
   if(!is.data.frame(mo))
@@ -114,15 +116,17 @@ eva <- function(mo, ob, station = 'ALL', wd = FALSE, fair = NULL,
   }else{
     if(!station %in% names(ob)){
       cat(station,'not found in observation input\n')
-      RESULT <- eval_function((1:199)/100,(1:199)/100, ...)
-      RESULT$n = 0
+      RESULT <- eval_function((1:19)/10,(1:19)/10, ...)
+      RESULT[,] = NA
+      RESULT$n  = 0
       row.names(RESULT) <- rname
       return(RESULT)
     }
     if(!station %in% names(mo)){
       cat(station,'not found in model input\n')
-      RESULT <- eval_function((1:199)/100,(1:199)/100, ...)
-      RESULT$n = 0
+      RESULT <- eval_function((1:19)/10,(1:19)/10, ...)
+      RESULT[,] = NA
+      RESULT$n  = 0
       row.names(RESULT) <- rname
       return(RESULT)
     }
@@ -161,8 +165,9 @@ eva <- function(mo, ob, station = 'ALL', wd = FALSE, fair = NULL,
   }else{
     if(verbose & to_run)
       cat(station,'has only',length(B[!is.na(B)]),'valid observations (lesser than',nobs,'obs)\n')
-    RESULT <- eval_function((1:199)/100,(1:199)/100, ...)
-    RESULT$n = 0
+    RESULT <- eval_function((1:19)/10,(1:19)/10, ...)
+    RESULT[,] = NA
+    RESULT$n  = 0
     row.names(RESULT) <- rname
   }
 
@@ -173,7 +178,7 @@ eva <- function(mo, ob, station = 'ALL', wd = FALSE, fair = NULL,
       RESULT$n = 0
     }
   }
-  return(RESULT)
+  return(rbind(table,RESULT))
 }
 
 #' Returns the common columns

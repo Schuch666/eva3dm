@@ -7,6 +7,8 @@
 eva(
   mo,
   ob,
+  rname = station,
+  table = NULL,
   station = "ALL",
   wd = FALSE,
   fair = NULL,
@@ -14,7 +16,6 @@ eva(
   cutoff_NME = NA,
   no_tz = FALSE,
   nobs = 8,
-  rname = station,
   eval_function = stat,
   time = "date",
   verbose = TRUE,
@@ -25,6 +26,10 @@ eva(
 \item{mo}{data.frame with model data}
 
 \item{ob}{data.frame with observation data}
+
+\item{rname}{row name of the output (default is station argument)}
+
+\item{table}{data.frame to append the results}
 
 \item{station}{name of the station or "ALL" (default), see notes}
 
@@ -39,8 +44,6 @@ eva(
 \item{no_tz}{ignore tz from input (force GMT)}
 
 \item{nobs}{minimum number of valid observations, default is 8}
-
-\item{rname}{row name of the output (default is station argument)}
 
 \item{eval_function}{evaluation function (default is stat)}
 

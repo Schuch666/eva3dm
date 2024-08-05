@@ -4,12 +4,13 @@
 #'
 #' @return a data.frame
 #'
-#' @param mo rast with model
-#' @param ob rast with observations
+#' @param mo SpatRaster or raster with model
+#' @param ob SpatRaster or raster with observations
+#' @param rname passed to stat
+#' @param table data.frame to append the results
 #' @param n number of points from the boundary removed, default is 5
 #' @param min minimum value cutoff
 #' @param max maximum value cutoff
-#' @param rname passed to stat
 #' @param method passed to terra::resample
 #' @param eval_function evaluation function (default is stat)
 #' @param verbose set TRUE to display additional information
@@ -35,8 +36,10 @@
 #'
 #' @export
 
-sat <- function(mo,ob,n = 6, min = NA, max = NA,rname, method = 'bilinear',
-                eval_function = stat, verbose = T, ...){
+sat <- function(mo,ob,rname, table = NULL,
+                n = 6, min = NA, max = NA,
+                method = 'bilinear', eval_function = stat,
+                verbose = T, ...){
 
   if(missing(mo))
     stop('model input is missing!')
@@ -101,8 +104,9 @@ sat <- function(mo,ob,n = 6, min = NA, max = NA,rname, method = 'bilinear',
   if(length(model) < 1 | length(obser) < 1) stop('YOU DIED')
 
   if(missing(rname)){
-    return(eval_function(model = model, observation = obser, ...))
+    RESULT <- eval_function(model = model, observation = obser, ...)
   }else{
-    return(eval_function(model = model, observation = obser, rname = rname, ...))
+    RESULT <- eval_function(model = model, observation = obser,rname = rname, ...)
   }
+  return(rbind(table,RESULT))
 }
