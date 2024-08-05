@@ -7,10 +7,11 @@
 sat(
   mo,
   ob,
+  rname,
+  table = NULL,
   n = 6,
   min = NA,
   max = NA,
-  rname,
   method = "bilinear",
   eval_function = stat,
   verbose = T,
@@ -18,17 +19,19 @@ sat(
 )
 }
 \arguments{
-\item{mo}{rast with model}
+\item{mo}{SpatRaster or raster with model}
 
-\item{ob}{rast with observations}
+\item{ob}{SpatRaster or raster with observations}
+
+\item{rname}{passed to stat}
+
+\item{table}{data.frame to append the results}
 
 \item{n}{number of points from the boundary removed, default is 5}
 
 \item{min}{minimum value cutoff}
 
 \item{max}{maximum value cutoff}
-
-\item{rname}{passed to stat}
 
 \item{method}{passed to terra::resample}
 
