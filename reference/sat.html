@@ -47,10 +47,11 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sat</span><span class="op">(</span></span>
 <span>  <span class="va">mo</span>,</span>
 <span>  <span class="va">ob</span>,</span>
+<span>  <span class="va">rname</span>,</span>
+<span>  table <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  n <span class="op">=</span> <span class="fl">6</span>,</span>
 <span>  min <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  max <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  <span class="va">rname</span>,</span>
 <span>  method <span class="op">=</span> <span class="st">"bilinear"</span>,</span>
 <span>  eval_function <span class="op">=</span> <span class="va">stat</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">T</span>,</span>
@@ -63,11 +64,19 @@
 
 
 <dl><dt id="arg-mo">mo<a class="anchor" aria-label="anchor" href="#arg-mo"></a></dt>
-<dd><p>rast with model</p></dd>
+<dd><p>SpatRaster or raster with model</p></dd>
 
 
 <dt id="arg-ob">ob<a class="anchor" aria-label="anchor" href="#arg-ob"></a></dt>
-<dd><p>rast with observations</p></dd>
+<dd><p>SpatRaster or raster with observations</p></dd>
+
+
+<dt id="arg-rname">rname<a class="anchor" aria-label="anchor" href="#arg-rname"></a></dt>
+<dd><p>passed to stat</p></dd>
+
+
+<dt id="arg-table">table<a class="anchor" aria-label="anchor" href="#arg-table"></a></dt>
+<dd><p>data.frame to append the results</p></dd>
 
 
 <dt id="arg-n">n<a class="anchor" aria-label="anchor" href="#arg-n"></a></dt>
@@ -80,10 +89,6 @@
 
 <dt id="arg-max">max<a class="anchor" aria-label="anchor" href="#arg-max"></a></dt>
 <dd><p>maximum value cutoff</p></dd>
-
-
-<dt id="arg-rname">rname<a class="anchor" aria-label="anchor" href="#arg-rname"></a></dt>
-<dd><p>passed to stat</p></dd>
 
 
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
