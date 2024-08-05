@@ -120,7 +120,8 @@ eva <- function(mo, ob, rname = station, table = NULL,
       RESULT[,] = NA
       RESULT$n  = 0
       row.names(RESULT) <- rname
-      return(RESULT)
+      return(rbind(table,RESULT))
+      return(rbind(table,RESULT))
     }
     if(!station %in% names(mo)){
       cat(station,'not found in model input\n')
@@ -128,7 +129,7 @@ eva <- function(mo, ob, rname = station, table = NULL,
       RESULT[,] = NA
       RESULT$n  = 0
       row.names(RESULT) <- rname
-      return(RESULT)
+      return(rbind(table,RESULT))
     }
   }
 
