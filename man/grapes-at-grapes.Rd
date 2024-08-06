@@ -12,7 +12,7 @@ stat \%at\% site
 \item{site}{data.frame with site list (containing row.names, lat and lon)}
 }
 \description{
-combines the stats (from individual station evaluation) and site list in a SpatVector
+combines the stats (from individual station evaluation) and site list in a SpatVector using row.names
 }
 \examples{
 

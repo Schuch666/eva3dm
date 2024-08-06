@@ -21,25 +21,22 @@
 #' @export
 #'
 #' @examples
-#' masp  <- terra::vect(paste0(system.file("extdata",package="eva3dm"),
-#'                            "/masp.shp"))
-#' BR    <- terra::vect(paste0(system.file("extdata",package="eva3dm"),
-#'                             "/BR.shp"))
+#' sp<- terra::vect(paste0(system.file("extdata",package="eva3dm"),"/masp.shp"))
+#' BR<- terra::vect(paste0(system.file("extdata",package="eva3dm"),"/BR.shp"))
 #'
-#' p     <- readRDS(paste0(system.file("extdata",package="eva3dm"),
-#'                         "/BR-AQ.Rds"))
-#' p$id  <- row.names(p)
-#' point <- terra::vect(p)
+#' p    <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/BR-AQ.Rds"))
+#' p$id      <- row.names(p)
+#' point     <- terra::vect(p)
 #' point$NMB <- 1:45 - 20 # some values to plot
 #'
 #' terra::plot(BR, main = 'add points',xlim = c(-52,-37),ylim = c(-25,-18))
 #' terra::lines(BR)
-#' terra::lines(masp, col = 'gray')
+#' terra::lines(sp, col = 'gray')
 #' overlay(point,point$NMB,cex = 1.4)
 #'
 #' overlay(point,point$NMB,cex = 1.4, add = FALSE, main = 'new plot')
 #' terra::lines(BR)
-#' terra::lines(masp, col = 'gray')
+#' terra::lines(sp, col = 'gray')
 #'
 overlay <- function(p,z,col,
                     lim      = range(z, na.rm = TRUE),
@@ -52,6 +49,11 @@ overlay <- function(p,z,col,
                     pax      = list(),
                     expand   = 1.15,
                     ...){
+
+  if(missing(p))
+    stop('p is missing')
+  if(missing(z))
+    stop('z is missing')
 
   if(missing(col))
     col <- c("#1B2C62","#204385","#265CA9","#4082C2",
@@ -96,7 +98,7 @@ overlay <- function(p,z,col,
 }
 
 #' Combine stats and site list to overlay plot
-#' @description combines the stats (from individual station evaluation) and site list in a SpatVector
+#' @description combines the stats (from individual station evaluation) and site list in a SpatVector using row.names
 #'
 #' @param stat data.frame with stats or other variable (containing row.names and other variables)
 #' @param site data.frame with site list (containing row.names, lat and lon)
@@ -122,9 +124,9 @@ overlay <- function(p,z,col,
 #'
 `%at%` <- function(stat, site){
 
-  cat('using',deparse(substitute(stat)),'at',deparse(substitute(site)),'\n')
+  cat('georeferencing',deparse(substitute(stat)),'at',deparse(substitute(site)),'\n')
 
-  stat$id     <- row.names(stat)
+  stat$id      <- row.names(stat)
   site$id      <- row.names(site)
   a            <- merge(site, stat, by = 'id')
   row.names(a) <- a$id
