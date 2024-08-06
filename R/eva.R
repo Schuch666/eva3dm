@@ -7,9 +7,9 @@
 #'
 #' @param mo data.frame with model data
 #' @param ob data.frame with observation data
-#' @param rname row name of the output (default is station argument)
+#' @param rname row name of the output (default is site argument)
 #' @param table data.frame to append the results
-#' @param station name of the station or "ALL" (default), see notes
+#' @param site name of the stations or "ALL" (default), see notes
 #' @param wd default is FALSE, see notes
 #' @param fair model data.frame (or list of names) to perform a fair comparison, see notes
 #' @param cutoff minimum (optionally the maximum) valid value for observation
@@ -25,7 +25,7 @@
 #'
 #' @note for wind direction a rotation of 360 (or -360) is applied to minimize the wind direction difference.
 #'
-#' @note If station == 'ALL' (default) all the columns from observations are combined in one column
+#' @note If site == 'ALL' (default) all the columns from observations are combined in one column
 #' (same for observation) and all the columns are evaluated together.
 #'
 #' @note Special thanks to Kiarash and Libo to help to test the wind direction option.
@@ -42,30 +42,30 @@
 #'
 #' # if there is no observed data
 #' # the function return an empty row
-#' table <- eva(mo = model, ob = obs, station = "VVIbes")
+#' table <- eva(mo = model, ob = obs, site = "VVIbes")
 #' print(table)
 #'
-#' # if the station are not in the input data frame a message is displayed
+#' # if the site are not in the input data frame a message is displayed
 #' # and the function return an empty row
-#' table <- eva(mo = model, ob = obs, station = "Ibirapuera")
+#' table <- eva(mo = model, ob = obs, site = "Ibirapuera")
 #' print(table)
 #'
 #' # calculating statistical with a few observed values
-#' table <- eva(mo = model, ob = obs, station = "Americana")
+#' table <- eva(mo = model, ob = obs, site = "Americana")
 #' print(table)
 #'
 #' # calculating categorical (using 2 for threshold) with a few observed values
-#' table <- eva(mo = model, ob = obs, station = "Americana",
+#' table <- eva(mo = model, ob = obs, site = "Americana",
 #'              eval_function = cate, threshold = 2)
 #' print(table)
 #'
 #' # calculating categorical (using 2 for threshold) with a few observed values
-#' table <- eva(mo = model, ob = obs, station = "Americana",
+#' table <- eva(mo = model, ob = obs, site = "Americana",
 #'              eval_function = cate, threshold = 10)
 #' print(table)
 #'
-eva <- function(mo, ob, rname = station, table = NULL,
-                station = 'ALL', wd = FALSE, fair = NULL,
+eva <- function(mo, ob, rname = site, table = NULL,
+                site = 'ALL', wd = FALSE, fair = NULL,
                 cutoff = NA, cutoff_NME = NA, no_tz = FALSE,
                 nobs = 8, eval_function = stat,
                 time = 'date', verbose = TRUE, ...){
@@ -79,8 +79,8 @@ eva <- function(mo, ob, rname = station, table = NULL,
   if(!time %in% names(ob))
     stop('ob must have a column named date with times (POSIXct)')
 
-  if(station == "ALL"){
-    cat('combining all stations...\n')
+  if(site == "ALL"){
+    cat('combining all sites...\n')
     site_obs     <- names(ob)[-1]
     if(!is.null(fair)){
       cat('considering a fair comparison for other domain...\n')
@@ -114,8 +114,8 @@ eva <- function(mo, ob, rname = station, table = NULL,
     mo <- combination_model
     ob <- combination_obs
   }else{
-    if(!station %in% names(ob)){
-      cat(station,'not found in observation input\n')
+    if(!site %in% names(ob)){
+      cat(site,'not found in observation input\n')
       RESULT <- eval_function((1:19)/10,(1:19)/10, ...)
       RESULT[,] = NA
       RESULT$n  = 0
@@ -123,8 +123,8 @@ eva <- function(mo, ob, rname = station, table = NULL,
       return(rbind(table,RESULT))
       return(rbind(table,RESULT))
     }
-    if(!station %in% names(mo)){
-      cat(station,'not found in model input\n')
+    if(!site %in% names(mo)){
+      cat(site,'not found in model input\n')
       RESULT <- eval_function((1:19)/10,(1:19)/10, ...)
       RESULT[,] = NA
       RESULT$n  = 0
@@ -133,9 +133,9 @@ eva <- function(mo, ob, rname = station, table = NULL,
     }
   }
 
-  model        <- mo[,c(time,station)]
+  model        <- mo[,c(time,site)]
   names(model) <- c(time,"model")
-  obser        <- ob[,c(time,station)]
+  obser        <- ob[,c(time,site)]
   names(obser) <- c(time,"obser")
   if(no_tz){
     f <- function(x,tz="GMT") return(as.POSIXct(as.numeric(x), origin="1970-01-01", tz=tz))
@@ -149,23 +149,23 @@ eva <- function(mo, ob, rname = station, table = NULL,
   to_run = TRUE
   if(suppressWarnings( max(A,na.rm = T) ) == suppressWarnings( min(A,na.rm = T)) ){
     if(verbose)
-      cat(station,'contains only zeros (or constant values) and NA values for model\n')
+      cat(site,'contains only zeros (or constant values) and NA values for model\n')
     to_run = FALSE
   }
   if(suppressWarnings(  max(B,na.rm = T) ) == suppressWarnings( min(B,na.rm = T)) ){
     if(verbose)
-      cat(station,'contains only zeros (or constant values) and NA values for observations\n')
+      cat(site,'contains only zeros (or constant values) and NA values for observations\n')
     to_run = FALSE
   }
 
   if(length(B[!is.na(B)]) > nobs & to_run){
     if(verbose)
-      cat(station,'has',length(B[!is.na(B)]),'valid observations\n')
+      cat(site,'has',length(B[!is.na(B)]),'valid observations\n')
     RESULT <- eval_function(A,B, cutoff=cutoff,cutoff_NME=cutoff_NME, wd = wd, nobs = nobs, ...)
     row.names(RESULT) <- rname
   }else{
     if(verbose & to_run)
-      cat(station,'has only',length(B[!is.na(B)]),'valid observations (lesser than',nobs,'obs)\n')
+      cat(site,'has only',length(B[!is.na(B)]),'valid observations (lesser than',nobs,'obs)\n')
     RESULT <- eval_function((1:19)/10,(1:19)/10, ...)
     RESULT[,] = NA
     RESULT$n  = 0
@@ -175,7 +175,7 @@ eva <- function(mo, ob, rname = station, table = NULL,
   if(RESULT$n > 0){
     if(max(B,na.rm = T) == min(B, na.rm = T)){
       if(verbose)
-        cat(station,'values are constant, No of observation set to 0\n')
+        cat(site,'values are constant, No of observation set to 0\n')
       RESULT$n = 0
     }
   }

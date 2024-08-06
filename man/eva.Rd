@@ -7,9 +7,9 @@
 eva(
   mo,
   ob,
-  rname = station,
+  rname = site,
   table = NULL,
-  station = "ALL",
+  site = "ALL",
   wd = FALSE,
   fair = NULL,
   cutoff = NA,
@@ -27,11 +27,11 @@ eva(
 
 \item{ob}{data.frame with observation data}
 
-\item{rname}{row name of the output (default is station argument)}
+\item{rname}{row name of the output (default is site argument)}
 
 \item{table}{data.frame to append the results}
 
-\item{station}{name of the station or "ALL" (default), see notes}
+\item{site}{name of the stations or "ALL" (default), see notes}
 
 \item{wd}{default is FALSE, see notes}
 
@@ -64,7 +64,7 @@ fair can be a data.frame or a character string to be used for the analysis, alte
 
 for wind direction a rotation of 360 (or -360) is applied to minimize the wind direction difference.
 
-If station == 'ALL' (default) all the columns from observations are combined in one column
+If site == 'ALL' (default) all the columns from observations are combined in one column
 (same for observation) and all the columns are evaluated together.
 
 Special thanks to Kiarash and Libo to help to test the wind direction option.
@@ -77,25 +77,25 @@ obs   <- readRDS(paste0(system.file("extdata",package="eva3dm"),
 
 # if there is no observed data
 # the function return an empty row
-table <- eva(mo = model, ob = obs, station = "VVIbes")
+table <- eva(mo = model, ob = obs, site = "VVIbes")
 print(table)
 
-# if the station are not in the input data frame a message is displayed
+# if the site are not in the input data frame a message is displayed
 # and the function return an empty row
-table <- eva(mo = model, ob = obs, station = "Ibirapuera")
+table <- eva(mo = model, ob = obs, site = "Ibirapuera")
 print(table)
 
 # calculating statistical with a few observed values
-table <- eva(mo = model, ob = obs, station = "Americana")
+table <- eva(mo = model, ob = obs, site = "Americana")
 print(table)
 
 # calculating categorical (using 2 for threshold) with a few observed values
-table <- eva(mo = model, ob = obs, station = "Americana",
+table <- eva(mo = model, ob = obs, site = "Americana",
              eval_function = cate, threshold = 2)
 print(table)
 
 # calculating categorical (using 2 for threshold) with a few observed values
-table <- eva(mo = model, ob = obs, station = "Americana",
+table <- eva(mo = model, ob = obs, site = "Americana",
              eval_function = cate, threshold = 10)
 print(table)
 
