@@ -57,6 +57,6 @@ The package include:
 
 ✔ `plot_diff()` custom plot for absolute or relative difference of terra `SpatRaster` objects;
 
-✔ `overlay()` custom plot to overlay points or plot point-data;
+✔ `overlay()` custom plot to overlay points or plot point-data,`%IN%` can be used to georeference the evaluation results;
 
 ✔ `legend_range()` custom legend, display max, min and average;
