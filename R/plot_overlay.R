@@ -94,3 +94,41 @@ overlay <- function(p,z,col,
          pch = pch,
          cex = cex, ... )
 }
+
+#' Combine stats and site list to overlay plot
+#' @description combines the stats (from individual station evaluation) and site list in a SpatVector
+#'
+#' @param stat data.frame with stats or other variable (containing row.names and other variables)
+#' @param site data.frame with site list (containing row.names, lat and lon)
+#'
+#' @export
+#' @import terra
+#'
+#' @examples
+#'
+#' sites<- readRDS(paste0(system.file("extdata",package="eva3dm"),"/BR-AQ.Rds"))
+#' model<- readRDS(paste0(system.file("extdata",package="eva3dm"),"/model.Rds"))
+#' obs  <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/obs.Rds"))
+#'
+#' stats <- eva(mo = model, ob = obs, site = 'Americana')
+#' stats <- eva(mo = model, ob = obs, site = 'SAndre',table = stats)
+#' stats <- eva(mo = model, ob = obs, site = 'VVIbes',table = stats)
+#'
+#' print(stats)
+#'
+#' geo_stats <- stats %at% sites
+#'
+#' print(geo_stats)
+#'
+`%at%` <- function(stat, site){
+
+  cat('using',deparse(substitute(stat)),'at',deparse(substitute(site)),'\n')
+
+  stat$id     <- row.names(stat)
+  site$id      <- row.names(site)
+  a            <- merge(site, stat, by = 'id')
+  row.names(a) <- a$id
+  a            <- a[,-which(names(a) %in% 'id')]
+  sites        <- terra::vect(a)
+  return(sites)
+}
