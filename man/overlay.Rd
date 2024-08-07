@@ -23,7 +23,7 @@ overlay(
 \arguments{
 \item{p}{SpatVector points}
 
-\item{z}{values to plot}
+\item{z}{column name or a vector of values to plot}
 
 \item{col}{color}
 

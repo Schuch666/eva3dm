@@ -3,7 +3,7 @@
 #' @description Custon plot for SpatRaster (terra R-package) object based on terra package
 #'
 #' @param p SpatVector points
-#' @param z values to plot
+#' @param z column name or a vector of values to plot
 #' @param col color
 #' @param lim range of values for scale
 #' @param symmetry calculate symmetrical scale
@@ -53,7 +53,10 @@ overlay <- function(p,z,col,
   if(missing(p))
     stop('p is missing')
   if(missing(z))
-    stop('z is missing')
+    z <- 'NMB (%)'
+  if(is.character(z)){
+    z <- as.data.frame(p[,z])[,1]
+  }
 
   if(missing(col))
     col <- c("#1B2C62","#204385","#265CA9","#4082C2",
@@ -126,11 +129,10 @@ overlay <- function(p,z,col,
 
   cat('georeferencing',deparse(substitute(stat)),'at',deparse(substitute(site)),'\n')
 
-  stat$id      <- row.names(stat)
-  site$id      <- row.names(site)
-  a            <- merge(site, stat, by = 'id')
-  row.names(a) <- a$id
-  a            <- a[,-which(names(a) %in% 'id')]
+  stat$site    <- row.names(stat)
+  site$site    <- row.names(site)
+  a            <- merge(site, stat, by = 'site')
+  row.names(a) <- a$site
   sites        <- terra::vect(a)
   return(sites)
 }
