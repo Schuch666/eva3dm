@@ -2,6 +2,7 @@
 <!-- badges: start -->
 [![Licence:MIT](https://img.shields.io/github/license/hyperium/hyper.svg)](https://opensource.org/licenses/MIT) 
 [![R build status](https://github.com/schuch666/eva3dm/workflows/R-CMD-check/badge.svg)](https://github.com/schuch666/eva3dm/actions)
+![R build status 2](https://github.com/schuch666/eva3dm/actions/workflows/R-CMD-check.yml/badge.svg)
 <!-- badges: end -->  
 
 An R-package focusing on **EVA**luation of **3D** weather and air quality **M**odels. 
