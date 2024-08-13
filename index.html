@@ -68,9 +68,10 @@
 </div>
 <!-- badges: start -->
 
+<!-- badges: end -->
 <p>An R-package focusing on <strong>EVA</strong>luation of <strong>3D</strong> weather and air quality <strong>M</strong>odels.</p>
 <p>The following workflow is recommended:</p>
-<p><strong>1. Pre-processing of observations</strong>: - Download of observations, METAR can be downloaded using the R-package <a href="https://docs.ropensci.org/riem/" class="external-link">riem</a> or <a href="https://mesonet.agron.iastate.edu/request/download.phtml" class="external-link">Iowa State University</a> site, and Air Quality data for Brazil can be downloaded using the R-package <a href="https://github.com/ropensci/qualR" class="external-link">qualR</a>, or <a href="https://qualar.cetesb.sp.gov.br/qualar/home.do" class="external-link">QUALAR</a> and <a href="https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore" class="external-link">MonitorAir</a> sites) and a range of satellite products are available at <a href="https://giovanni.gsfc.nasa.gov/giovanni/" class="external-link">NASA giovanni</a> website - QA of the observation data - Process observation data for evaluation - Process of site-list if plan to extract time-series from the model</p>
+<p><strong>1. Pre-processing of observations</strong>: - Download of observations, METAR can be downloaded using the R-package <a href="https://docs.ropensci.org/riem/" class="external-link">riem</a> or via the <a href="https://mesonet.agron.iastate.edu/request/download.phtml" class="external-link">Iowa State University</a> site, Air Quality data for Brazil can be downloaded using the R-package <a href="https://github.com/ropensci/qualR" class="external-link">qualR</a>, or <a href="https://qualar.cetesb.sp.gov.br/qualar/home.do" class="external-link">QUALAR</a> and <a href="https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore" class="external-link">MonitorAir</a> sites, and a range of satellite products are available at <a href="https://giovanni.gsfc.nasa.gov/giovanni/" class="external-link">NASA giovanni</a> website. - QA of the observation data - Process observation data for evaluation - Process of site -list if plan to extract time -series from the model</p>
 <p><strong>2. Pre-processing of model output</strong>: Extraction and pre-processing of model outputs;</p>
 <p><strong>3. Model Evaluation</strong>: <code><a href="reference/eva.html">eva()</a></code> (to evaluate time-series) or <code><a href="reference/sat.html">sat()</a></code> (to evaluate against satellite products), available to perform statistical (more details in <code><a href="reference/stat.html">stat()</a></code>) and categorical (more details in <code><a href="reference/cate.html">cate()</a></code>) evaluation;</p>
 <p><strong>4. Visualization</strong>: try some of the visualization functions from this package or other packages.</p>
@@ -107,7 +108,7 @@
 <p>✔ <code><a href="reference/interp.html">interp()</a></code> Interpolation (project and resample);</p>
 <p>✔ <code><a href="reference/plot_rast.html">plot_rast()</a></code> custom plot for terra <code>SpatRaster</code> objects;</p>
 <p>✔ <code><a href="reference/plot_diff.html">plot_diff()</a></code> custom plot for absolute or relative difference of terra <code>SpatRaster</code> objects;</p>
-<p>✔ <code><a href="reference/overlay.html">overlay()</a></code> custom plot to overlay points or plot point-data,<code>%IN%</code> can be used to georeference the evaluation results;</p>
+<p>✔ <code><a href="reference/overlay.html">overlay()</a></code> custom plot to overlay points or plot point-data,<code>%at%</code> can be used to georeference the evaluation results;</p>
 <p>✔ <code><a href="reference/legend_range.html">legend_range()</a></code> custom legend, display max, min and average;</p>
 </div>
 </div>
@@ -147,8 +148,10 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/github/license/hyperium/hyper.svg" alt="Licence:MIT"></a></li>
-<li><a href="https://github.com/schuch666/eva3dm/actions" class="external-link"><img src="https://github.com/schuch666/eva3dm/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://github.com/schuch666/eva3dm/actions" class="external-link"><img src="https://github.com/schuch666/eva3dm/workflows/cod-cov/badge.svg" alt="Cod-cov status"></a></li>
 <li><a href="https://codecov.io/github/schuch666/eva3dm?branch=master" class="external-link"><img src="https://img.shields.io/codecov/c/github/schuch666/eva3dm/master.svg" alt="Coverage Status"></a></li>
+<li><a href="https://github.com/schuch666/eva3dm/actions" class="external-link"><img src="https://github.com/schuch666/eva3dm/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://github.com/schuch666/eva3dm/actions" class="external-link"><img src="https://github.com/schuch666/eva3dm/workflows/site/badge.svg" alt="Site build status"></a></li>
 </ul>
 </div>
 
