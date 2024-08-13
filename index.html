@@ -70,22 +70,11 @@
 
 <p>An R-package focusing on <strong>EVA</strong>luation of <strong>3D</strong> weather and air quality <strong>M</strong>odels.</p>
 <p>The following workflow is recommended:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Pre-processing of observations</strong>:</li>
-</ol>
-<ul>
-<li>download of observations, METAR can be downloaded using the R-package <a href="https://docs.ropensci.org/riem/" class="external-link">riem</a> or <a href="https://mesonet.agron.iastate.edu/request/download.phtml" class="external-link">Iowa State University</a> site, and Air Quality data for Brazil can be downloaded using the R-package <a href="https://github.com/ropensci/qualR" class="external-link">qualR</a>, or <a href="https://qualar.cetesb.sp.gov.br/qualar/home.do" class="external-link">QUALAR</a> and <a href="https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore" class="external-link">MonitorAir</a> sites) and a range of satellite products are available at <a href="https://giovanni.gsfc.nasa.gov/giovanni/" class="external-link">NASA giovanni</a> website</li>
-<li>QA of the observation data</li>
-<li>process observation data for evaluation</li>
-<li>rocess of site-list if plan to extract time-series from the model</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li><p><strong>Pre-processing of model output</strong>: extraction and pre-processing of model outputs;</p></li>
-<li><p><strong>Model Evaluation</strong>: <code><a href="reference/eva.html">eva()</a></code> (to evaluate time-series) or <code><a href="reference/sat.html">sat()</a></code> (to evaluate against satellite products), available to perform statistical (more details in <code><a href="reference/stat.html">stat()</a></code>) and categorical (more details in <code><a href="reference/cate.html">cate()</a></code>) evaluation;</p></li>
-<li><p><strong>Visualization</strong>: try some of the visualization functions from this package or other packages.</p></li>
-</ol>
-<p>The package include:</p>
+<p><strong>1. Pre-processing of observations</strong>: - Download of observations, METAR can be downloaded using the R-package <a href="https://docs.ropensci.org/riem/" class="external-link">riem</a> or <a href="https://mesonet.agron.iastate.edu/request/download.phtml" class="external-link">Iowa State University</a> site, and Air Quality data for Brazil can be downloaded using the R-package <a href="https://github.com/ropensci/qualR" class="external-link">qualR</a>, or <a href="https://qualar.cetesb.sp.gov.br/qualar/home.do" class="external-link">QUALAR</a> and <a href="https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore" class="external-link">MonitorAir</a> sites) and a range of satellite products are available at <a href="https://giovanni.gsfc.nasa.gov/giovanni/" class="external-link">NASA giovanni</a> website - QA of the observation data - Process observation data for evaluation - Process of site-list if plan to extract time-series from the model</p>
+<p><strong>2. Pre-processing of model output</strong>: Extraction and pre-processing of model outputs;</p>
+<p><strong>3. Model Evaluation</strong>: <code><a href="reference/eva.html">eva()</a></code> (to evaluate time-series) or <code><a href="reference/sat.html">sat()</a></code> (to evaluate against satellite products), available to perform statistical (more details in <code><a href="reference/stat.html">stat()</a></code>) and categorical (more details in <code><a href="reference/cate.html">cate()</a></code>) evaluation;</p>
+<p><strong>4. Visualization</strong>: try some of the visualization functions from this package or other packages.</p>
+<p>This package includes:</p>
 <div class="section level2">
 <h2 id="model-post-processing-functions">Model Post-processing functions:<a class="anchor" aria-label="anchor" href="#model-post-processing-functions"></a>
 </h2>
