@@ -71,13 +71,13 @@ eva <- function(mo, ob, rname = site, table = NULL,
                 time = 'date', verbose = TRUE, ...){
 
   if(!is.data.frame(mo))
-    stop('mo must be a data.frame')
+    stop('mo must be a data.frame') # nocov
   if(!is.data.frame(ob))
-    stop('ob must be a data.frame')
+    stop('ob must be a data.frame') # nocov
   if(!time %in% names(mo))
-    stop('mo must have a column named date with times (POSIXct)')
+    stop('mo must have a column named date with times (POSIXct)') # nocov
   if(!time %in% names(ob))
-    stop('ob must have a column named date with times (POSIXct)')
+    stop('ob must have a column named date with times (POSIXct)') # nocov
 
   if(site == "ALL"){
     cat('combining all sites...\n')
@@ -120,7 +120,6 @@ eva <- function(mo, ob, rname = site, table = NULL,
       RESULT[,] = NA
       RESULT$n  = 0
       row.names(RESULT) <- rname
-      return(rbind(table,RESULT))
       return(rbind(table,RESULT))
     }
     if(!site %in% names(mo)){
@@ -170,14 +169,6 @@ eva <- function(mo, ob, rname = site, table = NULL,
     RESULT[,] = NA
     RESULT$n  = 0
     row.names(RESULT) <- rname
-  }
-
-  if(RESULT$n > 0){
-    if(max(B,na.rm = T) == min(B, na.rm = T)){
-      if(verbose)
-        cat(site,'values are constant, No of observation set to 0\n')
-      RESULT$n = 0
-    }
   }
   return(rbind(table,RESULT))
 }
@@ -238,9 +229,9 @@ eva <- function(mo, ob, rname = site, table = NULL,
   cat('using',deparse(substitute(x)),'in',deparse(substitute(y)),'\n')
 
   if(!is.data.frame(x))
-    stop('x must be a data.frame')
+    stop('x must be a data.frame') # nocov
   if(!is.data.frame(y) & !is.character(y))
-    stop('y must be a data.frame or character')
+    stop('y must be a data.frame or character') # nocov
 
   if(is.data.frame(y)){
     x <- x[,names(x) %in% names(y)]

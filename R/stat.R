@@ -57,8 +57,8 @@ stat <- function(model, observation,
     if (denominator != 0) {
       d <- 1 - ( sum( (obs - sim)^2 ) / denominator )
     } else {
-      d <- NA
-      warning("'sum((abs(sim-Om)+abs(obs-Om))^2)=0', it is not possible to compute 'IoA'")
+      d <- NA # nocov
+      warning("'sum((abs(sim-Om)+abs(obs-Om))^2)=0', it is not possible to compute 'IoA'") # nocov
     }
     return(d)
   }
@@ -70,7 +70,7 @@ stat <- function(model, observation,
     if (len > 0) {
       res <- length(which(ratio >= 0.5 & ratio <= 2)) / len
     } else {
-      res <- NA
+      res <- NA # nocov
     }
     return(res)
   }
@@ -92,9 +92,9 @@ stat <- function(model, observation,
       cat(length(mo),'values left\n')
 
       if(length(mo) < nobs){
-        RESULT <- stat((1:199)/100,(1:199)/100)
-        RESULT$n = 0
-        return(RESULT)
+        RESULT <- stat((1:199)/100,(1:199)/100) # nocov
+        RESULT$n = 0                            # nocov
+        return(RESULT)                          # nocov
       }
     }
     if(length(cutoff)>1){
@@ -105,9 +105,9 @@ stat <- function(model, observation,
 
       cat(length(mo),'values left\n')
       if(length(mo) < nobs){
-        RESULT <- stat((1:199)/100,(1:199)/100)
-        RESULT$n = 0
-        return(RESULT)
+        RESULT <- stat((1:199)/100,(1:199)/100) # nocov
+        RESULT$n = 0                            # nocov
+        return(RESULT)                          # nocov
       }
     }
     Obs	  = mean(observation, na.rm = TRUE)
@@ -125,12 +125,12 @@ stat <- function(model, observation,
           previous <- mod[i]
           mod[i] <- obs[i] + temp_value
           if(verbose)
-            cat(paste("model WD was changed from",previous,"to", mod[i],'\n'))
+            cat(paste("model WD was changed from",previous,"to", mod[i],'\n')) # nocov
         } else {
           previous <- mod[i]
           mod[i] <- obs[i] - temp_value
           if(verbose)
-            cat(paste("model WD was changed from",previous,"to", mod[i],'\n'))
+            cat(paste("model WD was changed from",previous,"to", mod[i],'\n')) # nocov
         }
       }
     }
@@ -155,9 +155,9 @@ stat <- function(model, observation,
     cat(length(model),'values left\n')
 
     if(length(model) < nobs){
-      RESULT <- stat((1:199)/100,(1:199)/100)
-      RESULT$n = 0
-      return(RESULT)
+      RESULT <- stat((1:199)/100,(1:199)/100) # nocov
+      RESULT$n = 0                            # nocov
+      return(RESULT)                          # nocov
     }
   }
   if(length(cutoff)>1){
@@ -168,9 +168,9 @@ stat <- function(model, observation,
 
     cat(length(model),'values left\n')
     if(length(model) < nobs){
-      RESULT <- stat((1:199)/100,(1:199)/100)
-      RESULT$n = 0
-      return(RESULT)
+      RESULT <- stat((1:199)/100,(1:199)/100) # nocov
+      RESULT$n = 0                            # nocov
+      return(RESULT)                          # nocov
     }
   }
 
@@ -189,7 +189,7 @@ stat <- function(model, observation,
   # MFB   = 200 * mean(model/s - observation/s )
   # MFE   = 200 * mean(abs( model/s - observation/s ))
 
-  if(is.na(cutoff_NME)){
+  if(is.na(cutoff_NME[[1]])){
     NME	  = 100 * MAGE / Obs
   }else{
     NME = MFBE_cutoff(mo     = model,
