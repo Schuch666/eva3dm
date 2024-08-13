@@ -32,15 +32,13 @@ The package include:
 
 ## Model evaluation functions:
 
-✔ `eva()` data pairing and evaluation for time-series;
+✔ `eva()` data pairing and evaluation for time-series, `%IN%` allows fair evaluation;
 
-✔ `sat()` evaluation for satellite image;
+✔ `sat()` evaluation for satellite image, `%IN%` can be used for fair evaluation;
 
 ✔ `stat()` calculate statistical metrics (integrated in `eva()` and `sat()`);
 
 ✔ `cate()` calculate categorical metrics (integrated in `eva()` and `sat()`);
-
-✔ `%IN%` allows fair evaluation on function-call level for `eva()` and `sat()`;
 
 ✔ `write_stat()` and `read_stat()` to write and read evaluation results for `eva()` and `sat()`.
 
