@@ -58,6 +58,7 @@ Calculate traditional statistics from two numerical vectors in related to a thre
 }
 \examples{
 model <- 0.02 * 1:100
+set.seed(666)
 data  <- abs(rnorm(100,0.01))
 cate(model = model, observation = data, threshold = 1,
      to.plot = TRUE, rname = 'example')
