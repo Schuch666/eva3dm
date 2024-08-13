@@ -5,7 +5,7 @@
 [![Licence:MIT](https://img.shields.io/github/license/hyperium/hyper.svg)](https://opensource.org/licenses/MIT) 
 [![Cod-cov status](https://github.com/schuch666/eva3dm/workflows/cod-cov/badge.svg)](https://github.com/schuch666/eva3dm/actions) 
 [![Coverage Status](https://img.shields.io/codecov/c/github/schuch666/eva3dm/master.svg)](https://codecov.io/github/schuch666/eva3dm?branch=master) [![R build status](https://github.com/schuch666/eva3dm/workflows/R-CMD-check/badge.svg)](https://github.com/schuch666/eva3dm/actions) 
-[![Site build status](https://github.com/schuch666/eva3dm/workflows/site/badge.svg)](https://github.com/schuch666/eva3dm/actions)
+[![Site build status](https://github.com/schuch666/eva3dm/workflows/site/badge.svg)](https://schuch666.github.io/eva3dm/)
 
 <!-- badges: end -->
 
