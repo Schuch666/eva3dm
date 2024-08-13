@@ -42,6 +42,12 @@ jobs:
           find ${{ runner.temp }}/package -name 'testthat.Rout*' -exec cat '{}' \; || true
         shell: bash
 
+      - uses: codecov/codecov-action@v4.0.1
+        with:
+          verbose: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
       - name: Upload test results
         if: failure()
         uses: actions/upload-artifact@v3
