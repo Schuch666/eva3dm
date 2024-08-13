@@ -210,7 +210,7 @@ wrf_rast <- function(file = file.choose(),
       if(nlyr(r) == length(ncvar_get(wrf,'Times')))
         names(r)  <- paste(name,ncvar_get(wrf,'Times'),sep="_")
     }
-  }                                                         # nocov end
+  }
 
   ncdf4::nc_close(wrf)
 
