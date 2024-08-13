@@ -1,6 +1,14 @@
 NEWS
 ===========
 
+# eixport 0.7.0 
+- github actions for installation and check (linux-relese, linux-dev, linux-old1, win-release, win-old1, iso-relese)
+- Cod-cov integration
+
+# eixport 0.6.0 
+- wrf_rast fixed for biogenic emissions files
+- %at% syntax added
+
 # eixport 0.5.6 (Release date: 29 April 2024)
 - Website and other documentation update
 - %IN% syntax implemented

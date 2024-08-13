@@ -8,10 +8,18 @@
 An R-package focusing on **EVA**luation of **3D** weather and air quality **M**odels. 
 
 The following workflow is recommended:
-- *Pre-processing of observations*: download (METAR can be downloded using the R-package [riem](https://docs.ropensci.org/riem/) or [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site, and Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar/home.do) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites), QA of the observation data, process observation data for evaluation, process of site-list if plan to extract time-series from the model; A range of satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website; 
-- *Pre-processing of model output*: extraction and pre-processing of model outputs;
-- *Model Evaluation*: `eva()` (to evaluate time-series) or `sat()` (to evaluate against satellite products), available to perform statistical (more details in `stat()`) and categorical (more details in `cate()`) evaluation;
-- *Visualization*: try some of the visualization functions from this package or other packages.
+
+1. *Pre-processing of observations*: 
+- download of observations (METAR can be downloded using the R-package [riem](https://docs.ropensci.org/riem/) or [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site, and Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar/home.do) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites) and A range of satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website
+- QA of the observation data
+- process observation data for evaluation
+- rocess of site-list if plan to extract time-series from the model 
+
+2. *Pre-processing of model output*: extraction and pre-processing of model outputs;
+
+3. *Model Evaluation*: `eva()` (to evaluate time-series) or `sat()` (to evaluate against satellite products), available to perform statistical (more details in `stat()`) and categorical (more details in `cate()`) evaluation;
+
+4. *Visualization*: try some of the visualization functions from this package or other packages.
 
 The package include:
 
