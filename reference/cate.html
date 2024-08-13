@@ -137,12 +137,13 @@ Journal of Geophysical Research: Atmospheres, 113(D6).</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fl">0.02</span> <span class="op">*</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">666</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">data</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cate</span><span class="op">(</span>model <span class="op">=</span> <span class="va">model</span>, observation <span class="op">=</span> <span class="va">data</span>, threshold <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>     to.plot <span class="op">=</span> <span class="cn">TRUE</span>, rname <span class="op">=</span> <span class="st">'example'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="cate-1.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           n       Obs  Sim thr  A      CSI      POD        B FAR HSS      PSS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> example 100 0.7929618 1.01   1 53 27.69231 54.54545 151.5152  64   6 6.784261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           n       Obs  Sim thr  A      CSI      POD        B FAR HSS       PSS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> example 100 0.8272308 1.01   1 43 18.57143 39.39394 151.5152  74 -14 -15.82994</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
