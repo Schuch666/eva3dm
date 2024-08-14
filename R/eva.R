@@ -79,6 +79,9 @@ eva <- function(mo, ob, rname = site, table = NULL,
   if(!time %in% names(ob))
     stop('ob must have a column named date with times (POSIXct)') # nocov
 
+  ob <- as.data.frame(ob) # to keep only data.frame class and methods
+  mo <- as.data.frame(mo) # to keep only data.frame class and methods
+
   if(site == "ALL"){
     cat('combining all sites...\n')
     site_obs     <- names(ob)[-1]

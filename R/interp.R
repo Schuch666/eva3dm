@@ -24,14 +24,14 @@
 #' @export
 interp <- function(x,y,method = 'bilinear',verbose = F){
   if(class(x) %in% c('RasterLayer','RasterBrick')){
-    if(verbose)
-      cat('converting x to rast\n')
-    x <- rast(x)
+    if(verbose)                      # nocov
+      cat('converting x to rast\n')  # nocov
+    x <- rast(x)                     # nocov
   }
   if(class(y) %in% c('RasterLayer','RasterBrick')){
-    if(verbose)
-      cat('converting y to rast\n')
-    y <- rast(y)
+    if(verbose)                      # nocov
+      cat('converting y to rast\n')  # nocov
+    y <- rast(y)                     # nocov
   }
   x_proj <- terra::project(x,terra::crs(y,proj=TRUE))
   x_res  <- terra::resample(x_proj,y,method = method)

@@ -42,21 +42,21 @@ sat <- function(mo,ob,rname, table = NULL,
                 verbose = T, ...){
 
   if(missing(mo))
-    stop('model input is missing!')
+    stop('model input is missing!') # nocov
 
   if(missing(ob))
-    stop('observation input is missing!')
+    stop('observation input is missing!') # nocov
 
   if(class(mo) %in% c('RasterLayer','RasterBrick')){
-    mo <- rast(mo)
+    mo <- rast(mo) # nocov
   }
   if(class(ob) %in% c('RasterLayer','RasterBrick')){
-    ob <- rast(ob)
+    ob <- rast(ob) # nocov
   }
 
   cut_boundary <- function(x, n,value = NA){
 
-    if(n < 1) return(x)
+    if(n < 1) return(x) # nocov
 
     if(nlyr(x) == 1){ # for 2d rast
       A       <- matrix(values(x),
@@ -101,7 +101,7 @@ sat <- function(mo,ob,rname, table = NULL,
   model <- as.vector(model)
   obser <- as.vector(obser)
 
-  if(length(model) < 1 | length(obser) < 1) stop('YOU DIED')
+  if(length(model) < 1 | length(obser) < 1) stop('YOU DIED') # nocov
 
   if(missing(rname)){
     RESULT <- eval_function(model = model, observation = obser, ...)
