@@ -65,14 +65,6 @@ cate <- function(model, observation, threshold,
     cat(length(model),'values left\n')
   }
 
-  if(length(model) < nobs){
-    warning('Valid number of observatios lesseer than nobs')
-    RESULT     <- cate(NA,NA,1,nobs = 0)
-    RESULT$n   = length(model)
-    RESULT$Obs = mean(observation, na.rm = TRUE)
-    RESULT$Sim = mean(model, na.rm = TRUE)
-  }
-
   if(to.plot){
     if(missing(lim))
       lim <- range(observation,model,threshold, na.rm = TRUE)
@@ -94,28 +86,36 @@ cate <- function(model, observation, threshold,
           col = lcol,lty = lty)
   }
 
-  a = sum(model >  threshold & observation <= threshold)
-  b = sum(model >  threshold & observation >  threshold)
-  c = sum(model <= threshold & observation <= threshold)
-  d = sum(model <= threshold & observation >  threshold)
+  if(length(model) < nobs){
+    warning('Valid number of observatios lesseer than nobs')
+    table_stats     <- cate(NA,NA,1,nobs = 0)
+    table_stats$n   = length(model)
+    table_stats$Obs = mean(observation, na.rm = TRUE)
+    table_stats$Sim = mean(model, na.rm = TRUE)
+  }else{
+    a = sum(model >  threshold & observation <= threshold)
+    b = sum(model >  threshold & observation >  threshold)
+    c = sum(model <= threshold & observation <= threshold)
+    d = sum(model <= threshold & observation >  threshold)
 
-  table_stats <- as.data.frame(cbind(n    = length(observation),
-                                     Obs  = mean(observation, na.rm = TRUE),
-                                     Sim  = mean(model, na.rm = TRUE),
-                                     thr  = threshold,
-                                     A   	= 100 * (b + c) / (a+b+c+d),
-                                     CSI  = 100 * b / (a+b+d),
-                                     POD  = 100 * b / (b+d),
-                                     B	  = 100 * (a+b) / (b+d),
-                                     FAR	= 100 * a / (a+b),
-                                     HSS  = 200 * (b*c-a*d) / ((b+d)*(c+d)+(a+b)*(a+c)),
-                                     PSS  = 100 * (b*c - a*d) / ((a+c) * (b+d))
-                                     ))
+    table_stats <- as.data.frame(cbind(n    = length(observation),
+                                       Obs  = mean(observation, na.rm = TRUE),
+                                       Sim  = mean(model, na.rm = TRUE),
+                                       thr  = threshold,
+                                       A   	= 100 * (b + c) / (a+b+c+d),
+                                       CSI  = 100 * b / (a+b+d),
+                                       POD  = 100 * b / (b+d),
+                                       B	  = 100 * (a+b) / (b+d),
+                                       FAR	= 100 * a / (a+b),
+                                       HSS  = 200 * (b*c-a*d) / ((b+d)*(c+d)+(a+b)*(a+c)),
+                                       PSS  = 100 * (b*c - a*d) / ((a+c) * (b+d))
+    ))
 
-  if(is.nan(table_stats$HSS))
-    table_stats$HSS = 0
-  if(is.nan(table_stats$PSS))
-    table_stats$PSS = 0
+    if(is.nan(table_stats$HSS))
+      table_stats$HSS = 0 # nocov
+    if(is.nan(table_stats$PSS))
+      table_stats$PSS = 0 # nocov
+  }
 
   if(!missing(rname))
     row.names(table_stats) <- rname
