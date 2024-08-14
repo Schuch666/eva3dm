@@ -92,9 +92,9 @@ stat <- function(model, observation,
       cat(length(mo),'values left\n')
 
       if(length(mo) < nobs){
-        RESULT <- stat((1:199)/100,(1:199)/100) # nocov
-        RESULT$n = 0                            # nocov
-        return(RESULT)                          # nocov
+        RESULT <- stat((1:19)/10,(1:19)/10) # nocov
+        RESULT$n = 0                        # nocov
+        return(RESULT)                      # nocov
       }
     }
     if(length(cutoff)>1){
@@ -105,9 +105,9 @@ stat <- function(model, observation,
 
       cat(length(mo),'values left\n')
       if(length(mo) < nobs){
-        RESULT <- stat((1:199)/100,(1:199)/100) # nocov
-        RESULT$n = 0                            # nocov
-        return(RESULT)                          # nocov
+        RESULT <- stat((1:19)/10,(1:19)/10) # nocov
+        RESULT$n = 0                        # nocov
+        return(RESULT)                      # nocov
       }
     }
     Obs	  = mean(observation, na.rm = TRUE)
@@ -155,9 +155,9 @@ stat <- function(model, observation,
     cat(length(model),'values left\n')
 
     if(length(model) < nobs){
-      RESULT <- stat((1:199)/100,(1:199)/100) # nocov
-      RESULT$n = 0                            # nocov
-      return(RESULT)                          # nocov
+      RESULT <- stat((1:19)/10,(1:19)/10) # nocov
+      RESULT$n = 0                        # nocov
+      return(RESULT)                      # nocov
     }
   }
   if(length(cutoff)>1){
@@ -168,9 +168,9 @@ stat <- function(model, observation,
 
     cat(length(model),'values left\n')
     if(length(model) < nobs){
-      RESULT <- stat((1:199)/100,(1:199)/100) # nocov
-      RESULT$n = 0                            # nocov
-      return(RESULT)                          # nocov
+      RESULT <- stat((1:19)/10,(1:19)/10) # nocov
+      RESULT$n = 0                        # nocov
+      return(RESULT)                      # nocov
     }
   }
 
