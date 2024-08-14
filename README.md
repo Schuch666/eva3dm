@@ -21,7 +21,7 @@ The following workflow is recommended:
 
 **2. Pre-processing of model output**: Extraction and pre-processing of model outputs;
 
-**3. Model Evaluation**: `eva()` (to evaluate time-series) or `sat()` (to evaluate against satellite products), available to perform statistical (more details in `stat()`) and categorical (more details in `cate()`) evaluation;
+**3. Model Evaluation**: The functions `eva()` (to evaluate time-series) and `sat()` (to evaluate against satellite products) can be used to perform statistical (more details in `stat()`) and categorical (more details in `cate()`) evaluation;
 
 **4. Visualization**: try some of the visualization functions from this package or other packages.
 
