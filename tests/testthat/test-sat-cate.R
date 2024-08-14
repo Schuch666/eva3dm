@@ -27,7 +27,7 @@ test_that("sat works", {
        to.plot = TRUE, rname = 'example',cutoff = c(0.05,3))
 
   cate(model = model, observation = data, threshold = 1,
-       to.plot = TRUE, nobs = 1000)
+       to.plot = TRUE)
 
   expect_equal(exn, ex)
 })

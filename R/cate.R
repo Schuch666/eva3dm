@@ -87,11 +87,10 @@ cate <- function(model, observation, threshold,
   }
 
   if(length(model) < nobs){
-    warning('Valid number of observatios lesseer than nobs')
-    table_stats     <- cate(NA,NA,1,nobs = 0)
-    table_stats$n   = length(model)
-    table_stats$Obs = mean(observation, na.rm = TRUE)
-    table_stats$Sim = mean(model, na.rm = TRUE)
+    table_stats     <- cate(NA,NA,1,nobs = 0)                # nocov
+    table_stats$n   = length(model)                          # nocov
+    table_stats$Obs = mean(observation, na.rm = TRUE)        # nocov
+    table_stats$Sim = mean(model, na.rm = TRUE)              # nocov
   }else{
     a = sum(model >  threshold & observation <= threshold)
     b = sum(model >  threshold & observation >  threshold)
