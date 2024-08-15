@@ -4,12 +4,12 @@
 \alias{q2rh}
 \title{Convert absolute humidity to relative humidity}
 \usage{
-q2rh(q, t = 288.15, p = 101325)
+q2rh(q, t = 15, p = 101325)
 }
 \arguments{
 \item{q}{vector (or data.frame) of relative humidity (in g/Kg)}
 
-\item{t}{vector (or data.frame) of temperature (in K)}
+\item{t}{vector (or data.frame) of temperature (in Celcius)}
 
 \item{p}{vector (or data.frame) of pressure (in Pa)}
 }
@@ -26,14 +26,14 @@ if rh and temp arguments are data.frame, both need to have the same number of li
 }
 \examples{
 # for a single value (or same length vectors)
-q2rh(q = 0.0002038, t = 302.45, p = 100800)
+q2rh(q = 0.0002038, t = 29.3, p = 100800)
 
 # using all data.frames
 times <- seq(as.POSIXct('2024-01-01',tz = 'UTC'),
              as.POSIXct('2024-01-02',tz = 'UTC'),
              by = 'hour')[1:5]
 q2   <- data.frame(time = times, a = rep(0.0002038,5))
-temp <- data.frame(time = times, a = rep(   302.45,5))
+temp <- data.frame(time = times, a = rep(     29.3,5))
 pres <- data.frame(time = times, a = rep(   100800,5))
 q2rh(q = q2, t = temp, p = pres)
 
@@ -41,9 +41,9 @@ q2rh(q = q2, t = temp, p = pres)
 q2rh(q = q2, t = temp, p = 100000)
 
 # using data.frame for q and p (t is cte.)
-q2rh(q = q2, t = 300, p = pres)
+q2rh(q = q2, t = 26, p = pres)
 
 # using data.frame only for q (p and t are cte.)
-q2rh(q = q2, t = 300, p = 100000)
+q2rh(q = q2, t = 26, p = 100000)
 
 }
