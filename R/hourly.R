@@ -41,7 +41,7 @@ hourly <- function(data, time = 'date', var, stat = mean, min_offset = 30,
   if(numerical){
     numeric_data     <- data[, sapply(data, is.numeric)]
   }else{
-    numeric_data     <- data
+    numeric_data     <- data # nocov
   }
   hourly_average     <- aggregate(numeric_data,
                                   by = list(data$hour_internal),

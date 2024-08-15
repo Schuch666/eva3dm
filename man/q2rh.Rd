@@ -20,7 +20,7 @@ values of a data.frame, units are %
 function to convert absolute humidity to relative humidity.
 }
 \note{
-default values are from standard atmosphere (288.15 K / 101325 Pa)
+default values are from standard atmosphere (288.15 K (15C) / 101325 Pa)
 
 if rh and temp arguments are data.frame, both need to have the same number of lines and columns, first column (time column) will be ignored.
 }

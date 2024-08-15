@@ -6,7 +6,7 @@
 #' @param t vector (or data.frame) of temperature (in Celcius)
 #' @param p vector (or data.frame) of pressure (in Pa)
 #'
-#' @note default values are from standard atmosphere (288.15 K / 101325 Pa)
+#' @note default values are from standard atmosphere (288.15 K (15C) / 101325 Pa)
 #' @note if rh and temp arguments are data.frame, both need to have the same number of lines and columns, first column (time column) will be ignored.
 #'
 #' @export

@@ -18,7 +18,7 @@ value of data.frame, units are g/g.
 function to convert humidity to absolute humidity using Tetens formula, assuming standard atmosphere conditions.
 }
 \note{
-default values are from standard atmosphere (288.15 K)
+default values are from standard atmosphere (288.15 K / 15 C)
 
 if rh and temp arguments are data.frame, both need to have the same number of lines and columns, first column (time column) will be ignored.
 }

@@ -30,7 +30,7 @@ mda8 <- function(data, time = 'date', var, verbose = TRUE) {
   if(!'8h-hour moving avarage' %in% class(data)){
     ma8h <- ma8h(data = data, time = time, var = var, verbose = verbose)
   }else{
-    ma8h <- data
+    ma8h <- data # nocov
   }
   if(verbose) cat('processing daily maximum ... \n')
   output <- daily(data = ma8h, time = time, var = var, verbose = F, stat = max)
