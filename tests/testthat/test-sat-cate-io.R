@@ -1,4 +1,4 @@
-test_that("sat works", {
+test_that("sat / cate / io / in-rast are ok!", {
 
   m <- terra::rast(paste0(system.file("extdata",package="eva3dm"),"/camx_no2.Rds"))
   o <- terra::rast(paste0(system.file("extdata",package="eva3dm"),"/omi_no2.Rds"))
@@ -13,7 +13,12 @@ test_that("sat works", {
              stat    = ex,
              verbose = TRUE)
 
-  exn <- sat(m %IN% o,o,rname = 'NO2_categorical',eval_function = cate,threshold = 3.0, verbose = T)
+  exn <- sat(m %IN% o,
+             o,
+             rname = 'NO2_categorical',
+             eval_function = cate,
+             threshold = 3.0,
+             verbose = T)
 
   o2   <- o; add(o2) <- o
   m2   <- m; add(m2) <- m

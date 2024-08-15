@@ -1,4 +1,4 @@
-test_that("eva works!", {
+test_that("eva / stat / in-data.frame are ok!", {
 
   model <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/model.Rds"))
   obs   <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/obs.Rds"))
