@@ -14,9 +14,13 @@ An R-package focusing on **EVA**luation of **3D** weather and air quality **M**o
 The following workflow is recommended:
 
 **1. Pre-processing of observations**: 
+
 - Download of observations, METAR can be downloaded using the R-package [riem](https://docs.ropensci.org/riem/) or via the [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site, Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar/home.do) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites, and a range of satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website.
+
 - QA of the observation data.
+
 - Process observation data for evaluation.
+
 - Process of site-list if plan to extract time-series from the model.
 
 **2. Pre-processing of model output**: Extraction and pre-processing of model outputs;
