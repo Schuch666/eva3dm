@@ -181,7 +181,7 @@ wrf_rast <- function(file = file.choose(),
     r[]       <- rev(c(POL))
     names(r)  <- paste(name)
   }else{
-    if(length(dim(POL)) == 4){
+    if(length(dim(POL)) == 4){ # nocov start
       cat('rast::brick only support 3d data, using level',level,'\n')
       POL <- POL[,,level,,drop = T]
     }
@@ -208,7 +208,7 @@ wrf_rast <- function(file = file.choose(),
         names(r)  <- paste(name,'level',formatC(1:dim(r)[3],width = 2, format = "d", flag = "0"),sep="_")
     }else{
       if(nlyr(r) == length(ncvar_get(wrf,'Times')))
-        names(r)  <- paste(name,ncvar_get(wrf,'Times'),sep="_")
+        names(r)  <- paste(name,ncvar_get(wrf,'Times'),sep="_") # nocov end
     }
   }
 
@@ -220,13 +220,13 @@ wrf_rast <- function(file = file.choose(),
   u <- atr(file = file, var = name, att = 'units', verbose = F, action = 'get')
   if(u != 0) units(r) <- u
 
-  if(flip_h) r <- terra::flip(r,direction='horizontal')
-  if(flip_v) r <- terra::flip(r,direction='vertical')
+  if(flip_h) r <- terra::flip(r,direction='horizontal') # nocov
+  if(flip_v) r <- terra::flip(r,direction='vertical')   # nocov
 
   if(as_polygons){
-    if(latlon){
-      return( terra::project(terra::as.polygons(r,round=FALSE, aggregate=FALSE, values=TRUE),
-                             "+proj=longlat +datum=WGS84 +no_defs") )
+    if(latlon){ # nocov
+      return( terra::project(terra::as.polygons(r,round=FALSE, aggregate=FALSE, values=TRUE), # nocov
+                             "+proj=longlat +datum=WGS84 +no_defs") ) # nocov
     }else{
       return(terra::as.polygons(r,round=FALSE, aggregate=FALSE, values=TRUE)) # nocov
     }

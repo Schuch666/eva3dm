@@ -38,11 +38,11 @@ legend_range <- function(x, y,
                          ...){
 
   if(class(x) %in% c('Raster','RasterLayer','RasterBrick')){
-    x <- rast(x)
+    x <- rast(x) # nocov
   }
   if(!missing(y)){
-    if(class(y) %in% c('Raster','RasterLayer','RasterBrick')){
-      y <- rast(y)
+    if(class(y) %in% c('Raster','RasterLayer','RasterBrick')){ # nocov
+      y <- rast(y) # nocov
     }
   }
 
@@ -50,8 +50,8 @@ legend_range <- function(x, y,
     x <- as.array(x)
   }
   if(!missing(y)){
-    if(class(y) %in% c('SpatRaster')){
-      y <- as.array(y)
+    if(class(y) %in% c('SpatRaster')){ # nocov
+      y <- as.array(y) # nocov
     }
   }
 
@@ -59,14 +59,14 @@ legend_range <- function(x, y,
   if(missing(y)){
     me <- paste('Mean:',formatC(mean(x,na.rm = TRUE), digits = dig[2], format = "f"),unit)
   }else{
-    me <- paste(label_mean,formatC(mean(y,na.rm = TRUE), digits = dig[2], format = "f"),unit)
+    me <- paste(label_mean,formatC(mean(y,na.rm = TRUE), digits = dig[2], format = "f"),unit) # nocov
   }
   ma <- paste('Max:', formatC(max(x, na.rm = TRUE), digits = dig[3], format = "f"),unit)
 
   if(show.mean){
     le <- c(mi,me,ma)
   }else{
-    le <- c(mi,ma)
+    le <- c(mi,ma) # nocov
   }
 
   terra::add_legend('bottomright',

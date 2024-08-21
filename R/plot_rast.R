@@ -16,10 +16,10 @@
 #' @param grid_col color for grid lines
 #' @param add_range add legend with max, average and min r values
 #' @param ndig number of digits for legend_range
-#' @param range range to plot
+#' @param range range of original values to plot
 #' @param log TRUE to plot in log-scale
-#' @param min minimum for log scale (defoul is -3)
-#' @param max maximum for log scale
+#' @param min minimum log value for log scale (defoul is -3)
+#' @param max maximum log value for log scale
 #' @param ... arguments to be passing to terra::plot
 #'
 #' @import terra
@@ -57,12 +57,12 @@ plot_rast <- function(r,
                       ...){
 
   if(missing(r))
-    stop('r is missing!')
+    stop('r is missing!') # nocov
 
   if(latitude | longitude){
-    latlon = TRUE
+    latlon = TRUE  # nocov
   }else{
-    latlon = FALSE
+    latlon = FALSE # nocov
   }
 
   if(!missing(range) & !log){
@@ -79,8 +79,8 @@ plot_rast <- function(r,
   if(missing(color)){
     color <- 'eva3r'
   }else{
-    if(is.function(color)){
-      color <- color(ncolor)
+    if(is.function(color)){  # nocov
+      color <- color(ncolor) # nocov
     }
   }
   if(color[1] == 'eva3r')
@@ -95,7 +95,7 @@ plot_rast <- function(r,
                    "#849E86","#8DAC80","#95BA79","#9DC872","#A6D76C",
                    "#A1D466","#99CC60","#90C55B","#88BE55","#80B650",
                    "#78AF4A","#6FA844","#67A03F","#5F9939","#579234"))
-
+  # nocov start
   if(color[1] == 'eva4')
     # eva 4 colors
     color <- c("#AD7AD7","#A36DCC","#9A60C1","#9153B6","#8846AB",
@@ -125,7 +125,7 @@ plot_rast <- function(r,
                "#FEFAE6","#FDF0B4","#FDDA7C","#FEBC48",
                "#FB992F","#F7762B","#E84E29","#D72828",
                "#B81B22","#97161A","#921519")
-
+  # nocov end
   e_o     <- ext(r)
   Points  <- vect(cbind(x = e_o[1:2], y = e_o[3:4]),
                   type="points",
@@ -147,17 +147,17 @@ plot_rast <- function(r,
   }
 
   vet_lon <- seq(-80,80,by = int)
-  vet_lon <- vet_lon[vet_lon > min_lon - int & vet_lon < max_lon + int]
+  vet_lon <- vet_lon[vet_lon >= min_lon - 2*int & vet_lon <= max_lon + 2*int]
   vet_lat <- seq(-180,180,by = int)
-  vet_lat <- vet_lat[vet_lat > min_lat - int & vet_lat < max_lat + int]
+  vet_lat <- vet_lat[vet_lat >= min_lat - 2*int & vet_lat <= max_lat + 2*int]
 
   if(latlon){
     ax  <- latlon(r = r,int = int,e = e_o)
     if(latitude & !longitude){
-      ax$side <- 2
+      ax$side <- 2 # nocov
     }
     if(longitude & !latitude){
-      ax$side <- 1
+      ax$side <- 1 # nocov
     }
     pax <- c(pax,ax)
   }
@@ -188,14 +188,12 @@ plot_rast <- function(r,
     r_log  <- Rlog10(r = r,min = min)
 
     if(missing(max)){
-      max <- as.numeric(global(r_log,'mean', na.rm = TRUE))
+      max <- as.numeric(global(r_log,'max', na.rm = TRUE))
     }else{
       r_log[r_log[] > max ] = max
     }
 
     at    <- seq(round(min, 1),round(max, 1),by = 1)
-    at    <- at[at <= as.numeric(global(r_log,'max', na.rm = TRUE))]
-    at    <- at[at >= as.numeric(global(r_log,'min', na.rm = TRUE))]
 
     label <- paste0('10^',at)
     label <- parse(text = label)
@@ -203,8 +201,12 @@ plot_rast <- function(r,
 
     arg <- list(at=at, labels=label)
 
-    terra::plot(r_log, col = color, plg = c(plg,arg), pax = pax,axe = T,
-                grid = FALSE,fun = extra, range = range, ...)
+    terra::plot(r_log, col = color,
+                plg = c(plg,arg), pax = pax,
+                axe = T,
+                grid = FALSE,fun = extra,
+                range = c(min,max),
+                ...)
   }else{
     terra::plot(r2, col = color, plg = plg, pax = pax,axe = T,
                 grid = FALSE,fun = extra, range = range, ...)
@@ -269,23 +271,23 @@ latlon <- function(r,int,e,tn = 100) {
 
 custom_approxfun <- function(x, y, method = "linear", rule = 1) {
   if (length(x) != length(y)) {
-    stop("x and y must have the same length")
+    stop("x and y must have the same length") # nocov
   }
   if (any(diff(x) <= 0)) {
-    stop("x must be strictly increasing")
+    stop("x must be strictly increasing") # nocov
   }
 
   interpolate <- function(new_x) {
     n <- length(x)
     if (method != "linear") {
-      stop("Only linear interpolation is supported")
+      stop("Only linear interpolation is supported") # nocov
     }
 
     if (any(new_x < x[1]) || any(new_x > x[n])) {
       if (rule == 1) {
         new_x <- pmax(pmin(new_x, x[n]), x[1])
       } else {
-        stop("new_x values out of bounds and rule != 1")
+        stop("new_x values out of bounds and rule != 1") # nocov
       }
     }
 

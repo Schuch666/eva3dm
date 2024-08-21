@@ -57,11 +57,11 @@ plot_rast(
 
 \item{log}{TRUE to plot in log-scale}
 
-\item{range}{range to plot}
+\item{range}{range of original values to plot}
 
-\item{min}{minimum for log scale (defoul is -3)}
+\item{min}{minimum log value for log scale (defoul is -3)}
 
-\item{max}{maximum for log scale}
+\item{max}{maximum log value for log scale}
 
 \item{...}{arguments to be passing to terra::plot}
 }
