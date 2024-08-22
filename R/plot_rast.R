@@ -20,6 +20,7 @@
 #' @param log TRUE to plot in log-scale
 #' @param min minimum log value for log scale (defoul is -3)
 #' @param max maximum log value for log scale
+#' @param unit title for color bar (defoult is )
 #' @param ... arguments to be passing to terra::plot
 #'
 #' @import terra
@@ -40,7 +41,7 @@ plot_rast <- function(r,
                       color,
                       ncolor = 21,
                       proj = FALSE,
-                      plg=list(tic = 'none',shrink=0.98),
+                      plg=list(tic = 'none',shrink=1.00),
                       pax=list(),
                       latitude = TRUE,
                       longitude = TRUE,
@@ -54,10 +55,14 @@ plot_rast <- function(r,
                       range,
                       min = -3,
                       max,
+                      unit,
                       ...){
 
   if(missing(r))
     stop('r is missing!') # nocov
+
+  if(log & any(global(r,'max',na.rm = TRUE) <= 0))
+    stop('r is non-positive, no plot is generated') # nocov
 
   if(latitude | longitude){
     latlon = TRUE  # nocov
@@ -175,6 +180,12 @@ plot_rast <- function(r,
 
   if(proj){
     r <- project(r,"+proj=longlat +datum=WGS84 +no_defs")
+  }
+
+  if(missing(unit)){
+    plg = c(plg,list(title = terra::units(r)[1]))
+  }else{
+    plg = c(plg,list(title = unit))
   }
 
   if(log){

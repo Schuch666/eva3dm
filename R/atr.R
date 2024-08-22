@@ -38,16 +38,16 @@ atr <- function(file = NA,var = '?', att = NA, action="na", value=NA, verbose=T)
     cat(paste(file,"\n"))   # nocov
   }
   if(!action %in% c("na","get"))
-    to_write <- T
+    to_write <- T # nocov
   else
     to_write <- F
 
   meta <- ncdf4::nc_open(filename = file, write = to_write)
 
   if(var == "?"){
-    name  <- menu(names(meta$var), title = "Choose the variable:")
-    POL   <- ncdf4::ncvar_get(meta, names(meta$var)[name])
-    var   <- names(meta$var)[name]
+    name  <- menu(names(meta$var), title = "Choose the variable:") # nocov
+    POL   <- ncdf4::ncvar_get(meta, names(meta$var)[name])         # nocov
+    var   <- names(meta$var)[name]                                 # nocov
   }
 
   if(action == "na" | action == "get"){

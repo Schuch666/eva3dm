@@ -21,24 +21,24 @@
 
 rast_to_netcdf <- function(r,file,name, verbose = TRUE){
   if(!class(r) %in% 'SpatRaster')
-    stop('input is not a SpatRaster')
+    stop('input is not a SpatRaster') # nocov
 
   N_times <- dim(r)[3]
   a       <- array(NA,c(dim(r)[1],dim(r)[2],N_times))
   if(N_times == 1){
     a[,,1]  <- as.matrix(rev(r[[1]]))
   }else{
-    for(i in 1:N_times){
-      a[,,i]  <- as.matrix(flip(r[[i]], direction = 'vertical'))
+    for(i in 1:N_times){ # nocov
+      a[,,i]  <- as.matrix(flip(r[[i]], direction = 'vertical')) # nocov
     }
-    a[,,1:N_times] <- a[,,N_times:1]
+    a[,,1:N_times] <- a[,,N_times:1] # nocov
   }
 
   if(!missing(file) & !missing(name)){
-    if(verbose) cat(paste0('writing ',name,' on ', file,'\n'))
-    nc <- ncdf4::nc_open(filename = file, write = TRUE)
-    ncvar_put(nc = nc,varid = name,vals = a)
-    ncdf4::nc_close(nc)
+    if(verbose) cat(paste0('writing ',name,' on ', file,'\n')) # nocov
+    nc <- ncdf4::nc_open(filename = file, write = TRUE)        # nocov
+    ncvar_put(nc = nc,varid = name,vals = a)                   # nocov
+    ncdf4::nc_close(nc)                                        # nocov
   }else{
     return(a)
   }

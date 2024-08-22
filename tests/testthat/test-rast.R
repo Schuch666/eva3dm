@@ -5,10 +5,12 @@ test_that("rast based functions are ok", {
   r      <- wrf_rast(file=wrf, name='XLAT')
   r_ncdf <- rast_to_netcdf(r)
 
-  plot_rast(r, range = c(-100,100))
+  plot_rast(r, range = c(-100,100), unit = 'test')
   rr = -r
   plot_rast(rr, log = TRUE, proj = TRUE)
   plot_rast(rr, log = TRUE, proj = TRUE, max = 4)
+
+  # plot_diff
 
   expect_equal(dim(r_ncdf), c(99,149,1))
 })
