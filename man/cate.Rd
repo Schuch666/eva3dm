@@ -57,9 +57,10 @@ a data.frame including: Accuracy (A); Critical Success Index (CSI); Probability 
 Calculate traditional statistics from two numerical vectors in related to a threshold
 }
 \examples{
-model <- 0.02 * 1:100
+data <- 0.02 * 1:100
 set.seed(666)
-data  <- abs(rnorm(100,0.01))
+model  <- abs(rnorm(100,0.01))
+par(pty="s")
 cate(model = model, observation = data, threshold = 1,
      to.plot = TRUE, rname = 'example')
 

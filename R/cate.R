@@ -28,9 +28,10 @@
 #' @export
 #'
 #' @examples
-#' model <- 0.02 * 1:100
+#' data <- 0.02 * 1:100
 #' set.seed(666)
-#' data  <- abs(rnorm(100,0.01))
+#' model  <- abs(rnorm(100,0.01))
+#' par(pty="s")
 #' cate(model = model, observation = data, threshold = 1,
 #'      to.plot = TRUE, rname = 'example')
 #'
@@ -66,14 +67,17 @@ cate <- function(model, observation, threshold,
   }
 
   if(to.plot){
+    # old_par <- par(pty="s")
+    # on.exit(par(old_par))
+
     if(missing(lim))
       lim <- range(observation,model,threshold, na.rm = TRUE)
     if(!missing(rname)){
       plot(observation,model, col = col, pch = pch, main = rname,
-           xlim = lim, ylim = lim, ...)
+           xlim = lim, ylim = lim, asp = 1, ...)
     }else{
       plot(observation,model, col = col, pch = pch,
-           xlim = lim, ylim = lim, ...)
+           xlim = lim, ylim = lim, asp = 1, ...)
     }
     min_all <- min(observation, model,threshold, na.rm = TRUE)
     max_all <- max(observation, model,threshold, na.rm = TRUE)
@@ -87,15 +91,15 @@ cate <- function(model, observation, threshold,
   }
 
   if(length(model) < nobs){
-    table_stats     <- cate(NA,NA,1,nobs = 0)                # nocov
-    table_stats$n   = length(model)                          # nocov
-    table_stats$Obs = mean(observation, na.rm = TRUE)        # nocov
-    table_stats$Sim = mean(model, na.rm = TRUE)              # nocov
+    table_stats     <- cate(NA,NA,1,nobs = 0)              # nocov
+    table_stats$n   = length(model)                        # nocov
+    table_stats$Obs = mean(observation, na.rm = TRUE)      # nocov
+    table_stats$Sim = mean(model, na.rm = TRUE)            # nocov
   }else{
-    a = sum(model >  threshold & observation <= threshold)
-    b = sum(model >  threshold & observation >  threshold)
-    c = sum(model <= threshold & observation <= threshold)
-    d = sum(model <= threshold & observation >  threshold)
+    a = sum(model >  threshold & observation <= threshold) # -1 # to match cascade script
+    b = sum(model >  threshold & observation >  threshold) # -1 # to match cascade script
+    c = sum(model <= threshold & observation <= threshold) # -1 # to match cascade script
+    d = sum(model <= threshold & observation >  threshold) # -1 # to match cascade script
 
     table_stats <- as.data.frame(cbind(n    = length(observation),
                                        Obs  = mean(observation, na.rm = TRUE),
