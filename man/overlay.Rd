@@ -54,7 +54,7 @@ Custon plot for SpatRaster (terra R-package) object based on terra package
 sp<- terra::vect(paste0(system.file("extdata",package="eva3dm"),"/masp.shp"))
 BR<- terra::vect(paste0(system.file("extdata",package="eva3dm"),"/BR.shp"))
 
-p    <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/BR-AQ.Rds"))
+p    <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AQ_BR.Rds"))
 p$id      <- row.names(p)
 point     <- terra::vect(p)
 point$NMB <- 1:45 - 20 # some values to plot

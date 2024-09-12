@@ -26,25 +26,24 @@
 #'
 #' @note FOR WACCM time-series, use the options: use_datesec=T, latitude='lat', longitude='lon', new=T
 #'
+#' @note The site-list of two global data-sets (METAR and AERONET) are provided on examples and site-list for stations on Brazil (INMET and Air Quality stations).
+#'
 #' @import ncdf4 terra
 #'
 #' @export
 #'
 #' @examples
-#' cat('Example 1: INMET stations for 2015\n')
-#' stations <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/BR-inmet_2015.Rds"))
+#' cat('Example 1: METAR site list\n')
+#' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_METAR.Rds"))
 #'
-#' cat('Example 2: METAR stations of Brazil\n')
-#' stations <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/BR-metar.Rds"))
+#' cat('Example 2: AERONET site list\n')
+#' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AERONET.Rds"))
 #'
-#' cat('Example 3: METAR soundings over Brazil\n')
-#' stations <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/BR-soundings.Rds"))
+#' cat('Example 3: list of INMET stations on Brazil\n')
+#' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_INMET.Rds"))
 #'
-#' cat('Example 4: Global AERONET sites\n')
-#' stations <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/Global-aeronet.Rds"))
-#'
-#' cat('Example 5: Brazilian Air Quality: CETESB (SP), RAMQAr (ES) and SMAC (RJ)\n')
-#' stations <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/BR-AQ.Rds"))
+#' cat('Example 4: list of Air Quality stations on Brazil\n')
+#' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AQ_BR.Rds"))
 #'
 #' files    <- dir(path = system.file("extdata",package="eva3dm"),
 #'                 pattern = 'wrf.day',
@@ -53,7 +52,7 @@
 #' folder <- file.path(tempdir(),"SERIE")
 #'
 #' # extract data for 3 locations
-#' extract_serie(filelist = files, point = stations[1:3,],prefix = paste0(folder,'/serie'))
+#' extract_serie(filelist = files, point = sites[1:3,],prefix = paste0(folder,'/serie'))
 #'
 
 extract_serie <- function(filelist, point, variable = 'o3',field = '4d',

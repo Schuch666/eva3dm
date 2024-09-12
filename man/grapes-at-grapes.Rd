@@ -16,7 +16,7 @@ combines the stats (from individual station evaluation) and site list in a SpatV
 }
 \examples{
 
-sites<- readRDS(paste0(system.file("extdata",package="eva3dm"),"/BR-AQ.Rds"))
+sites<- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AQ_BR.Rds"))
 model<- readRDS(paste0(system.file("extdata",package="eva3dm"),"/model.Rds"))
 obs  <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/obs.Rds"))
 
