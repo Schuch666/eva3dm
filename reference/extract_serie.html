@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">eva3dm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -133,29 +133,26 @@
 <p>new = TRUE create a new file, new = FALSE append the data in a old file, and new = 'check' check if the file exist and append if the file exist and create if the file doesnt exist</p>
 <p>FOR CAMx time-series, use the options: use_TFLAG=T, latitude='latitude', longitude='longitude', new=T</p>
 <p>FOR WACCM time-series, use the options: use_datesec=T, latitude='lat', longitude='lon', new=T</p>
+<p>The site-list of two global data-sets (METAR and AERONET) are provided on examples and site-list for stations on Brazil (INMET and Air Quality stations).</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 1: INMET stations for 2015\n'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Example 1: INMET stations for 2015</span>
-<span class="r-in"><span><span class="va">stations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/BR-inmet_2015.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 1: METAR site list\n'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Example 1: METAR site list</span>
+<span class="r-in"><span><span class="va">sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/sites_METAR.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 2: METAR stations of Brazil\n'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Example 2: METAR stations of Brazil</span>
-<span class="r-in"><span><span class="va">stations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/BR-metar.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 2: AERONET site list\n'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Example 2: AERONET site list</span>
+<span class="r-in"><span><span class="va">sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/sites_AERONET.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 3: METAR soundings over Brazil\n'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Example 3: METAR soundings over Brazil</span>
-<span class="r-in"><span><span class="va">stations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/BR-soundings.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 3: list of INMET stations on Brazil\n'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Example 3: list of INMET stations on Brazil</span>
+<span class="r-in"><span><span class="va">sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/sites_INMET.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 4: Global AERONET sites\n'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Example 4: Global AERONET sites</span>
-<span class="r-in"><span><span class="va">stations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/Global-aeronet.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 5: Brazilian Air Quality: CETESB (SP), RAMQAr (ES) and SMAC (RJ)\n'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Example 5: Brazilian Air Quality: CETESB (SP), RAMQAr (ES) and SMAC (RJ)</span>
-<span class="r-in"><span><span class="va">stations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/BR-AQ.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 4: list of Air Quality stations on Brazil\n'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Example 4: list of Air Quality stations on Brazil</span>
+<span class="r-in"><span><span class="va">sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/sites_AQ_BR.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">files</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                pattern <span class="op">=</span> <span class="st">'wrf.day'</span>,</span></span>
@@ -164,19 +161,23 @@
 <span class="r-in"><span><span class="va">folder</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"SERIE"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># extract data for 3 locations</span></span></span>
-<span class="r-in"><span><span class="fu">extract_serie</span><span class="op">(</span>filelist <span class="op">=</span> <span class="va">files</span>, point <span class="op">=</span> <span class="va">stations</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="op">]</span>,prefix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">folder</span>,<span class="st">'/serie'</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">extract_serie</span><span class="op">(</span>filelist <span class="op">=</span> <span class="va">files</span>, point <span class="op">=</span> <span class="va">sites</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="op">]</span>,prefix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">folder</span>,<span class="st">'/serie'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> extracting series of o3 field 4d for 3 points</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dim of lat/lon: 125 125 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> used dim of lat/lon: 125 125 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> calculating distances...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 lat       lon source  i  j model_lat model_lon</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Americana -22.72500 -47.34800 CETESB 82 37 -22.79819 -47.40500</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Campinas  -22.94673 -47.11928 CETESB 83 37 -22.78904 -47.05811</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Congonhas -23.61632 -46.66347 CETESB 84 34 -23.73756 -46.67905</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              lat       lon    name agency            class         city state</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> BA0001 -12.68638 -38.33360 Gravatá  INEMA Não classificada     Camaçari    BA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> BA0002 -12.63026 -38.35853   Cobre  INEMA Não classificada Dias D'Ávila    BA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> BA0003 -12.80115 -38.22397  Areias  INEMA Não classificada     Camaçari    BA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        start   i  j model_lat model_lon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> BA0001  2000 110 67 -12.70324 -38.39191</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> BA0002  2000 110 67 -12.70324 -38.39191</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> BA0003  2000 110 67 -12.70324 -38.39191</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> reading o3 : /home/runner/work/_temp/Library/eva3dm/extdata/wrf.day1.o3.nc file 1 of 3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> reading o3 : /home/runner/work/_temp/Library/eva3dm/extdata/wrf.day2.o3.nc file 2 of 3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> reading o3 : /home/runner/work/_temp/Library/eva3dm/extdata/wrf.day3.o3.nc file 3 of 3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> output: /tmp/RtmpbVJJJJ/SERIE/serie.o3.Rds </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> output: /tmp/Rtmp3zXm8M/SERIE/serie.o3.Rds </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
