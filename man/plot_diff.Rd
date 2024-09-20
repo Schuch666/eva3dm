@@ -12,7 +12,7 @@ plot_diff(
   relative = T,
   lim_1 = NA,
   lim_2 = NA,
-  units = c("", expression("\%")),
+  unit = c(units(x), expression("\%")),
   ...
 )
 }
@@ -31,7 +31,7 @@ plot_diff(
 
 \item{lim_2}{calculate symmetrical scale}
 
-\item{units}{units annotation}
+\item{unit}{annotation for units}
 
 \item{...}{arguments to be passing to plot_raster}
 }
@@ -43,6 +43,7 @@ Custon difference plots (x - y) of plot for SpatRaster (terra R-package) object 
 folder <- system.file("extdata",package="eva3dm")
 wrf    <- paste0(folder,"/wrfinput_d01")
 A      <- wrf_rast(wrf,'XLAT')
+terra::units(A) <- 'degrees'
 B      <- wrf_rast(wrf,'XLONG')
 plot_diff(A,B,int = 2)
 }

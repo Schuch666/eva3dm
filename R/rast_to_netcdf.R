@@ -5,6 +5,7 @@
 #' @param r SpatRaster object
 #' @param file Netcdf file name
 #' @param name variable name on a Netcdf file
+#' @param unit unit of the variable (set to NA to don't change unit)
 #' @param verbose display additional information
 #'
 #' @import terra ncdf4
@@ -19,7 +20,7 @@
 #' A        <- rast_to_netcdf(Rast)
 #'
 
-rast_to_netcdf <- function(r,file,name, verbose = TRUE){
+rast_to_netcdf <- function(r,file,name, unit = units(r),verbose = TRUE){
   if(!class(r) %in% 'SpatRaster')
     stop('input is not a SpatRaster') # nocov
 
@@ -38,6 +39,10 @@ rast_to_netcdf <- function(r,file,name, verbose = TRUE){
     if(verbose) cat(paste0('writing ',name,' on ', file,'\n')) # nocov
     nc <- ncdf4::nc_open(filename = file, write = TRUE)        # nocov
     ncvar_put(nc = nc,varid = name,vals = a)                   # nocov
+    if(!is.na(unit) & unit != "")                              # novoc
+      atr(file = file,var = name,                              # nocov
+          att = 'units',action = 'write',                      # nocov
+          value = unit,verbose = verbose)                      # nocov
     ncdf4::nc_close(nc)                                        # nocov
   }else{
     return(a)

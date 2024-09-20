@@ -4,7 +4,7 @@
 \alias{rast_to_netcdf}
 \title{Function to convert/save a SpatRaster array/Netcdf}
 \usage{
-rast_to_netcdf(r, file, name, verbose = TRUE)
+rast_to_netcdf(r, file, name, unit = units(r), verbose = TRUE)
 }
 \arguments{
 \item{r}{SpatRaster object}
@@ -12,6 +12,8 @@ rast_to_netcdf(r, file, name, verbose = TRUE)
 \item{file}{Netcdf file name}
 
 \item{name}{variable name on a Netcdf file}
+
+\item{unit}{unit of the variable (set to NA to don't change unit)}
 
 \item{verbose}{display additional information}
 }
