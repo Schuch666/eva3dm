@@ -51,7 +51,6 @@ wrf_rast <- function(file = file.choose(),
       return(TIME)                                                                      # nocov
     }
   }
-  if(verbose) cat(paste0('reading ',name,' from ', file,'\n'))                          # nocov
 
   wrf <- ncdf4::nc_open(file)
   if(is.na(name)){                                                  # nocov start
@@ -61,7 +60,8 @@ wrf_rast <- function(file = file.choose(),
   }else{
     POL   <- ncdf4::ncvar_get(wrf,name, ... )
   }
-  if(verbose)  cat(paste("creating RAST for",name,'\n'))          # nocov
+  if(verbose) cat(paste0('reading ',name,' from ', file,'\n'))      # nocov
+  if(verbose) cat(paste("creating RAST for",name,'\n'))             # nocov
 
   if(missing(map)){                                                 # nocov
     coord_file = file                                               # nocov
@@ -210,6 +210,15 @@ wrf_rast <- function(file = file.choose(),
       if(nlyr(r) == length(ncvar_get(wrf,'Times')))
         names(r)  <- paste(name,ncvar_get(wrf,'Times'),sep="_") # nocov end
     }
+  }
+
+  if('Times' %in% names(wrf$var)){
+    TIME <- ncdf4::ncvar_get(wrf,'Times')
+    TIME <- as.POSIXlt(TIME,
+                       tz = "UTC",
+                       format="%Y-%m-%d_%H:%M:%OS",
+                       optional=FALSE)
+    terra::time(r) <- TIME
   }
 
   ncdf4::nc_close(wrf)
