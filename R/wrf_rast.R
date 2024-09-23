@@ -218,7 +218,14 @@ wrf_rast <- function(file = file.choose(),
                        tz = "UTC",
                        format="%Y-%m-%d_%H:%M:%OS",
                        optional=FALSE)
-    terra::time(r) <- TIME
+    if(length(TIME) == nlyr(r)){
+      terra::time(r) <- TIME
+    }else{
+      if(verbose)
+        cat('Time and variable',name,'dont match\n')
+      if(length(TIME) == 1 & nlyr(r) > 1)
+        terra::time(r) <- rep(TIME, nlyr(r))
+    }
   }
 
   ncdf4::nc_close(wrf)
