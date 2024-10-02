@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">eva3dm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,6 +49,7 @@
 <span>  name <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  <span class="va">map</span>,</span>
 <span>  level <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  <span class="va">times</span>,</span>
 <span>  latlon <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  method <span class="op">=</span> <span class="st">"bilinear"</span>,</span>
 <span>  as_polygons <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -76,7 +77,11 @@
 
 
 <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
-<dd><p>only for 4d data, default is 1 (surface)</p></dd>
+<dd><p>only for 4d data, numeric, default is 1 for surface (include all times)</p></dd>
+
+
+<dt id="arg-times">times<a class="anchor" aria-label="anchor" href="#arg-times"></a></dt>
+<dd><p>only for 4d data, numeric, set to select time instead of levels (include all levels)</p></dd>
 
 
 <dt id="arg-latlon">latlon<a class="anchor" aria-label="anchor" href="#arg-latlon"></a></dt>
