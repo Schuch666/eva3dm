@@ -5,7 +5,8 @@
 #' @param file wrf file
 #' @param name variable name
 #' @param map (optional) file with lat-lon variables and grid information
-#' @param level only for 4d data, default is 1 (surface)
+#' @param level only for 4d data, numeric, default is 1 for surface (include all times)
+#' @param times only for 4d data, numeric, set to select time instead of levels (include all levels)
 #' @param latlon logical (default is FALSE), set TRUE project the output to "+proj=longlat +datum=WGS84 +no_defs"
 #' @param method method passed to terra::projection, default is bilinear
 #' @param as_polygons logical, true to return a SpatVector instead of SpatRaster
@@ -31,6 +32,7 @@ wrf_rast <- function(file = file.choose(),
                      name = NA,
                      map,
                      level = 1,
+                     times,
                      latlon = FALSE,
                      method = 'bilinear',
                      as_polygons = FALSE,
@@ -187,8 +189,13 @@ wrf_rast <- function(file = file.choose(),
     names(r)  <- paste(name)
   }else{
     if(length(dim(POL)) == 4){ # nocov start
-      cat('rast::brick only support 3d data, using level',level,'\n')
-      POL <- POL[,,level,,drop = T]
+      if(missing(times)){
+        cat('eva3dm::wrf_rast suport 3d SpatRaster, using all times and level',level,'\n')
+        POL <- POL[,,level,,drop = T]
+      }else{
+        cat('eva3dm::wrf_rast suport 3d SpatRaster, using all levels and time',level,'\n')
+        POL <- POL[,,,times,drop = T]
+      }
     }
     # Create a multi-layer SpatRaster
     r <- terra::rast(resolution = dx,
@@ -208,8 +215,9 @@ wrf_rast <- function(file = file.choose(),
     }
 
     ndim      <- length(dim(POL))
-    if(ntimes == 1 & ndim > 2){
+    if(ntimes == 1 & ndim > 2 | !missing(times) ){
       if(nlyr(r) == dim(r)[3])
+        r         <- r[[nlyr(r):1]] # to keep 1st layer surface
         names(r)  <- paste(name,'level',formatC(1:dim(r)[3],width = 2, format = "d", flag = "0"),sep="_")
     }else{
       if(nlyr(r) == length(ncvar_get(wrf,'Times')))
@@ -228,8 +236,8 @@ wrf_rast <- function(file = file.choose(),
     }else{
       if(verbose)
         cat('Time and variable',name,'dont match\n')
-      if(length(TIME) == 1 & nlyr(r) > 1)
-        terra::time(r) <- rep(TIME, nlyr(r))
+      if(length(TIME) == 1 & nlyr(r) > 1 | !missing(times))
+        terra::time(r) <- rep(TIME[1], nlyr(r))
     }
   }
 

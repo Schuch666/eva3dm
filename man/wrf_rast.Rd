@@ -9,6 +9,7 @@ wrf_rast(
   name = NA,
   map,
   level = 1,
+  times,
   latlon = FALSE,
   method = "bilinear",
   as_polygons = FALSE,
@@ -25,7 +26,9 @@ wrf_rast(
 
 \item{map}{(optional) file with lat-lon variables and grid information}
 
-\item{level}{only for 4d data, default is 1 (surface)}
+\item{level}{only for 4d data, numeric, default is 1 for surface (include all times)}
+
+\item{times}{only for 4d data, numeric, set to select time instead of levels (include all levels)}
 
 \item{latlon}{logical (default is FALSE), set TRUE project the output to "+proj=longlat +datum=WGS84 +no_defs"}
 
