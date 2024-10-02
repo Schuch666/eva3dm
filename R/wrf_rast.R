@@ -39,12 +39,17 @@ wrf_rast <- function(file = file.choose(),
                      verbose = FALSE,
                      ...){
 
+  wrf     <- NULL
+  coordNC <- NULL
+  on.exit(nc_close(wrf))
+  on.exit(nc_close(coordNC))
+
   if(!is.na(name)){
     if(name == 'time'){
-      wrfchem <- ncdf4::nc_open(file)                                                   # nocov
+      wrf <- ncdf4::nc_open(file)                                                       # nocov
       if(verbose)                                                                       # nocov
         cat(paste0('reading Times from ', file,'\n'))                                   # nocov
-      TIME <- ncdf4::ncvar_get(wrfchem,'Times')                                         # nocov
+      TIME <- ncdf4::ncvar_get(wrf,'Times')                                             # nocov
       TIME <- as.POSIXlt(TIME, tz = "UTC", format="%Y-%m-%d_%H:%M:%OS", optional=FALSE) # nocov
       if(verbose)                                                                       # nocov
         cat('returning Times in POSIXct\n')                                             # nocov
@@ -228,12 +233,10 @@ wrf_rast <- function(file = file.choose(),
     }
   }
 
-  ncdf4::nc_close(wrf)
-
-  mem_order <- atr(file = file, var = name, att = 'MemoryOrder', verbose = F, action = 'get')
+  mem_order <- ncdf4::ncatt_get(nc = wrf,varid = name, attname =  'MemoryOrder')$value
   if(mem_order %in% c('XY','XY ')) r <- terra::flip(r,direction='horizontal')
 
-  u <- atr(file = file, var = name, att = 'units', verbose = F, action = 'get')
+  u <- ncdf4::ncatt_get(nc = wrf,varid = name, attname =  'units')$value
   if(u != 0) units(r) <- u
 
   if(flip_h) r <- terra::flip(r,direction='horizontal') # nocov
