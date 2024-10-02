@@ -92,7 +92,7 @@ atr <- function(file = NA,var = '?', att = NA, action="na", value=NA, verbose=T)
         cat(paste0("writing \'",value,"\' on global attribute \'",att,"\'\nat file ",file,"\n"))
     }else{
       if(verbose)
-        cat(paste0("writing \'",value,"\' on attribute \'",att," \' of ",var,"\nat file ",file,"\n"))
+        cat(paste0("writing \'",value,"\' on attribute \'",att,"\' of ",var,"\nat file ",file,"\n"))
     }
 
     ncdf4::ncatt_put(meta,varid = var,attname = att,attval = value)
