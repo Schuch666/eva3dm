@@ -45,21 +45,22 @@ rast_to_netcdf <- function(r,file,name, unit = units(r),verbose = TRUE){
   }
 
   if(!missing(file) & !missing(name)){
-    if(verbose) cat(paste0('writing ',name,' on ', file,'\n')) # nocov
+    if(verbose) cat(paste0('writing ',name,' in ', file,'\n'))
 
-    nc <- ncdf4::nc_open(filename = file, write = TRUE)        # nocov
+    neto <- ncdf4::nc_open(filename = file, write = TRUE, suppress_dimvals = TRUE,return_on_error=TRUE)
 
-    mem_order <- ncdf4::ncatt_get(nc = nc,varid = name, attname =  'MemoryOrder')     # nocov
-    if(mem_order$value %in% c('XY','XY ')) r <- terra::flip(r,direction='horizontal') # nocov
+    mem_order <- ncdf4::ncatt_get(nc = neto,varid = name, attname =  'MemoryOrder')
+    if(mem_order$value %in% c('XY','XY ')) r <- terra::flip(r,direction='horizontal')
 
-    ncvar_put(nc = nc,varid = name,vals = a)                       # nocov
-    nc_close(nc)
+    ncdf4::ncvar_put(nc = neto,varid = name,vals = a)
 
     unit <- unit[1]
-    if(!is.na(unit) & unit != "")                              # novoc
-      atr(file = file,var = name,                              # nocov
-          att = 'units',action = 'write',                      # nocov
-          value = unit,verbose = verbose)                      # nocov
+    if(!is.na(unit) & unit != ""){
+      if(verbose) cat(paste0("units of ",name," set to \'",unit,"\' in ",file,"\n"))
+      ncdf4::ncatt_put(nc = neto,varid = name,attname = 'units', attval = unit)
+    }
+
+    ncdf4::nc_close(neto)
   }else{
     return(a)
   }

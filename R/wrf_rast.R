@@ -41,11 +41,6 @@ wrf_rast <- function(file = file.choose(),
                      verbose = FALSE,
                      ...){
 
-  wrf     <- NULL
-  coordNC <- NULL
-  on.exit(nc_close(wrf))
-  on.exit(nc_close(coordNC))
-
   if(!is.na(name)){
     if(name == 'time'){
       wrf <- ncdf4::nc_open(file)                                                       # nocov
@@ -246,6 +241,9 @@ wrf_rast <- function(file = file.choose(),
 
   u <- ncdf4::ncatt_get(nc = wrf,varid = name, attname =  'units')$value
   if(u != 0) units(r) <- u
+
+  nc_close(wrf)
+  nc_close(coordNC)
 
   if(flip_h) r <- terra::flip(r,direction='horizontal') # nocov
   if(flip_v) r <- terra::flip(r,direction='vertical')   # nocov
