@@ -12,6 +12,8 @@
 #'
 #' @export
 #'
+#' @note eva3dm::wrf_rast support 3d SpatRaster, in case of a 4d variable use other approach to save on file.
+#'
 #' @examples
 #' folder   <- system.file("extdata",package="eva3dm")
 #' wrf_file <- paste0(folder,"/wrf.day1.o3.nc")
