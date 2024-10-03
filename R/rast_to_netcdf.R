@@ -27,6 +27,9 @@ rast_to_netcdf <- function(r,file,name, unit = units(r),verbose = TRUE){
   if(!class(r) %in% 'SpatRaster')
     stop('input is not a SpatRaster') # nocov
 
+  if(missing(name))
+    name <- deparse(substitute(r))
+
   if(nlyr(r) > 1 & time(r)[1] == time(r)[2]){
     revert = FALSE
   }else{
