@@ -6,6 +6,7 @@
 #' @param file Netcdf file name
 #' @param name variable name on a Netcdf file
 #' @param unit unit of the variable (set to NA to don't change unit)
+#' @param XY set to true if MemoryOrder is XY (only if file is missing)
 #' @param verbose display additional information
 #'
 #' @import terra ncdf4
@@ -22,13 +23,16 @@
 #' A        <- rast_to_netcdf(Rast)
 #'
 
-rast_to_netcdf <- function(r,file,name, unit = units(r),verbose = TRUE){
+rast_to_netcdf <- function(r,file,name, unit = units(r), XY = FALSE, verbose = TRUE){
 
   if(!class(r) %in% 'SpatRaster')
     stop('input is not a SpatRaster') # nocov
 
   if(missing(name))
     name <- deparse(substitute(r))
+
+  if(missing(file) & XY)
+    r <- terra::flip(r,direction='horizontal')
 
   if(nlyr(r) > 1 & time(r)[1] == time(r)[2]){
     revert = FALSE

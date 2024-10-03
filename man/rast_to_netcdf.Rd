@@ -4,7 +4,7 @@
 \alias{rast_to_netcdf}
 \title{Function to convert/save a SpatRaster array/Netcdf}
 \usage{
-rast_to_netcdf(r, file, name, unit = units(r), verbose = TRUE)
+rast_to_netcdf(r, file, name, unit = units(r), XY = FALSE, verbose = TRUE)
 }
 \arguments{
 \item{r}{SpatRaster object}
@@ -14,6 +14,8 @@ rast_to_netcdf(r, file, name, unit = units(r), verbose = TRUE)
 \item{name}{variable name on a Netcdf file}
 
 \item{unit}{unit of the variable (set to NA to don't change unit)}
+
+\item{XY}{set to true if MemoryOrder is XY (only if file is missing)}
 
 \item{verbose}{display additional information}
 }
