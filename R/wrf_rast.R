@@ -209,10 +209,11 @@ wrf_rast <- function(file = file.choose(),
       ntimes    <- 1
     }
 
+    if(nlyr(r) == dim(r)[3])
+      r         <- r[[nlyr(r):1]] # to keep 1st layer surface & first time-step
+
     ndim      <- length(dim(POL))
     if(ntimes == 1 & ndim > 2 | !missing(times) ){
-      if(nlyr(r) == dim(r)[3])
-        r         <- r[[nlyr(r):1]] # to keep 1st layer surface
         names(r)  <- paste(name,'level',formatC(1:dim(r)[3],width = 2, format = "d", flag = "0"),sep="_")
     }else{
       if(nlyr(r) == length(ncvar_get(wrf,'Times')))
