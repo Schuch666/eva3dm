@@ -152,6 +152,8 @@ wrf_rast <- function(file = file.choose(),
     stop(paste0('Error: Asymmetric grid cells not supported. DX=', dx, ', DY=', dy))  # nocov
   }
 
+  nc_close(coordNC)
+
   # USING the terra R-package
   pontos     <- terra::vect(cbind(x[1], y[1]),
                             type = "points",
@@ -243,7 +245,6 @@ wrf_rast <- function(file = file.choose(),
   if(u != 0) units(r) <- u
 
   nc_close(wrf)
-  nc_close(coordNC)
 
   if(flip_h) r <- terra::flip(r,direction='horizontal') # nocov
   if(flip_v) r <- terra::flip(r,direction='vertical')   # nocov
