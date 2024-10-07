@@ -103,6 +103,7 @@ wrf_rast <- function(file = file.choose(),
     x <- as.vector(inNCLon[,ncol(inNCLon):1])
     y <- as.vector(inNCLat[,ncol(inNCLat):1])
   }
+  rm(inNCLon,inNCLat)
 
   # Get geogrid and projection info
   map_proj <- ncdf4::ncatt_get(coordNC, varid=0, attname="MAP_PROJ")$value
@@ -152,9 +153,10 @@ wrf_rast <- function(file = file.choose(),
   }
 
   # USING the terra R-package
-  pontos     <- terra::vect(cbind(x, y)[,1:2],
+  pontos     <- terra::vect(cbind(x[1], y[1]),
                             type = "points",
                             crs = "+proj=longlat +datum=WGS84 +no_defs")
+  rm(x,y)
   transform  <- terra::project(pontos, geogrd.proj)
   projcoords <- terra::crds(transform)
 
@@ -200,7 +202,7 @@ wrf_rast <- function(file = file.choose(),
                      ymax = ymx,
                      nlyrs = dim(POL)[3],
                      crs = geogrd.proj)
-    r[]       <- rev(c(f2(POL,1)))
+    r[]       <- c(f2(POL,1))
 
     if('Times' %in% names(wrf$var)){
       ntimes    <- length(ncvar_get(wrf,'Times'))
@@ -208,9 +210,6 @@ wrf_rast <- function(file = file.choose(),
       cat('variable Times not found\n')
       ntimes    <- 1
     }
-
-    if(nlyr(r) == dim(r)[3])
-      r         <- r[[nlyr(r):1]] # to keep 1st layer surface & first time-step
 
     ndim      <- length(dim(POL))
     if(ntimes == 1 & ndim > 2 | !missing(times) ){
