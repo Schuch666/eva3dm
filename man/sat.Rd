@@ -14,6 +14,7 @@ sat(
   max = NA,
   method = "bilinear",
   eval_function = stat,
+  mask,
   verbose = T,
   ...
 )
@@ -36,6 +37,8 @@ sat(
 \item{method}{passed to terra::resample}
 
 \item{eval_function}{evaluation function (default is stat)}
+
+\item{mask}{optional SpatVecto to mask the results}
 
 \item{verbose}{set TRUE to display additional information}
 

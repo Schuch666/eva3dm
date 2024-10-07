@@ -13,6 +13,7 @@
 #' @param max maximum value cutoff
 #' @param method passed to terra::resample
 #' @param eval_function evaluation function (default is stat)
+#' @param mask optional SpatVecto to mask the results
 #' @param verbose set TRUE to display additional information
 #' @param ... other arguments passed to stat
 #'
@@ -39,7 +40,7 @@
 sat <- function(mo,ob,rname, table = NULL,
                 n = 6, min = NA, max = NA,
                 method = 'bilinear', eval_function = stat,
-                verbose = T, ...){
+                mask, verbose = T, ...){
 
   if(missing(mo))
     stop('model input is missing!') # nocov
@@ -85,7 +86,7 @@ sat <- function(mo,ob,rname, table = NULL,
   if(verbose) cat(paste0('removing ',n,' points for the model (y) boundaryes ...\n'))
   model <- cut_boundary(mo, n = n)
   if(verbose) cat('interpolating obs. (x) to model grid (y)...\n')
-  obser <- interp(x = ob, y = mo, method = method, verbose = verbose)
+  obser <- interp(x = ob, y = mo, method = method, mask = mask, verbose = verbose)
 
   if(!is.na(min)){
     if(verbose) cat('seting min value to',min,'\n')

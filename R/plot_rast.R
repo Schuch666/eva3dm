@@ -122,6 +122,14 @@ plot_rast <- function(r,
                "#BBC8DA","#C7D2E1","#D3DCE8","#DFE6F0","#EBF0F7",
                "#F7FBFF")
 
+  if(color[1] == 'bluesr')
+    # desaturated blue
+    color <- rev(c("#08306B","#133A72","#1F4479","#2B4E81","#375888",
+                   "#436290","#4F6C97","#5B779E","#6781A6","#738BAD",
+                   "#7F95B4","#8B9FBC","#97A9C3","#A3B3CB","#AFBED2",
+                   "#BBC8DA","#C7D2E1","#D3DCE8","#DFE6F0","#EBF0F7",
+                   "#F7FBFF"))
+
   if(color[1] == 'diff')
     # diff including dark_blue - cyan - white - orange - dark_red
     color <- c("#1B2C62","#204385","#265CA9","#4082C2",

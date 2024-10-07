@@ -4,7 +4,7 @@
 \alias{interp}
 \title{Interpolation (project and resample)}
 \usage{
-interp(x, y, method = "bilinear", verbose = F)
+interp(x, y, method = "bilinear", mask, verbose = F)
 }
 \arguments{
 \item{x}{rast to be interpolated}
@@ -12,6 +12,8 @@ interp(x, y, method = "bilinear", verbose = F)
 \item{y}{target rast of the interpolation}
 
 \item{method}{passed to terra::resample}
+
+\item{mask}{optional SpatVecto to mask the results}
 
 \item{verbose}{display additional information (not used)}
 }
