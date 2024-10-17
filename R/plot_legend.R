@@ -55,13 +55,22 @@ legend_range <- function(x, y,
     }
   }
 
-  mi <- paste('Min:', formatC(min(x, na.rm = TRUE), digits = dig[1], format = "f"),unit)
+  suppressWarnings({
+    mi <- paste('Min:', formatC(min(x, na.rm = TRUE), digits = dig[1], format = "f"),unit)
+  })
+
   if(missing(y)){
-    me <- paste('Mean:',formatC(mean(x,na.rm = TRUE), digits = dig[2], format = "f"),unit)
+    suppressWarnings({
+      me <- paste('Mean:',formatC(mean(x,na.rm = TRUE), digits = dig[2], format = "f"),unit)
+    })
   }else{
-    me <- paste(label_mean,formatC(mean(y,na.rm = TRUE), digits = dig[2], format = "f"),unit) # nocov
+    suppressWarnings({
+      me <- paste(label_mean,formatC(mean(y,na.rm = TRUE), digits = dig[2], format = "f"),unit) # nocov
+    })
   }
-  ma <- paste('Max:', formatC(max(x, na.rm = TRUE), digits = dig[3], format = "f"),unit)
+  suppressWarnings({
+    ma <- paste('Max:', formatC(max(x, na.rm = TRUE), digits = dig[3], format = "f"),unit)
+  })
 
   if(show.mean){
     le <- c(mi,me,ma)

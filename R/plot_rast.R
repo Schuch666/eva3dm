@@ -46,10 +46,10 @@ plot_rast <- function(r,
                       latitude = TRUE,
                       longitude = TRUE,
                       int = 10,
-                      grid=TRUE,
+                      grid = FALSE,
                       grid_int = int,
                       grid_col = "#666666",
-                      add_range = TRUE,
+                      add_range = FALSE,
                       ndig = 2,
                       log = FALSE,
                       range,
@@ -155,9 +155,10 @@ plot_rast <- function(r,
   small_delta <- min(delta_x,delta_y)
 
   if(int >= 1.1 * small_delta){
-    int      = pretty(x = small_delta,n = 10)[1]
+    int      = pretty(x = small_delta,n = 12)[1]
     grid_int = int
   }
+  print(int)
 
   vet_lon <- seq(-80,80,by = int)
   vet_lon <- vet_lon[vet_lon >= min_lon - 2*int & vet_lon <= max_lon + 2*int]
@@ -227,6 +228,10 @@ plot_rast <- function(r,
                 range = c(min,max),
                 ...)
   }else{
+    a = as.numeric( terra::global(r2,'max',na.rm = TRUE) )
+    b = as.numeric( terra::global(r2,'min',na.rm = TRUE) )
+    if(!is.na(a) & a == b)
+      plg=list()
     terra::plot(r2, col = color, plg = plg, pax = pax,axe = T,
                 grid = FALSE,fun = extra, range = range, ...)
   }
