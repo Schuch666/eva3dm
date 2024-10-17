@@ -65,7 +65,7 @@ legend_range <- function(x, y,
     })
   }else{
     suppressWarnings({
-      me <- paste(label_mean,formatC(mean(y,na.rm = TRUE), digits = dig[2], format = "f"),unit) # nocov
+      me <- paste(label_mean,formatC(mean(y,na.rm = TRUE), digits = dig[2], format = "f"),unit)
     })
   }
   suppressWarnings({

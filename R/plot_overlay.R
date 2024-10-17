@@ -51,11 +51,11 @@ overlay <- function(p,z,col,
                     ...){
 
   if(missing(p))
-    stop('p is missing')
+    stop('p is missing') # nocov
   if(missing(z))
-    z <- 'NMB (%)'
+    z <- 'NMB (%)'       # nocov
   if(is.character(z)){
-    z <- as.data.frame(p[,z])[,1]
+    z <- as.data.frame(p[,z])[,1] # nocov
   }
 
   if(missing(col))

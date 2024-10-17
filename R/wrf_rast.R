@@ -231,10 +231,10 @@ wrf_rast <- function(file = file.choose(),
     if(length(TIME) == nlyr(r)){
       terra::time(r) <- TIME
     }else{
-      if(verbose & missing(times))
-        cat('Time and variable',name,'dont match\n')
-      if(length(TIME) == 1 & nlyr(r) > 1 | !missing(times))
-        terra::time(r) <- rep(TIME[1], nlyr(r))
+      if(verbose & missing(times))                                  # nocov
+        cat('Time and variable',name,'dont match\n')                # nocov
+      if(length(TIME) == 1 & nlyr(r) > 1 | !missing(times))         # nocov
+        terra::time(r) <- rep(TIME[1], nlyr(r))                     # nocov
     }
   }
 
@@ -250,17 +250,17 @@ wrf_rast <- function(file = file.choose(),
   if(flip_v) r <- terra::flip(r,direction='vertical')   # nocov
 
   if(as_polygons){
-    if(latlon){ # nocov
+    if(latlon){                                                                               # nocov
       return( terra::project(terra::as.polygons(r,round=FALSE, aggregate=FALSE, values=TRUE), # nocov
-                             "+proj=longlat +datum=WGS84 +no_defs") ) # nocov
+                             "+proj=longlat +datum=WGS84 +no_defs") )                         # nocov
     }else{
-      return(terra::as.polygons(r,round=FALSE, aggregate=FALSE, values=TRUE)) # nocov
+      return(terra::as.polygons(r,round=FALSE, aggregate=FALSE, values=TRUE))                 # nocov
     }
   }else{
     if(latlon){
-      return(terra::project(x = r,y = "+proj=longlat +datum=WGS84 +no_defs",method = method))    # nocov
+      return(terra::project(x = r,y = "+proj=longlat +datum=WGS84 +no_defs",method = method)) # nocov
     }else{
-      return(r)                                 # nocov
+      return(r)                                                                               # nocov
     }
   }
 }

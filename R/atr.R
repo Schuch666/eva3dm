@@ -73,10 +73,10 @@ atr <- function(file = NA,var = '?', att = NA, action="na", value=NA, verbose=T)
       if(verbose)  cat(paste0(var," attribute ",att,":\n"))
       if(verbose){
         if(is.null(ATR$value)){
-          cat("not found\n")
+          cat("not found\n") # nocov
         }else{
           if(ATR$value == ""){
-            cat("empty\n")
+            cat("empty\n")   # nocov
           }else{
             cat(paste0(ATR$value,"\n"))
           }

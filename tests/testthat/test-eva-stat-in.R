@@ -81,5 +81,14 @@ test_that("eva / stat / in-data.frame are ok!", {
 
   a <- stat(1:1000 * 0 + 200, mod = 1:1000, wd = T, rname = 'nome')
 
+  # to test %at% from plot_overlay.R
+  sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AQ_BR.Rds"))
+
+  stats <- eva(mo = model, ob = obs, site = 'Americana')
+  stats <- eva(mo = model, ob = obs, site = 'SAndre',table = stats)
+  stats <- eva(mo = model, ob = obs, site = 'VVIbes',table = stats)
+
+  geo_stats <- stats %at% sites
+
   expect_equal(dim(table), c(12,11))
 })

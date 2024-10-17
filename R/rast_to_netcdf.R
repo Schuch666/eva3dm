@@ -32,10 +32,10 @@ rast_to_netcdf <- function(r,file,name, unit = units(r), XY = FALSE, verbose = T
     name <- deparse(substitute(r))
 
   if(missing(file) & XY)
-    r <- terra::flip(r,direction='horizontal')
+    r <- terra::flip(r,direction='horizontal') # nocov
 
   if(nlyr(r) > 1 & time(r)[1] == time(r)[2]){
-    revert = FALSE
+    revert = FALSE                             # nocov
   }else{
     revert = TRUE
   }

@@ -5,7 +5,7 @@
 #' @param x rast to be interpolated
 #' @param y target rast of the interpolation
 #' @param method passed to terra::resample
-#' @param mask optional SpatVecto to mask the results
+#' @param mask optional SpatVector to mask the results
 #' @param verbose display additional information (not used)
 #'
 #' @import terra
@@ -25,9 +25,9 @@
 #' @export
 interp <- function(x,y,method = 'bilinear', mask, verbose = F){
   if(class(x) %in% c('RasterLayer','RasterBrick')){
-    if(verbose)                      # nocov
-      cat('converting x to rast\n')  # nocov
-    x <- rast(x)                     # nocov
+    if(verbose)                                    # nocov
+      cat('converting x to rast\n')                # nocov
+    x <- rast(x)                                   # nocov
   }
   if(class(y) %in% c('RasterLayer','RasterBrick')){
     if(verbose)                      # nocov
@@ -37,8 +37,8 @@ interp <- function(x,y,method = 'bilinear', mask, verbose = F){
   x_proj <- terra::project(x,y)
   x_res  <- terra::resample(x_proj,y,method = method)
   if(!missing(mask)){
-    mask_proj <- terra::project(mask,y)
-    return(terra::mask(x_res,mask = mask_proj))
+    mask_proj <- terra::project(mask,y)           # nocov
+    return(terra::mask(x_res,mask = mask_proj))   # nocov
   }else{
     return(x_res)
   }

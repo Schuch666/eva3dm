@@ -13,7 +13,7 @@ interp(x, y, method = "bilinear", mask, verbose = F)
 
 \item{method}{passed to terra::resample}
 
-\item{mask}{optional SpatVecto to mask the results}
+\item{mask}{optional SpatVector to mask the results}
 
 \item{verbose}{display additional information (not used)}
 }
