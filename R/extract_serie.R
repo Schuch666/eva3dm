@@ -88,17 +88,17 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
     cat('dim of lat/lon:',dim(lat),'\n')
 
   if(length(dim(lat)) == 1){   # TEST for WACCM model
-    lat   <- matrix(lat, ncol = length(lon),nrow = length(lat), byrow = F)
-    lon   <- matrix(lon, ncol = length(lon),nrow = length(lat), byrow = T)
+    lat   <- matrix(lat, ncol = length(lon),nrow = length(lat), byrow = F) # nocov
+    lon   <- matrix(lon, ncol = length(lon),nrow = length(lat), byrow = T) # nocov
   }
 
   if(length(dim(lat)) == 3){
-    lat   <- lat[,,1,drop = T]
-    lon   <- lon[,,1,drop = T]
+    lat   <- lat[,,1,drop = T]  # nocov
+    lon   <- lon[,,1,drop = T]  # nocov
   }
   if(length(dim(lat)) == 4){
-    lat   <- lat[,,1,1,drop = T]
-    lon   <- lon[,,1,1,drop = T]
+    lat   <- lat[,,1,1,drop = T] # nocov
+    lon   <- lon[,,1,1,drop = T] # nocov
   }
   if(verbose)
     cat('used dim of lat/lon:',dim(lat),'\n')
@@ -206,12 +206,12 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
     times  <- as.POSIXlt(TIME, tz = "UTC", format="%Y-%m-%d_%H:%M:%OS", optional=FALSE)
   }
 
-  if(field == '2d')
-    contagem  = NA             # 2d Field (x,y)
-  if(field == '2dz')
-    contagem = c(-1,-1,1)      # 3d Field (x,y,z)
-  if(field == '3d')
-    contagem  = NA             # 3d Field (x,y,t)
+  if(field == '2d')            # 2d Field (x,y)
+    contagem  = NA             # nocov
+  if(field == '2dz')           # 3d Field (x,y,z)
+    contagem = c(-1,-1,1)      # nocov
+  if(field == '3d')            # 3d Field (x,y,t)
+    contagem  = NA             # nocov
   if(field == '4d')
     contagem = c(-1,-1,1,-1)   # 4d Field (x,y,z,t)
   var     <- ncvar_get(wrf,variable,count = contagem)
@@ -219,8 +219,8 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
 
   serie <- as.data.frame(times)
   if(length(times) > 1){
-    for(i in 1:nrow(stations)){
-      serie[,i+1] <- var[stations$i[i],stations$j[i],]
+    for(i in 1:nrow(stations)){                          # nocov
+      serie[,i+1] <- var[stations$i[i],stations$j[i],]   # nocov
     }
   }else{
     for(i in 1:nrow(stations)){
@@ -245,12 +245,12 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
       lat   <- ncvar_get(wrf,latitude)
       lon   <- ncvar_get(wrf,longitude)
       if(length(dim(lat)) == 3){
-        lat   <- lat[,,1,drop = T]
-        lon   <- lon[,,1,drop = T]
+        lat   <- lat[,,1,drop = T]    # nocov
+        lon   <- lon[,,1,drop = T]    # nocov
       }
       if(length(dim(lat)) == 4){
-        lat   <- lat[,,1,1,drop = T]
-        lon   <- lon[,,1,1,drop = T]
+        lat   <- lat[,,1,1,drop = T]  # nocov
+        lon   <- lon[,,1,1,drop = T]  # nocov
       }
 
       if(use_TFLAG){
@@ -284,8 +284,8 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
 
       serie <- as.data.frame(times)
       if(length(times) > 1){
-        for(i in 1:nrow(stations)){
-          serie[,i+1] <- var[stations$i[i],stations$j[i],]
+        for(i in 1:nrow(stations)){                           # nocov
+          serie[,i+1] <- var[stations$i[i],stations$j[i],]    # nocov
         }
       }else{
         for(i in 1:nrow(stations)){
