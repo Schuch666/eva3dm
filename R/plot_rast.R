@@ -158,7 +158,6 @@ plot_rast <- function(r,
     int      = pretty(x = small_delta,n = 12)[1]
     grid_int = int
   }
-  print(int)
 
   vet_lon <- seq(-80,80,by = int)
   vet_lon <- vet_lon[vet_lon >= min_lon - 2*int & vet_lon <= max_lon + 2*int]
