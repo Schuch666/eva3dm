@@ -134,6 +134,17 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
       }
       return(point)
     }
+
+    max_lat <- max(lat, na.rm = TRUE)
+    max_lon <- max(lon, na.rm = TRUE)
+    min_lat <- min(lat, na.rm = TRUE)
+    min_lon <- min(lon, na.rm = TRUE)
+    point   <- point[point$lon >= min_lon,]
+    point   <- point[point$lon <= max_lon,]
+    point   <- point[point$lat >= min_lat,]
+    point   <- point[point$lat <= max_lat,]
+    if(verbose) cat('inside lat / lon range:',nrow(point),'points\n')
+
     stations <- nearest(point,lat,lon,fast)
   }
 
