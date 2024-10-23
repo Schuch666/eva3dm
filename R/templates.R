@@ -109,9 +109,9 @@ extract_serie(filelist = files,
   file = paste0(root,'extract_metar.R'),
   append = F)
     if(verbose)
-      cat(' folder ',paste0(root,'WRF/',case),': link wrf output files
- folder',paste0(root,'METAR'),': download metar
+      cat(' folder ',paste0(root,'WRF/',case),': link wrf output files here!
+ folder',paste0(root,'METAR'),': download metar here!
  bash ',   paste0(root,'post-R.sh'),': post processing job script
- r-script',paste0(root,'extract_metar.R'),': source code to extract metar using eva3dm\n')
+ r-script',paste0(root,'extract_metar.R'),': source code to extract metar using eva3dm::extract_serie()\n')
   }
 }
