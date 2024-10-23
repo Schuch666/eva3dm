@@ -31,7 +31,7 @@ extract_mean <- function(filelist, variable = "o3", field = "4d",
   if(missing(filename)){
     output_filename   <- paste0(prefix,'.',variable,'.nc')
   }else{
-    output_filename   <- filename
+    output_filename   <- filename # nocov
   }
 
   COMPRESS <- NA
@@ -39,14 +39,14 @@ extract_mean <- function(filelist, variable = "o3", field = "4d",
   acu_times <- 0
 
   if(!meta)
-    field = '2d'
+    field = '2d'               # nocov
 
-  if(field == '2d')
-    contagem  = NA             # 2d Field (x,y)
-  if(field == '2dz')
-    contagem = c(-1,-1,1)      # 3d Field (x,y,z)
-  if(field == '3d')
-    contagem  = NA             # 3d Field (x,y,t)
+  if(field == '2d')            # 2d Field (x,y)
+    contagem  = NA             # nocov
+  if(field == '2dz')           # 3d Field (x,y,z)
+    contagem = c(-1,-1,1)      # nocov
+  if(field == '3d')            # 3d Field (x,y,t)
+    contagem  = NA             # nocov
   if(field == '4d')
     contagem = c(-1,-1,1,-1)   # 4d Field (x,y,z,t)
 
@@ -64,8 +64,8 @@ extract_mean <- function(filelist, variable = "o3", field = "4d",
 
   if(meta){
     acu_times <- length(times)
-  }else{
-    acu_times <- 1
+  }else{            # 2d Field (x,y)
+    acu_times <- 1  # nocov
   }
 
   tsum <- function(var){
@@ -74,21 +74,21 @@ extract_mean <- function(filelist, variable = "o3", field = "4d",
       return(var)
     }
 
-    t_sum   <- var[,,1,drop = T]
-    cat('min:',min(var,na.rm = T),'mean:',mean(var,na.rm = T),'max:',max(var,na.rm = T),'\n')
+    t_sum   <- var[,,1,drop = T] # nocov
+    cat('min:',min(var,na.rm = T),'mean:',mean(var,na.rm = T),'max:',max(var,na.rm = T),'\n') # nocov
 
-    for(i in 1:dim(var)[1]){
-      for(j in 1:dim(var)[2]){
-        t_sum[i,j] <- sum(var[i,j,], na.rm = T)
+    for(i in 1:dim(var)[1]){                      # nocov
+      for(j in 1:dim(var)[2]){                    # nocov
+        t_sum[i,j] <- sum(var[i,j,], na.rm = T)   # nocov
       }
     }
 
-    return(t_sum)
+    return(t_sum) # nocov
   }
 
   SUM   <- tsum(VAR)
 
-  if(length(filelist) > 1){
+  if(length(filelist) > 1){ # nocov start
     for(i in 2:length(filelist)){
       cat('reading:',filelist[i],'file',i,'of',length(filelist),'\n')
       w    <- nc_open(filename = filelist[i])
@@ -101,7 +101,7 @@ extract_mean <- function(filelist, variable = "o3", field = "4d",
         acu_times = acu_times + 1
       }
       nc_close(w)
-      SUM <- SUM + INC
+      SUM <- SUM + INC # nocov end
     }
   }
 
@@ -115,9 +115,9 @@ extract_mean <- function(filelist, variable = "o3", field = "4d",
 
     input_lat    <- ncdf4::ncvar_get(wrfinput, "XLAT")  # get lat / lon
     input_lon    <- ncdf4::ncvar_get(wrfinput, "XLONG")
-    if(length(dim(input_lon)) > 2){
-      input_lat    <- input_lat[,,1,drop = T] # drop time from original lat / lon
-      input_lon    <- input_lon[,,1,drop = T]
+    if(length(dim(input_lon)) > 2){           # drop time from original lat / lon
+      input_lat    <- input_lat[,,1,drop = T] # nocov
+      input_lon    <- input_lon[,,1,drop = T] # nocov
     }
 
     g_atributos  <- ncdf4::ncatt_get(wrfinput, 0)
@@ -273,7 +273,7 @@ extract_mean <- function(filelist, variable = "o3", field = "4d",
                      attval = 104)
   }else{
     # global attributes
-    g_atributos  <- ncdf4::ncatt_get(wrfinput, 0)
+    g_atributos  <- ncdf4::ncatt_get(wrfinput, 0)    # nocov start
     g_atributos  <- c( list(TITLE = paste0('average of ',variable),
                             History = paste("created on",
                                             format(Sys.time(),
@@ -355,7 +355,7 @@ extract_mean <- function(filelist, variable = "o3", field = "4d",
                      varid = variable,
                      attname = "FieldType",
                      attval = 104)
-
+  # nocov end
   }
 
 

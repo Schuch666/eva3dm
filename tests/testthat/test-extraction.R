@@ -21,10 +21,10 @@ test_that("extraction funtions are OK!", {
                 use_ij   = TRUE,
                 new      = TRUE)
 
-  sites[1,1] =  66.6
-  sites[2,2] =  66.6
-  sites[3,1] = -66.6
-  sites[4,2] = -66.6
+  sites[1,1] =  5.9
+  sites[2,1] = -34
+  sites[3,2] = -33
+  sites[4,2] = -74.5
 
   extract_serie(filelist = files,
                 point    = terra::vect(sites[1:5,]),
@@ -38,5 +38,20 @@ test_that("extraction funtions are OK!", {
                 id       = 'name',
                 new      = FALSE)
 
-  expect_equal(2 * 2, 4)
+  # just the example
+  dir.create(file.path(tempdir(), "MEAN"))
+  folder <- system.file("extdata",package="eva3dm")
+  wrf_file <- paste0(folder,"/wrf.day1.o3.nc")
+  extract_mean(filelist = wrf_file,
+               prefix = paste0(file.path(tempdir(),"MEAN"),'/mean'))
+
+  # just the example
+  dir.create(file.path(tempdir(), "MDA8"))
+  folder <- system.file("extdata",package="eva3dm")
+  wrf_file <- paste0(folder,"/test_small_o3.nc")
+  extract_max_8h(filelist = wrf_file,
+                 prefix = paste0(file.path(tempdir(),"MDA8"),'/mean'),
+                 field = '3d')
+
+  expect_equal(dim(ij),c(2,12))
 })

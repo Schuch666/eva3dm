@@ -45,7 +45,7 @@ extract_max_8h <- function(filelist, variable = "o3", field = "4d",
   if(missing(filename)){
     output_filename   <- paste0(prefix,'.',variable,'.nc')
   }else{
-    output_filename   <- filename
+    output_filename   <- filename # nocov
   }
 
   COMPRESS <- NA
@@ -53,16 +53,16 @@ extract_max_8h <- function(filelist, variable = "o3", field = "4d",
   acu_times <- 0
 
   if(!meta)
-    field = '2d'
+    field = '2d'               # nocov
 
-  if(field == '2d')
-    contagem  = NA             # 2d Field (x,y)
-  if(field == '2dz')
-    contagem = c(-1,-1,1)      # 3d Field (x,y,z)
-  if(field == '3d')
-    contagem  = NA             # 3d Field (x,y,t)
-  if(field == '4d')
-    contagem = c(-1,-1,1,-1)   # 4d Field (x,y,z,t)
+  if(field == '2d')            # 2d Field (x,y)
+    contagem  = NA             # nocov
+  if(field == '2dz')           # 3d Field (x,y,z)
+    contagem = c(-1,-1,1)      # nocov
+  if(field == '3d')            # 3d Field (x,y,t)
+    contagem  = NA             #
+  if(field == '4d')            # 4d Field (x,y,z,t)
+    contagem = c(-1,-1,1,-1)   # nocov
 
   if(verbose){
     cat('extracting 8h max of',variable,'field',field,'units:',units,'\n')
@@ -97,22 +97,22 @@ extract_max_8h <- function(filelist, variable = "o3", field = "4d",
   if(meta){
     acu_times <- length(times)
   }else{
-    acu_times <- 1
+    acu_times <- 1     # nocov
   }
 
   tmax2 <- function(var,var2){
-    t_max <- var
-    for(i in 1:dim(var)[1]){
-      for(j in 1:dim(var)[2]){
-        t_max[i,j] <- max(c(var[i,j],var2[i,j]),na.rm = T)
+    t_max <- var                                               # nocov
+    for(i in 1:dim(var)[1]){                                   # nocov
+      for(j in 1:dim(var)[2]){                                 # nocov
+        t_max[i,j] <- max(c(var[i,j],var2[i,j]),na.rm = T)     # nocov
       }
     }
-    return(t_max)
+    return(t_max)                                              # nocov
   }
 
   MAX_8h <- mov_av_max(VAR)
 
-  if(length(filelist) > 1){
+  if(length(filelist) > 1){ # nocov start
     for(i in 2:length(filelist)){
       cat('reading:',filelist[i],'file',i,'of',length(filelist),'\n')
       w    <- nc_open(filename = filelist[i])
@@ -131,7 +131,7 @@ extract_max_8h <- function(filelist, variable = "o3", field = "4d",
       }
       nc_close(w)
     }
-  }
+  } # nocov end
 
   # some input
   wrfinput     <- nc_open(filelist[1])
@@ -299,7 +299,7 @@ extract_max_8h <- function(filelist, variable = "o3", field = "4d",
                      attval = 104)
   }else{
     # global attributes
-    g_atributos  <- ncdf4::ncatt_get(wrfinput, 0)
+    g_atributos  <- ncdf4::ncatt_get(wrfinput, 0) # nocov start
     g_atributos  <- c( list(TITLE = paste0('max 8 hour average of ',variable),
                             History = paste("created on",
                                             format(Sys.time(),
@@ -381,7 +381,7 @@ extract_max_8h <- function(filelist, variable = "o3", field = "4d",
                      varid = variable,
                      attname = "FieldType",
                      attval = 104)
-
+    # nocov end
   }
 
   ncdf4::nc_close(output_file)

@@ -93,8 +93,8 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
   }
 
   if(length(dim(lat)) == 3){
-    lat   <- lat[,,1,drop = T]  # nocov
-    lon   <- lon[,,1,drop = T]  # nocov
+    lat   <- lat[,,1,drop = T]   # nocov
+    lon   <- lon[,,1,drop = T]   # nocov
   }
   if(length(dim(lat)) == 4){
     lat   <- lat[,,1,1,drop = T] # nocov
