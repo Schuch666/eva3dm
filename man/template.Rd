@@ -9,7 +9,7 @@ template(
   case = "WRF-only",
   partition = "zhang",
   env = "rspatial",
-  root = "",
+  root = getwd(),
   verbose = TRUE
 )
 }
@@ -30,7 +30,7 @@ template(
 Calculate traditional statistics from two numerical vectors in related to a threshold
 }
 \examples{
-folder <- dir.create(file.path(tempdir(),"POST"))
-template(root = folder)
+temp <- file.path(tempdir(),"POST")
+template(root = temp)
 
 }

@@ -1,7 +1,7 @@
 test_that("template works", {
 
-  folder = dir.create(file.path(tempdir(),"POST"))
-  template(root = folder)
+  f <- file.path(tempdir(),"POST")
+  template(root = f)
 
-  expect_equal(length(folder), 1)
+  expect_equal(length(f), 1)
 })

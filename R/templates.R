@@ -12,15 +12,15 @@
 #' @export
 #'
 #' @examples
-#' folder <- dir.create(file.path(tempdir(),"POST"))
-#' template(root = folder)
+#' temp <- file.path(tempdir(),"POST")
+#' template(root = temp)
 #'
 
 template <- function(template  = 'WRF-METAR',
                      case      = 'WRF-only',
                      partition = 'zhang',
                      env       = 'rspatial',
-                     root      = '',
+                     root      = getwd(),
                      verbose   = TRUE){
 
   if(root != '')
@@ -45,7 +45,7 @@ template <- function(template  = 'WRF-METAR',
 
 dir=\'',case,'\'
 
-cd /scratch/${USER}/POST
+cd ',root,'
 
 conda activate ',env,'
 
@@ -115,5 +115,3 @@ extract_serie(filelist = files,
  r-script',paste0(root,'extract_metar.R'),': source code to extract metar using eva3dm\n')
   }
 }
-
-# template(root = 'C:/Globus/evaluation_new')
