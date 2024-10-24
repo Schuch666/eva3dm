@@ -143,9 +143,13 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
     point   <- point[point$lon <= max_lon,]
     point   <- point[point$lat >= min_lat,]
     point   <- point[point$lat <= max_lat,]
-    if(verbose) cat('inside lat / lon range:',nrow(point),'points\n')
-
-    stations <- nearest(point,lat,lon,fast)
+    if(verbose)
+      cat('inside lat / lon range:',nrow(point),'points\n')
+    if(nrow(point) >= 1){
+      stations <- nearest(point,lat,lon,fast)
+    }else{     # in this case all stations are outside the domain
+      return() # nocov
+    }
   }
 
   remove_outsiders <- function(stations,lat){
