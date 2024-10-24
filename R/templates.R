@@ -171,7 +171,8 @@ append = F)
     if(verbose)
       cat(' folder ',paste0(root,'WRF/',case),': link wrf output files here!
  bash ',   paste0(root,'post-R.sh'),': post processing job script
- r-script',paste0(root,'extract_metar.R'),': source code to extract metar using eva3dm::extract_serie()\n')
+ r-script',paste0(root,'extract_metar.R'),': source code to extract metar using eva3dm::extract_serie()
+ r-script',paste0(root,'extract_inpet.R'),': source code to extract inmet using eva3dm::extract_serie()\n')
   }
 
 }
