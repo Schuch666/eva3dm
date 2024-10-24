@@ -6,7 +6,7 @@
 \usage{
 template(
   root = getwd(),
-  template = "WRF-MET",
+  template = "WRF",
   case = "WRF-only",
   env = "rspatial",
   scheduler = "SBATCH",
@@ -18,7 +18,7 @@ template(
 \arguments{
 \item{root}{directory to create the template}
 
-\item{template}{template type}
+\item{template}{template type (see notes)}
 
 \item{case}{case to be evaluated}
 
@@ -34,6 +34,9 @@ template(
 }
 \description{
 Calculate traditional statistics from two numerical vectors in related to a threshold
+}
+\note{
+templates available: WRF, WRF-Chem
 }
 \examples{
 temp <- file.path(tempdir(),"POST")
