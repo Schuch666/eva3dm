@@ -89,7 +89,7 @@ Rscript extract_inmet.R $dir U10     3d &
 Rscript extract_inmet.R $dir V10     3d &
 Rscript extract_inmet.R $dir RAINNC  3d &
 Rscript extract_inmet.R $dir RAINC   3d &
-Rscript extract_inmet.R $dir P          &
+Rscript extract_inmet.R $dir P       4d &
 Rscript extract_inmet.R $dir SWDOWN  3d &
 
 wait
@@ -114,29 +114,60 @@ var  <- args[2]
 if(length(args) > 2){
    ndim <- args[3]
 }else{
-   ndim <- \'4d\'
+   ndim <- "4d"
 }
 
-if(ndim == \'&\')
-   ndim <- \'4d\'
+if(ndim == "&")
+   ndim <- "4d"
 
-sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),
-                        "/sites_METAR.Rds"))
+sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_METAR.Rds"))
 
-files    <- dir(path = paste0(\'WRF/\',dir),
-                pattern = "wrfout_d01",full.names = T)
+files <- dir(path = paste0(\'WRF/\',dir),
+             pattern = "wrfout_d01",full.names = T)
 
 extract_serie(filelist = files,
               new      = T,
               point    = sites,
               variable = var,
               field    = ndim,
-              prefix   = "metar.d01",
-              fast     = TRUE)
+              prefix   = "metar.d01")
 
   ',
   file = paste0(root,'extract_metar.R'),
   append = F)
+
+    cat('args <- commandArgs(trailingOnly = TRUE)
+
+library(eva3dm)
+
+dir  <- args[1]
+
+var  <- args[2]
+if(length(args) > 2){
+   ndim <- args[3]
+}else{
+   ndim <- "4d"
+}
+
+if(ndim == "&")
+   ndim <- "4d"
+
+sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_INMET.Rds"))
+
+files <- dir(path = paste0(\'WRF/\',dir),
+             pattern = "wrfout_d01",full.names = T)
+
+extract_serie(filelist = files,
+              new      = T,
+              point    = sites,
+              variable = var,
+              field    = ndim,
+              prefix   = "inmet.d01")
+
+  ',
+file = paste0(root,'extract_inmet.R'),
+append = F)
+
     if(verbose)
       cat(' folder ',paste0(root,'WRF/',case),': link wrf output files here!
  bash ',   paste0(root,'post-R.sh'),': post processing job script
