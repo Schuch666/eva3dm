@@ -99,7 +99,7 @@ echo $dir
 date
 
 tar -cvf Rds_${dir}.tar *.Rds
-rm metar.d0*
+rm metar.d0* inmet.d0*
 '),
 file = paste0(root,'post-R.sh'),
 append = F)
