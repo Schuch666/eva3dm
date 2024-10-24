@@ -76,3 +76,5 @@ This package includes:
 ✔ `overlay()` custom plot to overlay points or plot point-data,`%at%` can be used to georeference the evaluation results;
 
 ✔ `legend_range()` custom legend, display max, min and average;
+
+✔ `template()` function that create post-processing and evaluation scripts;

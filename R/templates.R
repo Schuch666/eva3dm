@@ -2,11 +2,13 @@
 #'
 #' @description Calculate traditional statistics from two numerical vectors in related to a threshold
 #'
-#' @param template template name
-#' @param case case to be evaluated
-#' @param partition name of the partition
-#' @param env name of the conda environment
 #' @param root directory to create the template
+#' @param template template type
+#' @param case case to be evaluated
+#' @param env name of the conda environment
+#' @param scheduler scheduler name
+#' @param partition name of the partition
+#' @param project project name
 #' @param verbose display additional information
 #'
 #' @export
@@ -16,32 +18,48 @@
 #' template(root = temp)
 #'
 
-template <- function(template  = 'WRF-METAR',
+template <- function(root      = getwd(),
+                     template  = 'WRF-MET',
                      case      = 'WRF-only',
-                     partition = 'zhang',
                      env       = 'rspatial',
-                     root      = getwd(),
+                     scheduler = 'SBATCH',
+                     partition = 'main',
+                     project   = 'PROJECT',
                      verbose   = TRUE){
 
   if(root != '')
     root = paste0(root,'/')
 
-  if(template == 'WRF-METAR'){
-    dir.create(path = paste0(root,'WRF/',case),
-               recursive = T,
-               showWarnings = F)
-    dir.create(path = paste0(root,'METAR'),
-               recursive = T,
-               showWarnings = F)
-
-    cat(paste0('#!/bin/bash --login
+  if(scheduler == 'SBATCH'){
+    HEADER <- paste0('#!/bin/bash --login
 #SBATCH -J R-Post
 #SBATCH -N 1
-#SBATCH -n 7
+#SBATCH -n 15
 #SBATCH --time=12:00:00
 #SBATCH -p ',partition,'
 #SBATCH --mem=0
-#SBATCH --exclusive
+#SBATCH --exclusive')
+  }
+
+  if(scheduler == "PBS"){
+    HEADER <- paste0('#!/bin/bash --login
+#PBS -N post-R
+#PBS -A ',project,'
+#PBS -l walltime=12:00:00
+#PBS -q ',partition,'
+#PBS -j oe
+#PBS -m abe
+#PBS -M email@gmail.com
+### ex Select 3 nodes with 48 CPUs each for a total of 144 MPI processes
+#PBS -l select=1:ncpus=15:mpiprocs=15')
+  }
+
+  if(template == 'WRF-MET'){
+    dir.create(path = paste0(root,'WRF/',case),
+               recursive = T,
+               showWarnings = F)
+
+    cat(paste0(HEADER,'
 
 dir=\'',case,'\'
 
@@ -62,6 +80,17 @@ Rscript extract_metar.R $dir U10    3d &
 Rscript extract_metar.R $dir V10    3d &
 Rscript extract_metar.R $dir RAINC  3d &
 Rscript extract_metar.R $dir RAINNC 3d &
+
+echo \'extracting INMET time-series...\'
+
+Rscript extract_inmet.R $dir T2      3d &
+Rscript extract_inmet.R $dir Q2      3d &
+Rscript extract_inmet.R $dir U10     3d &
+Rscript extract_inmet.R $dir V10     3d &
+Rscript extract_inmet.R $dir RAINNC  3d &
+Rscript extract_inmet.R $dir RAINC   3d &
+Rscript extract_inmet.R $dir P          &
+Rscript extract_inmet.R $dir SWDOWN  3d &
 
 wait
 
@@ -110,8 +139,12 @@ extract_serie(filelist = files,
   append = F)
     if(verbose)
       cat(' folder ',paste0(root,'WRF/',case),': link wrf output files here!
- folder',paste0(root,'METAR'),': download metar here!
  bash ',   paste0(root,'post-R.sh'),': post processing job script
  r-script',paste0(root,'extract_metar.R'),': source code to extract metar using eva3dm::extract_serie()\n')
   }
+
 }
+
+# dir.create(path = paste0(root,'METAR'),
+#            recursive = T,
+#            showWarnings = F)

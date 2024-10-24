@@ -5,24 +5,30 @@
 \title{Create templates for meodel evaluation}
 \usage{
 template(
-  template = "WRF-METAR",
-  case = "WRF-only",
-  partition = "zhang",
-  env = "rspatial",
   root = getwd(),
+  template = "WRF-MET",
+  case = "WRF-only",
+  env = "rspatial",
+  scheduler = "SBATCH",
+  partition = "main",
+  project = "PROJECT",
   verbose = TRUE
 )
 }
 \arguments{
-\item{template}{template name}
+\item{root}{directory to create the template}
+
+\item{template}{template type}
 
 \item{case}{case to be evaluated}
 
-\item{partition}{name of the partition}
-
 \item{env}{name of the conda environment}
 
-\item{root}{directory to create the template}
+\item{scheduler}{scheduler name}
+
+\item{partition}{name of the partition}
+
+\item{project}{project name}
 
 \item{verbose}{display additional information}
 }
