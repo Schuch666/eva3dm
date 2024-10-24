@@ -1,6 +1,6 @@
-#' Create templates for meodel evaluation
+#' Create templates for model evaluation
 #'
-#' @description Calculate traditional statistics from two numerical vectors in related to a threshold
+#' @description Create templates of code (r-scripts and job submission script) to read, post-process and evaluate model results.
 #'
 #' @param root directory to create the template
 #' @param template template type (see notes)
@@ -13,11 +13,18 @@
 #'
 #' @export
 #'
-#' @note templates available: WRF, WRF-Chem
+#' @note templates available:\cr
+#'  - WRF (model post-process for METAR + INMET)\cr
+#'  - WRF-Chem (model post-process for METAR, AQS in Brazil and AERONET)\cr
+#'  - IPEN (model post-process for one experimental site)\cr
+#'  - METAR (download observations)\cr
+#'  - MET (evaluation of meteorology)\cr
+#'  - AQ (evaluation of air quality)\cr
+#'  - GPCP (evaluation of precipitation using satellite)
 #'
 #' @examples
 #' temp <- file.path(tempdir(),"POST")
-#' template(root = temp)
+#' template(root = temp,template = 'WRF', case = 'WRF-only')
 #'
 
 template <- function(root      = getwd(),

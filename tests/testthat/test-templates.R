@@ -4,6 +4,7 @@ test_that("template works", {
 
   template(root = f, template = 'WRF')      # WRF post process
   template(root = f, template = 'WRF-Chem') # WRF-Chem post process
+  template(root = f, template = 'IPEN') # WRF-Chem post process
   # template(root = f, template = 'METAR')    # download METAR
   # template(root = f, template = 'AQ')       # eval QA
   # template(root = f, template = 'MET')      # eval met

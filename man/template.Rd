@@ -2,12 +2,12 @@
 % Please edit documentation in R/templates.R
 \name{template}
 \alias{template}
-\title{Create templates for meodel evaluation}
+\title{Create templates for model evaluation}
 \usage{
 template(
   root = getwd(),
   template = "WRF",
-  case = "WRF-only",
+  case = "case",
   env = "rspatial",
   scheduler = "SBATCH",
   partition = "main",
@@ -33,13 +33,20 @@ template(
 \item{verbose}{display additional information}
 }
 \description{
-Calculate traditional statistics from two numerical vectors in related to a threshold
+Create templates of code (r-scripts and job submission script) to read, post-process and evaluate model results.
 }
 \note{
-templates available: WRF, WRF-Chem
+templates available:\cr
+ - WRF (model post-process for METAR + INMET)\cr
+ - WRF-Chem (model post-process for METAR, AQS in Brazil and AERONET)\cr
+ - IPEN (model post-process for one experimental site)\cr
+ - METAR (download observations)\cr
+ - MET (evaluation of meteorology)\cr
+ - AQ (evaluation of air quality)\cr
+ - GPCP (evaluation of precipitation using satellite)
 }
 \examples{
 temp <- file.path(tempdir(),"POST")
-template(root = temp)
+template(root = temp,template = 'WRF', case = 'WRF-only')
 
 }
