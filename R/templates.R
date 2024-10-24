@@ -22,7 +22,7 @@
 
 template <- function(root      = getwd(),
                      template  = 'WRF',
-                     case      = 'WRF-only',
+                     case      = 'case',
                      env       = 'rspatial',
                      scheduler = 'SBATCH',
                      partition = 'main',
