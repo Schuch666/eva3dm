@@ -24,9 +24,9 @@ template(
 
 \item{env}{name of the conda environment}
 
-\item{scheduler}{scheduler name}
+\item{scheduler}{job scheduler used (SBATCH or PBS)}
 
-\item{partition}{name of the partition}
+\item{partition}{partition name}
 
 \item{project}{project name}
 
@@ -36,10 +36,10 @@ template(
 Create templates of code (r-scripts and job submission script) to read, post-process and evaluate model results.
 }
 \note{
-templates available:\cr
+Templates types available:\cr
  - WRF (model post-process for METAR + INMET)\cr
  - WRF-Chem (model post-process for METAR, AQS in Brazil and AERONET)\cr
- - IPEN (model post-process for one experimental site)\cr
+ - IPEN (model post-process for one experimental site including PBL variables)\cr
  - METAR (download observations)\cr
  - MET (evaluation of meteorology)\cr
  - AQ (evaluation of air quality)\cr

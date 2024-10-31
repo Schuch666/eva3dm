@@ -6,17 +6,17 @@
 #' @param template template type (see notes)
 #' @param case case to be evaluated
 #' @param env name of the conda environment
-#' @param scheduler scheduler name
-#' @param partition name of the partition
+#' @param scheduler job scheduler used (SBATCH or PBS)
+#' @param partition partition name
 #' @param project project name
 #' @param verbose display additional information
 #'
 #' @export
 #'
-#' @note templates available:\cr
+#' @note Templates types available:\cr
 #'  - WRF (model post-process for METAR + INMET)\cr
 #'  - WRF-Chem (model post-process for METAR, AQS in Brazil and AERONET)\cr
-#'  - IPEN (model post-process for one experimental site)\cr
+#'  - IPEN (model post-process for one experimental site including PBL variables)\cr
 #'  - METAR (download observations)\cr
 #'  - MET (evaluation of meteorology)\cr
 #'  - AQ (evaluation of air quality)\cr
@@ -111,9 +111,9 @@ echo $dir
 date
 
 tar -cvf Rds_${dir}.tar *.Rds
-rm metar.d0* inmet.d0*
+mv metar.d0* inmet.d0* WRF/$dir
 '),
-file = paste0(root,'post-R.sh'),
+file = paste0(root,'post-R_wrf.sh'),
 append = F)
 
     cat('args <- commandArgs(trailingOnly = TRUE)
@@ -182,7 +182,7 @@ append = F)
 
     if(verbose)
       cat(' folder ',paste0(root,'WRF/',case),': link wrf output files here!
- bash ',   paste0(root,'post-R.sh'),': post processing job script
+ bash ',   paste0(root,'post-R_wrf.sh'),': post processing job script
  r-script',paste0(root,'extract_metar.R'),': source code to extract metar using eva3dm::extract_serie()
  r-script',paste0(root,'extract_inpet.R'),': source code to extract inmet using eva3dm::extract_serie()\n')
   }
@@ -287,9 +287,9 @@ echo $dir
 date
 
 tar -cvf Rds_${dir}.tar *.Rds
-rm metar.d0* aq.d0* pm.d0*
+mv metar.d0* aq.d0* pm.d0* WRF/$dir
 '),
-      file = paste0(root,'post-R.sh'),
+      file = paste0(root,'post-R_wrfchem.sh'),
       append = F)
 
   cat('args <- commandArgs(trailingOnly = TRUE)
@@ -390,10 +390,226 @@ append = F)
 
   if(verbose)
     cat(' folder ',paste0(root,'WRF/',case),': link wrf output files here!
- bash ',   paste0(root,'post-R.sh'),': post processing job script
+ bash ',   paste0(root,'post-R_wrfchem.sh'),': post processing job script
  r-script',paste0(root,'extract_metar.R'),': source code to extract metar using eva3dm::extract_serie()
  r-script',paste0(root,'extract_aq.R'),': source code to extract AQ stations from Brazil using eva3dm::extract_serie()
  r-script',paste0(root,'extract_pm.R'),': source code to extract PM compositon from AERONET sites using eva3dm::extract_serie()\n')
+}
+
+### SETUP for an experiment (PM composition MET / CHEM and PBL variables)
+if(template == 'IPEN'){
+  dir.create(path = paste0(root,'WRF/',case),
+             recursive = T,
+             showWarnings = F)
+
+  cat(paste0(HEADER,'
+
+dir=\'',case,'\'
+
+cd ',root,'
+
+conda activate ',env,'
+
+echo \'folder:\' $dir
+
+date
+
+echo \'extracting AQ time-series for meteorology ...\'
+Rscript extract_exp.R $dir T2 3d  &
+Rscript extract_exp.R $dir Q2 3d  &
+Rscript extract_exp.R $dir P      &
+Rscript extract_exp.R $dir U10 3d &
+Rscript extract_exp.R $dir V10 3d &
+
+echo \'extracting AQ time-series for species ...\'
+Rscript extract_exp.R $dir o3        &
+Rscript extract_exp.R $dir no        &
+Rscript extract_exp.R $dir no2       &
+Rscript extract_exp.R $dir co        &
+Rscript extract_exp.R $dir so2       &
+Rscript extract_exp.R $dir nh3       &
+Rscript extract_exp.R $dir PM2_5_DRY &
+Rscript extract_exp.R $dir PM10      &
+
+wait
+echo \'extracting pm composition part 1...\'
+
+Rscript extract_exp.R $dir so4aj     &
+Rscript extract_exp.R $dir nh4aj     &
+Rscript extract_exp.R $dir no3aj     &
+Rscript extract_exp.R $dir naaj      &
+Rscript extract_exp.R $dir claj      &
+Rscript extract_exp.R $dir orgpaj    &
+Rscript extract_exp.R $dir ecj       &
+Rscript extract_exp.R $dir p25j      &
+Rscript extract_exp.R $dir asoa1j    &
+Rscript extract_exp.R $dir asoa2j    &
+Rscript extract_exp.R $dir asoa3j    &
+Rscript extract_exp.R $dir asoa4j    &
+Rscript extract_exp.R $dir bsoa1j    &
+Rscript extract_exp.R $dir bsoa2j    &
+Rscript extract_exp.R $dir bsoa3j    &
+Rscript extract_exp.R $dir bsoa4j    &
+Rscript extract_exp.R $dir so4ai     &
+Rscript extract_exp.R $dir nh4ai     &
+Rscript extract_exp.R $dir no3ai     &
+Rscript extract_exp.R $dir naai      &
+
+wait
+echo \'extracting pm composition part 2...\'
+
+Rscript extract_exp.R $dir clai      &
+Rscript extract_exp.R $dir orgpai    &
+Rscript extract_exp.R $dir eci       &
+Rscript extract_exp.R $dir p25i      &
+Rscript extract_exp.R $dir asoa1i    &
+Rscript extract_exp.R $dir asoa2i    &
+Rscript extract_exp.R $dir asoa3i    &
+Rscript extract_exp.R $dir asoa4i    &
+Rscript extract_exp.R $dir bsoa1i    &
+Rscript extract_exp.R $dir bsoa2i    &
+Rscript extract_exp.R $dir bsoa3i    &
+Rscript extract_exp.R $dir bsoa4i    &
+Rscript extract_exp.R $dir antha     &
+Rscript extract_exp.R $dir soila     &
+Rscript extract_exp.R $dir seas      &
+Rscript extract_exp.R $dir TOT_DUST  &
+Rscript extract_exp.R $dir DMS_0     &
+Rscript extract_exp.R $dir TSOA      &
+Rscript extract_exp.R $dir BSOA      &
+Rscript extract_exp.R $dir ASOA      &
+
+wait
+echo \'extracting PBL variables...\'
+
+Rscript extract_exp.R $dir PBLH   3d &
+Rscript extract_exp.R $dir LH     3d &
+Rscript extract_exp.R $dir HFX    3d &
+Rscript extract_exp.R $dir QFX    3d &
+Rscript extract_exp.R $dir UST    3d &
+Rscript extract_exp.R $dir RAINNC 3d &
+Rscript extract_epx.R $dir RAINC  3d &
+
+wait
+
+echo $dir
+
+date
+
+tar -cvf Rds_${dir}.tar *.Rds
+mv exp.d0* WRF/$dir
+'),
+      file = paste0(root,'post-R_exp.sh'),
+      append = F)
+
+  cat('args <- commandArgs(trailingOnly = TRUE)
+
+library(eva3dm)
+
+dir  <- args[1]
+
+var  <- args[2]
+if(length(args) > 2){
+   ndim <- args[3]
+}else{
+   ndim <- "4d"
+}
+
+if(ndim == "&")
+   ndim <- "4d"
+
+# experimental site at Cidade Universitária–USP, Sao Paulo-BR
+site <- data.frame(name = "Ipen",
+                   lat = -23.56634,
+                   lon = -46.73741,
+                   source = "IAG-USP",
+                   stringsAsFactors = F)
+
+row.names(site) <- site$name
+site$name       <- "Cidade Universitária – USP"
+
+files <- dir(path = paste0("WRF/",dir),
+             pattern = "wrfout_d01",full.names = T)
+
+extract_serie(filelist = files,
+              new      = T,
+              point    = site,
+              variable = var,
+              field    = ndim,
+              prefix   = "exp.d01")
+
+  ',
+file = paste0(root,'extract_exp.R'),
+append = F)
+
+  if(verbose)
+    cat(' folder ',paste0(root,'WRF/',case),': link wrf output files here!
+ bash ',   paste0(root,'post-R_exp.sh'),': post processing job script
+ r-script',paste0(root,'extract_expr.R'),': source code to extract metar using eva3dm::extract_serie()
+ new locations can be added to the data.frame with the list of sites.\n')
+}
+
+
+
+##################
+
+
+### SETUP for an experiment (PM composition MET / CHEM and PBL variables)
+if(template == 'METAR'){
+  dir.create(path = paste0(root,'/METAR'),
+             recursive = T,
+             showWarnings = F)
+
+  cat('library("eva3dm")
+library("riem")
+
+# set a folder to save the data start / end dates
+root_folder <- "METAR"
+start_date  <- "2023-01-01"
+end_date    <- "2023-12-31"
+
+# load the list of all sites
+all_sites  <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_METAR.Rds"))
+
+# extract i and j of points inside the domain of a wrfinput_d01 file
+sites      <- extract_serie(filelist       = "wrfinput_d01",
+                            point          = all_sites,
+                            return.nearest = T)
+
+for(site in row.names(sites)){
+  cat("downloading METAR from:",site,"...\\n")
+
+  DATA <- riem_measures(station    = site,
+                        date_start = start_date,
+                        date_end   = end_date)
+
+  DATA <- as.data.frame(DATA)
+
+  DATA2 <- data.frame(date    = DATA$valid,           # original date
+                      station = DATA$station,         # station code
+                      lon     = DATA$lon,             # longitude
+                      lat     = DATA$lat,             # latitude
+                      T2      = 5/9 * (DATA$tmpf-32), # Fahrenheit to Celcius
+                      TD      = 5/9 * (DATA$dwpf-32), # Fahrenheit to Celcius
+                      feel    = 5/9 * (DATA$feel-32), # Fahrenheit to Celcius
+                      RH      = DATA$relh,            # relative humidity
+                      WS      = 0.514444 * DATA$sknt, # Knots to m/s
+                      WD      = DATA$drct,            # wind direction degrees N
+                      P       = DATA$mslp,            # pressure
+                      rain    = DATA$p01i)            # precipitation
+
+  saveRDS(object = DATA2,file = paste0(root_folder,"/METAR.",site,".Rds"))
+  # write.csv(x = DATA2,file = paste0(root_folder,"/METAR.",site,".csv"))
+}
+
+cat("download completed!")
+
+  ',
+file = paste0(root,'download_METAR.R'),
+append = F)
+
+  if(verbose)
+    cat(' r-script',paste0(root,'download_METAR.R'),': script that download metar data using riem package and information from eva3dm and wrfinput_d01 file\n')
 }
 
 }
