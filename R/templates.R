@@ -396,6 +396,7 @@ append = F)
  r-script',paste0(root,'extract_pm.R'),': source code to extract PM compositon from AERONET sites using eva3dm::extract_serie()\n')
 }
 
+
 ### SETUP for an experiment (PM composition MET / CHEM and PBL variables)
 if(template == 'IPEN'){
   dir.create(path = paste0(root,'WRF/',case),
@@ -518,7 +519,7 @@ if(length(args) > 2){
 if(ndim == "&")
    ndim <- "4d"
 
-# experimental site at Cidade Universitária–USP, Sao Paulo-BR
+# experimental site at Cidade Universitaria-USP, Sao Paulo-BR
 site <- data.frame(name = "Ipen",
                    lat = -23.56634,
                    lon = -46.73741,
@@ -526,7 +527,7 @@ site <- data.frame(name = "Ipen",
                    stringsAsFactors = F)
 
 row.names(site) <- site$name
-site$name       <- "Cidade Universitária – USP"
+site$name       <- "Cidade Universitaria - USP"
 
 files <- dir(path = paste0("WRF/",dir),
              pattern = "wrfout_d01",full.names = T)
@@ -550,13 +551,9 @@ append = F)
 }
 
 
-
-##################
-
-
-### SETUP for an experiment (PM composition MET / CHEM and PBL variables)
+### SCRIPT TO DOWNLOAD METAR
 if(template == 'METAR'){
-  dir.create(path = paste0(root,'/METAR'),
+  dir.create(path = paste0(root,'METAR'),
              recursive = T,
              showWarnings = F)
 
@@ -609,7 +606,11 @@ file = paste0(root,'download_METAR.R'),
 append = F)
 
   if(verbose)
-    cat(' r-script',paste0(root,'download_METAR.R'),': script that download metar data using riem package and information from eva3dm and wrfinput_d01 file\n')
+    cat(' folder ',paste0(root),': copy wrfinput_d01 gere!
+ folder ',paste0(root,'METAR'),': destination folder
+ r-script',paste0(root,'download_METAR.R'),': script that download metar data using riem package and information from eva3dm and wrfinput_d01 file\n')
 }
+
+
 
 }
