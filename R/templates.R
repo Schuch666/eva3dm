@@ -611,6 +611,86 @@ append = F)
  r-script',paste0(root,'download_METAR.R'),': script that download metar data using riem package and information from eva3dm and wrfinput_d01 file\n')
 }
 
+### SCRIPT TO EVALUATION USING METAR
+if(template == 'MET'){
+
+  cat('library(eva3dm)
+
+WRF_folder   = "WRF"
+METAR_folder = "METAR"
+# case         = "WRF-Chem"
+case         = "WRF-only"
+
+source("table_metar_T2.R")
+source("table_metar_Q.R")
+source("table_metar_Wind.R")
+
+  ',
+file = paste0(root,'all_tables.R'),
+append = F)
+
+
+  cat('# library(eva3dm)
+#
+# WRF_folder   = "WRF"
+# METAR_folder = "METAR"
+#
+# case         = "WRF-Chem"
+
+model_d01     <- readRDS(paste0(WRF_folder,"/",case,"/metar.d01.T2.Rds"))
+model_d01[-1] <- model_d01[-1] - 273.15 # to convert to Celcius
+
+cat("opening TEMP:\n")
+files_obs <- dir(path = METAR_folder,pattern = ".Rds",full.names = T)
+obs       <- data.frame(date = model_d01$date, stringsAsFactors = T)
+
+for(i in 1:length(files_obs)){
+  cat("open",files_obs[i],i,"of",length(files_obs),"\n")
+  new <- readRDS(files_obs[i])
+  if(nrow(new) > 1 & !all(is.na(new$T2)) ){
+    name       <- new$name[1]
+    new        <- data.frame(date = new$date,
+                             obs  = new$T2)
+    cat("station name:",name,"\n")
+    names(new) <- c("date",name) # renaming T2 for the station name
+    new        <- new[!duplicated(new$date), ]
+    obs        <- merge(obs, new, by = "date",all.x = T,sort = TRUE)
+  }else{
+    cat("no data selected in:",files_obs[i],"\n")
+  }
+}
+observed <- obs
+
+# observed[-1] <- observed[-1] + 273.15 # Celcius to Kelvin
+
+cat("Temperature for d01:\n")
+
+mod_stats_d01 <- data.frame()
+
+for(i in names(model_d01)[-1]){
+  mod_stats_d01 <- eva(mo = model_d01,
+                       ob = observed,
+                       table = mod_stats_d01,
+                       site  = i)
+}
+mod_stats_d01   <- mod_stats_d01[mod_stats_d01$n > 1, ]  # remove missing data
+mod_stats_d01   <- eva(model_d01,observed,"ALL",table = mod_stats_d01)
+cat("...\n")
+print(tail(mod_stats_d01))
+cat("\n")
+
+write_stat(stat = mod_stats_d01,
+           file = paste0(WRF_folder,"/",case,"/stats.metar.T2.d01.csv"))
+
+
+  ',
+      file = paste0(root,'table_metar_T2.R'),
+      append = F)
+
+  if(verbose)
+    cat('r-script',paste0(root,'all_tables.R'),': script with folder names
+ r-script',paste0(root,'table_metar_T2.R'),': evaluation of T2 using METAR\n')
+}
 
 
 }
