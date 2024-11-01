@@ -595,6 +595,8 @@ for(site in row.names(sites)){
                       P       = DATA$mslp,            # pressure
                       rain    = DATA$p01i)            # precipitation
 
+  DATA2 <- hourly(DATA2)
+
   saveRDS(object = DATA2,file = paste0(root_folder,"/METAR.",site,".Rds"))
   # write.csv(x = DATA2,file = paste0(root_folder,"/METAR.",site,".csv"))
 }
@@ -614,7 +616,13 @@ append = F)
 ### SCRIPT TO EVALUATION USING METAR
 if(template == 'MET'){
 
-  cat('library(eva3dm)
+  dir.create(path = paste0(root,"WRF",case),
+             recursive = T,
+             showWarnings = F)
+
+  cat(paste0('library(eva3dm)
+
+setwd("',root,'")
 
 WRF_folder   = "WRF"
 METAR_folder = "METAR"
@@ -622,10 +630,10 @@ METAR_folder = "METAR"
 case         = "WRF-only"
 
 source("table_metar_T2.R")
-source("table_metar_Q.R")
+source("table_metar_Q2.R")
 source("table_metar_Wind.R")
 
-  ',
+  '),
 file = paste0(root,'all_tables.R'),
 append = F)
 
@@ -640,30 +648,30 @@ append = F)
 model_d01     <- readRDS(paste0(WRF_folder,"/",case,"/metar.d01.T2.Rds"))
 model_d01[-1] <- model_d01[-1] - 273.15 # to convert to Celcius
 
-cat("opening TEMP:\n")
+cat("opening TEMP:\\n")
 files_obs <- dir(path = METAR_folder,pattern = ".Rds",full.names = T)
 obs       <- data.frame(date = model_d01$date, stringsAsFactors = T)
 
 for(i in 1:length(files_obs)){
-  cat("open",files_obs[i],i,"of",length(files_obs),"\n")
+  cat("open",files_obs[i],i,"of",length(files_obs),"\\n")
   new <- readRDS(files_obs[i])
   if(nrow(new) > 1 & !all(is.na(new$T2)) ){
     name       <- new$name[1]
     new        <- data.frame(date = new$date,
                              obs  = new$T2)
-    cat("station name:",name,"\n")
+    cat("station name:",name,"\\n")
     names(new) <- c("date",name) # renaming T2 for the station name
     new        <- new[!duplicated(new$date), ]
     obs        <- merge(obs, new, by = "date",all.x = T,sort = TRUE)
   }else{
-    cat("no data selected in:",files_obs[i],"\n")
+    cat("no data selected in:",files_obs[i],"\\n")
   }
 }
 observed <- obs
 
 # observed[-1] <- observed[-1] + 273.15 # Celcius to Kelvin
 
-cat("Temperature for d01:\n")
+cat("Temperature for d01:\\n")
 
 mod_stats_d01 <- data.frame()
 
@@ -675,9 +683,9 @@ for(i in names(model_d01)[-1]){
 }
 mod_stats_d01   <- mod_stats_d01[mod_stats_d01$n > 1, ]  # remove missing data
 mod_stats_d01   <- eva(model_d01,observed,"ALL",table = mod_stats_d01)
-cat("...\n")
+cat("...\\n")
 print(tail(mod_stats_d01))
-cat("\n")
+cat("\\n")
 
 write_stat(stat = mod_stats_d01,
            file = paste0(WRF_folder,"/",case,"/stats.metar.T2.d01.csv"))
@@ -687,9 +695,78 @@ write_stat(stat = mod_stats_d01,
       file = paste0(root,'table_metar_T2.R'),
       append = F)
 
+  cat('# library(eva3dm)
+#
+# WRF_folder   = "WRF"
+# METAR_folder = "METAR"
+#
+# case         = "WRF-chem"
+
+model_d01        <- readRDS(paste0(WRF_folder,"/",case,"/metar.d01.Q2.Rds"))
+
+cat("opening Q2:\\n")
+files_obs <- dir(path = METAR_folder,pattern = ".Rds",full.names = T)
+obs       <- data.frame(date = model_d01$date, stringsAsFactors = T)
+
+for(i in 1:length(files_obs)){
+  cat("open",files_obs[i],i,"of",length(files_obs),"\\n")
+  new <- readRDS(files_obs[i])
+  if(nrow(new) > 1 & !all(is.na(new$Q2)) ){
+    name       <- new$name[1]
+    new        <- data.frame(date = new$date,
+                             obs  = new$Q2)
+
+    cat("station name:",name,"\\n")
+    names(new) <- c("date",name)    # renaming Q2 for the station name
+    new        <- new[!duplicated(new$date), ]
+    obs        <- merge(obs, new, by = "date",all.x = T,sort = TRUE)
+  }else{
+    cat("no data selected in:",files_obs[i],"\\n")
+  }
+}
+observed <- obs
+
+cat("convert units to kg/g\\n")
+observed[-1]  <- observed[-1]  * 1000
+model_d01[-1] <- model_d01[-1] * 1000
+
+cat("remove obs > 40 kg/g from obs\\n")
+DATA            <- observed[-1]
+DATA[DATA > 40] <- NA
+observed[-1]    <- DATA
+rm(DATA)
+
+# using daily average
+model_d01 <- daily(data = model_d01)
+observed  <- daily(data = observed)
+
+cat("Q2 for d01:\\n")
+
+mod_stats_d01 <- data.frame()
+
+for(i in names(model_d01)[-1]){
+  mod_stats_d01 <- eva(mo = model_d01,
+                       ob = observed,
+                       table = mod_stats_d01,
+                       site  = i)
+}
+mod_stats_d01   <- mod_stats_d01[mod_stats_d01$n > 1, ]  # remove stations w/no data
+mod_stats_d01   <- eva(model_d01,observed,"ALL",table = mod_stats_d01)
+cat("...\\n")
+print(tail(mod_stats_d01))
+cat("\\n")
+
+write_stat(stat = mod_stats_d01,
+           file = paste0(WRF_folder,"/",case,"/stats.metar.Q2.d01.csv"))
+
+  ',
+file = paste0(root,'table_metar_Q2.R'),
+append = F)
+
   if(verbose)
-    cat('r-script',paste0(root,'all_tables.R'),': script with folder names
- r-script',paste0(root,'table_metar_T2.R'),': evaluation of T2 using METAR\n')
+    cat(' r-script',paste0(root,'all_tables.R'),': setup and run script
+ r-script',paste0(root,'table_metar_T2.R'),': evaluation of T2 using METAR
+ r-script',paste0(root,'table_metar_Q2.R'),': evaluation of Q2 using METAR\n')
 }
 
 
