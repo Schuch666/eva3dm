@@ -16,7 +16,7 @@
 #' @note Templates types available:\cr
 #'  - WRF (model post-process for METAR + INMET)\cr
 #'  - WRF-Chem (model post-process for METAR, AQS in Brazil and AERONET)\cr
-#'  - IPEN (model post-process for one experimental site including PBL variables)\cr
+#'  - EXP (model post-process for one experimental site including PBL variables)\cr
 #'  - METAR (download observations)\cr
 #'  - MET (evaluation of meteorology)\cr
 #'  - AQ (evaluation of air quality)\cr
@@ -398,7 +398,7 @@ append = F)
 
 
 ### SETUP for an experiment (PM composition MET / CHEM and PBL variables)
-if(template == 'IPEN'){
+if(template == 'EXP'){
   dir.create(path = paste0(root,'WRF/',case),
              recursive = T,
              showWarnings = F)
