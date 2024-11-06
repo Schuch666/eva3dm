@@ -1,7 +1,7 @@
-#' Functons to calculate wind speed
+#' Function to calculate model wind speed
 #'
-#' @param u time.serie of U10
-#' @param v time.serie of V10
+#' @param u data.frame with model time-series of U10
+#' @param v data.frame with model time-series of V10
 #' @param verbose display additional information
 #'
 #' @export
@@ -55,10 +55,10 @@ uv2ws <- function(u, v, verbose = T){
 }
 
 
-#' Functon to calculate wind direction
+#' Function to calculate model wind direction
 #'
-#' @param u time.serie of U10
-#' @param v time.serie of V10
+#' @param u data.frame with model time-series of U10
+#' @param v data.frame with model time-series of V10
 #' @param verbose display additional information
 #'
 #' @export
