@@ -2,19 +2,19 @@
 % Please edit documentation in R/wind_conv.R
 \name{uv2ws}
 \alias{uv2ws}
-\title{Functons to calculate wind speed}
+\title{Function to calculate model wind speed}
 \usage{
 uv2ws(u, v, verbose = T)
 }
 \arguments{
-\item{u}{time.serie of U10}
+\item{u}{data.frame with model time-series of U10}
 
-\item{v}{time.serie of V10}
+\item{v}{data.frame with model time-series of V10}
 
 \item{verbose}{display additional information}
 }
 \description{
-Functons to calculate wind speed
+Function to calculate model wind speed
 }
 \examples{
 times <- seq(as.POSIXct('2024-01-01',tz = 'UTC'),

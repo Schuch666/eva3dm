@@ -47,6 +47,10 @@ This package includes:
 
 ✔ `rh2q()`, `q2rh()`, that convert humidity units.
 
+✔ `uv2ws()`, `uv2wd()`, that convert model wind components into wind speed and velocity.
+
+✔ `rain()` to calculate hourly precipitation from model accumulated precipitation variables.
+
 ## Model evaluation functions:
 
 ✔ `eva()` data pairing and evaluation for time-series, `%IN%` allows fair evaluation;
