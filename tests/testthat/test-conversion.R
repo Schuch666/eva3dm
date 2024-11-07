@@ -50,5 +50,10 @@ test_that("q2rh / rh2q are ok!", {
   uv2ws(u = U10, v = V10)
   uv2wd(u = U10, v = V10)
 
+  RNC  <- data.frame(date = NA, aa = c(0.149,0.149,0.149,0.149,0.149))
+  RNNC <- data.frame(date = NA, aa = c(0.919,1.0,1.1,1.1,2.919))
+
+  rain(rainc = RNC, rainnc = RNNC)
+
   expect_equal(2 * 2, 4)
 })

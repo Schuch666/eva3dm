@@ -8,6 +8,13 @@
 #'
 #' @export
 #'
+#' @examples
+#' times <- seq(as.POSIXct('2024-01-01',tz = 'UTC'),
+#'              as.POSIXct('2024-01-01 04:00:00',tz = 'UTC'),
+#'              by = 'hour')
+#' RNC   <- data.frame(date = times, aa = c(0.149,0.149,0.149,0.149,0.149))
+#' RNNC  <- data.frame(date = times, aa = c(0.919,1.0,1.1,1.1,2.919))
+#' rain(rainc = RNC, rainnc = RNNC)
 
 rain <- function(rainc,rainnc, verbose = TRUE){
 
