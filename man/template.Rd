@@ -43,7 +43,7 @@ Templates types available:\cr
  - METAR (download observations)\cr
  - MET (evaluation of meteorology)\cr
  - AQ (evaluation of air quality)\cr
- - GPCP (evaluation of precipitation using satellite)
+ - SAT (evaluation of precipitation using GPCP satellite)
 }
 \examples{
 temp <- file.path(tempdir(),"POST")

@@ -894,4 +894,54 @@ write_stat(stat = mod_stats_d01_wd,
 }
 
 
+### SCRIPT TO SATELLITE EVALUATION USING GPCP
+if(template == 'SAT'){
+  dir.create(path = paste0(root,'WRF/',case),
+             recursive = T,
+             showWarnings = F)
+  dir.create(path = paste0(root,'GPCP'),
+             recursive = T,
+             showWarnings = F)
+
+  cat('library(terra)  # read sat data
+library(eva3dm) # read wrf and evaluate
+
+file_GPCP       <- "GPCP/g4.timeAvgMap.GPCPMON_3_2_sat_gauge_precip.20230401-20230430.180W_90S_180E_90N.nc"
+file_WRF_RAINC  <- "WRF.d01.rain.2023-04.nc"
+file_WRF_RAINNC <- "WRF.d01.rain.2023-04.nc"
+
+setwd("E:/Globus/test_templat2_6")
+
+case   = "case"
+
+m      <- vect(paste(system.file("extdata", package = "eva3dm"),"/coast.shp", sep=""))
+
+GPCP   <- rast(file_GPCP)
+RAINC  <- wrf_rast(paste0("WRF/",case,"/",file_WRF_RAINC),"RAINC", verbose = T)
+RAINNC <- wrf_rast(paste0("WRF/",case,"/",file_WRF_RAINNC),"RAINNC",verbose = T)
+
+RAIN   <- rain(rainc   = RAINC,
+               rainnc  = RAINNC,
+               verbose = TRUE)
+
+precip = 24 * mean(RAIN, na.rm = T)
+
+table <- sat(mo = precip,ob = GPCP,mask = m,rname = paste("GPCP",case))
+
+print(table)
+
+write_stat(stat = table,file = paste0("stats_GPCP.csv"))
+
+  ',
+file = paste0(root,'table_GPCP_rain.R'),
+append = F)
+
+  if(verbose)
+    cat(' folder ',paste0(root,'WRF/',case),': copy wrf post-proced files here!
+ folder ',paste0(root,'GPCP'),': folder to copy satellite data here!
+ r-script',paste0(root,'table_GPCP_rain.R'),': script for satellite evaluation (CHANGE the file names!!)\n')
+}
+
+
+
 }
