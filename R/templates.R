@@ -187,6 +187,105 @@ append = F)
  r-script',paste0(root,'extract_inpet.R'),': source code to extract inmet using eva3dm::extract_serie()\n')
   }
 
+### SETUP of METEOROLOGY POST for 3 domains
+if(template == 'WRF-3'){
+  dir.create(path = paste0(root,'WRF/',case),
+             recursive = T,
+             showWarnings = F)
+
+  cat(paste0(HEADER,'
+
+dir=\'',case,'\'
+
+cd ',root,'
+
+conda activate ',env,'
+
+echo \'folder:\' $dir
+
+date
+
+echo \'extracting METAR time-series...\'
+
+Rscript extract_metar.R $dir T2     3d &
+Rscript extract_metar.R $dir P      4d &
+Rscript extract_metar.R $dir Q2     3d &
+Rscript extract_metar.R $dir U10    3d &
+Rscript extract_metar.R $dir V10    3d &
+Rscript extract_metar.R $dir RAINC  3d &
+Rscript extract_metar.R $dir RAINNC 3d &
+
+wait
+
+echo $dir
+
+date
+
+tar -cvf Rds_${dir}.tar *.Rds
+mv metar.d0* inmet.d0* WRF/$dir
+'),
+      file = paste0(root,'post-R_wrf.sh'),
+      append = F)
+
+  cat('args <- commandArgs(trailingOnly = TRUE)
+
+library(eva3dm)
+
+dir  <- args[1]
+
+var  <- args[2]
+if(length(args) > 2){
+   ndim <- args[3]
+}else{
+   ndim <- "4d"
+}
+
+if(ndim == "&")
+   ndim <- "4d"
+
+sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_METAR.Rds"))
+
+files <- dir(path = paste0("WRF/",dir),
+             pattern = "wrfout_d01",full.names = T)
+
+extract_serie(filelist = files,
+              new      = T,
+              point    = sites,
+              variable = var,
+              field    = ndim,
+              prefix   = "metar.d01")
+
+files <- dir(path = paste0("WRF/",dir),
+             pattern = "wrfout_d02",full.names = T)
+
+extract_serie(filelist = files,
+              new      = T,
+              point    = sites,
+              variable = var,
+              field    = ndim,
+              prefix   = "metar.d02")
+
+files <- dir(path = paste0("WRF/",dir),
+             pattern = "wrfout_d03",full.names = T)
+
+extract_serie(filelist = files,
+              new      = T,
+              point    = sites,
+              variable = var,
+              field    = ndim,
+              prefix   = "metar.d03")
+
+  ',
+file = paste0(root,'extract_metar.R'),
+append = F)
+
+  if(verbose)
+    cat(' folder ',paste0(root,'WRF/',case),': link wrf output files here!
+ bash ',   paste0(root,'post-R_wrf.sh'),': post processing job script
+ r-script',paste0(root,'extract_metar.R'),': source code to extract metar using eva3dm::extract_serie()\n')
+}
+
+
 ### SETUP of CHEMESTRY AND METEOROLOGY
 if(template == 'WRF-Chem'){
   dir.create(path = paste0(root,'WRF/',case),
