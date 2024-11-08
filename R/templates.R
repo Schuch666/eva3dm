@@ -727,10 +727,17 @@ WRF_folder   = "WRF"
 METAR_folder = "METAR"
 case         = "',case,'"
 
+min_WS       =  0.52 # use 0.5 // 1 Knots ~ 0.514444 m/s
+
+sink(file = paste0(WRF_folder,case,"/eval.log"),split = T)
+
 source("table_metar_T2.R")
 source("table_metar_Q2.R")
 source("table_metar_WS.R")
 source("table_metar_WD.R")
+
+cat("CASE:",case,"DONE!\n")
+sink()
 
   '),
 file = paste0(root,'all_tables.R'),
@@ -781,7 +788,7 @@ for(i in names(model_d01)[-1]){
                        site  = i)
 }
 mod_stats_d01   <- mod_stats_d01[mod_stats_d01$n > 1, ]  # remove missing data
-mod_stats_d01   <- eva(model_d01,observed,"ALL",table = mod_stats_d01)
+mod_stats_d01   <- eva(model_d01,observed,table = mod_stats_d01)
 cat("...\\n")
 print(tail(mod_stats_d01))
 cat("\\n")
@@ -901,6 +908,20 @@ for(i in 1:length(files_obs)){
 }
 observed_ws <- obs
 
+if(!is.na(min_WS)){
+  cat("removing WS less than",min_WS,"\n")
+  DATA                 <- observed[-1]
+  DATA[DATA < min_WS ] <- NA
+  observed[-1]         <- DATA
+  rm(DATA)
+}else{
+  cat("removing WS less than zero\n")
+  DATA              <- observed[-1]
+  DATA[DATA < 0.0 ] <- NA
+  observed[-1]      <- DATA
+  rm(DATA)
+}
+
 cat("WS for d01:\\n")
 
 mod_stats_d01_ws <- data.frame()
@@ -970,10 +991,11 @@ for(i in names(model_d01_WD)[-1]){
   mod_stats_d01_wd <- eva(mo = model_d01_WD,
                           ob = observed_wd,
                           table = mod_stats_d01_wd,
+                          wd = TRUE,
                           site  = i)
 }
 mod_stats_d01_wd   <- mod_stats_d01_wd[mod_stats_d01_wd$n > 1, ]  # remove stations w/no data
-mod_stats_d01_wd   <- eva(model_d01_WD,observed_wd,"ALL",table = mod_stats_d01_wd)
+mod_stats_d01_wd   <- eva(model_d01_WD,observed_wd,wd = TRUE,table = mod_stats_d01_wd)
 cat("...\\n")
 print(tail(mod_stats_d01_wd))
 cat("\\n")
@@ -1056,10 +1078,18 @@ WRF_folder   = "WRF"
 METAR_folder = "METAR"
 case         = "',case,'"
 
+min_WS       =  0.52 # use 0.5 // 1 Knots ~ 0.514444 m/s
+
+
+sink(file = paste0(WRF_folder,case,"/eval.log"),split = T)
+
 source("table_metar_T2.R")
 source("table_metar_Q2.R")
 source("table_metar_WS.R")
 source("table_metar_WD.R")
+
+cat("CASE:",case,"DONE!\n")
+sink()
 
   '),
       file = paste0(root,'all_tables.R'),
@@ -1360,6 +1390,20 @@ for(i in 1:length(files_obs)){
 }
 observed_ws <- obs
 
+if(!is.na(min_WS)){
+  cat("removing WS less than",min_WS,"\n")
+  DATA                 <- observed[-1]
+  DATA[DATA < min_WS ] <- NA
+  observed[-1]         <- DATA
+  rm(DATA)
+}else{
+  cat("removing WS less than zero\n")
+  DATA              <- observed[-1]
+  DATA[DATA < 0.0 ] <- NA
+  observed[-1]      <- DATA
+  rm(DATA)
+}
+
 cat("WS for d01:\\n")
 
 mod_stats_d01_ws <- data.frame()
@@ -1398,7 +1442,7 @@ cat("\\n")
 write_stat(stat = mod_stats_d02,
            file = paste0(WRF_folder,"/",case,"/stats.metar.WS.d02.csv"))
 
-cat("WS for d03:\\n")
+cat(" for d03:\\n")
 
 mod_stats_d03 <- data.frame()
 
@@ -1500,10 +1544,11 @@ for(i in names(model_d01_WD)[-1]){
   mod_stats_d01_wd <- eva(mo = model_d01_WD,
                           ob = observed_wd,
                           table = mod_stats_d01_wd,
+                          wd = TRUE,
                           site  = i)
 }
 mod_stats_d01_wd   <- mod_stats_d01_wd[mod_stats_d01_wd$n > 1, ]  # remove stations w/no data
-mod_stats_d01_wd   <- eva(model_d01_WD,observed_wd,"ALL",table = mod_stats_d01_wd)
+mod_stats_d01_wd   <- eva(model_d01_WD,observed_wd,wd = TRUE,table = mod_stats_d01_wd)
 cat("...\\n")
 print(tail(mod_stats_d01_wd))
 cat("\\n")
@@ -1519,10 +1564,11 @@ for(i in names(model_d02)[-1]){
   mod_stats_d02 <- eva(mo = model_d02,
                        ob = observed,
                        table = mod_stats_d02,
+                       wd = TRUE,
                        site  = i)
 }
 mod_stats_d02   <- mod_stats_d02[mod_stats_d02$n > 1, ]  # remove missing data
-mod_stats_d02   <- eva(model_d02,observed,"ALL",table = mod_stats_d02)
+mod_stats_d02   <- eva(model_d02,observed,wd = TRUE,table = mod_stats_d02)
 cat("...\\n")
 print(tail(mod_stats_d02))
 cat("\\n")
@@ -1538,10 +1584,11 @@ for(i in names(model_d03)[-1]){
   mod_stats_d02 <- eva(mo = model_d03,
                        ob = observed,
                        table = mod_stats_d03,
+                       wd = TRUE,
                        site  = i)
 }
 mod_stats_d03   <- mod_stats_d03[mod_stats_d03$n > 1, ]  # remove missing data
-mod_stats_d03   <- eva(model_d03,observed,"ALL",table = mod_stats_d03)
+mod_stats_d03   <- eva(model_d03,observed,wd = TRUE,table = mod_stats_d03)
 cat("...\\n")
 print(tail(mod_stats_d03))
 cat("\\n")
@@ -1550,12 +1597,12 @@ write_stat(stat = mod_stats_d03,
            file = paste0(WRF_folder,"/",case,"/stats.metar.WD.d03.csv"))
 
 # fair comparison for d01 / d02 / d03
-summary_stats <- rbind("d01 in d01" = eva(model_d01,observed,fair = model_d01),
-                       "d01 in d02" = eva(model_d01,observed,fair = model_d02),
-                       "d02 in d02" = eva(model_d02,observed,fair = model_d02),
-                       "d01 in d03" = eva(model_d01,observed,fair = model_d03),
-                       "d02 in d03" = eva(model_d02,observed,fair = model_d03),
-                       "d03 in d03" = eva(model_d03,observed,fair = model_d03))
+summary_stats <- rbind("d01 in d01" = eva(model_d01,observed,fair = model_d01,wd = TRUE),
+                       "d01 in d02" = eva(model_d01,observed,fair = model_d02,wd = TRUE),
+                       "d02 in d02" = eva(model_d02,observed,fair = model_d02,wd = TRUE),
+                       "d01 in d03" = eva(model_d01,observed,fair = model_d03,wd = TRUE),
+                       "d02 in d03" = eva(model_d02,observed,fair = model_d03,wd = TRUE),
+                       "d03 in d03" = eva(model_d03,observed,fair = model_d03,wd = TRUE))
 
 print(summary_stats)
 
@@ -1573,6 +1620,360 @@ write_stat(stat = mod_stats_d03,
  r-script',paste0(root,'table_metar_WD.R'),': evaluation of wind direction using METAR\n')
 }
 
+### SETUP for extract CAMx for 3 domains
+if(template == 'CAMx'){
+  dir.create(path = paste0(root,'CAMx/',case),
+             recursive = T,
+             showWarnings = F)
+
+  cat(paste0(HEADER,'
+
+dir=\'',case,'\'
+
+cd ',root,'
+
+conda activate ',env,'
+
+echo \'folder:\' $dir
+
+date
+
+Rscript extract_camx.R        $dir O3        &
+Rscript extract_camx.R        $dir NO        &
+Rscript extract_camx.R        $dir NO2       &
+Rscript extract_camx.R        $dir FORM      &
+Rscript extract_camx.R        $dir CO        &
+Rscript extract_camx.R        $dir SO2       &
+
+wait
+
+# extract PM time-series 17
+# PM2.5 = PSO4 + PNO3 + PNH4 + NA + PCL + PEC + POA + SOA1-4 + SOPA + SOPB + FCRS + FPRM
+Rscript extract_camx.R        $dir PSO4      &
+Rscript extract_camx.R        $dir PNO3      &
+Rscript extract_camx.R        $dir PNH4      &
+Rscript extract_camx.R        $dir NA        &
+Rscript extract_camx.R        $dir PCL       &
+Rscript extract_camx.R        $dir PEC       &
+Rscript extract_camx.R        $dir POA       &
+Rscript extract_camx.R        $dir SOA1      &
+Rscript extract_camx.R        $dir SOA2      &
+Rscript extract_camx.R        $dir SOA3      &
+Rscript extract_camx.R        $dir SOA4      &
+Rscript extract_camx.R        $dir SOPA      &
+Rscript extract_camx.R        $dir SOPB      &
+Rscript extract_camx.R        $dir FCRS      &
+Rscript extract_camx.R        $dir FPRM      &
+# PM10 = PM2.5 + CCRS + CPRM
+Rscript extract_camx.R        $dir CCRS      &
+Rscript extract_camx.R        $dir CPRM      &
+#Rscript extract_camx.R       $dir PH2O      &
+
+wait
+
+echo $dir
+
+date
+
+tar -cvf Rds_${dir}.tar *.Rds
+mv exp.d0* WRF/$dir
+'),
+      file = paste0(root,'post-R_CAMx.sh'),
+      append = F)
+
+  cat('args <- commandArgs(trailingOnly = TRUE)
+
+library(hackWRF)
+
+dir  <- args[1]
+
+var  <- args[2]
+if(length(args) > 2){
+  ndim <- args[3]
+}else{
+  ndim <- "4d"
+}
+
+if(ndim == "&")
+  ndim <- "4d"
+
+stations <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AERONET.Rds"))
+
+files    <- dir(path = dir, pattern = "grd01.nc",full.names = T)
+extract_serie(filelist = files,
+              new      = T,
+              point    = stations,
+              variable = var,
+              field    = ndim,
+              latitude = "latitude",
+              longitude = "longitude",
+              use_TFLAG = T,
+              prefix   = "aeronet.d01")
+
+files    <- dir(path = dir, pattern = "grd02.nc",full.names = T)
+
+extract_serie(filelist = files,
+              new      = T,
+              point    = stations,
+              variable = var,
+              field    = ndim,
+              latitude = "latitude",
+              longitude = "longitude",
+              use_TFLAG = T,
+              prefix   = "aeronet.d02")
+
+files    <- dir(path = dir, pattern = "grd03.nc",full.names = T)
+
+extract_serie(filelist = files,
+              new      = T,
+              point    = stations,
+              variable = var,
+              field    = ndim,
+              latitude = "latitude",
+              longitude = "longitude",
+              use_TFLAG = T,
+              prefix   = "aeronet.d03")
+
+  ',
+file = paste0(root,'extract_camx.R'),
+append = F)
+
+  if(verbose)
+    cat(' folder ',paste0(root,'CAMx/',case),': link CAMx output files here!
+ bash ',   paste0(root,'post-R_CAMx.sh'),': post processing job script
+ r-script',paste0(root,'extract_camx.R'),': source code to extract time-series from AERONET site locations using eva3dm::extract_serie()\n')
+}
+
+
+### SETUP for extract CAMx for 3 domains
+if(template == 'CAMx'){
+  dir.create(path = paste0(root,'CAMx/',case),
+             recursive = T,
+             showWarnings = F)
+
+  cat(paste0(HEADER,'
+
+dir=\'',case,'\'
+
+cd ',root,'
+
+conda activate ',env,'
+
+echo \'folder:\' $dir
+
+date
+
+Rscript extract_camx.R        $dir O3        &
+Rscript extract_camx.R        $dir NO        &
+Rscript extract_camx.R        $dir NO2       &
+Rscript extract_camx.R        $dir FORM      &
+Rscript extract_camx.R        $dir CO        &
+Rscript extract_camx.R        $dir SO2       &
+
+wait
+
+# extract PM time-series 17
+# PM2.5 = PSO4 + PNO3 + PNH4 + NA + PCL + PEC + POA + SOA1-4 + SOPA + SOPB + FCRS + FPRM
+Rscript extract_camx.R        $dir PSO4      &
+Rscript extract_camx.R        $dir PNO3      &
+Rscript extract_camx.R        $dir PNH4      &
+Rscript extract_camx.R        $dir NA        &
+Rscript extract_camx.R        $dir PCL       &
+Rscript extract_camx.R        $dir PEC       &
+Rscript extract_camx.R        $dir POA       &
+Rscript extract_camx.R        $dir SOA1      &
+Rscript extract_camx.R        $dir SOA2      &
+Rscript extract_camx.R        $dir SOA3      &
+Rscript extract_camx.R        $dir SOA4      &
+Rscript extract_camx.R        $dir SOPA      &
+Rscript extract_camx.R        $dir SOPB      &
+Rscript extract_camx.R        $dir FCRS      &
+Rscript extract_camx.R        $dir FPRM      &
+# PM10 = PM2.5 + CCRS + CPRM
+Rscript extract_camx.R        $dir CCRS      &
+Rscript extract_camx.R        $dir CPRM      &
+#Rscript extract_camx.R       $dir PH2O      &
+
+wait
+
+echo $dir
+
+date
+
+tar -cvf Rds_${dir}.tar *.Rds
+mv exp.d0* WRF/$dir
+'),
+      file = paste0(root,'post-R_CAMx.sh'),
+      append = F)
+
+  cat('args <- commandArgs(trailingOnly = TRUE)
+
+library(hackWRF)
+
+dir  <- args[1]
+
+var  <- args[2]
+if(length(args) > 2){
+  ndim <- args[3]
+}else{
+  ndim <- "4d"
+}
+
+if(ndim == "&")
+  ndim <- "4d"
+
+stations <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AERONET.Rds"))
+
+files    <- dir(path = dir, pattern = "grd01.nc",full.names = T)
+extract_serie(filelist = files,
+              new      = T,
+              point    = stations,
+              variable = var,
+              field    = ndim,
+              latitude = "latitude",
+              longitude = "longitude",
+              use_TFLAG = T,
+              prefix   = "aeronet.d01")
+
+files    <- dir(path = dir, pattern = "grd02.nc",full.names = T)
+
+extract_serie(filelist = files,
+              new      = T,
+              point    = stations,
+              variable = var,
+              field    = ndim,
+              latitude = "latitude",
+              longitude = "longitude",
+              use_TFLAG = T,
+              prefix   = "aeronet.d02")
+
+files    <- dir(path = dir, pattern = "grd03.nc",full.names = T)
+
+extract_serie(filelist = files,
+              new      = T,
+              point    = stations,
+              variable = var,
+              field    = ndim,
+              latitude = "latitude",
+              longitude = "longitude",
+              use_TFLAG = T,
+              prefix   = "aeronet.d03")
+
+  ',
+file = paste0(root,'extract_camx.R'),
+append = F)
+
+  if(verbose)
+    cat(' folder ',paste0(root,'CAMx/',case),': link CAMx output files here!
+ bash ',   paste0(root,'post-R_CAMx.sh'),': post processing job script
+ r-script',paste0(root,'extract_camx.R'),': source code to extract time-series from AERONET site locations using eva3dm::extract_serie()\n')
+}
+
+### SCRIPT TO EVALUATION of AQ
+if(template == 'AQ'){
+
+  dir.create(path = paste0(root,"WRF/",case),
+             recursive = T,
+             showWarnings = F)
+
+  cat(paste0('library(eva3dm)
+
+setwd("',root,'")
+
+case     = "',case,'"
+
+cat("Air Quality Stations\\n")
+source("table_aq_o3.R")
+source("table_aq_max_o3.R")
+source("table_aq_pm25.R")
+#source("table_aq_pm10.R")
+#source("table_aq_no.R")
+#source("table_aq_no2.R")
+#source("table_aq_co.R")
+#source("table_aq_so2.R")
+#cat("Meteorology from AQS\\n")
+#source("table_aq_T2.R")
+#source("table_aq_Q2.R")
+#source("table_aq_WS.R")
+#source("table_aq_WD.R")
+#source("table_aq_rain.R")
+
+#cat("INMET\\n")
+#source("table_inmet_T2.R")
+#source("table_inmet_Q2.R")
+#source("table_inmet_WS.R")
+#source("table_inmet_WD.R")
+#source("table_inmet_rain.R")
+
+#cat("METAR\\n")
+#source("table_metar_T2.R")
+#source("table_metar_Q2.R")
+#source("table_metar_WS.R")
+#source("table_metar_WD.R")
+
+cat("DONE!")
+  '),
+      file = paste0(root,'all_tables.R'),
+      append = F)
+
+  cat('# library(eva3dm)
+
+variable      = "O3"
+o3_NME_cutoff = 78.4 # 78.4 (40 ppb) cutoff for O3 NME // NA
+
+model       <- readRDS(paste0("WRF/",case,"/serie.o3.Rds"))
+TEMP        <- readRDS(paste0("WRF/",case,"/serie.T2.Rds"))
+model[,-1]  <- model[,-1] * 10^3*(48)/(0.0805 * TEMP[,-1])   # 48 = O3 molar mass
+
+files_obs <- dir(path = paste0("OBS/"),pattern = paste0("_",variable,".Rds"),full.names = T)
+obs       <- data.frame(date = model$date, stringsAsFactors = T)
+
+for(i in 1:length(files_obs)){
+  cat("opening",files_obs[i],"\\n")
+  new       <- readRDS(files_obs[i])[,c(2,4)] # column 2 is date in POSIXct and column 4 is O3 in ug/m3
+  obs       <- suppressWarnings( merge(obs, new, by = "date",all.x = T,sort = TRUE) )
+}
+names(obs) <- c("date",substr(files_obs,nchar(paste0("OBS/"))+8,nchar(files_obs)-7))
+observed   <- obs
+
+# calculate moving 8 hour average
+model      <- ma8h(model)
+observed   <- ma8h(observed)
+
+cat("Ozone evaluation:\\n")
+table <- data.frame()
+for(i in names(model)[-1]){
+  table <- eva(mo = model,
+               ob = observed,
+               table = table,
+               site = i)
+}
+
+table <- eva(ob = observed,
+             mo = model,
+             table = table,
+             cutoff_NME = o3_NME_cutoff)
+
+print(table)
+cat("\\n")
+
+write_stat(stat = table,
+           file = paste0("WRF/",case,"/stats.aq.",variable,".csv"))
+
+  ',
+file = paste0(root,'stats_aq_o3.R'),
+append = F)
+
+
+  if(verbose)
+    cat(' folder ',paste0(root,'WRF/',case),': link WRF or CAMx post-rocessed output here!
+ r-script',paste0(root,'all_tables.R'),': setup and run script
+ r-script',paste0(root,'table_aq_o3.R'),': evaluation of hourly 8h O3
+ r-script',paste0(root,'table_aq_max_o3.R'),': evaluation of daily max 8h O3
+ r-script',paste0(root,'table_aq_pm2.5.R'),': evaluation of daily pm2.5
+ NOTE 1: Other scripts in all_tables.R not provided, use previous as template
+ NOTE 2: other templatrs provide templates for metar\n')
+}
 
 
 }
