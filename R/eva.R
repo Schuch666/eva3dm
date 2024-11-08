@@ -89,7 +89,7 @@ eva <- function(mo, ob, rname = site, table = NULL,
     site_obs     <- names(ob)[-1]
     if(!is.null(fair)){
       cat('considering a fair comparison for other domain...\n')
-      if(class(fair) %in% 'data.frame'){
+      if('data.frame' %in% class(fair)){
         site_model   <- names(fair)[-1]
       }else{
         site_model   <- fair
