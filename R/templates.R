@@ -1028,17 +1028,15 @@ if(template == 'SAT'){
   cat('library(terra)  # read sat data
 library(eva3dm) # read wrf and evaluate
 
-file_GPCP       <- "GPCP/g4.timeAvgMap.GPCPMON_3_2_sat_gauge_precip.20230401-20230430.180W_90S_180E_90N.nc"
+case         = "',case,'"
+
+file_GPCP       <- "g4.timeAvgMap.GPCPMON_3_2_sat_gauge_precip.20230401-20230430.180W_90S_180E_90N.nc"
 file_WRF_RAINC  <- "WRF.d01.rain.2023-04.nc"
 file_WRF_RAINNC <- "WRF.d01.rain.2023-04.nc"
 
-setwd("E:/Globus/test_templat2_6")
-
-case   = "case"
-
 m      <- vect(paste(system.file("extdata", package = "eva3dm"),"/coast.shp", sep=""))
 
-GPCP   <- rast(file_GPCP)
+GPCP   <- rast(paste0("GPCP/",file_GPCP))
 RAINC  <- wrf_rast(paste0("WRF/",case,"/",file_WRF_RAINC),"RAINC", verbose = T)
 RAINNC <- wrf_rast(paste0("WRF/",case,"/",file_WRF_RAINNC),"RAINNC",verbose = T)
 
