@@ -1982,6 +1982,8 @@ if(template == 'PSA'){
 
   cat(paste0(HEADER,'
 
+cd ',root,'
+
 year=2023             # year to be processed
 month=04              # month to be processed
 domain=d01            # used only to label output
