@@ -10,7 +10,6 @@
 #' @return data.frame
 #'
 #' @export
-#' @importFrom terra roll
 #'
 #' @examples
 #' model_file <- paste(system.file("extdata", package = "eva3dm"),
@@ -33,28 +32,28 @@ ma8h <- function(data, time = 'date', var, verbose = TRUE, ...) {
   if(verbose)
     cat('processing 8-hour moving avarage ... \n')
 
-  # moving_average <- function(x, n = 8) {
-  #   if (n > length(x)) {
-  #     stop("Window size 'n' should be less than or equal to the length of the vector 'x'.")
-  #   }
-  #   result <- numeric(length(x) - n + 1)
-  #   for (i in 1:(length(x) - n + 3)) {
-  #     result[i] <- mean(x[i:(i + n - 1)], na.rm = T)
-  #   }
-  #   result <- c(NA,NA,NA,result,NA,NA)
-  #   return(result)
-  # }
+  moving_average <- function(x, n = 8) {
+    if (n > length(x)) {
+       stop("Window size 'n' should be less than or equal to the length of the vector 'x'.")
+     }
+    result <- numeric(length(x) - n + 1)
+    for (i in 1:(length(x) - n + 3)) {
+      result[i] <- mean(x[i:(i + n - 1)], na.rm = T)
+   }
+    result <- c(NA,NA,NA,result,NA,NA)
+   return(result)
+  }
 
   if(missing(var)){
     VARS  = names(data)[!names(data) %in% time]
   }
   var           <- VARS[1]
-  # data$roll_avg <- moving_average(data[[var]], n = 8)
-  data$roll_avg <- terra::roll(data[[var]],8,mean,'around',na.rm=T)
+  data$roll_avg <- moving_average(data[[var]], n = 8)
+  # data$roll_avg <- terra::roll(data[[var]],8,mean,'around',na.rm=T)
   output        <- data[,c(time,'roll_avg')]
   for(var in VARS[-1]){
-    # data$roll_avg <- moving_average(data[[var]], n = 8)
-    data$roll_avg <- terra::roll(data[[var]],8,mean,'around',na.rm=T)
+    data$roll_avg <- moving_average(data[[var]], n = 8)
+    # data$roll_avg <- terra::roll(data[[var]],8,mean,'around',na.rm=T)
     output        <- cbind(output,new_var = data$roll_avg)
   }
   names(output) <- c(time,VARS)
