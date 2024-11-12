@@ -12,6 +12,7 @@ test_that("template works", {
   template(root = f, template = 'MET-3')                 # eval met for 3 domains
   template(root = f, template = 'AQ')                    # eval QA
   template(root = f, template = 'SAT')                   # eval sat rain
+  template(root = f, template = 'PSA')                   # CDO sat pros processing
 
   expect_equal(length(f), 1)
 })

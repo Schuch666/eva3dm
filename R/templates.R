@@ -20,6 +20,7 @@
 #'  - METAR (download observations)\cr
 #'  - MET (evaluation of meteorology)\cr
 #'  - AQ (evaluation of air quality)\cr
+#'  - PSA (model post-processing with CDO for satellite evaluation)\cr
 #'  - SAT (evaluation of precipitation using GPCP satellite)
 #'
 #' @examples
@@ -45,7 +46,7 @@ template <- function(root      = getwd(),
     HEADER <- paste0('#!/bin/bash --login
 #SBATCH -J R-Post
 #SBATCH -N 1
-#SBATCH -n 20
+#SBATCH -n 22
 #SBATCH --time=12:00:00
 #SBATCH -p ',partition,'
 #SBATCH --mem=0
@@ -62,7 +63,7 @@ template <- function(root      = getwd(),
 #PBS -m abe
 #PBS -M email@gmail.com
 ### ex Select 3 nodes with 48 CPUs each for a total of 144 MPI processes
-#PBS -l select=1:ncpus=20:mpiprocs=20')
+#PBS -l select=1:ncpus=22:mpiprocs=22')
   }
 
   ### SETUP of METEOROLOGY POST
@@ -588,7 +589,7 @@ Rscript extract_exp.R $dir HFX    3d &
 Rscript extract_exp.R $dir QFX    3d &
 Rscript extract_exp.R $dir UST    3d &
 Rscript extract_exp.R $dir RAINNC 3d &
-Rscript extract_epx.R $dir RAINC  3d &
+Rscript extract_exp.R $dir RAINC  3d &
 
 wait
 
@@ -736,7 +737,7 @@ source("table_metar_Q2.R")
 source("table_metar_WS.R")
 source("table_metar_WD.R")
 
-cat("CASE:",case,"DONE!\n")
+cat("CASE:",case,"DONE!\\n")
 sink()
 
   '),
@@ -1081,14 +1082,14 @@ case         = "',case,'"
 min_WS       =  0.52 # use 0.5 // 1 Knots ~ 0.514444 m/s
 
 
-sink(file = paste0(WRF_folder,case,"/eval.log"),split = T)
+sink(file = paste0(WRF_folder,"/",case,"/eval.log"),split = T)
 
 source("table_metar_T2.R")
 source("table_metar_Q2.R")
 source("table_metar_WS.R")
 source("table_metar_WD.R")
 
-cat("CASE:",case,"DONE!\n")
+cat("CASE:",case,"DONE!\\n")
 sink()
 
   '),
@@ -1911,7 +1912,7 @@ source("table_aq_pm25.R")
 #source("table_metar_WS.R")
 #source("table_metar_WD.R")
 
-cat("DONE!")
+cat("DONE!\\n")
   '),
       file = paste0(root,'all_tables.R'),
       append = F)
@@ -1973,6 +1974,57 @@ append = F)
  r-script',paste0(root,'table_aq_pm2.5.R'),': evaluation of daily pm2.5
  NOTE 1: Other scripts in all_tables.R not provided, use previous as template
  NOTE 2: other templatrs provide templates for metar\n')
+}
+
+### SETUP for post process WRF for satellite evaluation
+if(template == 'PSA'){
+  dir.create(path = paste0(root,'WRF/',case),
+             recursive = T,
+             showWarnings = F)
+
+  cat(paste0(HEADER,'
+
+year=2023             # year to be processed
+month=04              # month to be processed
+domain=d01            # used only to label output
+output="WRF/',case,'" # folder to save the post processing
+
+# map.d0[1-4].nc files
+ncks -d Time,1 -v XLAT,XLONG ${output}/wrfout_d01_${year}-01-01_00:00:00 ${output}/map.${domain}.nc
+# meteorological parameters to calculate model high, layer thickness, etc
+ncra -v Times,XLAT,XLONG,ALT,PB,P,T,PHB,PH,HGT ${year}/wrfout_d01_${year}-01-01* ${output}/WRF.${domain}.meteorological.nc
+
+#for month in 01 04; do
+   echo "processing WRF-Chem output for" ${year}-${month}
+
+   # PRECIPITATION
+   ncrcat -v Times,XLAT,XLONG,RAINC,RAINNC ${output}/wrfout_d01_${year}-${month}-* ${output}/WRF.${domain}.rain.${year}-${month}.nc &
+
+   # for CERES
+   for species in GLW GSW LWCF SWCF SWDOWN OLR; do
+      ncra -v Times,XLAT,XLONG,${species} ${output}/wrfout_d01_${year}-${month}-* ${output}/WRF.${domain}.${species}.${year}-${month}.nc &
+   done
+
+   # for MODIS vairables
+   for species in QNDROP CCN5 CLDFRA TAUCLDI TAUCLDC QCLOUD TAUAER1 TAUAER2 TAUAER3 TAUAER4; do
+      ncra -v Times,XLAT,XLONG,${species} ${output}/wrfout_d01_${year}-${month}-* ${output}/WRF.${domain}.${species}.${year}-${month}.nc &
+   done
+
+   # species evaluation: SCIAMACHY MOPITT OMI AIRS etc
+   for species in co no2 form so2 o3; do
+      ncra -v Times,XLAT,XLONG,${species} ${output}/wrfout_d01_${year}-${month}-* ${output}/WRF.${domain}.${species}.${year}-${month}.nc &
+   done
+
+   wait
+#done
+
+echo "done!"
+'),
+      file = paste0(root,'post-sate.sh'),
+      append = F)
+
+  if(verbose)
+    cat(' bash ',   paste0(root,'post-sate.sh'),': post processing for satellite evaluation using CDO\n')
 }
 
 

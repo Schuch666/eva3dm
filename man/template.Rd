@@ -43,6 +43,7 @@ Templates types available:\cr
  - METAR (download observations)\cr
  - MET (evaluation of meteorology)\cr
  - AQ (evaluation of air quality)\cr
+ - PSA (model post-processing with CDO for satellite evaluation)\cr
  - SAT (evaluation of precipitation using GPCP satellite)
 }
 \examples{
