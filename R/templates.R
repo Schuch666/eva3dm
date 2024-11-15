@@ -2030,9 +2030,11 @@ if(template == 'PSA'){
 
   cat(paste0(HEADER,'
 
-year=2023             # year to be processed
-month=04              # month to be processed
-domain=d01            # used only to label output
+cd ',root,'
+
+year=2023         # year to be processed
+month=04          # month to be processed
+domain=d01        # used only to label output
 output="WRF/',case,'" # folder to save the post processing
 
 # map.d0[1-4].nc files
