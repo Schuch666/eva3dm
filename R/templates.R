@@ -1960,7 +1960,55 @@ write_stat(stat = table,
            file = paste0("WRF/",case,"/stats.aq.",variable,".csv"))
 
   ',
-file = paste0(root,'stats_aq_o3.R'),
+file = paste0(root,'table_aq_o3.R'),
+append = F)
+
+  cat('# library(eva3dm)
+
+variable      = "O3"
+o3_NME_cutoff = 78.4 # 78.4 (40 ppb) cutoff for O3 NME // NA
+
+model       <- readRDS(paste0("WRF/",case,"/serie.o3.Rds"))
+TEMP        <- readRDS(paste0("WRF/",case,"/serie.T2.Rds"))
+model[,-1]  <- model[,-1] * 10^3*(48)/(0.0805 * TEMP[,-1])   # 48 = O3 molar mass
+
+files_obs <- dir(path = paste0("OBS/"),pattern = paste0("_",variable,".Rds"),full.names = T)
+obs       <- data.frame(date = model$date, stringsAsFactors = T)
+
+for(i in 1:length(files_obs)){
+  cat("opening",files_obs[i],"\\n")
+  new       <- readRDS(files_obs[i])[,c(2,4)] # column 2 is date in POSIXct and column 4 is O3 in ug/m3
+  obs       <- suppressWarnings( merge(obs, new, by = "date",all.x = T,sort = TRUE) )
+}
+names(obs) <- c("date",substr(files_obs,nchar(paste0("OBS/"))+8,nchar(files_obs)-7))
+observed   <- obs
+
+# calculate moving 8 hour average
+model    <- MDA8(model,   maximum = T)
+observed <- MDA8(observed,maximum = T)
+
+cat("Ozone evaluation:\\n")
+table <- data.frame()
+for(i in names(model)[-1]){
+  table <- eva(mo = model,
+               ob = observed,
+               table = table,
+               site = i)
+}
+
+table <- eva(ob = observed,
+             mo = model,
+             table = table,
+             cutoff_NME = o3_NME_cutoff)
+
+print(table)
+cat("\\n")
+
+write_stat(stat = table,
+           file = paste0("WRF/",case,"/stats.aq.",variable,".csv"))
+
+  ',
+file = paste0(root,'table_aq_max_o3.R'),
 append = F)
 
 
