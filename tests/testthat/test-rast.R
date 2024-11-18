@@ -23,7 +23,7 @@ test_that("rast based functions are ok", {
   p$id      <- row.names(p)
   point     <- terra::vect(p)
   point$NMB <- 1:45 - 20 # some values to plot
-  overlay(point,point$NMB,cex = 1.4) #
+  overlay(point,point$NMB,cex = 1.4, add = TRUE) #
 
   overlay(point,point$NMB,cex = 1.4, add = FALSE, main = 'new plot')
 

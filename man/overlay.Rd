@@ -13,7 +13,7 @@ overlay(
   pch = 19,
   cex = 1,
   outside = TRUE,
-  add = TRUE,
+  add = FALSE,
   plg = list(tic = "none", shrink = 1),
   pax = list(),
   expand = 1.15,
@@ -62,7 +62,7 @@ point$NMB <- 1:45 - 20 # some values to plot
 terra::plot(BR, main = 'add points',xlim = c(-52,-37),ylim = c(-25,-18))
 terra::lines(BR)
 terra::lines(sp, col = 'gray')
-overlay(point,point$NMB,cex = 1.4)
+overlay(point,point$NMB,cex = 1.4, add = TRUE)
 
 overlay(point,point$NMB,cex = 1.4, add = FALSE, main = 'new plot')
 terra::lines(BR)

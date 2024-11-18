@@ -32,7 +32,7 @@
 #' terra::plot(BR, main = 'add points',xlim = c(-52,-37),ylim = c(-25,-18))
 #' terra::lines(BR)
 #' terra::lines(sp, col = 'gray')
-#' overlay(point,point$NMB,cex = 1.4)
+#' overlay(point,point$NMB,cex = 1.4, add = TRUE)
 #'
 #' overlay(point,point$NMB,cex = 1.4, add = FALSE, main = 'new plot')
 #' terra::lines(BR)
@@ -44,7 +44,7 @@ overlay <- function(p,z,col,
                     pch      = 19,
                     cex      = 1.0,
                     outside  = TRUE,
-                    add      = TRUE,
+                    add      = FALSE,
                     plg      = list(tic = 'none',shrink=1.00),
                     pax      = list(),
                     expand   = 1.15,
