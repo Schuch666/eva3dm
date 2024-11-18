@@ -1932,14 +1932,15 @@ for(i in 1:length(files_obs)){
   new       <- readRDS(files_obs[i])[,c(2,4)] # column 2 is date in POSIXct and column 4 is O3 in ug/m3
   obs       <- suppressWarnings( merge(obs, new, by = "date",all.x = T,sort = TRUE) )
 }
+# using the file names for station names
 names(obs) <- c("date",substr(files_obs,nchar(paste0("OBS/"))+8,nchar(files_obs)-7))
 observed   <- obs
 
-# calculate moving 8 hour average
+# calculate moving 8-hour average
 model      <- ma8h(model)
 observed   <- ma8h(observed)
 
-cat("Ozone evaluation:\\n")
+cat("8h-O3 evaluation:\\n")
 table <- data.frame()
 for(i in names(model)[-1]){
   table <- eva(mo = model,
@@ -1957,7 +1958,7 @@ print(table)
 cat("\\n")
 
 write_stat(stat = table,
-           file = paste0("WRF/",case,"/stats.aq.",variable,".csv"))
+           file = paste0("WRF/",case,"/stats.aq.8h.",variable,".csv"))
 
   ',
 file = paste0(root,'table_aq_o3.R'),
@@ -1980,14 +1981,15 @@ for(i in 1:length(files_obs)){
   new       <- readRDS(files_obs[i])[,c(2,4)] # column 2 is date in POSIXct and column 4 is O3 in ug/m3
   obs       <- suppressWarnings( merge(obs, new, by = "date",all.x = T,sort = TRUE) )
 }
+# using the file names for station names
 names(obs) <- c("date",substr(files_obs,nchar(paste0("OBS/"))+8,nchar(files_obs)-7))
 observed   <- obs
 
-# calculate moving 8 hour average
-model    <- MDA8(model,   maximum = T)
-observed <- MDA8(observed,maximum = T)
+# calculate daily maximum 8-hour average
+model    <- mda8(model)
+observed <- mda8(observed)
 
-cat("Ozone evaluation:\\n")
+cat("MAD8 O3 evaluation:\\n")
 table <- data.frame()
 for(i in names(model)[-1]){
   table <- eva(mo = model,
@@ -2005,12 +2007,58 @@ print(table)
 cat("\\n")
 
 write_stat(stat = table,
-           file = paste0("WRF/",case,"/stats.aq.",variable,".csv"))
+           file = paste0("WRF/",case,"/stats.aq.max.8h.",variable,".csv"))
 
   ',
 file = paste0(root,'table_aq_max_o3.R'),
 append = F)
 
+  cat('# library(eva3dm)
+
+variable = "PM2.5" # ug/m3
+
+model       <- readRDS(paste0("WRF/",case,"/serie.PM2_5_DRY.Rds"))
+
+files_obs <- dir(path = paste0("OBS/"),pattern = paste0("_",variable,".Rds"),full.names = T)
+obs       <- data.frame(date = model$date, stringsAsFactors = T)
+
+for(i in 1:length(files_obs)){
+  cat("opening",files_obs[i],"\\n")
+  new       <- readRDS(files_obs[i])[,c(2,4)] # column 2 is date in POSIXct and column 4 is PM2.5 in ug/m3
+  obs       <- suppressWarnings( merge(obs, new, by = "date",all.x = T,sort = TRUE) )
+}
+# using the file names for station names
+names(obs) <- c("date",substr(files_obs,nchar(paste0("OBS/"))+8,nchar(files_obs)-10))
+observed   <- obs
+
+# calculate daily average
+model    <- daily(model)
+observed <- daily(observed)
+
+cat("Daily PM2.5 evaluation:\\n")
+table <- data.frame()
+for(i in names(model)[-1]){
+  table <- eva(mo = model,
+               ob = observed,
+               table = table,
+               site = i,
+               cutoff = c(1,150))
+}
+
+table <- eva(ob = observed,
+             mo = model,
+             table = table,
+             cutoff = c(1,150))
+
+print(table)
+cat("\\n")
+
+write_stat(stat = table,
+           file = paste0("WRF/",case,"/stats.aq.daily.",variable,".csv"))
+
+  ',
+file = paste0(root,'table_aq_pm25.R'),
+append = F)
 
   if(verbose)
     cat(' folder ',paste0(root,'WRF/',case),': link WRF or CAMx post-rocessed output here!
@@ -2019,7 +2067,7 @@ append = F)
  r-script',paste0(root,'table_aq_max_o3.R'),': evaluation of daily max 8h O3
  r-script',paste0(root,'table_aq_pm2.5.R'),': evaluation of daily pm2.5
  NOTE 1: Other scripts in all_tables.R not provided, use previous as template
- NOTE 2: other templatrs provide templates for metar\n')
+ NOTE 2: other templates provide templates for metar\n')
 }
 
 ### SETUP for post process WRF for satellite evaluation
