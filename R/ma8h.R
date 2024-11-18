@@ -34,7 +34,7 @@ ma8h <- function(data, time = 'date', var, verbose = TRUE, ...) {
 
   moving_average <- function(x, n = 8) {
     if (n > length(x)) {
-       stop("Window size 'n' should be less than or equal to the length of the vector 'x'.")
+       stop("Window size 'n' should be less than or equal to the length of the vector 'x'.") # nocov
      }
     result <- numeric(length(x) - n + 1)
     for (i in 1:(length(x) - n + 3)) {

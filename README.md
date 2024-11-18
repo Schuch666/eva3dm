@@ -4,7 +4,8 @@
 
 [![Licence:MIT](https://img.shields.io/github/license/hyperium/hyper.svg)](https://opensource.org/licenses/MIT) 
 [![Cod-cov status](https://github.com/schuch666/eva3dm/workflows/cod-cov/badge.svg)](https://github.com/schuch666/eva3dm/actions) 
-[![Coverage Status](https://img.shields.io/codecov/c/github/schuch666/eva3dm/master.svg)](https://codecov.io/github/schuch666/eva3dm?branch=master) [![R build status](https://github.com/schuch666/eva3dm/workflows/R-CMD-check/badge.svg)](https://github.com/schuch666/eva3dm/actions) 
+[![Coverage Status](https://img.shields.io/codecov/c/github/schuch666/eva3dm/master.svg)](https://codecov.io/github/schuch666/eva3dm) 
+[![R build status](https://github.com/schuch666/eva3dm/workflows/R-CMD-check/badge.svg)](https://github.com/schuch666/eva3dm/actions) 
 [![Site build status](https://github.com/schuch666/eva3dm/workflows/site/badge.svg)](https://schuch666.github.io/eva3dm/)
 
 <!-- badges: end -->
@@ -15,7 +16,7 @@ The following workflow is recommended:
 
 **1. Pre-processing of observations**: 
 
-- Download of observations, METAR can be downloaded using the R-package [riem](https://docs.ropensci.org/riem/) or via the [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site, Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar/home.do) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites, and a range of satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website.
+- Download of observations, METAR can be downloaded using the R-package [riem](https://docs.ropensci.org/riem/) or via the [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site, Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites, and a range of satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website.
 
 - QA of the observation data.
 
