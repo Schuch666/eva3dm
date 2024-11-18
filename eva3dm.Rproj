@@ -19,7 +19,5 @@ BuildType: Package
 PackageUseDevtools: Yes
 PackageCleanBeforeInstall: No
 PackageInstallArgs: --no-multiarch --with-keep.source --as-cran
-PackageBuildArgs: --as-cran
-PackageBuildBinaryArgs: --as-cran
-PackageCheckArgs: --as-cran --run-donttest --no-multiarch
+PackageCheckArgs: --run-donttest --no-multiarch
 PackageRoxygenize: rd,collate,namespace
