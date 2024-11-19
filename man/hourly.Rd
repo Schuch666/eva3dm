@@ -25,7 +25,7 @@ hourly(
 
 \item{min_offset}{minutes of observation from previous hour (default is 30)}
 
-\item{numerical}{TRUE (default) include only numerical columns}
+\item{numerical}{TRUE (default) includes only numerical columns}
 
 \item{verbose}{display additional information}
 }

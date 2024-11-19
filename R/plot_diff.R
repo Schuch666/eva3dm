@@ -1,6 +1,6 @@
-#' Plot the difference from two rast (SpatRaster) object
+#' Plot the difference from two SpatRaster objects
 #'
-#' @description Custon difference plots (x - y) of plot for SpatRaster (terra R-package) object based on terra package
+#' @description Custom difference (x - y) plots for SpatRaster object (based on terra package)
 #'
 #' @param x SpatVector points
 #' @param y values to plot
@@ -26,8 +26,8 @@
 #' plot_diff(A,B,int = 2)
 
 plot_diff <- function(x,y,col,
-                      absolute = T,
-                      relative = T,
+                      absolute = TRUE,
+                      relative = TRUE,
                       lim_1 = NA, lim_2 = NA,
                       unit = c(units(x),expression("%")),
                       ...){
@@ -44,7 +44,7 @@ plot_diff <- function(x,y,col,
 
   if(absolute){
     if(is.na(lim_1))
-      lim_1 = as.numeric(global(diff,'range',na.rm = T))
+      lim_1 = as.numeric(global(diff,'range',na.rm = TRUE))
 
     lim_1[1] <- -max(abs(range(lim_1)))
     lim_1[2] <- max(abs(range(lim_1)))
@@ -57,7 +57,7 @@ plot_diff <- function(x,y,col,
     rel  <- 100 * diff / (y + 0.00000000001)
 
     if(is.na(lim_2))
-      lim_2 = as.numeric(global(rel,'range',na.rm = T))
+      lim_2 = as.numeric(global(rel,'range',na.rm = TRUE))
 
     lim_2[1] <- -max(abs(range(lim_2)))
     lim_2[2] <- max(abs(range(lim_2)))

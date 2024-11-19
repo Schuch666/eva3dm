@@ -2,7 +2,7 @@
 % Please edit documentation in R/extract_mean.R
 \name{extract_mean}
 \alias{extract_mean}
-\title{Creata a NetCDF file with the surface mean}
+\title{Create a NetCDF file with the surface mean}
 \usage{
 extract_mean(
   filelist,
@@ -10,7 +10,7 @@ extract_mean(
   field = "4d",
   prefix = "mean",
   units = "ppmv",
-  meta = T,
+  meta = TRUE,
   filename,
   verbose = TRUE
 )
@@ -22,11 +22,11 @@ extract_mean(
 
 \item{field}{'4d' (default), '3d', '2d' or '2dz' see notes}
 
-\item{prefix}{to output file, defolt is serie}
+\item{prefix}{to output file, default is serie}
 
 \item{units}{units on netcdf file (default is ppmv)}
 
-\item{meta}{use Times, XLONG and XLAT data (only work with 2d variable for file)}
+\item{meta}{use Times, XLONG and XLAT data (only works with 2d variable for file)}
 
 \item{filename}{name for the file, in this case prefix is not used}
 

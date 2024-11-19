@@ -4,7 +4,7 @@
 \alias{vars}
 \title{Function to return variable names}
 \usage{
-vars(file = NA, action = "get", verbose = F)
+vars(file = NA, action = "get", verbose = FALSE)
 }
 \arguments{
 \item{file}{file name}

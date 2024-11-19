@@ -1,6 +1,6 @@
 #' Function to convert/save a SpatRaster array/Netcdf
 #'
-#' @description Conversion of SpatRaster to array and opcionally save on a Netcdf File.
+#' @description Conversion of SpatRaster to array and optionally save on a Netcdf File.
 #'
 #' @param r SpatRaster object
 #' @param file Netcdf file name

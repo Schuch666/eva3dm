@@ -11,7 +11,7 @@
 #' @param rname row name
 #' @param verbose display additional information
 #'
-#' @note the option wd = TRUE apply a rotation of 360 on model wind direction to minimize the angular difference.
+#' @note the option wd = TRUE applies a rotation of 360 on model wind direction to minimize the angular difference.
 #'
 #' @return data.frame
 #'
@@ -48,7 +48,7 @@
 
 stat <- function(model, observation,
                  wd = FALSE, cutoff = NA, cutoff_NME = NA, nobs = 8,
-                 rname, verbose = T){
+                 rname, verbose = TRUE){
 
   IOA <- function(sim,obs){
     Om          <- mean(obs, na.rm=TRUE)

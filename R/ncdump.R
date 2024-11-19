@@ -1,4 +1,4 @@
-#' Print a 'ncdum -h' command
+#' Print a 'ncdump -h' command
 #'
 #' @description Read a NetCDF and print the medatada
 #'

@@ -4,7 +4,7 @@
 \alias{atr}
 \title{Read and write attributes on a NetCDF file}
 \usage{
-atr(file = NA, var = "?", att = NA, action = "na", value = NA, verbose = T)
+atr(file = NA, var = "?", att = NA, action = "na", value = NA, verbose = TRUE)
 }
 \arguments{
 \item{file}{file name}

@@ -14,7 +14,7 @@ rain(rainc, rainnc, verbose = TRUE)
 \item{verbose}{set TRUE to display additional information}
 }
 \description{
-function that convert model accumulated precipitation to hourly precipitation.
+function that converts model accumulated precipitation to hourly precipitation.
 }
 \examples{
 times <- seq(as.POSIXct('2024-01-01',tz = 'UTC'),

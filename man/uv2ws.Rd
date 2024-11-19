@@ -4,7 +4,7 @@
 \alias{uv2ws}
 \title{Function to calculate model wind speed}
 \usage{
-uv2ws(u, v, verbose = T)
+uv2ws(u, v, verbose = TRUE)
 }
 \arguments{
 \item{u}{data.frame with model time-series of U10}

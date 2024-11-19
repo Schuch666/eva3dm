@@ -1,13 +1,13 @@
-#' Creata a NetCDF file with the surface maximum of O3
+#' Create a NetCDF file with the surface maximum of O3
 #'
 #' @description Read the values from o3 and T2, convert o3 to ug m-3 and calculate the maximum of 8-hour moving avarage from a list of files.
 #'
 #' @param filelist list of files to be read
 #' @param variable variable name
 #' @param field '4d' (default), '3d', '2d' or '2dz' see notes
-#' @param prefix to output file, defolt is serie
+#' @param prefix to output file, default is serie
 #' @param units units on netcdf file (default is ug m-3), change to skip unit conversion
-#' @param meta use Times, XLONG and XLAT data (only work with 2d variable for file)
+#' @param meta use Times, XLONG and XLAT data (only works with 2d variable for file)
 #' @param filename name for the file, in this case prefix is not used
 #' @param verbose display additional information
 #'
@@ -27,7 +27,7 @@
 #'
 
 extract_max_8h <- function(filelist, variable = "o3", field = "4d",
-                           prefix = "max_8h", units = "ug m-3", meta = T,
+                           prefix = "max_8h", units = "ug m-3", meta = TRUE,
                            filename,verbose = TRUE){
 
   moving_average <- function(x, n = 8) {
@@ -77,11 +77,13 @@ extract_max_8h <- function(filelist, variable = "o3", field = "4d",
 
   mov_av_max <- function(var){
     moving_max <- var[,,1,drop = TRUE]
-    cat('min:',min(var,na.rm = T),'mean:',mean(var,na.rm = T),'max:',max(var,na.rm = T),'\n')
+    cat('min:', min(var,na.rm = TRUE),
+        'mean:',mean(var,na.rm = TRUE),
+        'max:', max(var,na.rm = TRUE),'\n')
 
     for(i in 1:dim(var)[1]){
       for(j in 1:dim(var)[2]){
-        moving_max[i,j] <- max(moving_average(var[i,j,],n = 8),na.rm = T)
+        moving_max[i,j] <- max(moving_average(var[i,j,],n = 8),na.rm = TRUE)
         # moving_max[i,j] <- max(terra::roll(var[i,j,],8,mean,'around',na.rm=T),na.rm = T)
       }
     }
@@ -103,7 +105,7 @@ extract_max_8h <- function(filelist, variable = "o3", field = "4d",
     t_max <- var                                               # nocov
     for(i in 1:dim(var)[1]){                                   # nocov
       for(j in 1:dim(var)[2]){                                 # nocov
-        t_max[i,j] <- max(c(var[i,j],var2[i,j]),na.rm = T)     # nocov
+        t_max[i,j] <- max(c(var[i,j],var2[i,j]),na.rm = TRUE)  # nocov
       }
     }
     return(t_max)                                              # nocov
@@ -141,8 +143,8 @@ extract_max_8h <- function(filelist, variable = "o3", field = "4d",
     input_lat    <- ncdf4::ncvar_get(wrfinput, "XLAT")  # get lat / lon
     input_lon    <- ncdf4::ncvar_get(wrfinput, "XLONG")
     if(length(dim(input_lon)) > 2){
-      input_lat    <- input_lat[,,1,drop = T] # drop time from original lat / lon
-      input_lon    <- input_lon[,,1,drop = T]
+      input_lat    <- input_lat[,,1,drop = TRUE] # drop time from original lat / lon
+      input_lon    <- input_lon[,,1,drop = TRUE]
     }
 
     g_atributos  <- ncdf4::ncatt_get(wrfinput, 0)
@@ -150,7 +152,7 @@ extract_max_8h <- function(filelist, variable = "o3", field = "4d",
                             History = paste("created on",
                                             format(Sys.time(),
                                                    "%Y-%m-%d at %H:%M")),
-                            Author = "Schuch"),
+                            Author = "eva3dm R-Package, Daniel Schuch 2024"),
                        g_atributos[4:length(g_atributos)])
 
     #dimentions
@@ -303,7 +305,7 @@ extract_max_8h <- function(filelist, variable = "o3", field = "4d",
                             History = paste("created on",
                                             format(Sys.time(),
                                                    "%Y-%m-%d at %H:%M")),
-                            Author = "Schuch"),
+                            Author = "eva3dm R-package, Daniel Schuch 2024"),
                        g_atributos[4:length(g_atributos)])
 
     #distentions

@@ -13,7 +13,7 @@
 #' @param max maximum value cutoff
 #' @param method passed to terra::resample
 #' @param eval_function evaluation function (default is stat)
-#' @param mask optional SpatVecto to mask the results
+#' @param mask optional SpatVector to mask the results
 #' @param verbose set TRUE to display additional information
 #' @param ... other arguments passed to stat
 #'
@@ -40,7 +40,7 @@
 sat <- function(mo,ob,rname, table = NULL,
                 n = 6, min = NA, max = NA,
                 method = 'bilinear', eval_function = stat,
-                mask, verbose = T, ...){
+                mask, verbose = TRUE, ...){
 
   if(missing(mo))
     stop('model input is missing!') # nocov
@@ -63,7 +63,7 @@ sat <- function(mo,ob,rname, table = NULL,
       A       <- matrix(values(x),
                         ncol  = ncol(x),
                         nrow  = nrow(x),
-                        byrow = T)
+                        byrow = TRUE)
       A[1:n,] = value
       A[,1:n] = value
       A[(nrow(A)-n+1):nrow(A),] = value

@@ -2,7 +2,7 @@
 % Please edit documentation in R/extract_8h_max.R
 \name{extract_max_8h}
 \alias{extract_max_8h}
-\title{Creata a NetCDF file with the surface maximum of O3}
+\title{Create a NetCDF file with the surface maximum of O3}
 \usage{
 extract_max_8h(
   filelist,
@@ -10,7 +10,7 @@ extract_max_8h(
   field = "4d",
   prefix = "max_8h",
   units = "ug m-3",
-  meta = T,
+  meta = TRUE,
   filename,
   verbose = TRUE
 )
@@ -22,11 +22,11 @@ extract_max_8h(
 
 \item{field}{'4d' (default), '3d', '2d' or '2dz' see notes}
 
-\item{prefix}{to output file, defolt is serie}
+\item{prefix}{to output file, default is serie}
 
 \item{units}{units on netcdf file (default is ug m-3), change to skip unit conversion}
 
-\item{meta}{use Times, XLONG and XLAT data (only work with 2d variable for file)}
+\item{meta}{use Times, XLONG and XLAT data (only works with 2d variable for file)}
 
 \item{filename}{name for the file, in this case prefix is not used}
 

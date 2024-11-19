@@ -14,7 +14,7 @@
 #' vars(paste0(system.file("extdata",package="eva3dm"),'/wrfinput_d01'))
 #'
 
-vars <- function(file = NA, action="get", verbose=F){
+vars <- function(file = NA, action="get", verbose=FALSE){
   meta <- NULL
   on.exit(ncdf4::nc_close(meta))
 
@@ -24,7 +24,7 @@ vars <- function(file = NA, action="get", verbose=F){
     cat(paste(file,"\n"))   # nocov
   }
 
-  meta <- ncdf4::nc_open(filename = file, verbose = verbose, write = F)
+  meta <- ncdf4::nc_open(filename = file, verbose = verbose, write = FALSE)
 
   if(action == 'print'){
     return(cat(names(meta$var),'\n'))

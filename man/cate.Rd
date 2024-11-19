@@ -17,7 +17,7 @@ cate(
   lty = 3,
   lcol = "#333333",
   lim,
-  verbose = T,
+  verbose = TRUE,
   ...
 )
 }
@@ -54,7 +54,7 @@ cate(
 a data.frame including: Accuracy (A); Critical Success Index (CSI); Probability of Detection (POD); Bias(B); False Alarm Ratio (FAR); Heidke Skill Score (HSS); Pearce skill Score (PSS) in %. The number of valid observations (n), average of observations (Obs) and model (Mod) and the used threshold (thr) are also included for additional information.
 }
 \description{
-Calculate traditional statistics from two numerical vectors in related to a threshold
+Calculate traditional statistics related to a threshold
 }
 \examples{
 data <- 0.02 * 1:100

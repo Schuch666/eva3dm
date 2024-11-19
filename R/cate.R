@@ -1,6 +1,6 @@
 #' Calculate categorical statistics in related to a threshold
 #'
-#' @description Calculate traditional statistics from two numerical vectors in related to a threshold
+#' @description Calculate traditional statistics related to a threshold
 #'
 #' @param model numeric vector with paired model data
 #' @param observation numeric vector with paired observation data
@@ -40,7 +40,7 @@ cate <- function(model, observation, threshold,
                  cutoff = NA, nobs = 8,
                  rname, to.plot = F, col = '#4444bb', pch = 19,
                  lty = 3,lcol = '#333333',lim,
-                 verbose = T, ...){
+                 verbose = TRUE , ...){
 
   if(length(model) != length(observation))
     stop("model and observation need to have the same length!") # nocov

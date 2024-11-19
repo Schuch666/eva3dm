@@ -38,7 +38,7 @@ ma8h <- function(data, time = 'date', var, verbose = TRUE, ...) {
      }
     result <- numeric(length(x) - n + 1)
     for (i in 1:(length(x) - n + 3)) {
-      result[i] <- mean(x[i:(i + n - 1)], na.rm = T)
+      result[i] <- mean(x[i:(i + n - 1)], na.rm = TRUE)
    }
     result <- c(NA,NA,NA,result,NA,NA)
    return(result)

@@ -4,7 +4,7 @@
 \alias{uv2wd}
 \title{Function to calculate model wind direction}
 \usage{
-uv2wd(u, v, verbose = T)
+uv2wd(u, v, verbose = TRUE)
 }
 \arguments{
 \item{u}{data.frame with model time-series of U10}

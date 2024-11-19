@@ -2,7 +2,7 @@
 % Please edit documentation in R/ncdump.R
 \name{ncdump}
 \alias{ncdump}
-\title{Print a 'ncdum -h' command}
+\title{Print a 'ncdump -h' command}
 \usage{
 ncdump(file = file.choose())
 }

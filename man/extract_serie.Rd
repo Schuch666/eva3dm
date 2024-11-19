@@ -31,7 +31,7 @@ extract_serie(
 
 \item{field}{'4d' (defoult), '3d', '2d' or '2dz' see notes}
 
-\item{prefix}{to output file, defolt is serie}
+\item{prefix}{to output file, default is serie}
 
 \item{new}{TRUE, FALSE of 'check' see notes}
 
@@ -41,9 +41,9 @@ extract_serie(
 
 \item{use_ij}{logical, use i and j from input instead of calculate}
 
-\item{latitude}{name of latitude coordinade variable in the netcdf}
+\item{latitude}{name of latitude coordinate variable in the netcdf}
 
-\item{longitude}{name of longitude coordinade variable in the netcdf}
+\item{longitude}{name of longitude coordinate variable in the netcdf}
 
 \item{use_TFLAG}{use the variable TFLAG (CMAQ / smoke) instead of Times (WRF)}
 
@@ -54,7 +54,7 @@ extract_serie(
 \item{verbose}{display additional information}
 }
 \description{
-Read and extract data from a list of wrf output files and a table of lat/lon points based on the distance of the points and the center of model grid points, points outside the domain (and points on domain boundary) are not extracteds.
+Read and extract data from a list of wrf output files and a table of lat/lon points based on the distance of the points and the center of model grid points, points outside the domain (and points on domain boundary) are not extracted.
 }
 \note{
 The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3rd dimention (z).

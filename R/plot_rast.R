@@ -222,7 +222,7 @@ plot_rast <- function(r,
 
     terra::plot(r_log, col = color,
                 plg = c(plg,arg), pax = pax,
-                axe = T,
+                axe = TRUE,
                 grid = FALSE,fun = extra,
                 range = c(min,max),
                 ...)
@@ -231,7 +231,7 @@ plot_rast <- function(r,
     b = as.numeric( terra::global(r2,'min',na.rm = TRUE) )
     if(!is.na(a) & a == b)
       plg=list()
-    terra::plot(r2, col = color, plg = plg, pax = pax,axe = T,
+    terra::plot(r2, col = color, plg = plg, pax = pax,axe = TRUE,
                 grid = FALSE,fun = extra, range = range, ...)
   }
 }

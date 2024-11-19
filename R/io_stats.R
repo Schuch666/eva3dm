@@ -1,7 +1,7 @@
 #' Functions to write stats and evaluation
 #'
-#' @description Functions to write stats and evaluation output. If a file name ending with .csv
-#' is provided to the function will save using write.csv otherwise the function write.table.
+#' @description Functions to write the output from evaluation functions. If the file name ends with .csv
+#' the function write.csv is used otherwise the function write.table is used.
 #'
 #' @param stat observed data.frame
 #' @param file model data.frame
@@ -64,10 +64,10 @@ read_stat <- function(file, sep = ';',dec = '.',verbose = FALSE, ...){
     stat            <- read.csv(file = file)
     row.names(stat) <- stat$X
     stat            <- stat[,-1]
-    names(stat) <- gsub("....", " (%)", names(stat), fixed = T)
+    names(stat) <- gsub("....", " (%)", names(stat), fixed = TRUE)
   }else{
     stat <- read.table(file = file, sep = sep, dec = dec, ...)
-    names(stat) <- gsub("....", " (%)", names(stat), fixed = T)
+    names(stat) <- gsub("....", " (%)", names(stat), fixed = TRUE)
   }
   return(stat)
 }

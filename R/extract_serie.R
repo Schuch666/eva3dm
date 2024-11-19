@@ -1,18 +1,18 @@
 #' Extract time series of wrf file list of lat/lon
 #'
-#' @description Read and extract data from a list of wrf output files and a table of lat/lon points based on the distance of the points and the center of model grid points, points outside the domain (and points on domain boundary) are not extracteds.
+#' @description Read and extract data from a list of wrf output files and a table of lat/lon points based on the distance of the points and the center of model grid points, points outside the domain (and points on domain boundary) are not extracted.
 #'
 #' @param filelist list of files to be read
 #' @param point data.frame with lat/lon
 #' @param variable variable name
 #' @param field '4d' (defoult), '3d', '2d' or '2dz' see notes
-#' @param prefix to output file, defolt is serie
+#' @param prefix to output file, default is serie
 #' @param new TRUE, FALSE of 'check' see notes
 #' @param return.nearest return the data.frame of nearest points instead of extract the serie
 #' @param fast faster calculation of grid distances but less precise
 #' @param use_ij logical, use i and j from input instead of calculate
-#' @param latitude name of latitude coordinade variable in the netcdf
-#' @param longitude name of longitude coordinade variable in the netcdf
+#' @param latitude name of latitude coordinate variable in the netcdf
+#' @param longitude name of longitude coordinate variable in the netcdf
 #' @param use_TFLAG use the variable TFLAG (CMAQ / smoke) instead of Times (WRF)
 #' @param use_datesec use the variable date and datesec (WACCM / CAM-Chem) instead of Times (WRF)
 #' @param id name of the column with station names, if point is a SpatVector (points) from terra package
@@ -66,7 +66,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
     ge    <- terra::as.data.frame(terra::geom(point))
     new_p <- data.frame(lon = ge[,'x'],
                         lat = ge[,'y'],
-                        stringsAsFactors = F)
+                        stringsAsFactors = FALSE)
     new_id <- terra::as.data.frame(point)
     row.names(new_p) <- new_id[,id]
     point  <- new_p
@@ -88,17 +88,17 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
     cat('dim of lat/lon:',dim(lat),'\n')
 
   if(length(dim(lat)) == 1){   # TEST for WACCM model
-    lat   <- matrix(lat, ncol = length(lon),nrow = length(lat), byrow = F) # nocov
-    lon   <- matrix(lon, ncol = length(lon),nrow = length(lat), byrow = T) # nocov
+    lat   <- matrix(lat, ncol = length(lon),nrow = length(lat), byrow = FALSE) # nocov
+    lon   <- matrix(lon, ncol = length(lon),nrow = length(lat), byrow = TRUE)  # nocov
   }
 
   if(length(dim(lat)) == 3){
-    lat   <- lat[,,1,drop = T]   # nocov
-    lon   <- lon[,,1,drop = T]   # nocov
+    lat   <- lat[,,1,drop = TRUE]   # nocov
+    lon   <- lon[,,1,drop = TRUE]   # nocov
   }
   if(length(dim(lat)) == 4){
-    lat   <- lat[,,1,1,drop = T] # nocov
-    lon   <- lon[,,1,1,drop = T] # nocov
+    lat   <- lat[,,1,1,drop = TRUE] # nocov
+    lon   <- lon[,,1,1,drop = TRUE] # nocov
   }
   if(verbose)
     cat('used dim of lat/lon:',dim(lat),'\n')
@@ -197,7 +197,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
 
   if(use_TFLAG){
     TFLAG <- ncvar_get(wrf,'TFLAG')                                      # nocov
-    TFLAG <- TFLAG[,1,,drop = T]                                         # nocov
+    TFLAG <- TFLAG[,1,,drop = TRUE]                                      # nocov
     year  <- as.numeric(substr(x = TFLAG[1,],start = 1,stop = 4))        # nocov
     jday  <- as.numeric(substr(x = TFLAG[1,],start = 5,stop = 7))        # nocov
     day   <- as.Date(paste0(year,jday),format = '%Y%j')                  # nocov

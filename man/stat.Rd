@@ -12,7 +12,7 @@ stat(
   cutoff_NME = NA,
   nobs = 8,
   rname,
-  verbose = T
+  verbose = TRUE
 )
 }
 \arguments{
@@ -39,7 +39,7 @@ data.frame
 Calculate statistical indexes (Number of pairs, observation average, model average, correlation, Index Of Agreement, Factor of 2, Root Mean Square Error, Mean Bias, Mean error, Normalized Mean Bias, and Normalized Mean Bias) for model evaluation
 }
 \note{
-the option wd = TRUE apply a rotation of 360 on model wind direction to minimize the angular difference.
+the option wd = TRUE applies a rotation of 360 on model wind direction to minimize the angular difference.
 }
 \examples{
 model <- 1:100

@@ -4,7 +4,7 @@
 \alias{interp}
 \title{Interpolation (project and resample)}
 \usage{
-interp(x, y, method = "bilinear", mask, verbose = F)
+interp(x, y, method = "bilinear", mask, verbose = FALSE)
 }
 \arguments{
 \item{x}{rast to be interpolated}

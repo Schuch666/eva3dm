@@ -20,8 +20,8 @@ write_stat(stat, file, sep = ";", dec = ".", verbose = FALSE, ...)
 \item{...}{arguments passed to write.table and write.csv functions}
 }
 \description{
-Functions to write stats and evaluation output. If a file name ending with .csv
-is provided to the function will save using write.csv otherwise the function write.table.
+Functions to write the output from evaluation functions. If the file name ends with .csv
+the function write.csv is used otherwise the function write.table is used.
 }
 \examples{
 

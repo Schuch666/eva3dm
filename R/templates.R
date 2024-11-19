@@ -69,8 +69,8 @@ template <- function(root      = getwd(),
   ### SETUP of METEOROLOGY POST
   if(template == 'WRF'){
     dir.create(path = paste0(root,'WRF/',case),
-               recursive = T,
-               showWarnings = F)
+               recursive = TRUE,
+               showWarnings = FALSE)
 
     cat(paste0(HEADER,'
 
@@ -115,7 +115,7 @@ tar -cvf Rds_${dir}.tar *.Rds
 mv metar.d0* inmet.d0* WRF/$dir
 '),
 file = paste0(root,'post-R_wrf.sh'),
-append = F)
+append = FALSE)
 
     cat('args <- commandArgs(trailingOnly = TRUE)
 
@@ -147,7 +147,7 @@ extract_serie(filelist = files,
 
   ',
   file = paste0(root,'extract_metar.R'),
-  append = F)
+  append = FALSE)
 
     cat('args <- commandArgs(trailingOnly = TRUE)
 
@@ -179,7 +179,7 @@ extract_serie(filelist = files,
 
   ',
 file = paste0(root,'extract_inmet.R'),
-append = F)
+append = FALSE)
 
     if(verbose)
       cat(' folder ',paste0(root,'WRF/',case),': link wrf output files here!
@@ -191,8 +191,8 @@ append = F)
 ### SETUP of METEOROLOGY POST for 3 domains
 if(template == 'WRF-3'){
   dir.create(path = paste0(root,'WRF/',case),
-             recursive = T,
-             showWarnings = F)
+             recursive = TRUE,
+             showWarnings = FALSE)
 
   cat(paste0(HEADER,'
 
@@ -226,7 +226,7 @@ tar -cvf Rds_${dir}.tar *.Rds
 mv metar.d0* inmet.d0* WRF/$dir
 '),
       file = paste0(root,'post-R_wrf.sh'),
-      append = F)
+      append = FALSE)
 
   cat('args <- commandArgs(trailingOnly = TRUE)
 
@@ -278,7 +278,7 @@ extract_serie(filelist = files,
 
   ',
 file = paste0(root,'extract_metar.R'),
-append = F)
+append = FALSE)
 
   if(verbose)
     cat(' folder ',paste0(root,'WRF/',case),': link wrf output files here!
@@ -290,8 +290,8 @@ append = F)
 ### SETUP of CHEMESTRY AND METEOROLOGY
 if(template == 'WRF-Chem'){
   dir.create(path = paste0(root,'WRF/',case),
-             recursive = T,
-             showWarnings = F)
+             recursive = TRUE,
+             showWarnings = FALSE)
 
   cat(paste0(HEADER,'
 
@@ -390,7 +390,7 @@ tar -cvf Rds_${dir}.tar *.Rds
 mv metar.d0* aq.d0* pm.d0* WRF/$dir
 '),
       file = paste0(root,'post-R_wrfchem.sh'),
-      append = F)
+      append = FALSE)
 
   cat('args <- commandArgs(trailingOnly = TRUE)
 
@@ -422,7 +422,7 @@ extract_serie(filelist = files,
 
   ',
 file = paste0(root,'extract_metar.R'),
-append = F)
+append = FALSE)
 
   cat('args <- commandArgs(trailingOnly = TRUE)
 
@@ -486,7 +486,7 @@ extract_serie(filelist = files,
 
   ',
 file = paste0(root,'extract_pm.R'),
-append = F)
+append = FALSE)
 
   if(verbose)
     cat(' folder ',paste0(root,'WRF/',case),': link wrf output files here!
@@ -500,8 +500,8 @@ append = F)
 ### SETUP for an experiment (PM composition MET / CHEM and PBL variables)
 if(template == 'EXP'){
   dir.create(path = paste0(root,'WRF/',case),
-             recursive = T,
-             showWarnings = F)
+             recursive = TRUE,
+             showWarnings = FALSE)
 
   cat(paste0(HEADER,'
 
@@ -601,7 +601,7 @@ tar -cvf Rds_${dir}.tar *.Rds
 mv exp.d0* WRF/$dir
 '),
       file = paste0(root,'post-R_exp.sh'),
-      append = F)
+      append = FALSE)
 
   cat('args <- commandArgs(trailingOnly = TRUE)
 
@@ -641,7 +641,7 @@ extract_serie(filelist = files,
 
   ',
 file = paste0(root,'extract_exp.R'),
-append = F)
+append = FALSE)
 
   if(verbose)
     cat(' folder ',paste0(root,'WRF/',case),': link wrf output files here!
@@ -654,8 +654,8 @@ append = F)
 ### SCRIPT TO DOWNLOAD METAR
 if(template == 'METAR'){
   dir.create(path = paste0(root,'METAR'),
-             recursive = T,
-             showWarnings = F)
+             recursive = TRUE,
+             showWarnings = FALSE)
 
   cat('library("eva3dm")
 library("riem")
@@ -705,7 +705,7 @@ cat("download completed!")
 
   ',
 file = paste0(root,'download_METAR.R'),
-append = F)
+append = FALSE)
 
   if(verbose)
     cat(' folder ',paste0(root),': copy wrfinput_d01 gere!
@@ -717,8 +717,8 @@ append = F)
 if(template == 'MET'){
 
   dir.create(path = paste0(root,"WRF/",case),
-             recursive = T,
-             showWarnings = F)
+             recursive = TRUE,
+             showWarnings = FALSE)
 
   cat(paste0('library(eva3dm)
 
@@ -742,7 +742,7 @@ sink()
 
   '),
 file = paste0(root,'all_tables.R'),
-append = F)
+append = FALSE)
 
 
   cat(paste0('# library(eva3dm)
@@ -800,7 +800,7 @@ write_stat(stat = mod_stats_d01,
 
   '),
       file = paste0(root,'table_metar_T2.R'),
-      append = F)
+      append = FALSE)
 
   cat(paste0('# library(eva3dm)
 #
@@ -868,7 +868,7 @@ write_stat(stat = mod_stats_d01,
 
   '),
 file = paste0(root,'table_metar_Q2.R'),
-append = F)
+append = FALSE)
 
   cat(paste0('# library(eva3dm)
 #
@@ -943,7 +943,7 @@ write_stat(stat = mod_stats_d01_ws,
            file = paste0(WRF_folder,"/",case,"/stats.metar.WS.d01.csv"))
   '),
       file = paste0(root,'table_metar_WS.R'),
-      append = F)
+      append = FALSE)
 
   cat(paste0('# library(eva3dm)
 #
@@ -1005,7 +1005,7 @@ write_stat(stat = mod_stats_d01_wd,
            file = paste0(WRF_folder,"/",case,"/stats.metar.WD.d01.csv"))
   '),
       file = paste0(root,'table_metar_WD.R'),
-      append = F)
+      append = FALSE)
 
   if(verbose)
     cat(' r-script',paste0(root,'all_tables.R'),': setup and run script
@@ -1019,11 +1019,11 @@ write_stat(stat = mod_stats_d01_wd,
 ### SCRIPT TO SATELLITE EVALUATION USING GPCP
 if(template == 'SAT'){
   dir.create(path = paste0(root,'WRF/',case),
-             recursive = T,
-             showWarnings = F)
+             recursive = TRUE,
+             showWarnings = FALSE)
   dir.create(path = paste0(root,'GPCP'),
-             recursive = T,
-             showWarnings = F)
+             recursive = TRUE,
+             showWarnings = FALSE)
 
   cat('library(terra)  # read sat data
 library(eva3dm) # read wrf and evaluate
@@ -1054,7 +1054,7 @@ write_stat(stat = table,file = paste0("stats_GPCP.csv"))
 
   ',
 file = paste0(root,'table_GPCP_rain.R'),
-append = F)
+append = FALSE)
 
   if(verbose)
     cat(' folder ',paste0(root,'WRF/',case),': copy wrf post-proced files here!
@@ -1066,8 +1066,8 @@ append = F)
 if(template == 'MET-3'){
 
   dir.create(path = paste0(root,"WRF/",case),
-             recursive = T,
-             showWarnings = F)
+             recursive = TRUE,
+             showWarnings = FALSE)
 
   cat(paste0('library(eva3dm)
 
@@ -1092,7 +1092,7 @@ sink()
 
   '),
       file = paste0(root,'all_tables.R'),
-      append = F)
+      append = FALSE)
 
 
   cat(paste0('# library(eva3dm)
@@ -1204,7 +1204,7 @@ write_stat(stat = mod_stats_d03,
 
   '),
       file = paste0(root,'table_metar_T2.R'),
-      append = F)
+      append = FALSE)
 
   cat(paste0('# library(eva3dm)
 #
@@ -1328,7 +1328,7 @@ write_stat(stat = mod_stats_d03,
            file = paste0(WRF_folder,"/",case,"/stats.metar.Q2.all.csv"))
   '),
       file = paste0(root,'table_metar_Q2.R'),
-      append = F)
+      append = FALSE)
 
   cat(paste0('# library(eva3dm)
 #
@@ -1474,7 +1474,7 @@ write_stat(stat = mod_stats_d03,
            file = paste0(WRF_folder,"/",case,"/stats.metar.WS.all.csv"))
   '),
       file = paste0(root,'table_metar_WS.R'),
-      append = F)
+      append = FALSE)
 
   cat(paste0('# library(eva3dm)
 #
@@ -1609,7 +1609,7 @@ write_stat(stat = mod_stats_d03,
            file = paste0(WRF_folder,"/",case,"/stats.metar.WD.all.csv"))
   '),
       file = paste0(root,'table_metar_WD.R'),
-      append = F)
+      append = FALSE)
 
   if(verbose)
     cat(' r-script',paste0(root,'all_tables.R'),': setup and run script
@@ -1622,8 +1622,8 @@ write_stat(stat = mod_stats_d03,
 ### SETUP for extract CAMx for 3 domains
 if(template == 'CAMx'){
   dir.create(path = paste0(root,'CAMx/',case),
-             recursive = T,
-             showWarnings = F)
+             recursive = TRUE,
+             showWarnings = FALSE)
 
   cat(paste0(HEADER,'
 
@@ -1678,7 +1678,7 @@ tar -cvf Rds_${dir}.tar *.Rds
 mv exp.d0* WRF/$dir
 '),
       file = paste0(root,'post-R_CAMx.sh'),
-      append = F)
+      append = FALSE)
 
   cat('args <- commandArgs(trailingOnly = TRUE)
 
@@ -1735,7 +1735,7 @@ extract_serie(filelist = files,
 
   ',
 file = paste0(root,'extract_camx.R'),
-append = F)
+append = FALSE)
 
   if(verbose)
     cat(' folder ',paste0(root,'CAMx/',case),': link CAMx output files here!
@@ -1747,8 +1747,8 @@ append = F)
 ### SETUP for extract CAMx for 3 domains
 if(template == 'CAMx'){
   dir.create(path = paste0(root,'CAMx/',case),
-             recursive = T,
-             showWarnings = F)
+             recursive = TRUE,
+             showWarnings = FALSE)
 
   cat(paste0(HEADER,'
 
@@ -1803,7 +1803,7 @@ tar -cvf Rds_${dir}.tar *.Rds
 mv exp.d0* WRF/$dir
 '),
       file = paste0(root,'post-R_CAMx.sh'),
-      append = F)
+      append = FALSE)
 
   cat('args <- commandArgs(trailingOnly = TRUE)
 
@@ -1860,7 +1860,7 @@ extract_serie(filelist = files,
 
   ',
 file = paste0(root,'extract_camx.R'),
-append = F)
+append = FALSE)
 
   if(verbose)
     cat(' folder ',paste0(root,'CAMx/',case),': link CAMx output files here!
@@ -1872,8 +1872,8 @@ append = F)
 if(template == 'AQ'){
 
   dir.create(path = paste0(root,"WRF/",case),
-             recursive = T,
-             showWarnings = F)
+             recursive = TRUE,
+             showWarnings = FALSE)
 
   cat(paste0('library(eva3dm)
 
@@ -1913,7 +1913,7 @@ source("table_aq_pm25.R")
 cat("DONE!\\n")
   '),
       file = paste0(root,'all_tables.R'),
-      append = F)
+      append = FALSE)
 
   cat('# library(eva3dm)
 
@@ -1962,7 +1962,7 @@ write_stat(stat = table,
 
   ',
 file = paste0(root,'table_aq_o3.R'),
-append = F)
+append = FALSE)
 
   cat('# library(eva3dm)
 
@@ -2011,7 +2011,7 @@ write_stat(stat = table,
 
   ',
 file = paste0(root,'table_aq_max_o3.R'),
-append = F)
+append = FALSE)
 
   cat('# library(eva3dm)
 
@@ -2058,7 +2058,7 @@ write_stat(stat = table,
 
   ',
 file = paste0(root,'table_aq_pm25.R'),
-append = F)
+append = FALSE)
 
   if(verbose)
     cat(' folder ',paste0(root,'WRF/',case),': link WRF or CAMx post-rocessed output here!
@@ -2073,8 +2073,8 @@ append = F)
 ### SETUP for post process WRF for satellite evaluation
 if(template == 'PSA'){
   dir.create(path = paste0(root,'WRF/',case),
-             recursive = T,
-             showWarnings = F)
+             recursive = TRUE,
+             showWarnings = FALSE)
 
   cat(paste0(HEADER,'
 
@@ -2117,7 +2117,7 @@ ncra -v Times,XLAT,XLONG,ALT,PB,P,T,PHB,PH,HGT ${year}/wrfout_d01_${year}-01-01*
 echo "done!"
 '),
       file = paste0(root,'post-sate.sh'),
-      append = F)
+      append = FALSE)
 
   if(verbose)
     cat(' bash ',   paste0(root,'post-sate.sh'),': post processing for satellite evaluation using CDO\n')

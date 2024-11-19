@@ -1,13 +1,13 @@
-#' Creata a NetCDF file with the surface mean
+#' Create a NetCDF file with the surface mean
 #'
 #' @description Read and calculate the mean value of a variable from a list of wrf output files.
 #'
 #' @param filelist list of files to be read
 #' @param variable variable name
 #' @param field '4d' (default), '3d', '2d' or '2dz' see notes
-#' @param prefix to output file, defolt is serie
+#' @param prefix to output file, default is serie
 #' @param units units on netcdf file (default is ppmv)
-#' @param meta use Times, XLONG and XLAT data (only work with 2d variable for file)
+#' @param meta use Times, XLONG and XLAT data (only works with 2d variable for file)
 #' @param filename name for the file, in this case prefix is not used
 #' @param verbose display additional information
 #'
@@ -25,7 +25,7 @@
 #'
 
 extract_mean <- function(filelist, variable = "o3", field = "4d",
-                         prefix = "mean", units = "ppmv", meta = T,
+                         prefix = "mean", units = "ppmv", meta = TRUE,
                          filename, verbose = TRUE){
 
   if(missing(filename)){
@@ -70,16 +70,20 @@ extract_mean <- function(filelist, variable = "o3", field = "4d",
 
   tsum <- function(var){
     if(length(dim(var)) == 2){
-      cat('min:',min(var,na.rm = T),'mean:',mean(var,na.rm = T),'max:',max(var,na.rm = T),'\n')
+      cat('min:', min(var,na.rm = TRUE),
+          'mean:',mean(var,na.rm = TRUE),
+          'max:', max(var,na.rm = TRUE),'\n')
       return(var)
     }
 
-    t_sum   <- var[,,1,drop = T] # nocov
-    cat('min:',min(var,na.rm = T),'mean:',mean(var,na.rm = T),'max:',max(var,na.rm = T),'\n') # nocov
+    t_sum   <- var[,,1,drop = TRUE]                # nocov
+    cat('min:', min(var,na.rm = TRUE),
+        'mean:',mean(var,na.rm = TRUE),
+        'max:', max(var,na.rm = TRUE),'\n')        # nocov
 
-    for(i in 1:dim(var)[1]){                      # nocov
-      for(j in 1:dim(var)[2]){                    # nocov
-        t_sum[i,j] <- sum(var[i,j,], na.rm = T)   # nocov
+    for(i in 1:dim(var)[1]){                       # nocov
+      for(j in 1:dim(var)[2]){                     # nocov
+        t_sum[i,j] <- sum(var[i,j,], na.rm = TRUE) # nocov
       }
     }
 
@@ -125,7 +129,7 @@ extract_mean <- function(filelist, variable = "o3", field = "4d",
                             History = paste("created on",
                                             format(Sys.time(),
                                                    "%Y-%m-%d at %H:%M")),
-                            Author = "Schuch"),
+                            Author = "eva3dm R-package, Daniel Schuch 2024"),
                        g_atributos[4:length(g_atributos)])
 
     #dimentions
@@ -278,7 +282,7 @@ extract_mean <- function(filelist, variable = "o3", field = "4d",
                             History = paste("created on",
                                             format(Sys.time(),
                                                    "%Y-%m-%d at %H:%M")),
-                            Author = "Schuch"),
+                            Author = "eva3dm R-package, Daniel Schuch 2024"),
                        g_atributos[4:length(g_atributos)])
 
     #distentions

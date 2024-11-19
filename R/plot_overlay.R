@@ -67,12 +67,12 @@ overlay <- function(p,z,col,
              "#B81B22","#97161A","#921519")
 
   if(symmetry){
-    max  <- abs(max(lim, na.rm = T))
-    min  <- abs(min(lim, na.rm = T))
+    max  <- abs(max(lim, na.rm = TRUE))
+    min  <- abs(min(lim, na.rm = TRUE))
     lim <- c(-max(max,min),max(max,min))
   }
 
-  if(add == F){
+  if(add == FALSE){
     r <- rast(x = expand * terra::ext(p))
     values(r) = 666
     terra::plot(r,col = col,range = lim,

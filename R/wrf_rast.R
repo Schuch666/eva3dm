@@ -190,10 +190,10 @@ wrf_rast <- function(file = file.choose(),
     if(length(dim(POL)) == 4){ # nocov start
       if(missing(times)){
         cat('eva3dm::wrf_rast support 3d SpatRaster, using all times and level',level,'\n')
-        POL <- POL[,,level,,drop = T]
+        POL <- POL[,,level,,drop = TRUE]
       }else{
         cat('eva3dm::wrf_rast support 3d SpatRaster, using all levels and time',level,'\n')
-        POL <- POL[,,,times,drop = T]
+        POL <- POL[,,,times,drop = TRUE]
       }
     }
     # Create a multi-layer SpatRaster

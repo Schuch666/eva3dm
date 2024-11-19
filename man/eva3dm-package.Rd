@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Functions to post-process, evaluate and visualize results from 3d Meteorological and Air Quality models against surface and satellite observations.
+Provides tools for post-process, evaluate and visualize results from 3d Meteorological and Air Quality models against point observations (i.e. surface stations) and grid (i.e. satellite) observations.
 }
 \seealso{
 Useful links:

@@ -15,7 +15,7 @@ sat(
   method = "bilinear",
   eval_function = stat,
   mask,
-  verbose = T,
+  verbose = TRUE,
   ...
 )
 }
@@ -38,7 +38,7 @@ sat(
 
 \item{eval_function}{evaluation function (default is stat)}
 
-\item{mask}{optional SpatVecto to mask the results}
+\item{mask}{optional SpatVector to mask the results}
 
 \item{verbose}{set TRUE to display additional information}
 

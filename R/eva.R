@@ -151,12 +151,12 @@ eva <- function(mo, ob, rname = site, table = NULL,
   B     <- DATA$obser
 
   to_run = TRUE
-  if(suppressWarnings( max(A,na.rm = T) ) == suppressWarnings( min(A,na.rm = T)) ){
+  if(suppressWarnings( max(A,na.rm = T) ) == suppressWarnings( min(A,na.rm = TRUE)) ){
     if(verbose)
       cat(site,'contains only zeros (or constant values) and NA values for model\n')
     to_run = FALSE
   }
-  if(suppressWarnings(  max(B,na.rm = T) ) == suppressWarnings( min(B,na.rm = T)) ){
+  if(suppressWarnings(  max(B,na.rm = T) ) == suppressWarnings( min(B,na.rm = TRUE)) ){
     if(verbose)
       cat(site,'contains only zeros (or constant values) and NA values for observations\n')
     to_run = FALSE

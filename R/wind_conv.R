@@ -37,7 +37,7 @@
 #' uv2ws(u = U10, v = V10)
 #'
 
-uv2ws <- function(u, v, verbose = T){
+uv2ws <- function(u, v, verbose = TRUE){
   if(verbose) cat('calculating wind speed ...\n')
   model_WS <- u      # copy the u variable
   WS       <- u[,-1] # removing time column
@@ -92,7 +92,7 @@ uv2ws <- function(u, v, verbose = T){
 #'
 #' uv2wd(u = U10, v = V10)
 #'
-uv2wd <- function(u, v, verbose = T){
+uv2wd <- function(u, v, verbose = TRUE){
   if(verbose) cat('calculating wind direction...\n')
   model_WD <- u      # copy the u variable
   WD       <- u[,-1] # removing time column

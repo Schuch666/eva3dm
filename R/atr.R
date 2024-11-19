@@ -27,7 +27,7 @@
 #' atr(nc,'XLONG','FieldType')
 #'
 
-atr <- function(file = NA,var = '?', att = NA, action="na", value=NA, verbose=T){
+atr <- function(file = NA,var = '?', att = NA, action="na", value=NA, verbose=TRUE){
 
   meta <- NULL
   on.exit(ncdf4::nc_close(meta))
@@ -38,9 +38,9 @@ atr <- function(file = NA,var = '?', att = NA, action="na", value=NA, verbose=T)
     cat(paste(file,"\n"))   # nocov
   }
   if(!action %in% c("na","get"))
-    to_write <- T # nocov
+    to_write <- TRUE        # nocov
   else
-    to_write <- F
+    to_write <- FALSE
 
   meta <- ncdf4::nc_open(filename = file, write = to_write)
 

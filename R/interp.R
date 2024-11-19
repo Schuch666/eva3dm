@@ -23,7 +23,7 @@
 #' model_o3c_interp_omi <- interp(omi_o3,model_o3)
 #'
 #' @export
-interp <- function(x,y,method = 'bilinear', mask, verbose = F){
+interp <- function(x,y,method = 'bilinear', mask, verbose = FALSE){
   if(class(x) %in% c('RasterLayer','RasterBrick')){
     if(verbose)                                    # nocov
       cat('converting x to rast\n')                # nocov

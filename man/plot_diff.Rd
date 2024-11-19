@@ -2,14 +2,14 @@
 % Please edit documentation in R/plot_diff.R
 \name{plot_diff}
 \alias{plot_diff}
-\title{Plot the difference from two rast (SpatRaster) object}
+\title{Plot the difference from two SpatRaster objects}
 \usage{
 plot_diff(
   x,
   y,
   col,
-  absolute = T,
-  relative = T,
+  absolute = TRUE,
+  relative = TRUE,
   lim_1 = NA,
   lim_2 = NA,
   unit = c(units(x), expression("\%")),
@@ -36,7 +36,7 @@ plot_diff(
 \item{...}{arguments to be passing to plot_raster}
 }
 \description{
-Custon difference plots (x - y) of plot for SpatRaster (terra R-package) object based on terra package
+Custom difference (x - y) plots for SpatRaster object (based on terra package)
 }
 \examples{
 

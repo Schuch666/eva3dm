@@ -20,7 +20,7 @@ rast_to_netcdf(r, file, name, unit = units(r), XY = FALSE, verbose = TRUE)
 \item{verbose}{display additional information}
 }
 \description{
-Conversion of SpatRaster to array and opcionally save on a Netcdf File.
+Conversion of SpatRaster to array and optionally save on a Netcdf File.
 }
 \note{
 eva3dm::wrf_rast support 3d SpatRaster, in case of a 4d variable use other approach to save on file.

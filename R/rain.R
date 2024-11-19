@@ -1,6 +1,6 @@
 #' conversion of model precipitation to hourly precipitation
 #'
-#' @description function that convert model accumulated precipitation to hourly precipitation.
+#' @description function that converts model accumulated precipitation to hourly precipitation.
 #'
 #' @param rainc data.frame or SpatRaster with RAINC variable
 #' @param rainnc data.frame or SpatRaster with RAINNC variable
