@@ -23,7 +23,7 @@ vars <- function(file = NA, action="get", verbose=FALSE){
   if(is.na(file[1])){
     if(verbose) cat("choose a file:\n") # nocov
     file <- file.choose()   # nocov
-    cat(paste(file,"\n"))   # nocov
+    if(verbose) cat(paste(file,"\n"))   # nocov
   }
 
   meta <- ncdf4::nc_open(filename = file, verbose = verbose, write = FALSE)

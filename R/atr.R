@@ -37,7 +37,7 @@ atr <- function(file = NA,var = '?', att = NA, action="get", value=NA, verbose=T
   if(is.na(file[1])){
     if(verbose) cat("choose a file:\n") # nocov
     file <- file.choose()   # nocov
-    cat(paste(file,"\n"))   # nocov
+    if(verbose) cat(paste(file,"\n"))   # nocov
   }
   if(!action %in% c("print","get"))
     to_write <- TRUE        # nocov

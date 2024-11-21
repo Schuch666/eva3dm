@@ -191,10 +191,12 @@ wrf_rast <- function(file = file.choose(),
   }else{
     if(length(dim(POL)) == 4){ # nocov start
       if(missing(times)){
-        cat('eva3dm::wrf_rast support 3d SpatRaster, using all times and level',level,'\n')
+        if(verbose) 
+          cat('eva3dm::wrf_rast support 3d SpatRaster, using all times and level',level,'\n')
         POL <- POL[,,level,,drop = TRUE]
       }else{
-        cat('eva3dm::wrf_rast support 3d SpatRaster, using all levels and time',level,'\n')
+        if(verbose) 
+          cat('eva3dm::wrf_rast support 3d SpatRaster, using all levels and time',level,'\n')
         POL <- POL[,,,times,drop = TRUE]
       }
     }
@@ -211,7 +213,7 @@ wrf_rast <- function(file = file.choose(),
     if('Times' %in% names(wrf$var)){
       ntimes    <- length(ncvar_get(wrf,'Times'))
     }else{
-      cat('variable Times not found\n')
+      if(verbose) cat('variable Times not found\n')
       ntimes    <- 1
     }
 

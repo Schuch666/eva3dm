@@ -89,7 +89,7 @@ stat <- function(model, observation,
       mo  <- mo[ob >= cutoff[1]]
       ob  <- ob[ob >= cutoff[1]]
 
-      cat(length(mo),'values left\n')
+      if(verbose) cat(length(mo),'values left\n')
 
       if(length(mo) < nobs){
         RESULT <- stat((1:19)/10,(1:19)/10) # nocov
