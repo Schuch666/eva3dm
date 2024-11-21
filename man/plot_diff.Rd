@@ -35,6 +35,9 @@ plot_diff(
 
 \item{...}{arguments to be passing to plot_raster}
 }
+\value{
+No return value
+}
 \description{
 Custom difference (x - y) plots for SpatRaster object (based on terra package)
 }

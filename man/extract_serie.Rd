@@ -53,6 +53,9 @@ extract_serie(
 
 \item{verbose}{display additional information}
 }
+\value{
+No return value
+}
 \description{
 Read and extract data from a list of wrf output files and a table of lat/lon points based on the distance of the points and the center of model grid points, points outside the domain (and points on domain boundary) are not extracted.
 }

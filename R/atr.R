@@ -5,11 +5,13 @@
 #' @param file file name
 #' @param var variable name, 0 to global and "?" to show options
 #' @param att attribute names (NA for get all attnames)
-#' @param action "na" (only print), "write" or "get" (return the value) of an attribute
+#' @param action "get" (default), "write" or "print" (return the value) of an attribute
 #' @param value value to write
 #' @param verbose display additional information
 #'
 #' @import ncdf4
+#'
+#' @return string with the NetCDF attribute value
 #'
 #' @export
 #'
@@ -27,17 +29,17 @@
 #' atr(nc,'XLONG','FieldType')
 #'
 
-atr <- function(file = NA,var = '?', att = NA, action="na", value=NA, verbose=TRUE){
+atr <- function(file = NA,var = '?', att = NA, action="get", value=NA, verbose=TRUE){
 
   meta <- NULL
   on.exit(ncdf4::nc_close(meta))
 
   if(is.na(file[1])){
-    cat("choose a file:\n") # nocov
+    if(verbose) cat("choose a file:\n") # nocov
     file <- file.choose()   # nocov
     cat(paste(file,"\n"))   # nocov
   }
-  if(!action %in% c("na","get"))
+  if(!action %in% c("print","get"))
     to_write <- TRUE        # nocov
   else
     to_write <- FALSE
@@ -50,7 +52,7 @@ atr <- function(file = NA,var = '?', att = NA, action="na", value=NA, verbose=TR
     var   <- names(meta$var)[name]                                 # nocov
   }
 
-  if(action == "na" | action == "get"){
+  if(action == "print" | action == "get"){
     if(is.na(att)){
       ATR <- ncdf4::ncatt_get(meta,var,att)
       if(var==0){
@@ -60,10 +62,10 @@ atr <- function(file = NA,var = '?', att = NA, action="na", value=NA, verbose=TR
       }
       if(verbose){
         if(is.null(names(ATR))){
-          cat("not found\n")
+          if(verbose) cat("not found\n")
         }
         else{
-          cat(paste(names(ATR),sep = ","))
+          if(verbose) cat(paste(names(ATR),sep = ","))
         }
       }
     }else{

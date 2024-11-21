@@ -21,6 +21,8 @@
 #' @param verbose display additional information
 #' @param ... arguments to be passing to stats and plot
 #'
+#' @return data.frame with statistical values from stat or cate functions.
+#'
 #' @note fair can be a data.frame or a character string to be used for the analysis, alternatively the function %IN% can be used: model_d01 %IN% model_d02 instead.
 #'
 #' @note for wind direction a rotation of 360 (or -360) is applied to minimize the wind direction difference.

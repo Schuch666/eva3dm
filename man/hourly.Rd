@@ -32,7 +32,7 @@ hourly(
 \value{
 data.frame including only numerical columns
 
-data.frame
+data.frame with time and the hourly mean, min or max
 }
 \description{
 function to calculate Ozone Maximum Daily 8-hr Average or 8-hr moving Average for a data.frame

@@ -2,16 +2,16 @@
 #'
 #' @description function to convert absolute humidity to relative humidity.
 #'
-#' @param q vector (or data.frame) of relative humidity (in g/Kg)
+#' @param q vector (or data.frame) of absolute humidity (in g/Kg)
 #' @param t vector (or data.frame) of temperature (in Celcius)
 #' @param p vector (or data.frame) of pressure (in Pa)
 #'
 #' @note default values are from standard atmosphere (288.15 K (15C) / 101325 Pa)
 #' @note if rh and temp arguments are data.frame, both need to have the same number of lines and columns, first column (time column) will be ignored.
 #'
-#' @export
+#' @return vector or data.frame with time and the relative humidity, units are %
 #'
-#' @return values of a data.frame, units are %
+#' @export
 #'
 #' @examples
 #' # for a single value (or same length vectors)

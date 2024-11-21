@@ -16,6 +16,8 @@
 #' @param expand to expand the plot region
 #' @param ... arguments to be passing to terra::plot
 #'
+#' @return No return value
+#'
 #' @import terra
 #'
 #' @export

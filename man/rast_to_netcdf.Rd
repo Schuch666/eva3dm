@@ -19,6 +19,9 @@ rast_to_netcdf(r, file, name, unit = units(r), XY = FALSE, verbose = TRUE)
 
 \item{verbose}{display additional information}
 }
+\value{
+numerical array
+}
 \description{
 Conversion of SpatRaster to array and optionally save on a Netcdf File.
 }

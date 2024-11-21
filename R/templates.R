@@ -1,6 +1,6 @@
 #' Create templates for model evaluation
 #'
-#' @description Create templates of code (r-scripts and job submission script) to read, post-process and evaluate model results.
+#' @description Create templates of code (r-scripts and bash job-submission script) to read, post-process and evaluate model results.
 #'
 #' @param root directory to create the template
 #' @param template template type (see notes)
@@ -10,6 +10,8 @@
 #' @param partition partition name
 #' @param project project name
 #' @param verbose display additional information
+#'
+#' @return no value returned, create folders and other template scripts
 #'
 #' @export
 #'

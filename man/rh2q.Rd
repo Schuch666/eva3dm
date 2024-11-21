@@ -12,7 +12,7 @@ rh2q(rh, temp = 15)
 \item{temp}{vector (or data.frame) of temperature (in Celsius)}
 }
 \value{
-value of data.frame, units are g/g.
+value of data.frame with time and the absolute humidity, units are g/g
 }
 \description{
 function to convert humidity to absolute humidity using Tetens formula, assuming standard atmosphere conditions.

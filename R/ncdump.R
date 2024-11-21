@@ -4,6 +4,8 @@
 #'
 #' @param file file name
 #'
+#' @return No return value, only display information
+#'
 #' @import ncdf4
 #'
 #' @export

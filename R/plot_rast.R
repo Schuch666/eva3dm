@@ -23,6 +23,8 @@
 #' @param unit title for color bar (defoult is )
 #' @param ... arguments to be passing to terra::plot
 #'
+#' @return No return value
+#'
 #' @import terra
 #'
 #' @note color scale includes: 'eva3r' (default), 'eva4', 'blues' and 'diff'

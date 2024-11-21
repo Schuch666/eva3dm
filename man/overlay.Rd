@@ -47,6 +47,9 @@ overlay(
 
 \item{...}{arguments to be passing to terra::plot}
 }
+\value{
+No return value
+}
 \description{
 Custon plot for SpatRaster (terra R-package) object based on terra package
 }

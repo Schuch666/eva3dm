@@ -4,7 +4,7 @@
 \alias{atr}
 \title{Read and write attributes on a NetCDF file}
 \usage{
-atr(file = NA, var = "?", att = NA, action = "na", value = NA, verbose = TRUE)
+atr(file = NA, var = "?", att = NA, action = "get", value = NA, verbose = TRUE)
 }
 \arguments{
 \item{file}{file name}
@@ -13,11 +13,14 @@ atr(file = NA, var = "?", att = NA, action = "na", value = NA, verbose = TRUE)
 
 \item{att}{attribute names (NA for get all attnames)}
 
-\item{action}{"na" (only print), "write" or "get" (return the value) of an attribute}
+\item{action}{"get" (default), "write" or "print" (return the value) of an attribute}
 
 \item{value}{value to write}
 
 \item{verbose}{display additional information}
+}
+\value{
+string with the NetCDF attribute value
 }
 \description{
 Read and write metadata information of a NetCDF files

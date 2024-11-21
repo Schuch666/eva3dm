@@ -8,7 +8,7 @@
 #' @note default values are from standard atmosphere (288.15 K / 15 C)
 #' @note if rh and temp arguments are data.frame, both need to have the same number of lines and columns, first column (time column) will be ignored.
 #'
-#' @return value of data.frame, units are g/g.
+#' @return value of data.frame with time and the absolute humidity, units are g/g
 #'
 #' @examples
 #' # for a singfle value

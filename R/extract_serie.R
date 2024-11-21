@@ -18,6 +18,8 @@
 #' @param id name of the column with station names, if point is a SpatVector (points) from terra package
 #' @param verbose display additional information
 #'
+#' @return No return value
+#'
 #' @note The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3rd dimention (z).
 #'
 #' @note new = TRUE create a new file, new = FALSE append the data in a old file, and new = 'check' check if the file exist and append if the file exist and create if the file doesnt exist

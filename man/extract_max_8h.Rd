@@ -32,6 +32,9 @@ extract_max_8h(
 
 \item{verbose}{display additional information}
 }
+\value{
+No return value
+}
 \description{
 Read the values from o3 and T2, convert o3 to ug m-3 and calculate the maximum of 8-hour moving avarage from a list of files.
 }

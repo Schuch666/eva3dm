@@ -18,7 +18,7 @@ ma8h(data, time = "date", var, verbose = TRUE, ...)
 \item{...}{parameters passed to hourly}
 }
 \value{
-data.frame
+data.frame with time and the 8-hour moving average
 }
 \description{
 function to calculate Ozone 8-hour moving average for a data.frame

@@ -17,6 +17,9 @@ read_stat(file, sep = ";", dec = ".", verbose = FALSE, ...)
 
 \item{...}{arguments passed to read.table functions}
 }
+\value{
+No return value
+}
 \description{
 Function to read stats and evaluation output
 }

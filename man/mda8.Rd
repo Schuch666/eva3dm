@@ -16,7 +16,7 @@ mda8(data, time = "date", var, verbose = TRUE)
 \item{verbose}{display additional information}
 }
 \value{
-data.frame
+data.frame with time and the maximum daily 8-hr average
 }
 \description{
 function to calculate Ozone Maximum Daily 8-hr Average or 8-hr moving Average for a data.frame

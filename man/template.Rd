@@ -32,8 +32,11 @@ template(
 
 \item{verbose}{display additional information}
 }
+\value{
+no value returned, create folders and other template scripts
+}
 \description{
-Create templates of code (r-scripts and job submission script) to read, post-process and evaluate model results.
+Create templates of code (r-scripts and bash job-submission script) to read, post-process and evaluate model results.
 }
 \note{
 Templates types available:\cr

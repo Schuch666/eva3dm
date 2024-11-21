@@ -13,6 +13,9 @@ rain(rainc, rainnc, verbose = TRUE)
 
 \item{verbose}{set TRUE to display additional information}
 }
+\value{
+data.frame time and the hourly precipitation or SpatRaster hourly precipitation
+}
 \description{
 function that converts model accumulated precipitation to hourly precipitation.
 }

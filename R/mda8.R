@@ -6,7 +6,8 @@
 #' @param time name of the time column (default is date) in POSIXct
 #' @param var name of the columns to be calculated
 #' @param verbose display additional information
-#' @return data.frame
+#'
+#' @return data.frame with time and the maximum daily 8-hr average
 #'
 #' @importFrom stats as.formula
 #' @export

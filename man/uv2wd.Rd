@@ -13,6 +13,9 @@ uv2wd(u, v, verbose = TRUE)
 
 \item{verbose}{display additional information}
 }
+\value{
+vector or data.frame with time and the wind direction, units are degree north
+}
 \description{
 Function to calculate model wind direction
 }

@@ -10,6 +10,8 @@
 #' @param ... arguments passed to write.table and write.csv functions
 #' @param verbose display additional information
 #'
+#' @return No return value
+#'
 #' @importFrom utils read.csv write.csv read.table write.table
 #'
 #' @export
@@ -47,6 +49,8 @@ write_stat <- function(stat,file, sep = ';',dec = '.', verbose = FALSE, ...){
 #' @param dec he string to use for decimal points, passed to read.table function
 #' @param ... arguments passed to read.table functions
 #' @param verbose display additional information
+#'
+#' @return No return value
 #'
 #' @export
 #'

@@ -6,6 +6,8 @@
 #' @param rainnc data.frame or SpatRaster with RAINNC variable
 #' @param verbose set TRUE to display additional information
 #'
+#' @return data.frame time and the hourly precipitation or SpatRaster hourly precipitation
+#'
 #' @export
 #'
 #' @examples
@@ -40,7 +42,7 @@ rain <- function(rainc,rainnc, verbose = TRUE){
   if(class(rainc) %in% 'SpatRaster'){ # nocov start
     RAIN <- rainc + rainnc
     diff <- RAIN[[1]]
-    diff[] = NA              # first layer is NA
+    diff[] = NA                       # first layer is NA
     for(i in 2:nlyr(RAIN)){
       if(verbose)
         cat('processing layer',i,'of',nlyr(RAIN),'...\n')
@@ -53,6 +55,6 @@ rain <- function(rainc,rainnc, verbose = TRUE){
       add(diff) <- DIFF
     }
     return(diff)
-  } # nocov end
+  }                                   # nocov end
 
 }

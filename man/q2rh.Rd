@@ -7,14 +7,14 @@
 q2rh(q, t = 15, p = 101325)
 }
 \arguments{
-\item{q}{vector (or data.frame) of relative humidity (in g/Kg)}
+\item{q}{vector (or data.frame) of absolute humidity (in g/Kg)}
 
 \item{t}{vector (or data.frame) of temperature (in Celcius)}
 
 \item{p}{vector (or data.frame) of pressure (in Pa)}
 }
 \value{
-values of a data.frame, units are %
+vector or data.frame with time and the relative humidity, units are %
 }
 \description{
 function to convert absolute humidity to relative humidity.

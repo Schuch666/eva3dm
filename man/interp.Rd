@@ -17,6 +17,9 @@ interp(x, y, method = "bilinear", mask, verbose = FALSE)
 
 \item{verbose}{display additional information (not used)}
 }
+\value{
+SpatRaster (terra package)
+}
 \description{
 function to project and interpolate rast
 }

@@ -9,6 +9,9 @@ ncdump(file = file.choose())
 \arguments{
 \item{file}{file name}
 }
+\value{
+No return value, only display information
+}
 \description{
 Read a NetCDF and print the medatada
 }

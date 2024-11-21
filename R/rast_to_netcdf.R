@@ -9,6 +9,8 @@
 #' @param XY set to true if MemoryOrder is XY (only if file is missing)
 #' @param verbose display additional information
 #'
+#' @return numerical array
+#'
 #' @import terra ncdf4
 #'
 #' @export

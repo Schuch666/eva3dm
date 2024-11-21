@@ -33,10 +33,10 @@ daily(
 \item{verbose}{display additional information}
 }
 \value{
-data.frame
+data.frame with time and the daily mean, min or max
 }
 \description{
-function to calculate Ozone Maximum Daily 8-hr Average or 8-hr moving Average for a data.frame
+function to calculate daily mean, min or max of a data.frame
 }
 \examples{
 sites <- c("OAKB")

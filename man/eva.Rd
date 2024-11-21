@@ -53,6 +53,9 @@ eva(
 
 \item{...}{arguments to be passing to stats and plot}
 }
+\value{
+data.frame with statistical values from stat or cate functions.
+}
 \description{
 Statistical (or categorical) evaluation from 2 data.frames. The input data.frames (model and observation)
 must contain a "date" column (containing POSIXlt). The function perform some simple case tests and

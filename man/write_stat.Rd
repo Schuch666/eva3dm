@@ -19,6 +19,9 @@ write_stat(stat, file, sep = ";", dec = ".", verbose = FALSE, ...)
 
 \item{...}{arguments passed to write.table and write.csv functions}
 }
+\value{
+No return value
+}
 \description{
 Functions to write the output from evaluation functions. If the file name ends with .csv
 the function write.csv is used otherwise the function write.table is used.

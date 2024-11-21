@@ -32,6 +32,9 @@ extract_mean(
 
 \item{verbose}{display additional information}
 }
+\value{
+No return value
+}
 \description{
 Read and calculate the mean value of a variable from a list of wrf output files.
 }

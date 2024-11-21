@@ -14,6 +14,8 @@
 #' @param label_mean label in case y is provided
 #' @param ... extra arguments passed to legend
 #'
+#' @return No return value
+#'
 #' @note for use with rast use before any change of projection
 #' @note text.width can vary depending on map dimensions
 #'

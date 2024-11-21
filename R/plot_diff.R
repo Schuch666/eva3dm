@@ -12,6 +12,8 @@
 #' @param unit annotation for units
 #' @param ... arguments to be passing to plot_raster
 #'
+#' @return No return value
+#'
 #' @import terra
 #'
 #' @export

@@ -8,6 +8,8 @@
 #' @param mask optional SpatVector to mask the results
 #' @param verbose display additional information (not used)
 #'
+#' @return SpatRaster (terra package)
+#'
 #' @import terra
 #'
 #' @examples

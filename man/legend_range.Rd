@@ -47,6 +47,9 @@ legend_range(
 
 \item{...}{extra arguments passed to legend}
 }
+\value{
+No return value
+}
 \description{
 Plot a legend with the range of values
 }

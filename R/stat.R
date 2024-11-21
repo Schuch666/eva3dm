@@ -13,7 +13,7 @@
 #'
 #' @note the option wd = TRUE applies a rotation of 360 on model wind direction to minimize the angular difference.
 #'
-#' @return data.frame
+#' @return data.frame with calculated Number of pairs, observation average, model average, correlation, Index Of Agreement, Factor of 2, Root Mean Square Error, Mean Bias, Mean error, Normalized Mean Bias, and Normalized Mean Bias
 #'
 #' @references
 #' Emery, C. and Tai., E. 2001. Enhanced Meteorological Modeling and Performance Evaluation

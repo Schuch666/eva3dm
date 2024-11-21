@@ -4,6 +4,8 @@
 #' @param v data.frame with model time-series of V10
 #' @param verbose display additional information
 #'
+#' @return vector or data.frame with time and the wind sped, units are m/s
+#'
 #' @export
 #'
 #' @examples
@@ -60,6 +62,8 @@ uv2ws <- function(u, v, verbose = TRUE){
 #' @param u data.frame with model time-series of U10
 #' @param v data.frame with model time-series of V10
 #' @param verbose display additional information
+#'
+#' @return vector or data.frame with time and the wind direction, units are degree north
 #'
 #' @export
 #'

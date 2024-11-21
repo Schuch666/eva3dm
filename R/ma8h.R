@@ -7,7 +7,8 @@
 #' @param var name of the columns to be calculated
 #' @param verbose display additional information
 #' @param ... parameters passed to hourly
-#' @return data.frame
+#'
+#' @return data.frame with time and the 8-hour moving average
 #'
 #' @export
 #'

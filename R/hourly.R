@@ -11,7 +11,8 @@
 #' @param verbose display additional information
 #' @return data.frame including only numerical columns
 #'
-#' @return data.frame
+#' @return data.frame with time and the hourly mean, min or max
+#'
 #' @importFrom stats as.formula
 #' @export
 #'

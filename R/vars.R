@@ -6,6 +6,8 @@
 #' @param action 'get' to return variable names or 'print' to print
 #' @param verbose display additional information
 #'
+#' @return string
+#'
 #' @import ncdf4
 #'
 #' @export

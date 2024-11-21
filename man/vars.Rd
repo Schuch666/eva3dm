@@ -13,6 +13,9 @@ vars(file = NA, action = "get", verbose = FALSE)
 
 \item{verbose}{display additional information}
 }
+\value{
+string
+}
 \description{
 Return variable names of a NetCDF
 }

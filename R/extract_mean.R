@@ -11,6 +11,8 @@
 #' @param filename name for the file, in this case prefix is not used
 #' @param verbose display additional information
 #'
+#' @return No return value
+#'
 #' @note The field argument '4d' / '2dz' is used to read a 4d/3d variable droping the 3rd dimention (z).
 #'
 #' @import ncdf4
