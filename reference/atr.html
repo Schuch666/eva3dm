@@ -44,7 +44,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">atr</span><span class="op">(</span>file <span class="op">=</span> <span class="cn">NA</span>, var <span class="op">=</span> <span class="st">"?"</span>, att <span class="op">=</span> <span class="cn">NA</span>, action <span class="op">=</span> <span class="st">"na"</span>, value <span class="op">=</span> <span class="cn">NA</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">atr</span><span class="op">(</span>file <span class="op">=</span> <span class="cn">NA</span>, var <span class="op">=</span> <span class="st">"?"</span>, att <span class="op">=</span> <span class="cn">NA</span>, action <span class="op">=</span> <span class="st">"get"</span>, value <span class="op">=</span> <span class="cn">NA</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -64,7 +64,7 @@
 
 
 <dt id="arg-action">action<a class="anchor" aria-label="anchor" href="#arg-action"></a></dt>
-<dd><p>"na" (only print), "write" or "get" (return the value) of an attribute</p></dd>
+<dd><p>"get" (default), "write" or "print" (return the value) of an attribute</p></dd>
 
 
 <dt id="arg-value">value<a class="anchor" aria-label="anchor" href="#arg-value"></a></dt>
@@ -75,6 +75,10 @@
 <dd><p>display additional information</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>string with the NetCDF attribute value</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -82,31 +86,40 @@
 <span class="r-in"><span><span class="fu">atr</span><span class="op">(</span><span class="va">nc</span>,<span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> global attributes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TITLE START_DATE SIMULATION_START_DATE WEST-EAST_GRID_DIMENSION SOUTH-NORTH_GRID_DIMENSION BOTTOM-TOP_GRID_DIMENSION DX DY GRIDTYPE DIFF_OPT KM_OPT DAMP_OPT DAMPCOEF KHDIF KVDIF MP_PHYSICS RA_LW_PHYSICS RA_SW_PHYSICS SF_SFCLAY_PHYSICS SF_SURFACE_PHYSICS BL_PBL_PHYSICS CU_PHYSICS SF_LAKE_PHYSICS SURFACE_INPUT_SOURCE SST_UPDATE GRID_FDDA GFDDA_INTERVAL_M GFDDA_END_H GRID_SFDDA SGFDDA_INTERVAL_M SGFDDA_END_H HYPSOMETRIC_OPT USE_THETA_M USE_MAXW_LEVEL USE_TROP_LEVEL GWD_OPT SF_URBAN_PHYSICS SF_OCEAN_PHYSICS SIMULATION_INITIALIZATION_TYPE WEST-EAST_PATCH_START_UNSTAG WEST-EAST_PATCH_END_UNSTAG WEST-EAST_PATCH_START_STAG WEST-EAST_PATCH_END_STAG SOUTH-NORTH_PATCH_START_UNSTAG SOUTH-NORTH_PATCH_END_UNSTAG SOUTH-NORTH_PATCH_START_STAG SOUTH-NORTH_PATCH_END_STAG BOTTOM-TOP_PATCH_START_UNSTAG BOTTOM-TOP_PATCH_END_UNSTAG BOTTOM-TOP_PATCH_START_STAG BOTTOM-TOP_PATCH_END_STAG GRID_ID PARENT_ID I_PARENT_START J_PARENT_START PARENT_GRID_RATIO DT CEN_LAT CEN_LON TRUELAT1 TRUELAT2 MOAD_CEN_LAT STAND_LON POLE_LAT POLE_LON GMT JULYR JULDAY MAP_PROJ MAP_PROJ_CHAR MMINLU NUM_LAND_CAT ISWATER ISLAKE ISICE ISURBAN ISOILWATER HYBRID_OPT ETAC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span><span class="fu">atr</span><span class="op">(</span><span class="va">nc</span>,<span class="st">'Times'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> variable Times attritutes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span><span class="fu">atr</span><span class="op">(</span><span class="va">nc</span>,<span class="st">'XLAT'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> variable XLAT attritutes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> MemoryOrder description units stagger FieldType</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span><span class="fu">atr</span><span class="op">(</span><span class="va">nc</span>,<span class="st">'XLONG'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> variable XLONG attritutes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> MemoryOrder description units stagger FieldType</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">atr</span><span class="op">(</span><span class="va">nc</span>,<span class="st">'XLONG'</span>,<span class="st">'MemoryOrder'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> XLONG attribute MemoryOrder:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> XY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "XY"</span>
 <span class="r-in"><span><span class="fu">atr</span><span class="op">(</span><span class="va">nc</span>,<span class="st">'XLONG'</span>,<span class="st">'description'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> XLONG attribute description:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LONGITUDE, WEST IS NEGATIVE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "LONGITUDE, WEST IS NEGATIVE"</span>
 <span class="r-in"><span><span class="fu">atr</span><span class="op">(</span><span class="va">nc</span>,<span class="st">'XLONG'</span>,<span class="st">'units'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> XLONG attribute units:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> degree east</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "degree east"</span>
 <span class="r-in"><span><span class="fu">atr</span><span class="op">(</span><span class="va">nc</span>,<span class="st">'XLONG'</span>,<span class="st">'stagger'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> XLONG attribute stagger:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> empty</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] ""</span>
 <span class="r-in"><span><span class="fu">atr</span><span class="op">(</span><span class="va">nc</span>,<span class="st">'XLONG'</span>,<span class="st">'FieldType'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> XLONG attribute FieldType:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 104</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 104</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
