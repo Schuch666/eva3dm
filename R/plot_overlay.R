@@ -127,9 +127,10 @@ overlay <- function(p,z,col,
 #'
 #' print(geo_stats)
 #'
-`%at%` <- function(stat, site){
+`%at%` <- function(stat, site, verbose = TRUE){
 
-  cat('georeferencing',deparse(substitute(stat)),'at',deparse(substitute(site)),'\n')
+  if(verbose)
+    cat('georeferencing',deparse(substitute(stat)),'at',deparse(substitute(site)),'\n')
 
   stat$site    <- row.names(stat)
   site$site    <- row.names(site)

@@ -79,9 +79,9 @@ extract_max_8h <- function(filelist, variable = "o3", field = "4d",
 
   mov_av_max <- function(var){
     moving_max <- var[,,1,drop = TRUE]
-    cat('min:', min(var,na.rm = TRUE),
-        'mean:',mean(var,na.rm = TRUE),
-        'max:', max(var,na.rm = TRUE),'\n')
+    if(verbose) cat('min:', min(var,na.rm = TRUE),
+                    'mean:',mean(var,na.rm = TRUE),
+                    'max:', max(var,na.rm = TRUE),'\n')
 
     for(i in 1:dim(var)[1]){
       for(j in 1:dim(var)[2]){
@@ -117,7 +117,7 @@ extract_max_8h <- function(filelist, variable = "o3", field = "4d",
 
   if(length(filelist) > 1){ # nocov start
     for(i in 2:length(filelist)){
-      cat('reading:',filelist[i],'file',i,'of',length(filelist),'\n')
+      if(verbose) cat('reading:',filelist[i],'file',i,'of',length(filelist),'\n')
       w    <- nc_open(filename = filelist[i])
       TEMP <- ncvar_get(w,variable,count = contagem)
       if(units == "ug m-3" | units == "ug m^-3"){

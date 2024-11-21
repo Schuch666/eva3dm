@@ -80,14 +80,12 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
     new = !file.exists(output_file)
   }
 
-  if(verbose)
-    cat('extracting series of',variable,'field',field,'for',nrow(point),'points\n')
+  if(verbose) cat('extracting series of',variable,'field',field,'for',nrow(point),'points\n')
 
   wrf   <- nc_open(filelist[1])
   lat   <- ncvar_get(wrf,latitude)
   lon   <- ncvar_get(wrf,longitude)
-  if(verbose)
-    cat('dim of lat/lon:',dim(lat),'\n')
+  if(verbose) cat('dim of lat/lon:',dim(lat),'\n')
 
   if(length(dim(lat)) == 1){   # TEST for WACCM model
     lat   <- matrix(lat, ncol = length(lon),nrow = length(lat), byrow = FALSE) # nocov
@@ -102,17 +100,14 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
     lat   <- lat[,,1,1,drop = TRUE] # nocov
     lon   <- lon[,,1,1,drop = TRUE] # nocov
   }
-  if(verbose)
-    cat('used dim of lat/lon:',dim(lat),'\n')
+  if(verbose) cat('used dim of lat/lon:',dim(lat),'\n')
 
   if(use_ij){
     stations <- point
-    if(verbose)
-      cat('using i & j to extract points:\n')
+    if(verbose) cat('using i & j to extract points:\n')
   }else{
     nearest <- function(point,lat,lon,fast){
-      if(verbose)
-        cat('calculating distances...\n')
+      if(verbose) cat('calculating distances...\n')
 
       for(i in 1:nrow(point)){
         # OLD CODE
@@ -145,8 +140,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
     point   <- point[point$lon <= max_lon,]
     point   <- point[point$lat >= min_lat,]
     point   <- point[point$lat <= max_lat,]
-    if(verbose)
-      cat('inside lat / lon range:',nrow(point),'points\n')
+    if(verbose) cat('inside lat / lon range:',nrow(point),'points\n')
     if(nrow(point) >= 1){
       stations <- nearest(point,lat,lon,fast)
     }else{                          # in this case all stations are outside the domain
@@ -166,7 +160,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
       if(stations$j[i] == ncol(lat)) outside = TRUE
 
       if(outside){
-        cat('* station',rownames(stations)[i],'ouside the domain\n')
+        if(verbose) cat('* station',rownames(stations)[i],'ouside the domain\n')
       }else{
         #cat('station',rownames(stations)[i],'inside the domain\n')
         station_inside[j,] <- stations[i,]
@@ -316,6 +310,5 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
     }
   }
 
-  if(verbose)
-    cat('output:',output_file,'\n')
+  if(verbose) cat('output:',output_file,'\n')
 }

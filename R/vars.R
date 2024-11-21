@@ -21,7 +21,7 @@ vars <- function(file = NA, action="get", verbose=FALSE){
   on.exit(ncdf4::nc_close(meta))
 
   if(is.na(file[1])){
-    cat("choose a file:\n") # nocov
+    if(verbose) cat("choose a file:\n") # nocov
     file <- file.choose()   # nocov
     cat(paste(file,"\n"))   # nocov
   }

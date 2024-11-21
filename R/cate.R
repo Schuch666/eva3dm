@@ -31,9 +31,11 @@
 #' data <- 0.02 * 1:100
 #' set.seed(666)
 #' model  <- abs(rnorm(100,0.01))
-#' par(pty="s")
+#'
+#' oldpar <- par(pty="s")
 #' cate(model = model, observation = data, threshold = 1,
 #'      to.plot = TRUE, rname = 'example')
+#' par(oldpar)
 #'
 
 cate <- function(model, observation, threshold,
@@ -52,23 +54,21 @@ cate <- function(model, observation, threshold,
   observation <- observation[!NA_obs & !NA_mod]
 
   if(!is.na(cutoff[1])){
-    cat('using',cutoff[1],'for min cutoff\n')
+    if(verbose) cat('using',cutoff[1],'for min cutoff\n')
 
     model        <- model[observation >= cutoff[1]]
     observation  <- observation[observation >= cutoff[1]]
-    cat(length(model),'values left\n')
+    if(verbose) cat(length(model),'values left\n')
   }
   if(length(cutoff)>1){
     cat('using',cutoff[2],'for max cutoff\n')
 
     model       <- model[observation < cutoff[2]]
     observation <- observation[observation < cutoff[2]]
-    cat(length(model),'values left\n')
+    if(verbose) cat(length(model),'values left\n')
   }
 
   if(to.plot){
-    # old_par <- par(pty="s")
-    # on.exit(par(old_par))
 
     if(missing(lim))
       lim <- range(observation,model,threshold, na.rm = TRUE)

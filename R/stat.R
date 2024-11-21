@@ -84,7 +84,7 @@ stat <- function(model, observation,
   MFBE_cutoff <- function(mo,ob,nobs,cutoff = cutoff_NME){
 
     if(!is.na(cutoff[1])){
-      cat('using',cutoff[1],'for min NME cutoff\n')
+      if(verbose) cat('using',cutoff[1],'for min NME cutoff\n')
 
       mo  <- mo[ob >= cutoff[1]]
       ob  <- ob[ob >= cutoff[1]]
@@ -98,12 +98,12 @@ stat <- function(model, observation,
       }
     }
     if(length(cutoff)>1){
-      cat('using',cutoff[2],'for max NME cutoff\n')
+      if(verbose) cat('using',cutoff[2],'for max NME cutoff\n')
 
       mo  <- mo[ob < cutoff[2]]
       ob  <- ob[ob < cutoff[2]]
 
-      cat(length(mo),'values left\n')
+      if(verbose) cat(length(mo),'values left\n')
       if(length(mo) < nobs){
         RESULT <- stat((1:19)/10,(1:19)/10) # nocov
         RESULT$n = 0                        # nocov
@@ -147,12 +147,12 @@ stat <- function(model, observation,
   observation <- observation[!NA_obs & !NA_mod]
 
   if(!is.na(cutoff[1])){
-    cat('using',cutoff[1],'for min cutoff\n')
+    if(verbose) cat('using',cutoff[1],'for min cutoff\n')
 
     model        <- model[observation >= cutoff[1]]
     observation  <- observation[observation >= cutoff[1]]
 
-    cat(length(model),'values left\n')
+    if(verbose) cat(length(model),'values left\n')
 
     if(length(model) < nobs){
       RESULT <- stat((1:19)/10,(1:19)/10) # nocov
@@ -161,12 +161,12 @@ stat <- function(model, observation,
     }
   }
   if(length(cutoff)>1){
-    cat('using',cutoff[2],'for max cutoff\n')
+    if(verbose) cat('using',cutoff[2],'for max cutoff\n')
 
     model       <- model[observation < cutoff[2]]
     observation <- observation[observation < cutoff[2]]
 
-    cat(length(model),'values left\n')
+    if(verbose) cat(length(model),'values left\n')
     if(length(model) < nobs){
       RESULT <- stat((1:19)/10,(1:19)/10) # nocov
       RESULT$n = 0                        # nocov

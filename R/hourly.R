@@ -31,8 +31,7 @@
 hourly <- function(data, time = 'date', var, stat = mean, min_offset = 30,
                    numerical = TRUE, verbose = TRUE){
 
-  if(verbose)
-    cat('processing hourly data ... \n')
+  if(verbose) cat('processing hourly data ... \n')
 
   data               <- as.data.frame(data)
   data[[time]]       <- as.POSIXct(data[[time]],tz = 'UTC')

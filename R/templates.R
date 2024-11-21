@@ -27,10 +27,10 @@
 #'
 #' @examples
 #' temp <- file.path(tempdir(),"POST")
-#' template(root = temp,template = 'WRF', case = 'WRF-only')
+#' template(root = temp,te mplate = 'WRF', case = 'WRF-only')
 #'
 
-template <- function(root      = getwd(),
+template <- function(root,
                      template  = 'WRF',
                      case      = 'case',
                      env       = 'rspatial',

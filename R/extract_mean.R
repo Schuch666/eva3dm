@@ -72,20 +72,20 @@ extract_mean <- function(filelist, variable = "o3", field = "4d",
 
   tsum <- function(var){
     if(length(dim(var)) == 2){
-      cat('min:', min(var,na.rm = TRUE),
-          'mean:',mean(var,na.rm = TRUE),
-          'max:', max(var,na.rm = TRUE),'\n')
+      if(verbose) cat('min:', min(var,na.rm = TRUE),
+                      'mean:',mean(var,na.rm = TRUE),
+                      'max:', max(var,na.rm = TRUE),'\n')
       return(var)
     }
 
-    t_sum   <- var[,,1,drop = TRUE]                # nocov
-    cat('min:', min(var,na.rm = TRUE),
-        'mean:',mean(var,na.rm = TRUE),
-        'max:', max(var,na.rm = TRUE),'\n')        # nocov
+    t_sum   <- var[,,1,drop = TRUE]                     # nocov
+    if(verbose) cat('min:', min(var,na.rm = TRUE),
+                    'mean:',mean(var,na.rm = TRUE),
+                    'max:', max(var,na.rm = TRUE),'\n') # nocov
 
-    for(i in 1:dim(var)[1]){                       # nocov
-      for(j in 1:dim(var)[2]){                     # nocov
-        t_sum[i,j] <- sum(var[i,j,], na.rm = TRUE) # nocov
+    for(i in 1:dim(var)[1]){                            # nocov
+      for(j in 1:dim(var)[2]){                          # nocov
+        t_sum[i,j] <- sum(var[i,j,], na.rm = TRUE)      # nocov
       }
     }
 
@@ -96,7 +96,7 @@ extract_mean <- function(filelist, variable = "o3", field = "4d",
 
   if(length(filelist) > 1){ # nocov start
     for(i in 2:length(filelist)){
-      cat('reading:',filelist[i],'file',i,'of',length(filelist),'\n')
+      if(verbose) cat('reading:',filelist[i],'file',i,'of',length(filelist),'\n')
       w    <- nc_open(filename = filelist[i])
       TEMP <- ncvar_get(w,variable,count = contagem)
       INC  <- tsum(TEMP)

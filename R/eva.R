@@ -87,10 +87,10 @@ eva <- function(mo, ob, rname = site, table = NULL,
     mo <- as.data.frame(mo) # nocov
 
   if(site == "ALL"){
-    cat('combining all sites...\n')
+    if(verbose)  cat('combining all sites...\n')
     site_obs     <- names(ob)[-1]
     if(!is.null(fair)){
-      cat('considering a fair comparison for other domain...\n')
+      if(verbose)  cat('considering a fair comparison for other domain...\n')
       if('data.frame' %in% class(fair)){
         site_model   <- names(fair)[-1]
       }else{
@@ -105,8 +105,7 @@ eva <- function(mo, ob, rname = site, table = NULL,
     combination_obs   <- data.frame()
     a_number          <- 666 * 60 * 60 * 24 * 365 + 161 * 60 * 60 * 24
     for(i in seq_along(common_sites)){
-      if(verbose)
-        cat(common_sites[i],' ')
+      if(verbose) cat(common_sites[i],' ')
       new_mo            <- data.frame(date = mo[,time],
                                       ALL  = mo[[common_sites[i]]])
       new_mo$date       <- new_mo$date + (i- 1) * a_number
@@ -122,7 +121,7 @@ eva <- function(mo, ob, rname = site, table = NULL,
     ob <- combination_obs
   }else{
     if(!site %in% names(ob)){
-      cat(site,'not found in observation input\n')
+      if(verbose) cat(site,'not found in observation input\n')
       RESULT <- eval_function((1:19)/10,(1:19)/10, ...)
       RESULT[,] = NA
       RESULT$n  = 0
@@ -130,7 +129,7 @@ eva <- function(mo, ob, rname = site, table = NULL,
       return(rbind(table,RESULT))
     }
     if(!site %in% names(mo)){
-      cat(site,'not found in model input\n')
+      if(verbose) cat(site,'not found in model input\n')
       RESULT <- eval_function((1:19)/10,(1:19)/10, ...)
       RESULT[,] = NA
       RESULT$n  = 0
@@ -154,13 +153,11 @@ eva <- function(mo, ob, rname = site, table = NULL,
 
   to_run = TRUE
   if(suppressWarnings( max(A,na.rm = T) ) == suppressWarnings( min(A,na.rm = TRUE)) ){
-    if(verbose)
-      cat(site,'contains only zeros (or constant values) and NA values for model\n')
+    if(verbose) cat(site,'contains only zeros (or constant values) and NA values for model\n')
     to_run = FALSE
   }
   if(suppressWarnings(  max(B,na.rm = T) ) == suppressWarnings( min(B,na.rm = TRUE)) ){
-    if(verbose)
-      cat(site,'contains only zeros (or constant values) and NA values for observations\n')
+    if(verbose) cat(site,'contains only zeros (or constant values) and NA values for observations\n')
     to_run = FALSE
   }
 
@@ -170,8 +167,7 @@ eva <- function(mo, ob, rname = site, table = NULL,
     RESULT <- eval_function(A,B, cutoff=cutoff,cutoff_NME=cutoff_NME, wd = wd, nobs = nobs, ...)
     row.names(RESULT) <- rname
   }else{
-    if(verbose & to_run)
-      cat(site,'has only',length(B[!is.na(B)]),'valid observations (lesser than',nobs,'obs)\n')
+    if(verbose & to_run) cat(site,'has only',length(B[!is.na(B)]),'valid observations (lesser than',nobs,'obs)\n')
     RESULT <- eval_function((1:19)/10,(1:19)/10, ...)
     RESULT[,] = NA
     RESULT$n  = 0
@@ -185,6 +181,7 @@ eva <- function(mo, ob, rname = site, table = NULL,
 #'
 #' @param x data.frame
 #' @param y data.frame or character string
+#' @param verbose display additional information
 #'
 #' @note a message is always displayed to keep easy to track and debug issues (with the results and the evaluation process).
 #'
@@ -226,14 +223,14 @@ eva <- function(mo, ob, rname = site, table = NULL,
 #' # or
 #' eva(mo = model_d01, ob = observation %IN% model_d02, rname = 'd01 in d02')
 #'
-`%IN%` <- function(x, y){
+`%IN%` <- function(x, y, verbose = TRUE){
 
   if('SpatRaster' %in% class(x) & 'SpatRaster' %in% class(y)){
-    cat('croping',deparse(substitute(x)),'with',deparse(substitute(y)),'\n')
+    if(verbose) cat('croping',deparse(substitute(x)),'with',deparse(substitute(y)),'\n')
     return(crop(x,y))
   }
 
-  cat('using',deparse(substitute(x)),'in',deparse(substitute(y)),'\n')
+  if(verbose) cat('using',deparse(substitute(x)),'in',deparse(substitute(y)),'\n')
 
   if(!is.data.frame(x))
     stop('x must be a data.frame') # nocov
