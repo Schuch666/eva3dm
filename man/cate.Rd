@@ -60,9 +60,11 @@ Calculate traditional statistics related to a threshold
 data <- 0.02 * 1:100
 set.seed(666)
 model  <- abs(rnorm(100,0.01))
-par(pty="s")
+
+oldpar <- par(pty="s")
 cate(model = model, observation = data, threshold = 1,
      to.plot = TRUE, rname = 'example')
+par(oldpar)
 
 }
 \references{

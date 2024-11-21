@@ -27,7 +27,7 @@
 #'
 #' @examples
 #' temp <- file.path(tempdir(),"POST")
-#' template(root = temp,te mplate = 'WRF', case = 'WRF-only')
+#' template(root = temp,template = 'WRF', case = 'WRF-only')
 #'
 
 template <- function(root,

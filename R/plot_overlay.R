@@ -108,8 +108,11 @@ overlay <- function(p,z,col,
 #' @param stat data.frame with stats or other variable (containing row.names and other variables)
 #' @param site data.frame with site list (containing row.names, lat and lon)
 #'
-#' @export
+#' @return SpatVector (terra package)
+#'
 #' @import terra
+#'
+#' @export
 #'
 #' @examples
 #'
@@ -127,10 +130,8 @@ overlay <- function(p,z,col,
 #'
 #' print(geo_stats)
 #'
-`%at%` <- function(stat, site, verbose = TRUE){
-
-  if(verbose)
-    cat('georeferencing',deparse(substitute(stat)),'at',deparse(substitute(site)),'\n')
+`%at%` <- function(stat, site){
+  cat('georeferencing',deparse(substitute(stat)),'at',deparse(substitute(site)),'\n')
 
   stat$site    <- row.names(stat)
   site$site    <- row.names(site)

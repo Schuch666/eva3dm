@@ -11,6 +11,9 @@ stat \%at\% site
 
 \item{site}{data.frame with site list (containing row.names, lat and lon)}
 }
+\value{
+SpatVector (terra package)
+}
 \description{
 combines the stats (from individual station evaluation) and site list in a SpatVector using row.names
 }

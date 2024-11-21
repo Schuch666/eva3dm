@@ -5,7 +5,7 @@
 \title{Create templates for model evaluation}
 \usage{
 template(
-  root = getwd(),
+  root,
   template = "WRF",
   case = "case",
   env = "rspatial",

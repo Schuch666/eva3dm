@@ -11,6 +11,9 @@ x \%IN\% y
 
 \item{y}{data.frame or character string}
 }
+\value{
+data.frame with common columns or a cropped SpatRaster
+}
 \description{
 results of 'd01 in d02' style syntax
 }

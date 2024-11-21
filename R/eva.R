@@ -181,7 +181,8 @@ eva <- function(mo, ob, rname = site, table = NULL,
 #'
 #' @param x data.frame
 #' @param y data.frame or character string
-#' @param verbose display additional information
+#'
+#' @return data.frame with common columns or a cropped SpatRaster
 #'
 #' @note a message is always displayed to keep easy to track and debug issues (with the results and the evaluation process).
 #'
@@ -223,14 +224,14 @@ eva <- function(mo, ob, rname = site, table = NULL,
 #' # or
 #' eva(mo = model_d01, ob = observation %IN% model_d02, rname = 'd01 in d02')
 #'
-`%IN%` <- function(x, y, verbose = TRUE){
+`%IN%` <- function(x, y){
 
   if('SpatRaster' %in% class(x) & 'SpatRaster' %in% class(y)){
-    if(verbose) cat('croping',deparse(substitute(x)),'with',deparse(substitute(y)),'\n')
+    cat('croping',deparse(substitute(x)),'with',deparse(substitute(y)),'\n')
     return(crop(x,y))
   }
 
-  if(verbose) cat('using',deparse(substitute(x)),'in',deparse(substitute(y)),'\n')
+  cat('using',deparse(substitute(x)),'in',deparse(substitute(y)),'\n')
 
   if(!is.data.frame(x))
     stop('x must be a data.frame') # nocov
