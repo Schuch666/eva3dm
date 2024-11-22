@@ -6,6 +6,7 @@
 [![Cod-cov status](https://github.com/schuch666/eva3dm/workflows/cod-cov/badge.svg)](https://github.com/schuch666/eva3dm/actions) 
 [![Coverage Status](https://img.shields.io/codecov/c/github/schuch666/eva3dm/master.svg)](https://codecov.io/github/schuch666/eva3dm) 
 [![R build status](https://github.com/schuch666/eva3dm/workflows/R-CMD-check/badge.svg)](https://github.com/schuch666/eva3dm/actions) 
+[![cran checks](https://badges.cranchecks.info/worst/eva3dm.svg)](https://cran.r-project.org/web/checks/check_results_eva3dm.html)
 [![Site build status](https://github.com/schuch666/eva3dm/workflows/site/badge.svg)](https://schuch666.github.io/eva3dm/)
 
 <!-- badges: end -->

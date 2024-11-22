@@ -11,7 +11,7 @@ cate(
   cutoff = NA,
   nobs = 8,
   rname,
-  to.plot = F,
+  to.plot = FALSE,
   col = "#4444bb",
   pch = 19,
   lty = 3,
