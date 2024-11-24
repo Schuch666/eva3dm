@@ -5,8 +5,13 @@ test_that("rast based functions are ok", {
   r      <- wrf_rast(file=wrf, name='XLAT')
   r_ncdf <- rast_to_netcdf(r)
 
-  # save the original data in the same file
-  rast_to_netcdf(r = r, file=wrf, name='XLAT')
+  # copy of the original file to a temporary folder
+  temp <- file.path(tempdir(),"test")
+  dir.create(temp)
+  copy <- paste0(temp,"/wrfinput_d01")
+  file.copy(from = wrf,to = copy, overwrite = T)
+  # save the original data in the copy
+  rast_to_netcdf(r = r, file=copy, name='XLAT')
 
   plot_rast(r, range = c(-100,100), unit = 'test',grid = TRUE, add_range = TRUE)
   rr = -r

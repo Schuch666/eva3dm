@@ -79,8 +79,8 @@ extract_mean <- function(filelist, variable = "o3", field = "4d",
     }
 
     t_sum   <- var[,,1,drop = TRUE]                     # nocov
-    if(verbose) cat('min:', min(var,na.rm = TRUE),
-                    'mean:',mean(var,na.rm = TRUE),
+    if(verbose) cat('min:', min(var,na.rm = TRUE),      # nocov
+                    'mean:',mean(var,na.rm = TRUE),     # nocov
                     'max:', max(var,na.rm = TRUE),'\n') # nocov
 
     for(i in 1:dim(var)[1]){                            # nocov
