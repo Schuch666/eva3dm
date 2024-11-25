@@ -2,7 +2,7 @@ test_that("utility functios are functional!", {
   wrf    <- paste(system.file("extdata", package = "eva3dm"),"/wrfinput_d01", sep="")
 
   # copy of the original file to a temporary folder
-  temp <- file.path(tempdir(),"test")
+  temp <- file.path(tempdir(),"test_utils")
   dir.create(temp)
   copy <- paste0(temp,"/wrfinput_d01")
   file.copy(from = wrf,to = copy, overwrite = T)

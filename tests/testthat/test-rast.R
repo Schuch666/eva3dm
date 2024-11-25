@@ -6,7 +6,7 @@ test_that("rast based functions are ok", {
   r_ncdf <- rast_to_netcdf(r)
 
   # copy of the original file to a temporary folder
-  temp <- file.path(tempdir(),"test")
+  temp <- file.path(tempdir(),"test_rast")
   dir.create(temp)
   copy <- paste0(temp,"/wrfinput_d01")
   file.copy(from = wrf,to = copy, overwrite = T)
