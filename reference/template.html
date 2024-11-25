@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">eva3dm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Create templates for model evaluation</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Schuch666/eva3dm/blob/%E6%96%B0%E4%B8%96%E7%B4%80/R/templates.R" class="external-link"><code>R/templates.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Schuch666/eva3dm/blob/main/R/templates.R" class="external-link"><code>R/templates.R</code></a></small>
       <div class="d-none name"><code>template.Rd</code></div>
     </div>
 
@@ -113,10 +113,10 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"POST"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">template</span><span class="op">(</span>root <span class="op">=</span> <span class="va">temp</span>,template <span class="op">=</span> <span class="st">'WRF'</span>, case <span class="op">=</span> <span class="st">'WRF-only'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  folder  /tmp/RtmpkfnVY0/POST/WRF/WRF-only : link wrf output files here!</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  bash  /tmp/RtmpkfnVY0/POST/post-R_wrf.sh : post processing job script</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  r-script /tmp/RtmpkfnVY0/POST/extract_metar.R : source code to extract metar using eva3dm::extract_serie()</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  r-script /tmp/RtmpkfnVY0/POST/extract_inpet.R : source code to extract inmet using eva3dm::extract_serie()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  folder  /tmp/RtmpfF4sGf/POST/WRF/WRF-only : link wrf output files here!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  bash  /tmp/RtmpfF4sGf/POST/post-R_wrf.sh : post processing job script</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  r-script /tmp/RtmpfF4sGf/POST/extract_metar.R : source code to extract metar using eva3dm::extract_serie()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  r-script /tmp/RtmpfF4sGf/POST/extract_inpet.R : source code to extract inmet using eva3dm::extract_serie()</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
