@@ -116,13 +116,19 @@ overlay <- function(p,z,col,
 #'
 #' @examples
 #'
-#' sites<- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AQ_BR.Rds"))
+#' sites <- data.frame(lat = c(-22.72500,-23.64300,-20.34350),
+#'                     lon = c(-47.34800,-46.49200,-40.31800),
+#'                     row.names = c('Americana','SAndre','VVIbes'),
+#'                     stringsAsFactors = F)
 #' model<- readRDS(paste0(system.file("extdata",package="eva3dm"),"/model.Rds"))
 #' obs  <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/obs.Rds"))
 #'
-#' stats <- eva(mo = model, ob = obs, site = 'Americana')
-#' stats <- eva(mo = model, ob = obs, site = 'SAndre',table = stats)
-#' stats <- eva(mo = model, ob = obs, site = 'VVIbes',table = stats)
+#' # evaluation by station
+#' stats <- eva(mo = model, ob = obs, site = "Americana")
+#' stats <- eva(mo = model, ob = obs, site = "SAndre",table = stats)
+#' stats <- eva(mo = model, ob = obs, site = "VVIbes",table = stats)
+#' # evaluation using all stations
+#' stats <- eva(mo = model, ob = obs, site = "ALL", table = stats)
 #'
 #' print(stats)
 #'

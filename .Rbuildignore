@@ -7,3 +7,4 @@
 ^man\figures\*.gif
 ^codecov\.yml$
 README.md
+^paper.*

@@ -10,6 +10,19 @@
 
 An R-package focusing on **EVA**luation of **3D** weather and air quality **M**odels.
 
+## Instalation
+
+**eva3dm** can be installed from github (using remotes package, for example):
+
+`remotes::install_github("schuch666/eva3dm")`
+
+or from CRAN:
+
+`install.packages("eva3dm")`
+
+All the functions include examples in the [documentation](schuch666.github.io/eva3dm).
+
+
 The following workflow is recommended:
 
 **1. Pre-processing of observations**: 
@@ -81,3 +94,9 @@ This package includes:
 ✔ `legend_range()` custom legend, display max, min and average;
 
 ✔ `template()` function that create post-processing and evaluation scripts;
+
+## Speciall functions:
+
+✔ `%at%` combine a table (with results from `eva()` or `sat()` for example) with a table with geographical coordinates. The goal of this function is to georeference and visualize the statistical results.
+
+✔ `%IN%` filter a table (with model/observations time-series) based on a second table (using the column names). Also can be used to crop a `SpatRaster` based on a second `SpatRaster`. The goal is to be used to perform fair comparison of different evaluations (using the same number of observation).
