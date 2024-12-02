@@ -30,29 +30,29 @@ Evaluation is the most important step for any model application, it can not only
 
 In the literature there are many different evaluation criteria depending on the application and variable [@Emery:2001;@Ramboll:2018;@Monk:2019;@Zhang:2019;@Emery:2017;@Zhai:2024]. These criteria varies depending on the goal of the simulation, the variability of the observations, the error associated to the measurements, and how other models available in the literature compared with observations and should be used accordingly to the particular application, study region and other uncertainties present on the model and model inputs.
 
-The package was designed to support the pre-processing of observations, post-processing of model output, evaluation and visualization of the results from the evaluation. 
+The package was designed to support the pre-processing of observations, post-processing of model output, evaluation and visualization of the results from the evaluation. A brief description of these 4 steps is provided bellow:
 
 **1. Pre-processing of observations**: 
 
 - Download of the observations, example of observations available: 
-  - METAR can be downloaded using the R-package [riem](https://docs.ropensci.org/riem/) or via the [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site;
-  - AERONET (Aerossol Optical Depth) can be downloaded at [AErosol RObotic NETwork](https://aeronet.gsfc.nasa.gov/new_web/data.html); 
-  - Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites; 
-  - Satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website.
+  - METAR of meteorological observations can be downloaded using the R-package [riem](https://docs.ropensci.org/riem/) or via the [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site
+  - AERONET data for Aerosol Optical Depth can be downloaded at [AErosol RObotic NETwork](https://aeronet.gsfc.nasa.gov/new_web/data.html)
+  - Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites
+  - Satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website
 
-- Process a list of the location to extract time-series from the model. NOTE: There are examples of list of sites in the documentation of `extract_serie()` (METAR, AERONET, INMET in Brazil, Air Quality stations in Brazil).
+- Process a list of the location to extract time-series from the model. NOTE: There are examples of list of sites in the documentation of `extract_serie()` for METAR, AERONET, INMET in Brazil, and Air Quality stations in Brazil.
 
 - Process observation data for evaluation: Calculation of secondary variables (absolute humidity for example).
 
 - Quality Assurance of the observation data: in this point the user should check for values that are outside the range of each variable (for example negative concentration and other potential problematic values), check if there is actual data from the time-period and region of the simulation and note any singular event that can be represented.
 
-**2. Pre-processing of model output**: Extraction and post-processing of model outputs using `evad3m` functions and/or other tools;
+**2. Pre-processing of model output**: Extraction and post-processing of model outputs using `evad3m` functions and/or other tools and calculation of secondary variables (wind speed for example).
 
-**3. Model Evaluation**: The function `eva()` is used to evaluate time-series (from automatic meteorological stations at surface, for example) and `sat()` is used to evaluate against data in a regular grid (for example satellite products), for both functions there are two types of evaluation available: statistical (more details in `stat()`) and categorical (more details in `cate()`);
+**3. Model Evaluation**: The evaluation consist in pair observations and model results and calculate statistical and/or categorical indexes that can be compared with the literature.
 
-**4. Visualization**: there are functions to visualize model fields (taken into account different projections) and overlay of the statistical results.
+**4. Visualization**: There are functions to visualize model fields (taken into account different projections) and overlay of the statistical results.
 
-The R-package includes:
+To support the steps 1 to 4, the R-package includes the following functions:
 
 ### Pre-processing of observations:
 
