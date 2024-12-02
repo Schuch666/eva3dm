@@ -86,7 +86,7 @@ There are functions for visualization, interpolation and to extract information 
 | `atr()` | Read and write attributes from a Netcdf file |
 Table: Table 1 - visualization, interpolation and information functions.
 
-Figure 1 shows example of the first 4 functions on Table 1:
+Figure 1 shows examples of the first 4 functions on Table 1:
 
 ![Figure 1 - Example from the viasualization functions.\label{fig:example}](joss_1.png){ width=100% }
 
