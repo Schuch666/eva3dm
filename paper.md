@@ -27,7 +27,7 @@ Evaluation is the most important step for any model application, it can assure t
 
 # Description
 
-In the literature there are many different evaluation criteria depending on the application and variable [@Emery:2001;@Ramboll:2018;@Monk:2019;@Zhang:2019;@Emery:2017;@Zhai:2024]. These criteria varies depending on the goal of the simulation, the variability of the observations, the error associated to the measurements, and how other models available in the literature compared with observations and should be used accordingly to the particular application.
+In the literature there are different evaluation criteria depending on the variable [@Emery:2001;@Ramboll:2018;@Monk:2019;@Zhang:2019;@Emery:2017;@Zhai:2024]. These criteria varies depending on the goal of the simulation, the variability of the observations, the error associated to the measurements, and how other models available in the literature compared with observations and should be used accordingly to the particular application.
 
 A brief description of the steps to perform a model evaluation is provided bellow:
 
@@ -41,21 +41,21 @@ A brief description of the steps to perform a model evaluation is provided bello
 
 - Process a list of the location to extract time-series from the model.
 
-- Process observation data for evaluation: Unit conversion, time zone conversion to UTC, and Calculation of secondary variables.
+- Process observation data for evaluation: Unit conversion, time zone conversion to UTC, and calculation of secondary variables.
 
 - Quality Assurance of the observation data: check for values outside the valid range, check if the data is available for the time-period and region of the simulation and note any singular event.
 
-**2. Pre-processing of model output**: Extraction and post-processing of model outputs using `evad3m` functions and/or other tools and calculation of secondary variables.
+**2. Pre-processing of model output**: Extraction of model outputs, unit conversion and calculation of secondary variables.
 
-**3. Model Evaluation**: The evaluation consist in pair observations and model results and calculate statistical and/or categorical indexes that can be compared with the literature.
+**3. Model Evaluation**: The evaluation consist in pair observations and model results and calculate statistical and/or categorical indexes.
 
-**4. Visualization**: There are functions to visualize model fields (taken into account different projections) and overlay of the statistical results.
+**4. Visualization**: Visualization of model results and statistical results.
 
 To support these steps, following functions are available:
 
 ### Pre-processing of observations:
 
-The functions `rh2q` and `q2rh` converts humidity units and the functions `mda8`, `ma8h`, `hourly`, and `daily` can be used to calculate average of time-series. The format used to evaluate time-series is a data.frame, the first column must contain time (in POSIXlt) and one additional column for each different location, satellite data can be read using the function `rast` form terra package.
+The functions `rh2q` and `q2rh` converts humidity units and the functions `mda8`, `ma8h`, `hourly`, and `daily` can be used to calculate average of time-series. The format used to evaluate time-series is a data.frame, the first column must contain time (in POSIXlt) and one additional column for each different location, satellite data can be read using the function `rast` form R-package terra.
 
 ### Pre-processing of model outputs:
 
