@@ -8,7 +8,6 @@ tags:
 authors:
   - name: Daniel Schuch
     orcid: 0000-0001-5977-4519
-    equal-contrib: true
     affiliation: 1
 affiliations:
  - name: Department of Civil and Environmental Engineering, Northeastern University, United States
@@ -20,7 +19,7 @@ bibliography: paper.bib
 
 # Summary
 
-Eva3dm is a package designed to support the evaluation of 3-dimensional physical models (in special, weather and air quality models) against observation data in order to quantify different errors and bias present in the model result and/or classify the model performance based on criteria from the literature.
+Eva3dm is a package designed to support the evaluation of 3-dimensional physical models (in special, weather and air quality models) against observation data in order to quantify different errors and bias present in the model results and/or classify the model performance based on criteria from the literature.
 
 # Statement of need
 
@@ -40,7 +39,7 @@ The package was designed to support the pre-processing of observations, post-pro
   - Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites
   - Satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website
 
-- Process a list of the location to extract time-series from the model. NOTE: There are examples of list of sites in the documentation of `extract_serie()` for METAR, AERONET, INMET in Brazil, and Air Quality stations in Brazil.
+- Process a list of the location to extract time-series from the model. NOTE: There are examples of list of sites in the documentation of `extract_serie` for METAR, AERONET, INMET in Brazil, and Air Quality stations in Brazil.
 
 - Process observation data for evaluation: Calculation of secondary variables (absolute humidity for example).
 
@@ -56,35 +55,35 @@ To support the steps 1 to 4, the R-package includes the following functions:
 
 ### Pre-processing of observations:
 
-The functions `rh2q()` and `q2rh()` converts humidity from units and the function `mda8()`, `ma8h()`, `hourly()`, and `daily()` can be used to calculate time-series from observations and model. Most of the processing should be done by the user since the formats and conventions are different depending on the source of the data. The format used to evaluate time-series is a data.frame, the first column must contain time (in POSIXlt) and one additional column for each different location (that can contain `NA` for missing data).
+The functions `rh2q` and `q2rh` converts humidity units and the functions `mda8`, `ma8h`, `hourly`, and `daily` can be used to calculate time-series from observations and model. Most of the processing should be done by the user since the formats and conventions are different depending on the source of the data. The format used to evaluate time-series is a data.frame, the first column must contain time (in POSIXlt) and one additional column for each different location.
 
 ### Pre-processing of model outputs:
 
-The function `extract_serie()` extract and save time-series from model outputs (or other compatible NetCDF files, more details in the documentation) using a data.frame with name (row name) and latitude (column lat) and longitude (column lon), while the functions `extract_mean()` and `extract_max_8h()` extract the average or the daily maximum of 8-hour moving average and save in a new NetCDF file;
+The function `extract_serie` extract and save time-series from model outputs (or other compatible NetCDF files, more details in the documentation) using a data.frame with name (row names) and latitude (column lat) and longitude (column lon), while the functions `extract_mean` and `extract_max_8h` extract the average or the daily maximum of 8-hour moving average and save in a new NetCDF file;
 
-The function `wrf_rast()` can be used to read model output and return a `SpatRaster` or `SpatVector` from the model files (and compatible NetCDF files) and and its counterpart `rast_to_netcdf()` that converts to an array and/or save to a existing NetCDF file;
+The function `wrf_rast` can be used to read model output and return a `SpatRaster` or `SpatVector` object from the model files (and compatible NetCDF files) and its counterpart `rast_to_netcdf` that converts a `SpatRaster` to an array and/or save to a existing NetCDF file;
 
-The functions `uv2ws()` and `uv2wd()` can be used to convert the model wind components (u and v) into wind speed and velocity and the function `rain()` can be used to calculate hourly precipitation from model accumulated precipitation variables.
+The functions `uv2ws` and `uv2wd` can be used to calculate wind speed and velocity from the model wind components (u and v) and the function `rain` can be used to calculate hourly precipitation from model accumulated precipitation variables.
 
 ### Model evaluation functions:
 
-There are two high level functions implemented in the package: `eva()`, that does the temporal pairing of both model and observations by station (or combine all data) and the data of time-series and `sat()` that interpolate and pair data in regular grids (it removes points from the boundary by default), these functions call the low level functions `stat()` to calculate the statistical metrics or the `cate()` to calculate categorical metrics in relation to a threshold value. These result can be written and read using the `write_stat()` and `read_stat()` functions. 
+There are two high level evaluation functions implemented in the package: `eva`, that does the temporal pairing of both model and observations by station (or combine all data) and the data of time-series and `sat` that interpolate and pair data in regular grids (it removes points from the boundary by default), these functions call the low level evaluation functions `stat` to calculate the statistical metrics or the `cate` to calculate categorical metrics in relation to a threshold value. These result can be written and read using the `write_stat` and `read_stat` functions. 
 
 ### Visualization and extractting information functions:
 
 There are functions for visualization, interpolation and to extract information from NetCDF files, Table 1 show a relation of the visualization functions.
 
 | Function name | Description |
-| - | --------- |
-| `plot_rast()` | Custom plot for `SpatRaster` objects  |
-| `plot_diff()` | Custom plot for absolute or relative difference of two `SpatRaster` objects     |
-| `overlay()`   | Custom plot to overlay points |
-| `legend_range()` | Custom legend that displays max, min and average |
-| `interp()` | Interpolation function that combines project and resample for `SpatRaster` objects |
-| `ncdump()` | Print a `ncdump -h` equivalent command for a NetCDF file |
-| `vars()` | Return the name of the variables on NetCDF file |
-| `atr()` | Read and write attributes from a Netcdf file |
-Table: Table 1 - visualization, interpolation and information functions.
+| --- | --------- |
+| `plot_rast` | Custom plot for `SpatRaster` objects  |
+| `plot_diff` | Custom plot for absolute or relative difference of two `SpatRaster` objects     |
+| `overlay`   | Custom plot to overlay points |
+| `legend_range` | Custom legend that displays max, min and average |
+| `interp` | Interpolation function that combines project and resample for `SpatRaster` objects |
+| `ncdump` | Print a `ncdump -h` equivalent command for a NetCDF file |
+| `vars` | Return the name of the variables on NetCDF file |
+| `atr` | Read and write attributes from a Netcdf file |
+Table: Visualization, interpolation and information functions.
 
 Figure 1 shows examples of the first 4 functions on Table 1:
 
@@ -95,12 +94,12 @@ Figure 1 shows examples of the first 4 functions on Table 1:
 There are tree special functions that make specific tasks:
 
 | Function name | Description | Objective |
-| -- | --------- | --------- |
-| `%at%` | Combine a data.frame containing evaluation results and a data.frame containing geographical coordinates (site list) | To georeference and visualize the statistical results combined with the `overlay()` function |
-| `%IN%` | Filter a data.frame (with time-series) based on a second data.frame. Also can be used to crop a `SpatRaster` based on a second `SpatRaster` | To perform fair comparison (using the same number of observation) of different simulations (with different domains for example) it can be combined with `eva()` or `sat()` functions |
-| `template()` | Create folders, post-processing and evaluation scripts. There are different templates that download observation data, process observations, post-process model output and evaluation for different groups of variables | To allow quickly process or evaluate multiple variables from one or multiple simulations (see the documentation for more details) |
-Table: Table 2 - Special functions.
+| --- | --------- | --------- |
+| `%at%` | Combine a data.frame containing evaluation results and a data.frame containing geographical coordinates (site list) | To georeference and visualize the statistical results combined with the `overlay` function |
+| `%IN%` | Filter a data.frame (with time-series) based on a second data.frame. Also can be used to crop a `SpatRaster` based on a second `SpatRaster` | To perform fair comparison (using the same number of observation) of different simulations (with different domains for example) it can be combined with `eva` or `sat` functions |
+| `template` | Create folders, post-processing and evaluation scripts. There are different templates that download observation data, process observations, post-process model output and evaluation for different groups of variables | To allow quickly process and evaluate multiple variables from one or multiple simulations (see the documentation for more details) |
+Table: Special functions.
 
-Most of the examples from eva3dm are focused on the Weather Research and Forecasting (WRF) model [@Skamarock:2019] and WRF coupled with Chemistry WRF-Chem [@Grell:2005], but other models, such as, the Comprehensive Air Quality Model with Extensions-CAMx [@ENVIRON:2024], Whole Atmosphere Community Climate Model-WACCM [@Gettelman:2019], and other models can be evaluated changing some of the options from default.
+Most of the examples from `eva3dm` are focused on the Weather Research and Forecasting (WRF) model [@Skamarock:2019] and WRF coupled with Chemistry WRF-Chem [@Grell:2005], but other models, such as, the Comprehensive Air Quality Model with Extensions-CAMx [@ENVIRON:2024], Whole Atmosphere Community Climate Model-WACCM [@Gettelman:2019], and other models can be evaluated changing some of the arguments from the package functions from default.
 
 # References
