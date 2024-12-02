@@ -59,7 +59,7 @@ The functions `rh2q` and `q2rh` converts humidity units and the functions `mda8`
 
 ### Pre-processing of model outputs:
 
-The function `extract_serie` extract and save time-series from model outputs (or other compatible NetCDF files, more details in the documentation) using a data.frame with name (row names) and latitude (column lat) and longitude (column lon), while the functions `extract_mean` and `extract_max_8h` extract the average or the daily maximum of 8-hour moving average and save in a new NetCDF file;
+The function `extract_serie` extract and save time-series from model outputs (or other compatible NetCDF files) using a data.frame with name (row names) and latitude (column lat) and longitude (column lon), while the functions `extract_mean` and `extract_max_8h` extract the average or the daily maximum of 8-hour moving average and save in a new NetCDF file;
 
 The function `wrf_rast` can be used to read model output and return a `SpatRaster` or `SpatVector` object from the model files (and compatible NetCDF files) and its counterpart `rast_to_netcdf` that converts a `SpatRaster` to an array and/or save to a existing NetCDF file;
 
@@ -97,9 +97,9 @@ There are tree special functions that make specific tasks:
 | --- | --------- | --------- |
 | `%at%` | Combine a data.frame containing evaluation results and a data.frame containing geographical coordinates (site list) | To georeference and visualize the statistical results combined with the `overlay` function |
 | `%IN%` | Filter a data.frame (with time-series) based on a second data.frame. Also can be used to crop a `SpatRaster` based on a second `SpatRaster` | To perform fair comparison (using the same number of observation) of different simulations it can be combined with `eva` or `sat` functions |
-| `template` | Create folders, post-processing and evaluation scripts. There are different templates that download observation data, process observations, post-process model output and evaluation for different groups of variables | To allow quickly process and evaluate multiple variables from one or multiple simulations (see the documentation for more details) |
+| `template` | Create folders, post-processing and evaluation scripts. There are different templates that download observation data, process observations, post-process model output and evaluation for different groups of variables | To allow quickly process and evaluate multiple variables from one or multiple simulations |
 Table: Special functions.
 
-Note that most of the examples from `eva3dm` are focused on the Weather Research and Forecasting (WRF) model [@Skamarock:2019] and WRF coupled with Chemistry WRF-Chem [@Grell:2005], but other models, such as, the Comprehensive Air Quality Model with Extensions-CAMx [@ENVIRON:2024], Whole Atmosphere Community Climate Model-WACCM [@Gettelman:2019], and other models can be evaluated changing some of the arguments from the package functions from default.
+Note that the examples from `eva3dm` are focused on the Weather Research and Forecasting coupled with Chemistry WRF-Chem [@Grell:2005], but but the package can be applied to other models changing some of the arguments from the package functions.
 
 # References
