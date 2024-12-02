@@ -88,7 +88,7 @@ Table: Table 1 - visualization, interpolation and information functions.
 
 Figure 1 shows example of the first 4 functions on Table 1:
 
-![Figure 1 - Example from the viasualization functions.\label{fig:example}](joss_1.png){ width=90% }
+![Figure 1 - Example from the viasualization functions.\label{fig:example}](joss_1.png){ width=100% }
 
 ### Speciall functions:
 
