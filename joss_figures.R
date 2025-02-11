@@ -19,14 +19,14 @@ png(filename = 'joss_1.png',width = 1600,height = 1000,pointsize = 22)
 
 oldpar <- par(mfrow = c(2,2))
 
-plot_rast(r, main = 'plot_rast() example',grid = TRUE,grid_col = 'white',add_range = TRUE,color = 'eva4')
+plot_rast(r, main = 'plot_rast() example, WRF XLAT variable',grid = TRUE,grid_col = 'white',add_range = TRUE,color = 'eva4',unit = 'degree\nnorth')
 
-overlay(point,'MB',cex = 1.4,main = 'overlay(), example for MB',xlim = c(-52.1,-37),ylim = c(-26.1,-17.9))
+overlay(point,'MB',cex = 1.4,main = 'overlay(), example for Mean Bias (MB)',xlim = c(-52.1,-37),ylim = c(-26.1,-17.9),plg = list(title = '%'))
 terra::lines(map)
 legend_range(point$MB)
 
-plot_diff(x = r2, y = r, main = 'plot_diff() example, relative',grid = TRUE,grid_col = 'black',absolute = FALSE,add_range = TRUE)
-plot_diff(x = r2, y = r, main = 'plot_diff() example, absolute',grid = TRUE,grid_col = 'black',relative = FALSE,unit = 'abs',add_range = TRUE)
+plot_diff(x = r2, y = r, main = 'plot_diff() example, relative difference',grid = TRUE,grid_col = 'black',absolute = FALSE,add_range = TRUE)
+plot_diff(x = r2, y = r, main = 'plot_diff() example, absolute difference',grid = TRUE,grid_col = 'black',relative = FALSE,unit = 'degree\nnorth',add_range = TRUE)
 dev.off()
 
 par(oldpar)
