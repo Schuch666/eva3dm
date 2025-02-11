@@ -1,35 +1,36 @@
 ---
-title: 'eva3dm: A R-package for model evaluation of 3D weather and air quality models'
+title: "eva3dm: A R-package for model evaluation of 3D weather and air quality models"
 tags:
-  - R
-  - Model Evaluation
-  - WRF
-  - WRF-Chem
+- R
+- Model Evaluation
+- WRF
+- "WRF-Chem"
+date: "25 November 2024"
+output: pdf_document
 authors:
-  - name: Daniel Schuch
-    orcid: 0000-0001-5977-4519
-    affiliation: 1
-affiliations:
- - name: Department of Civil and Environmental Engineering, Northeastern University, United States
-   index: 1
-date: 25 November 2024
+- name: Daniel Schuch
+  orcid: "0000-0001-5977-4519"
+  affiliation: 1
 bibliography: paper.bib
-
+affiliations:
+- name: Department of Civil and Environmental Engineering, Northeastern University,
+    United States
+  index: 1
 ---
 
 # Summary
 
-Eva3dm is a package designed to support the evaluation of 3-dimensional physical models (in special, weather and air quality models) against observation data in order to quantify different errors and bias present in the model results.
+Eva3dm is a package designed to support the evaluation of 3-dimensional physical models (particularly, weather and air quality models) against observation data in order to quantify different errors and bias present in the model results.
 
 # Statement of need
 
-Evaluation is the most important step for any model application, it can assure that the model results represent accurately the interest variables. There are currently other tools available in R [@David:2012], Python [@Ladwig:2017] or other languages [@NCAR:2019;@Appel:2011] but none provide the degree of integrated support presented in this package: from the pre-processing of observations and model output, evaluation and visualization.
+Evaluation is the most important step for any model application, it can assure that the model results represent accurately the interest variables. There are currently other tools available in R [@David:2012], Python [@Ladwig:2017] or other languages [@NCAR:2019;@Appel:2011] but none provide the degree of integrated support presented in this package: from the pre-processing of observations and model output, to evaluation and visualization.
 
 # Description
 
-In the literature there are different evaluation criteria depending on the variable [@Emery:2001;@Ramboll:2018;@Monk:2019;@Zhang:2019;@Emery:2017;@Zhai:2024]. These criteria varies depending on the goal of the simulation, the variability of the observations, the error associated to the measurements, and how other models available in the literature compared with observations and should be used accordingly to the particular application.
+In the literature there are different evaluation criteria depending on the variable [@Emery:2001;@Ramboll:2018;@Monk:2019;@Zhang:2019;@Emery:2017;@Zhai:2024]. These criteria vary depending on the goal of the simulation, the variability of the observations, and the error associated to the measurements. Additionally, they should be used according to the specific application, considering how other models in the literature compare with observations.
 
-A brief description of the steps to perform a model evaluation is provided bellow:
+A brief description of the steps to perform a model evaluation is provided below:
 
 **1. Pre-processing of observations**: 
 
@@ -47,7 +48,7 @@ A brief description of the steps to perform a model evaluation is provided bello
 
 **2. Pre-processing of model output**: Extraction of model outputs, unit conversion and calculation of secondary variables.
 
-**3. Model Evaluation**: The evaluation consist in pair observations and model results and calculate statistical and/or categorical indexes.
+**3. Model Evaluation**: The evaluation involves pairing observations with model results and calculating the statistical and/or categorical indices.
 
 **4. Visualization**: Visualization of model results and statistical results.
 
@@ -55,7 +56,7 @@ To support these steps, following functions are available:
 
 ### Pre-processing of observations:
 
-The functions `rh2q` and `q2rh` converts humidity units and the functions `mda8`, `ma8h`, `hourly`, and `daily` can be used to calculate average of time-series. The format used to evaluate time-series is a data.frame, the first column must contain time (in POSIXlt) and one additional column for each different location, satellite data can be read using the function `rast` form R-package terra.
+The functions `rh2q` and `q2rh` convert humidity units and the functions `mda8`, `ma8h`, `hourly`, and `daily` can be used to calculate average of time-series. The format used to evaluate time-series is a data.frame, the first column must contain time (in POSIXlt) and one additional column for each different location, satellite data can be read using the function `rast` from R-package terra.
 
 ### Pre-processing of model outputs:
 
