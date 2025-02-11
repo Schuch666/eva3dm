@@ -28,7 +28,7 @@ Evaluation is the most important step for any model application, it can assure t
 
 # Description
 
-In the literature there are different evaluation criteria depending on the variable [@Emery:2001;@Ramboll:2018;@Monk:2019;@Zhang:2019;@Emery:2017;@Zhai:2024]. These criteria vary depending on the goal of the simulation, the variability of the observations, and the error associated to the measurements. Additionally, they should be used according to the specific application, considering how other models in the literature compare with observations.
+The literature presents various evaluation criteria depending on the variable [@Emery:2001;@Ramboll:2018;@Monk:2019;@Zhang:2019;@Emery:2017;@Zhai:2024], which can be used to compare models and assess their performance. These criteria vary based on the simulation goal, observation variability, and measurement errors.
 
 A brief description of the steps to perform a model evaluation is provided below:
 
