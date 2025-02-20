@@ -9,6 +9,7 @@ extract_serie(
   point,
   variable = "o3",
   field = "4d",
+  level = 1,
   prefix = "serie",
   new = "check",
   return.nearest = FALSE,
@@ -29,7 +30,9 @@ extract_serie(
 
 \item{variable}{variable name}
 
-\item{field}{'4d' (defoult), '3d', '2d' or '2dz' see notes}
+\item{field}{'4d' (default), '3d', '2d' or '2dz' see notes}
+
+\item{level}{model level to be extracted}
 
 \item{prefix}{to output file, default is serie}
 

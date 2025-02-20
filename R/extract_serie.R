@@ -5,7 +5,8 @@
 #' @param filelist list of files to be read
 #' @param point data.frame with lat/lon
 #' @param variable variable name
-#' @param field '4d' (defoult), '3d', '2d' or '2dz' see notes
+#' @param field '4d' (default), '3d', '2d' or '2dz' see notes
+#' @param level model level to be extracted
 #' @param prefix to output file, default is serie
 #' @param new TRUE, FALSE of 'check' see notes
 #' @param return.nearest return the data.frame of nearest points instead of extract the serie
@@ -57,7 +58,7 @@
 #' extract_serie(filelist = files, point = sites[1:3,],prefix = paste0(folder,'/serie'))
 #'
 
-extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
+extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 1,
                           prefix = 'serie',new = 'check', return.nearest = FALSE,
                           fast = FALSE, use_ij = FALSE,
                           latitude = 'XLAT',longitude = 'XLONG',
@@ -217,14 +218,14 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
     times  <- as.POSIXlt(TIME, tz = "UTC", format="%Y-%m-%d_%H:%M:%OS", optional=FALSE)
   }
 
-  if(field == '2d')            # 2d Field (x,y)
-    contagem  = NA             # nocov
-  if(field == '2dz')           # 3d Field (x,y,z)
-    contagem = c(-1,-1,1)      # nocov
-  if(field == '3d')            # 3d Field (x,y,t)
-    contagem  = NA             # nocov
+  if(field == '2d')                # 2d Field (x,y)
+    contagem  = NA                 # nocov
+  if(field == '2dz')               # 3d Field (x,y,z)
+    contagem = c(-1,-1,level)      # nocov
+  if(field == '3d')                # 3d Field (x,y,t)
+    contagem  = NA                 # nocov
   if(field == '4d')
-    contagem = c(-1,-1,1,-1)   # 4d Field (x,y,z,t)
+    contagem = c(-1,-1,1,-level)   # 4d Field (x,y,z,t)
   var     <- ncvar_get(wrf,variable,count = contagem)
   nc_close(wrf)
 
