@@ -264,8 +264,14 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
 
   if(length(filelist) > 1){
     for(i in 2:length(filelist)){
-      if(verbose)
-        cat('reading',variable,':',filelist[i],'file',i,'of',length(filelist),'\n')
+
+      if(verbose){
+        if(level == 1){
+          cat('reading',variable,':',filelist[i],'file',i,'of',length(filelist),'\n')
+        }else{
+          cat('reading',variable,':',filelist[i],'file',i,'of',length(filelist),paste0('(model level ',level,')'),'\n')
+        }
+      }
 
       wrf   <- nc_open(filelist[i])
       lat   <- ncvar_get(wrf,latitude)
@@ -305,7 +311,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
         times  <- as.POSIXlt(TIME, tz = "UTC", format="%Y-%m-%d_%H:%M:%OS", optional=FALSE)
       }
 
-      var      <- ncvar_get(wrf,variable,count = contagem)
+      var      <- ncvar_get(wrf,variable,count = contagem, start = comeco)
       nc_close(wrf)
 
       serie <- as.data.frame(times)
