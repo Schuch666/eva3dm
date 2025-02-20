@@ -175,6 +175,10 @@ plot_rast <- function(r,
       ax$side <- 1 # nocov
     }
     pax <- c(pax,ax)
+    plot_axes = TRUE
+  }else{
+    ax  <- list()
+    plot_axes = FALSE
   }
 
   extra <- function(){
@@ -224,7 +228,7 @@ plot_rast <- function(r,
 
     terra::plot(r_log, col = color,
                 plg = c(plg,arg), pax = pax,
-                axe = TRUE,
+                axe = plot_axes,
                 grid = FALSE,fun = extra,
                 range = c(min,max),
                 ...)
@@ -233,7 +237,7 @@ plot_rast <- function(r,
     b = as.numeric( terra::global(r2,'min',na.rm = TRUE) )
     if(!is.na(a) & a == b)
       plg=list()
-    terra::plot(r2, col = color, plg = plg, pax = pax,axe = TRUE,
+    terra::plot(r2, col = color, plg = plg, pax = pax,axe = plot_axes,
                 grid = FALSE,fun = extra, range = range, ...)
   }
 }
