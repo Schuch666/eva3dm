@@ -189,7 +189,11 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
 
   if(verbose){
     print(stations)
-    cat('reading',variable,':',filelist[1],'file 1 of',length(filelist),'\n')
+    if(level == 1){
+      cat('reading',variable,':',filelist[1],'file 1 of',length(filelist),'\n')
+    }else{
+      cat('reading',variable,':',filelist[1],'file 1 of',length(filelist),paste0('(model level ',level,')'),'\n')
+    }
   }
 
   if(use_TFLAG){
@@ -221,12 +225,22 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
   if(field == '2d')                # 2d Field (x,y)
     contagem  = NA                 # nocov
   if(field == '2dz')               # 3d Field (x,y,z)
-    contagem = c(-1,-1,level)      # nocov
+    contagem = c(-1,-1,1)          # nocov
   if(field == '3d')                # 3d Field (x,y,t)
     contagem  = NA                 # nocov
   if(field == '4d')
-    contagem = c(-1,-1,1,-level)   # 4d Field (x,y,z,t)
-  var     <- ncvar_get(wrf,variable,count = contagem)
+    contagem = c(-1,-1,1,-1)       # 4d Field (x,y,z,t)
+
+  if(field == '2d')                # 2d Field (x,y)
+    comeco = NA                    # nocov
+  if(field == '2dz')               # 3d Field (x,y,z)
+    comeco = c(1,1,level)          # nocov
+  if(field == '3d')                # 3d Field (x,y,t)
+    comeco  = NA                   # nocov
+  if(field == '4d')
+    comeco = c(1,1,level,1)        # 4d Field (x,y,z,t)
+
+  var     <- ncvar_get(wrf,variable,count = contagem,start = comeco)
   nc_close(wrf)
 
   serie <- as.data.frame(times)
