@@ -1,7 +1,7 @@
 # eva3dm <img src="man/figures/logo.gif" align="right" width="140"/>
 
 <!-- badges: start -->
-[![Licence:MIT](https://img.shields.io/github/license/hyperium/hyper.svg)](https://opensource.org/licenses/MIT) 
+[![Licence:MIT](https://img.shields.io/github/license/hyperium/hyper.svg)](https://raw.githubusercontent.com/Schuch666/eva3dm/refs/heads/JOSS/MIT) 
 [![Cod-cov status](https://github.com/schuch666/eva3dm/workflows/cod-cov/badge.svg)](https://github.com/schuch666/eva3dm/actions) 
 [![Coverage Status](https://img.shields.io/codecov/c/github/schuch666/eva3dm/master.svg)](https://codecov.io/github/schuch666/eva3dm) 
 [![R build status](https://github.com/schuch666/eva3dm/workflows/R-CMD-check/badge.svg)](https://github.com/schuch666/eva3dm/actions) 
