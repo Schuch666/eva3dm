@@ -35,9 +35,9 @@ All the functions include examples in the [documentation](schuch666.github.io/ev
 ## Recomended Workflow
 The following workflow is recommended:
 
-**1. Pre-processing of observations**: 
+**1. Pre-processing of observations**:
 
-- Download of observations, METAR can be downloaded using the R-package [riem](https://docs.ropensci.org/riem/) or via the [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site, Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites, and a range of satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website.
+- Download of observations, time-series of meteorological variables can be obtained from the METAR (METeorological Aerodrome Report) can be downloaded using the R-package [riem](https://docs.ropensci.org/riem/) or via the [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site, time-series of pollutant concentrations from Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites, and a range of satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website.
 
 - QA of the observation data.
 
