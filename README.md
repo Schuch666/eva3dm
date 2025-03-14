@@ -8,20 +8,29 @@
 [![Site build status](https://github.com/schuch666/eva3dm/workflows/site/badge.svg)](https://schuch666.github.io/eva3dm/)
 <!-- badges: end -->
 
-An R-package focusing on **EVA**luation of **3D** weather and air quality **M**odels.
+## Introduction
+
+An R-package focusing on **EVA**luation of **3D** weather and air quality **M**odels, streamlining the entire workflow from data preparation to post-processing, statistical analysis, and visualization.
+
+Whether you're working with meteorological models like WRF or evaluating air quality simulations (WRF-Chem, CAMx, WACCM, etc), eva3dm provides a comprehensive toolkit to handle observational data, model outputs, and evaluation metrics in an efficient and reproducible manner.
+Key Features:
+ - Pre-processing of observational and model data
+ - Post-processing tools for extracting time-series, calculating derived variables (e.g., accumulated rain, humidity variables and wind variables), and preparing data for analysis
+ - Statistical and categorical model evaluation
+ - Custom plotting tools for spatial data and georeferencing evaluation results
+ - Integration with other packages like `terra`, `ncdf4`, `qualR`, `riem` and `openair`
 
 ## Instalation
 
-**eva3dm** can be installed from github (using remotes package, for example):
-
-`remotes::install_github("schuch666/eva3dm")`
-
-or from CRAN:
+Open a R session and type the following command on the terminal to install the official version from CRAN:
 
 `install.packages("eva3dm")`
 
-All the functions include examples in the [documentation](schuch666.github.io/eva3dm).
+the last version can be installed directly from github (using the `remotes` package, in this example):
 
+`remotes::install_github("schuch666/eva3dm")`
+
+All the functions include examples in the [documentation](schuch666.github.io/eva3dm).
 
 The following workflow is recommended:
 
