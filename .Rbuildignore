@@ -10,3 +10,5 @@ README.md
 ^paper.*
 ^joss*
 ^MIT
+^doc$
+^Meta$

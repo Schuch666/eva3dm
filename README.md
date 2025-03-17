@@ -30,7 +30,7 @@ the last version can be installed directly from github (using the `remotes` pack
 
 `remotes::install_github("schuch666/eva3dm")`
 
-All the functions include examples in the [documentation](schuch666.github.io/eva3dm).
+All the functions include examples in the [documentation](https://schuch666.github.io/eva3dm/).
 
 ## Recomended Workflow
 The following workflow is recommended:

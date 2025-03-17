@@ -15,7 +15,9 @@ Maintainer: Daniel Schuch <underschuch@gmail.com>
 License: MIT + file LICENSE
 Imports: terra, ncdf4, utils
 Suggests: 
+    knitr,
     riem,
+    rmarkdown,
     testthat (>= 3.0.0)
 Encoding: UTF-8
 BugReports: https://github.com/Schuch666/eva3dm/issues/
@@ -23,3 +25,4 @@ RoxygenNote: 7.3.2
 Depends: R (>= 3.5.0)
 URL: https://schuch666.github.io/eva3dm/
 Config/testthat/edition: 3
+VignetteBuilder: knitr
