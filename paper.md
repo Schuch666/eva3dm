@@ -24,19 +24,19 @@ Eva3dm is a package designed to support the evaluation of 3-dimensional physical
 
 # Statement of need
 
-Evaluation is the most important step for any model application, it can assure that the model results represent accurately the interest variables. There are currently other tools available in R [@David:2012], Python [@Ladwig:2017] or other languages [@NCAR:2019;@Appel:2011] but none provide the degree of integrated support presented in this package: from the pre-processing of observations and model output, to evaluation and visualization.
+Evaluation is a crucial step in any model application, as it ensures that the model results accurately represent the variables of interest. Without a good evaluation process, the reliability and applicability of model outputs remain uncertain. There are currently other tools available in R [@David:2012], Python [@Ladwig:2017] or other languages [@NCAR:2019;@Appel:2011]. However, these tools often focus on specific aspects and lack a fully integrated framework. This package fills that gap by streamlining the entire evaluation process—from preprocessing observations and model outputs to statistical analysis and visualization—offering a comprehensive and user-friendly solution for air quality model assessment.
 
 # Description
 
 The literature presents various evaluation criteria depending on the variable [@Emery:2001;@Ramboll:2018;@Monk:2019;@Zhang:2019;@Emery:2017;@Zhai:2024], which can be used to compare models and assess their performance. These criteria vary based on the simulation goal, observation variability, and measurement errors.
 
-A brief description of the steps to perform a model evaluation is provided below:
+A brief description of the steps to perform a model evaluation and the functions to support these steps are descripted on the next sessions.
 
-**1. Pre-processing of observations**: 
+### 1. Pre-processing of observations
 
 - Download of the observations, some examples include: 
-  - METAR can be downloaded using the R-package [riem](https://docs.ropensci.org/riem/) or the [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site
-  - AERONET can be downloaded at [AErosol RObotic NETwork](https://aeronet.gsfc.nasa.gov/new_web/data.html) site
+  - METAR (METeorological Aerodrome Report) can be downloaded using the R-package [riem](https://docs.ropensci.org/riem/) or the [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site
+  - AERONET (Aerosol Robotic Network) can be downloaded at [AErosol RObotic NETwork](https://aeronet.gsfc.nasa.gov/new_web/data.html) site
   - Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites
   - Satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website
 
@@ -46,19 +46,11 @@ A brief description of the steps to perform a model evaluation is provided below
 
 - Quality Assurance of the observation data: check for values outside the valid range, check if the data is available for the time-period and region of the simulation and note any singular event.
 
-**2. Pre-processing of model output**: Extraction of model outputs, unit conversion and calculation of secondary variables.
-
-**3. Model Evaluation**: The evaluation involves pairing observations with model results and calculating the statistical and/or categorical indices.
-
-**4. Visualization**: Visualization of model results and statistical results.
-
-To support these steps, following functions are available:
-
-### Pre-processing of observations:
-
 The functions `rh2q` and `q2rh` convert humidity units and the functions `mda8`, `ma8h`, `hourly`, and `daily` can be used to calculate average of time-series. The format used to evaluate time-series is a data.frame, the first column must contain time (in POSIXlt) and one additional column for each different location, satellite data can be read using the function `rast` from R-package terra.
 
-### Pre-processing of model outputs:
+### 2. Pre-processing of model outputs
+
+Extraction of model outputs, unit conversion and calculation of secondary variable.
 
 The function `extract_serie` extract and save time-series from model outputs using a data.frame with name (row names) and latitude (column lat) and longitude (column lon), while the functions `extract_mean` and `extract_max_8h` extract the average or the daily maximum of 8-hour moving average and save in a new NetCDF file;
 
@@ -66,11 +58,15 @@ The function `wrf_rast` can be used to read model output and return a `SpatRaste
 
 The functions `uv2ws` and `uv2wd` can be used to calculate wind speed and velocity from the model wind components (u and v) and the function `rain` can be used to calculate hourly precipitation from model accumulated precipitation variables.
 
-### Model evaluation functions:
+### 3. Model evaluation functions:
+
+The evaluation involves pairing observations with model results and calculating the statistical and/or categorical indices.
 
 There are two high level evaluation functions implemented in the package: `eva`, that does the temporal pairing of both model and observations by station (or combine all data) and the data of time-series and `sat` that interpolate and pair data in regular grids, these functions call the low level evaluation functions `stat` to calculate the statistical metrics or the `cate` to calculate categorical metrics in relation to a threshold value. These result can be written and read using the `write_stat` and `read_stat` functions. 
 
-### Visualization and extractting information functions:
+### 4. Visualization and extractting information functions
+
+Visualization of model results and statistical results. 
 
 There are functions for visualization, interpolation and to extract information from NetCDF files, Table 1 show a relation of the visualization functions.
 
@@ -89,6 +85,25 @@ Table: Visualization, interpolation and information functions.
 Figure 1 shows examples of the first 4 functions on Table 1:
 
 ![Figure 1 - Example from the viasualization functions.\label{fig:example}](joss_1.png){ width=100% }
+
+Bellow is presented a simple example of evaluation of temperature from WRF-Chem using METAR data.
+
+``` r
+library(eva3dm)
+
+# folder with the data for this example
+f          <- system.file("extdata",package="eva3dm")
+# opening an example of observation from METAR, in degree Celsius
+OBS        <- readRDS(paste0(f,"/metar.T2.Rds"))
+# openeing data extracted from WRF-Chem model using extract_serie()
+MODEL      <- readRDS(paste0(f,"/model.d03.T2.Rds"))
+# converting from Kelving to Celcius
+MODEL[-1]  <- MODEL[-1] - 273.15
+# perform the model evaluation
+evaluation <- eva(mo = MODEL, ob = OBS, rname = 'T2 from WRF-Chem')
+print(evaluation)
+
+```
 
 ### Speciall functions:
 

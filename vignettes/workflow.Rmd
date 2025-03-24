@@ -92,7 +92,7 @@ The model output are large files and do not allow the direct comparison with obs
 ## to extract time-series from WRF-Chem model
 ## wrf_files <- dir(pattern = "wrfout_d01")
 ## extract_serie(filelist = wrf_files, point = site_list, variable="T2", prefix="mmodel.d01", field="3d")
-model_d01 <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/model.d01.T2.Rds"))
+model_d01 <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/model.d03.T2.Rds"))
 model_d01[-1] <- model_d01[-1] - 273.15
 ```
 NOTE: to extract time-series from other models (not WRF or WRF-Chem), the arguments `latitude` and `longitude` from the function `extract_serie()` need to match the name of these variables for latitude and longitude in the model output. If the model do not include the Times variable, `use_TFLAG` must be set to `TRUE` to extract and convert the time from TFLAG variable (for example for CMAQ / CAMx models) or `use_datesec` must be set to `TRUE` to extract and convert time from the datasec variable (for example for WACCM / CAM-Chem models).
