@@ -37,9 +37,9 @@ A brief description of the steps to perform a model evaluation and the functions
 ### 1. Pre-processing of observations
 
 - Download of the observations, some examples include: 
-  - METAR (METeorological Aerodrome Report) can be downloaded using the R-package [riem](https://docs.ropensci.org/riem/) or the [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site
-  - AERONET (Aerosol Robotic Network) can be downloaded at [AErosol RObotic NETwork](https://aeronet.gsfc.nasa.gov/new_web/data.html) site
-  - Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites
+  - METAR (METeorological Aerodrome Report) can be downloaded using the R-package [riem](https://docs.ropensci.org/riem/) or the [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) website
+  - AERONET (Aerosol Robotic Network) can be downloaded at [AErosol RObotic NETwork](https://aeronet.gsfc.nasa.gov/new_web/data.html) website
+  - Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) websites
   - Satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website
 
 - Process a list of the location to extract time-series from the model.
@@ -62,7 +62,7 @@ The functions `uv2ws` and `uv2wd` can be used to calculate wind speed and veloci
 
 ### 3. Model evaluation functions:
 
-The evaluation involves pairing observations with model results and calculating the statistical and/or categorical indices.
+The evaluation involves pairing observations with model results and calculating the statistical and/or categorical indexes.
 
 There are two high level evaluation functions implemented in the package: `eva`, that does the temporal pairing of both model and observations by station (or combine all data) and the data of time-series and `sat` that interpolate and pair data in regular grids, these functions call the low level evaluation functions `stat` to calculate the statistical metrics or the `cate` to calculate categorical metrics in relation to a threshold value. These result can be written and read using the `write_stat` and `read_stat` functions. 
 
@@ -116,6 +116,6 @@ print(evaluation)
 | `template` | Create folders, post-processing and evaluation scripts | To allow quickly process and evaluate multiple variables from one or multiple simulations |
 Table: Special functions.
 
-Note that the examples from `eva3dm` are focused on the Weather Research and Forecasting coupled with Chemistry WRF-Chem [@Grell:2005], but but the package can be applied to other models changing some of the arguments from the package functions.
+Note that the examples from `eva3dm` are focused on the Weather Research and Forecasting coupled with Chemistry WRF-Chem [@Grell:2005], but the package can be applied to other models changing some of the arguments from the package functions.
 
 # References
