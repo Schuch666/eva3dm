@@ -30,7 +30,9 @@ Evaluation is a crucial step in any model application, as it ensures that the mo
 
 The literature presents various evaluation criteria depending on the variable [@Emery:2001;@Ramboll:2018;@Monk:2019;@Zhang:2019;@Emery:2017;@Zhai:2024], which can be used to compare models and assess their performance. These criteria vary based on the simulation goal, observation variability, and measurement errors.
 
-A brief description of the steps to perform a model evaluation and the functions to support these steps are descripted on the next sessions.
+A brief description of the steps to perform a model evaluation and the functions to support these steps are described on the next sessions and Figure 1 shows a diagram of the workflow.
+
+![Figure 1 - Diagram of the evaluation processs.\label{fig:diagramm}](joss_2.png){ width=100% }
 
 ### 1. Pre-processing of observations
 
@@ -82,9 +84,9 @@ There are functions for visualization, interpolation and to extract information 
 | `atr` | Read and write attributes from a Netcdf file |
 Table: Visualization, interpolation and information functions.
 
-Figure 1 shows examples of the first 4 functions on Table 1:
+Figure 2 shows examples of the first 4 functions on Table 1:
 
-![Figure 1 - Example from the viasualization functions.\label{fig:example}](joss_1.png){ width=100% }
+![Figure 2 - Example from the viasualization functions.\label{fig:example}](joss_1.png){ width=100% }
 
 Bellow is presented a simple example of evaluation of temperature from WRF-Chem using METAR data.
 
