@@ -177,8 +177,8 @@ plot_rast <- function(r,
     pax <- c(pax,ax)
     plot_axes = TRUE
   }else{
-    ax  <- list()
-    plot_axes = FALSE
+    ax  <- list()     # nocov
+    plot_axes = FALSE # nocov
   }
 
   extra <- function(){

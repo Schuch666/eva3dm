@@ -1,0 +1,116 @@
+---
+title: "Introduction to eva3dm"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to eva3dm}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(eva3dm)
+library(riem)
+library(terra)
+```
+
+In this Vignette a example of evaluation of temperature at surface level using data from METeorological Aerodrome Report (METAR).
+
+The recommended workflow to evaluate your model results will include 4 steps
+1. Pre-processing of observations
+2. Pre-processing of model output
+3. Model Evaluation
+4. Visualization
+
+The exact steps needed to evaluation will will be different for different models, different observation data-set, and different variable. However, in this example a complete workflow to evaluate the model using surface stations for one variable.
+
+1. Pre-processing of observations:
+
+We are using the r-package `riem` to download METAR data:
+
+```{r metar}
+start_date  <- "2016-01-01"
+end_date    <- "2016-02-01"
+sites       <- c("SBGR","SBKP","SBMT","SBSJ","SBSP","SBST","SBTA")
+
+METAR  <- data.frame(date = seq.POSIXt(as.POSIXct(start_date), 
+                                       as.POSIXct(end_date), 
+                                       by = "hour"))
+for(site in sites){
+  cat("downloading METAR from:",site,"...\n")
+
+  DATA <- riem_measures(station    = site,
+                        date_start = start_date,
+                        date_end   = end_date,
+                        elev       = FALSE,
+                        latlon     = FALSE)
+  DATA <- data.frame(date = DATA$valid,
+                     T2   = DATA$tmpf)
+  names(DATA) <- c('date', site)
+  METAR       <- merge(x     = METAR, 
+                       y     = DATA, 
+                       by    = "date", 
+                       all   = T, 
+                       sort  = TRUE)
+}
+
+```
+
+QA of the observation data.
+
+```{r check}
+plot(METAR$date, METAR[,2], ty = 'l',xlab = '',ylab = 'T2', main = 'METAR OBS')
+head(METAR)
+```
+In this case the temperature units need to be converted from Fahrenheit to Celsius and the data need to be grouped or averaged by exact hours, in this case using the hourly function.
+```{r observation}
+
+METAR[,-1] <- 5/9 * (METAR[,-1]-32)
+METAR      <- hourly(METAR)
+
+plot(METAR$date, METAR[,2], ty = 'l',xlab = '',ylab = 'T2', main = 'METAR OBS')
+head(METAR)
+
+```
+
+For the next step a site-list with latitude and logitude of each surfacve station is needed, a list of all METAR stations is avaliable in eva3dm package.
+```{r site-list}
+site_list <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_METAR.Rds"))
+head(site_list)
+```
+
+2. Pre-processing of model output: model output are large files and and do not allow the direct comparison with observations. The package provide a function that extract time-series from geogrephic locations from a site-list. The function `extract_serie()` extract the time-series from a list of files and save the output in R file (in this example the output is read). 
+```{r model}
+## to extract time-series from WRF-Chem model
+## wrf_files <- dir(pattern = "wrfout_d01")
+## extract_serie(filelist = wrf_files, point = site_list, variable="T2", prefix="mmodel.d01", field="3d")
+model_d01 <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/model.d01.T2.Rds"))
+```
+The function `wrf_rast()` should be used to evaluate against observations in regular grids (i.e. satellite products).
+
+3. Model Evaluation: The functions `eva()` can be used to calculate the statistical indexes from time-series for individual stations or all stations combined.
+```{r evaluation}
+table <- data.frame()
+for(site in sites){
+  table <- eva(mo = model_d01, ob = METAR, site = site, table = table)
+}
+table <- eva(mo = model_d01, ob = METAR, site = 'ALL', table = table)
+print(table)
+```
+
+4. Visualization: the function `overlay()` can be used to plot the results from `eva()` on a map. First the data is georeferenced with `%at%`.
+```{r visualize}
+spatial_table <- table %at% site_list
+overlay(spatial_table, z = 'MB', main = 'T2 main bias (MB)',expand = 1.6,lim = 0.1)
+masp <- terra::vect(paste0(system.file("extdata",package="eva3dm"),"/masp.shp"))
+BR   <- terra::vect(paste0(system.file("extdata",package="eva3dm"),"/BR.shp"))
+terra::lines(BR)
+terra::lines(masp, col = 'gray')
+legend_range(spatial_table$MB,y = table["ALL","MB"])
+```

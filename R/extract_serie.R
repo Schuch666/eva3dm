@@ -192,7 +192,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
     if(level == 1){
       cat('reading',variable,':',filelist[1],'file 1 of',length(filelist),'\n')
     }else{
-      cat('reading',variable,':',filelist[1],'file 1 of',length(filelist),paste0('(model level ',level,')'),'\n')
+      cat('reading',variable,':',filelist[1],'file 1 of',length(filelist),paste0('(model level ',level,')'),'\n') # nocov
     }
   }
 
@@ -269,7 +269,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
         if(level == 1){
           cat('reading',variable,':',filelist[i],'file',i,'of',length(filelist),'\n')
         }else{
-          cat('reading',variable,':',filelist[i],'file',i,'of',length(filelist),paste0('(model level ',level,')'),'\n')
+          cat('reading',variable,':',filelist[i],'file',i,'of',length(filelist),paste0('(model level ',level,')'),'\n') # nocov
         }
       }
 
