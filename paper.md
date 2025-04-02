@@ -52,7 +52,7 @@ Extraction of model outputs, unit conversion and calculation of secondary variab
 
 The function `extract_serie` extract and save time-series from model outputs using a data.frame with name of the location (row names), latitude (column lat) and longitude (column lon), while the functions `extract_mean` and `extract_max_8h` extract the average or the daily maximum of 8-hour moving average and save in a new NetCDF file.
 
-The function `wrf_rast` can be used to read model output and return a `SpatRaster` or `SpatVector` object from the model files and its counterpart `rast_to_netcdf` that converts a `SpatRaster` to an array and/or save to a existing NetCDF file.
+The function `wrf_rast` can be used to read model output and return a `SpatRaster` or `SpatVector` object from the model files and its counterpart `rast_to_netcdf` that converts a `SpatRaster` to an array and/or save to an existing NetCDF file.
 
 The functions `uv2ws` and `uv2wd` can be used to calculate wind speed and velocity from the model wind components (eastward and northward components) and the function `rain` can be used to calculate hourly precipitation from model accumulated precipitation variables.
 
@@ -107,11 +107,11 @@ print(evaluation)
 
 | Function name | Description | Objective |
 | --- | --------- | --------- |
-| `%at%` | Combine a data.frame containing evaluation results and a data.frame containing geographical coordinates (site list) | To georeference and the statistical results for visualization |
+| `%at%` | Combine a data.frame containing evaluation results and a data.frame containing geographical coordinates (site list) | To georeference the statistical results for visualization |
 | `%IN%` | Filter a observation data.frame based on model time-series data.frame. Also can be used to crop a `SpatRaster` based on a second `SpatRaster` | To compare results from simulation with different domains |
 | `template` | Create folders, post-processing and evaluation scripts | Templates to process and evaluate multiple variables from one or multiple simulations |
 Table: Special functions.
 
-Note that the examples from `eva3dm` are focused on the Weather Research and Forecasting coupled with Chemistry WRF-Chem [@Grell:2005], but the package can be applied to other models, such as CMAQ, CAMx, WACCM and CAM-Chem, more details can be found in the package documentation and vignettes.
+Note that the examples from `eva3dm` are focused on the Weather Research and Forecasting coupled with Chemistry WRF-Chem [@Grell:2005], but the package can be applied to other models, such as CMAQ, CAMx, WACCM and CAM-Chem. More details can be found in the package documentation and vignettes.
 
 # References
