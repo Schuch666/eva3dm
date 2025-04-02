@@ -4,8 +4,6 @@ Thank you for any and all contributions! Following these guidelines will help st
 
 By participating in this project, you agree to abide by the [code of conduct](https://github.com/schuch666/eva3dm/blob/JOSS/CODE_OF_CONDUCT.md).
 
-
-
 # Types of contributions
 
 Don't feel that you must be a computer whiz to make meaningful contributions. Feel free to:
