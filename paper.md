@@ -24,11 +24,11 @@ Eva3dm is a package designed to support the evaluation of 3-dimensional physical
 
 # Statement of need
 
-Evaluation is a crucial step in any model application, as it ensures that the model results accurately represent the variables of interest. Without a good evaluation process, the reliability and applicability of model outputs remain uncertain. There are currently other tools available in R [@David:2012], Python [@Ladwig:2017] or other languages [@NCAR:2019;@Appel:2011]. However, these tools often focus on specific aspects and lack a fully integrated framework. This package fills that gap by streamlining the entire evaluation process—from preprocessing observations and model outputs to statistical analysis and visualization—offering a comprehensive and user-friendly solution for air quality model assessment.
+Evaluation is a crucial step in any model application, as it ensures that the model results accurately represent the variables of interest. Without a good evaluation process, the reliability and applicability of model outputs remain uncertain. There are currently other tools available in R [@David:2012], Python [@Ladwig:2017] or other languages [@NCAR:2019;@Appel:2011]. However, these tools often focus on specific aspects (data visualization, geoprocessing, etc) and lack a fully integrated framework. This package fills that gap by streamlining the entire evaluation process—from preprocessing observations and model outputs to statistical analysis and visualization—offering a comprehensive and user-friendly solution for air quality model assessment.
 
 # Description
 
-The literature presents various evaluation criteria depending on the variable [@Emery:2001;@Ramboll:2018;@Monk:2019;@Zhang:2019;@Emery:2017;@Zhai:2024], which can be used to compare models and assess their performance. These criteria vary based on the simulation goal, observation variability, and measurement errors.
+The literature presents various evaluation criteria depending on the evaluated variable [@Emery:2001;@Ramboll:2018;@Monk:2019;@Zhang:2019;@Emery:2017;@Zhai:2024], which can be used to compare models and assess their performance. These criteria vary based on the simulation goal, observation variability, and measurement errors.
 
 A brief description of the steps to perform a model evaluation and the functions to support these steps are described on the next sessions and Figure 1 shows a diagram of the workflow.
 
@@ -42,29 +42,25 @@ A brief description of the steps to perform a model evaluation and the functions
   - Air Quality data for Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) websites
   - Satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website
 
-- Process a list of the location to extract time-series from the model.
-
-- Process observation data for evaluation: Unit conversion, time zone conversion to UTC, and calculation of secondary variables.
+- Process observation data for evaluation: Unit conversion, time zone conversion to UTC, and calculation of secondary variables. The functions `rh2q` and `q2rh` convert humidity units and the functions `mda8`, `ma8h`, `hourly`, and `daily` can be used to calculate average of time-series. The format used to evaluate time-series is a data.frame, the first column must contain time (in POSIXlt) and one additional column for each different location, satellite data can be read using the function `rast` from R-package terra.
 
 - Quality Assurance of the observation data: check for values outside the valid range, check if the data is available for the time-period and region of the simulation and note any singular event.
-
-The functions `rh2q` and `q2rh` convert humidity units and the functions `mda8`, `ma8h`, `hourly`, and `daily` can be used to calculate average of time-series. The format used to evaluate time-series is a data.frame, the first column must contain time (in POSIXlt) and one additional column for each different location, satellite data can be read using the function `rast` from R-package terra.
 
 ### 2. Pre-processing of model outputs
 
 Extraction of model outputs, unit conversion and calculation of secondary variable.
 
-The function `extract_serie` extract and save time-series from model outputs using a data.frame with name (row names) and latitude (column lat) and longitude (column lon), while the functions `extract_mean` and `extract_max_8h` extract the average or the daily maximum of 8-hour moving average and save in a new NetCDF file;
+The function `extract_serie` extract and save time-series from model outputs using a data.frame with name of the location (row names), latitude (column lat) and longitude (column lon), while the functions `extract_mean` and `extract_max_8h` extract the average or the daily maximum of 8-hour moving average and save in a new NetCDF file.
 
-The function `wrf_rast` can be used to read model output and return a `SpatRaster` or `SpatVector` object from the model files and its counterpart `rast_to_netcdf` that converts a `SpatRaster` to an array and/or save to a existing NetCDF file;
+The function `wrf_rast` can be used to read model output and return a `SpatRaster` or `SpatVector` object from the model files and its counterpart `rast_to_netcdf` that converts a `SpatRaster` to an array and/or save to a existing NetCDF file.
 
-The functions `uv2ws` and `uv2wd` can be used to calculate wind speed and velocity from the model wind components (u and v) and the function `rain` can be used to calculate hourly precipitation from model accumulated precipitation variables.
+The functions `uv2ws` and `uv2wd` can be used to calculate wind speed and velocity from the model wind components (eastward and northward components) and the function `rain` can be used to calculate hourly precipitation from model accumulated precipitation variables.
 
 ### 3. Model evaluation functions:
 
 The evaluation involves pairing observations with model results and calculating the statistical and/or categorical indexes.
 
-There are two high level evaluation functions implemented in the package: `eva`, that does the temporal pairing of both model and observations by station (or combine all data) and the data of time-series and `sat` that interpolate and pair data in regular grids, these functions call the low level evaluation functions `stat` to calculate the statistical metrics or the `cate` to calculate categorical metrics in relation to a threshold value. These result can be written and read using the `write_stat` and `read_stat` functions. 
+There are two high level evaluation functions implemented in the package: `eva` and `sat`. The `eva` function performs the temporal pairing of both model and observation time-series by station (or combines all data). The `sat` function interpolates and pairs data on regular grids. Both functions call the low-level evaluation functions: `stat` to compute statistical metrics and `cate` to calculate categorical metrics based on a threshold value. These result can be written and read using the `write_stat` and `read_stat` functions.
 
 ### 4. Visualization and extractting information functions
 
@@ -107,15 +103,15 @@ print(evaluation)
 
 ```
 
-### Speciall functions:
+### Special functions:
 
 | Function name | Description | Objective |
 | --- | --------- | --------- |
-| `%at%` | Combine a data.frame containing evaluation results and a data.frame containing geographical coordinates (site list) | To georeference and visualize the statistical results |
-| `%IN%` | Filter a observation data.frame based on model time-series data.frame. Also can be used to crop a `SpatRaster` based on a second `SpatRaster` | To perform fair comparison of different simulations |
-| `template` | Create folders, post-processing and evaluation scripts | To allow quickly process and evaluate multiple variables from one or multiple simulations |
+| `%at%` | Combine a data.frame containing evaluation results and a data.frame containing geographical coordinates (site list) | To georeference and the statistical results for visualization |
+| `%IN%` | Filter a observation data.frame based on model time-series data.frame. Also can be used to crop a `SpatRaster` based on a second `SpatRaster` | To compare results from simulation with different domains |
+| `template` | Create folders, post-processing and evaluation scripts | Templates to process and evaluate multiple variables from one or multiple simulations |
 Table: Special functions.
 
-Note that the examples from `eva3dm` are focused on the Weather Research and Forecasting coupled with Chemistry WRF-Chem [@Grell:2005], but the package can be applied to other models changing some of the arguments from the package functions.
+Note that the examples from `eva3dm` are focused on the Weather Research and Forecasting coupled with Chemistry WRF-Chem [@Grell:2005], but the package can be applied to other models, such as CMAQ, CAMx, WACCM and CAM-Chem, more details can be found in the package documentation and vignettes.
 
 # References
