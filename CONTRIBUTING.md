@@ -19,7 +19,6 @@ Don't feel that you must be a computer whiz to make meaningful contributions. Fe
 Getting ready to make your first contribution? Here are a couple of tutorials you may wish to check out:
 
 - [Tutorial for first-timers](https://github.com/Roshanjossey/first-contributions)
-- [How to contribute (in-depth lessons)](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
 - [GitHub on setup](https://help.github.com/articles/set-up-git)
 - [GitHub on pull requests](https://help.github.com/articles/using-pull-requests/).
 
