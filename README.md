@@ -113,4 +113,4 @@ This package includes:
 
 ## Contributing to `eva3dm`
 
-If you like to contribute to `eva3dm` take a look at the [contribution guidelines](https://github.com/schuch666/eva3dm/blob/master/CONTRIBUTING.md) page and by participating in this project you agree to abide the [code of conduct](https://github.com/schuch666/eva3dm/blob/master/CODE_OF_CONDUCT.md) terms.
+If you like to contribute to `eva3dm` take a look at the [contribution guidelines](https://github.com/schuch666/eva3dm/blob/JOSS/CONTRIBUTING.md) page and by participating in this project you agree to abide the [code of conduct](https://github.com/schuch666/eva3dm/blob/JOSS/CODE_OF_CONDUCT.md) terms.
