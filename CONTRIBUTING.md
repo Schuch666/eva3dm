@@ -37,6 +37,6 @@ Getting ready to make your first contribution? Here are a couple of tutorials yo
 
 # Code formatting
 
-- In general follow the convention of <http://r-pkgs.had.co.nz/r.html#style> (snake_case functions and argument names, etc.)
+- In general follow the convention of <https://r-pkgs.org/code.html#code-style> (snake_case functions and argument names, etc.)
 - Where there is conflict, default to the style of `eva3dm`
 - Use explicit package imports (i.e. package_name::package_function) and avoid @import if at all possible
