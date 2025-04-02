@@ -110,3 +110,7 @@ This package includes:
 ✔ `%at%` combine a table (with results from `eva()` or `sat()` for example) with a table with geographical coordinates. The goal of this function is to georeference and visualize the statistical results.
 
 ✔ `%IN%` filter a table (with model/observations time-series) based on a second table (using the column names). Also can be used to crop a `SpatRaster` based on a second `SpatRaster`. The goal is to be used to perform fair comparison of different evaluations (using the same number of observation).
+
+## Contributing to `eva3dm`
+
+If you like to contribute to `eva3dm` take a look at the [contribution guidelines](https://github.com/schuch666/eva3dm/blob/master/CONTRIBUTING.md) page and by participating in this project you agree to abide the [code of conduct](https://github.com/schuch666/eva3dm/blob/master/CODE_OF_CONDUCT.md) terms.
