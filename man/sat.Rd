@@ -15,6 +15,7 @@ sat(
   method = "bilinear",
   eval_function = stat,
   mask,
+  skip_interp = FALSE,
   verbose = TRUE,
   ...
 )
@@ -39,6 +40,8 @@ sat(
 \item{eval_function}{evaluation function (default is stat)}
 
 \item{mask}{optional SpatVector to mask the results}
+
+\item{skip_interp}{skip the interpolation step}
 
 \item{verbose}{set TRUE to display additional information}
 
