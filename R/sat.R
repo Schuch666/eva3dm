@@ -92,8 +92,8 @@ sat <- function(mo,ob,rname, table = NULL,
     if(verbose) cat('interpolating obs. (x) to model grid (y) ...\n')
     obser <- interp(x = ob, y = mo, method = method, mask = mask, verbose = verbose)
   }else{
-    if(verbose) cat('skiping interpolation ...\n')
-    obser <- ob
+    if(verbose) cat('skiping interpolation ...\n') # nocov
+    obser <- ob                                    # nocov
   }
 
   if(!is.na(min)){
