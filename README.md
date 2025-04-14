@@ -6,6 +6,7 @@
 [![Coverage Status](https://img.shields.io/codecov/c/github/schuch666/eva3dm/master.svg)](https://codecov.io/github/schuch666/eva3dm) 
 [![R build status](https://github.com/schuch666/eva3dm/workflows/R-CMD-check/badge.svg)](https://github.com/schuch666/eva3dm/actions) 
 [![Site build status](https://github.com/schuch666/eva3dm/workflows/site/badge.svg)](https://schuch666.github.io/eva3dm/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15213216.svg)](https://doi.org/10.5281/zenodo.15213216) 
 <!-- badges: end -->
 
 An R-package focusing on **EVA**luation of **3D** weather and air quality **M**odels.
