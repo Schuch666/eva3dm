@@ -6,6 +6,7 @@
 [![codecov](https://codecov.io/github/schuch666/eva3dm/graph/badge.svg?token=E14U1GNK6R)](https://codecov.io/github/schuch666/eva3dm)
 [![R build status](https://github.com/schuch666/eva3dm/workflows/R-CMD-check/badge.svg)](https://github.com/schuch666/eva3dm/actions) 
 [![Site build status](https://github.com/schuch666/eva3dm/workflows/site/badge.svg)](https://schuch666.github.io/eva3dm/)
+[![cran checks](https://badges.cranchecks.info/worst/eva3dm.svg)](https://cran.r-project.org/web/checks/check_results_eva3dm.html)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15213216.svg)](https://doi.org/10.5281/zenodo.15213216) 
 <!-- badges: end -->
 
