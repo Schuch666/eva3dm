@@ -155,6 +155,7 @@ plot_rast <- function(r,
   delta_x     <- abs(max_lat - min_lat)
   delta_y     <- abs(max_lon - min_lon)
   small_delta <- min(delta_x,delta_y)
+  # small_delta <- base::max(delta_x,delta_y)
 
   if(int >= 1.1 * small_delta){
     int      = pretty(x = small_delta,n = 12)[1]
@@ -183,7 +184,8 @@ plot_rast <- function(r,
 
   extra <- function(){
     if(grid){
-      terra::lines(terra::graticule(lon = vet_lon,lat = vet_lat,
+      terra::lines(terra::graticule(lon = seq(-180,180,by = grid_int),
+                                    lat = vet_lat,
                                     crs = terra::crs(r,proj=TRUE)),
                    lty = 3, col = grid_col,lwd = 1.2)
     }
