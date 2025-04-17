@@ -7,6 +7,7 @@
 [![Site build status](https://github.com/schuch666/eva3dm/workflows/site/badge.svg)](https://schuch666.github.io/eva3dm/)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/eva3dm)](http://cran.r-project.org/web/packages/eva3dm)
 [![cran checks](https://badges.cranchecks.info/worst/eva3dm.svg)](https://cran.r-project.org/web/checks/check_results_eva3dm.html)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.07797/status.svg)](https://doi.org/10.21105/joss.07797)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15213216.svg)](https://doi.org/10.5281/zenodo.15213216) 
 <!-- badges: end -->
 
