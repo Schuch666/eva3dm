@@ -155,7 +155,6 @@ plot_rast <- function(r,
   delta_x     <- abs(max_lat - min_lat)
   delta_y     <- abs(max_lon - min_lon)
   small_delta <- min(delta_x,delta_y)
-  # small_delta <- base::max(delta_x,delta_y)
 
   if(int >= 1.1 * small_delta){
     int      = pretty(x = small_delta,n = 12)[1]
@@ -251,7 +250,7 @@ latlon <- function(r,int,e,tn = 100) {
   proj <-  terra::crs(r,proj=TRUE)
 
   # latitude
-  vet_lon <- seq(-80,80,by = int)
+  vet_lon <- c(-seq(80,int,by = -int),0,seq(int,80,by = int))
   lab_lon <- c(paste0(seq(80,int,by=-int),"\u00baS"),'0',
                paste0(seq(int,80,by=int),"\u00baN"))
 
@@ -265,7 +264,7 @@ latlon <- function(r,int,e,tn = 100) {
   tfcn         <- custom_approxfun(axis_coords[,2], ty)
 
   # longitude
-  vet_lat <- seq(-180,180,by = int)
+  vet_lat <- c(-seq(180,int,by = -int),0,seq(int,180,by = int))
   lab_lat <- c(paste0(seq(180,int,by=-int),"\u00baW"),'0',
                paste0(seq(int,180,by=int),"\u00baE"))
 
