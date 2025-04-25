@@ -228,7 +228,8 @@ eva <- function(mo, ob, rname = site, table = NULL,
 
   if('SpatRaster' %in% class(x) & 'SpatRaster' %in% class(y)){
     cat('croping',deparse(substitute(x)),'with',deparse(substitute(y)),'\n')
-    return(crop(x,y))
+    e <- ext(terra::project(y,crs(x,proj = T)))
+    return(crop(x,e))
   }
 
   cat('using',deparse(substitute(x)),'in',deparse(substitute(y)),'\n')
