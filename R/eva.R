@@ -66,6 +66,18 @@
 #'              eval_function = cate, threshold = 10)
 #' print(table)
 #'
+#'# customizing the evaluation function: inclusion of p.value from stats::cor.test()
+#' stat_p <- function(x, y, ...){
+#'   table         <- eva3dm::stat(x, y, ...)
+#'   cor.result    <- stats::cor.test(x, y, ... )
+#'   table$p.value <- cor.result$p.value
+#'   table         <- table[,c(1:4,12,5:11)]
+#'   return(table)
+#' }
+#'
+#' table <- eva(mo = model, ob = obs, site = "Americana",eval_function = stat_p)
+#' print(table)
+#'
 eva <- function(mo, ob, rname = site, table = NULL,
                 site = 'ALL', wd = FALSE, fair = NULL,
                 cutoff = NA, cutoff_NME = NA, no_tz = FALSE,
@@ -223,6 +235,7 @@ eva <- function(mo, ob, rname = site, table = NULL,
 #' eva(mo = model_d01 %IN% model_d02, ob = observation, rname = 'd01 in d02')
 #' # or
 #' eva(mo = model_d01, ob = observation %IN% model_d02, rname = 'd01 in d02')
+#'
 #'
 `%IN%` <- function(x, y){
 

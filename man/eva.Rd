@@ -102,6 +102,18 @@ table <- eva(mo = model, ob = obs, site = "Americana",
              eval_function = cate, threshold = 10)
 print(table)
 
+# customizing the evaluation function: inclusion of p.value from stats::cor.test()
+stat_p <- function(x, y, ...){
+  table         <- eva3dm::stat(x, y, ...)
+  cor.result    <- stats::cor.test(x, y, ... )
+  table$p.value <- cor.result$p.value
+  table         <- table[,c(1:4,12,5:11)]
+  return(table)
+}
+
+table <- eva(mo = model, ob = obs, site = "Americana",eval_function = stat_p)
+print(table)
+
 }
 \seealso{
 \code{\link{stat}} for additional information about the statistical evaluation and \code{\link{cate}} for categorical evaluation.
