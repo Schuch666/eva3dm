@@ -39,13 +39,16 @@
 #' cat('Example 1: METAR site list\n')
 #' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_METAR.Rds"))
 #'
-#' cat('Example 2: AERONET site list\n')
+#' cat('Example 2: Integrated Surface Dataset (ISD) site list\n')
+#' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_ISD.Rds"))
+#'
+#' cat('Example 4: AERONET site list\n')
 #' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AERONET.Rds"))
 #'
-#' cat('Example 3: list of INMET stations on Brazil\n')
+#' cat('Example 5: list of INMET stations on Brazil\n')
 #' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_INMET.Rds"))
 #'
-#' cat('Example 4: list of Air Quality stations on Brazil\n')
+#' cat('Example 6: list of Air Quality stations on Brazil\n')
 #' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AQ_BR.Rds"))
 #'
 #' files    <- dir(path = system.file("extdata",package="eva3dm"),
