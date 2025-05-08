@@ -129,13 +129,13 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">model_o3</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">model_no2</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                              <span class="st">"/camx_no2.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">omi_o3</span>   <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span><span class="va">omi_no2</span>   <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                              <span class="st">"/omi_no2.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># generate the statistical indexes</span></span></span>
-<span class="r-in"><span><span class="fu">sat</span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model_o3</span>,ob <span class="op">=</span> <span class="va">omi_o3</span>,rname <span class="op">=</span> <span class="st">'NO2_statistical'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sat</span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model_no2</span>,ob <span class="op">=</span> <span class="va">omi_no2</span>,rname <span class="op">=</span> <span class="st">'NO2_statistical'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> removing 6 points for the model (y) boundaryes ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> interpolating obs. (x) to model grid (y) ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     n      Obs      Sim         r       IOA       FA2    RMSE</span>
@@ -144,7 +144,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> NO2_statistical 0.9331919 2.165081 27.98778 64.93393</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># generate categorical evaluation using 3.0 as threshold</span></span></span>
-<span class="r-in"><span><span class="fu">sat</span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model_o3</span>,ob <span class="op">=</span> <span class="va">omi_o3</span>,rname <span class="op">=</span> <span class="st">'NO2_categorical'</span>,</span></span>
+<span class="r-in"><span><span class="fu">sat</span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model_no2</span>,ob <span class="op">=</span> <span class="va">omi_no2</span>,rname <span class="op">=</span> <span class="st">'NO2_categorical'</span>,</span></span>
 <span class="r-in"><span>    eval_function <span class="op">=</span> <span class="va">cate</span>, threshold <span class="op">=</span> <span class="fl">3.0</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> removing 6 points for the model (y) boundaryes ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> interpolating obs. (x) to model grid (y) ...</span>
@@ -152,6 +152,23 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> NO2_categorical 11664 3.334283 4.267475   3 83.04184 69.81074 85.49533 107.9626</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      FAR      HSS      PSS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NO2_categorical 20.81025 66.05674 66.45827</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># customizing the evaluation function: inclusion of p.value from stats::cor.test()</span></span></span>
+<span class="r-in"><span><span class="va">stat_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">table</span>         <span class="op">&lt;-</span> <span class="fu">eva3dm</span><span class="fu">::</span><span class="fu"><a href="stat.html">stat</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">cor.result</span>    <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span> <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">table</span><span class="op">$</span><span class="va">p.value</span> <span class="op">&lt;-</span> <span class="va">cor.result</span><span class="op">$</span><span class="va">p.value</span></span></span>
+<span class="r-in"><span>  <span class="va">table</span>         <span class="op">&lt;-</span> <span class="va">table</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,<span class="fl">12</span>,<span class="fl">5</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">table</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">sat</span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model_no2</span>,ob <span class="op">=</span> <span class="va">omi_no2</span>,rname <span class="op">=</span> <span class="st">'NO2_statistical'</span>,eval_function <span class="op">=</span> <span class="va">stat_p</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> removing 6 points for the model (y) boundaryes ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> interpolating obs. (x) to model grid (y) ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     n      Obs      Sim         r p.value       IOA       FA2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NO2_statistical 11664 3.334283 4.267475 0.4689121       0 0.3358893 0.6685528</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    RMSE        MB       ME  NMB (%)  NME (%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NO2_statistical 4.98183 0.9331919 2.165081 27.98778 64.93393</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

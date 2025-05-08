@@ -205,6 +205,23 @@ categorical evaluation.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                HSS      PSS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Americana 24.01997 40.50899</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># customizing the evaluation function: inclusion of p.value from stats::cor.test()</span></span></span>
+<span class="r-in"><span><span class="va">stat_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">table</span>         <span class="op">&lt;-</span> <span class="fu">eva3dm</span><span class="fu">::</span><span class="fu"><a href="stat.html">stat</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">cor.result</span>    <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span> <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">table</span><span class="op">$</span><span class="va">p.value</span> <span class="op">&lt;-</span> <span class="va">cor.result</span><span class="op">$</span><span class="va">p.value</span></span></span>
+<span class="r-in"><span>  <span class="va">table</span>         <span class="op">&lt;-</span> <span class="va">table</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,<span class="fl">12</span>,<span class="fl">5</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">table</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">table</span> <span class="op">&lt;-</span> <span class="fu">eva</span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model</span>, ob <span class="op">=</span> <span class="va">obs</span>, site <span class="op">=</span> <span class="st">"Americana"</span>,eval_function <span class="op">=</span> <span class="va">stat_p</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Americana has 227 valid observations</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">table</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             n      Obs      Sim         r      p.value       IOA       FA2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Americana 227 40.92952 18.18197 0.6492022 1.488004e-28 0.5934335 0.4229075</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               RMSE        MB       ME   NMB (%)  NME (%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Americana 32.47269 -22.74754 24.10165 -55.57735 58.88575</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
