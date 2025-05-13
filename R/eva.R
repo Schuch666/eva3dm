@@ -17,6 +17,7 @@
 #' @param no_tz ignore tz from input (force GMT)
 #' @param nobs minimum number of valid observations, default is 8
 #' @param eval_function evaluation function (default is stat)
+#' @param select_time select the observation (ob) using time from model (mo) data.frame
 #' @param time name of the time column (containing time in POSIXct)
 #' @param verbose display additional information
 #' @param ... arguments to be passing to stats and plot
@@ -82,6 +83,7 @@ eva <- function(mo, ob, rname = site, table = NULL,
                 site = 'ALL', wd = FALSE, fair = NULL,
                 cutoff = NA, cutoff_NME = NA, no_tz = FALSE,
                 nobs = 8, eval_function = stat,
+                select_time = nrow(ob) >= nrow(mo),
                 time = 'date', verbose = TRUE, ...){
 
   if(!is.data.frame(mo))
@@ -97,6 +99,10 @@ eva <- function(mo, ob, rname = site, table = NULL,
     ob <- as.data.frame(ob) # nocov
   if(length(class(mo)) > 1)
     mo <- as.data.frame(mo) # nocov
+
+  if(select_time){
+    ob <- select(data = ob, range = mo, time = time)
+  }
 
   if(site == "ALL"){
     if(verbose)  cat('combining all sites...\n')
@@ -196,9 +202,11 @@ eva <- function(mo, ob, rname = site, table = NULL,
 #'
 #' @return data.frame with common columns or a cropped SpatRaster
 #'
-#' @note a message is always displayed to keep easy to track and debug issues (with the results and the evaluation process).
+#' @note A message is always displayed to keep easy to track and debug issues (with the results and the evaluation process).
 #'
-#' @note can be used to crop rast objects, such as arguments of sat() function
+#' @note Can be used to crop rast objects, such as arguments of sat() function
+#'
+#' @seealso See \code{\link[eva3dm]{select}} for selection based on time.
 #'
 #' @export
 #' @import terra

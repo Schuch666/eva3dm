@@ -17,6 +17,7 @@ eva(
   no_tz = FALSE,
   nobs = 8,
   eval_function = stat,
+  select_time = nrow(ob) >= nrow(mo),
   time = "date",
   verbose = TRUE,
   ...
@@ -46,6 +47,8 @@ eva(
 \item{nobs}{minimum number of valid observations, default is 8}
 
 \item{eval_function}{evaluation function (default is stat)}
+
+\item{select_time}{select the observation (ob) using time from model (mo) data.frame}
 
 \item{time}{name of the time column (containing time in POSIXct)}
 
