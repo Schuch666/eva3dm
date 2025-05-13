@@ -46,15 +46,15 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">select</span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
-<span>  <span class="va">start</span>,</span>
-<span>  <span class="va">end</span>,</span>
-<span>  <span class="va">range</span>,</span>
 <span>  <span class="va">year</span>,</span>
 <span>  <span class="va">month</span>,</span>
 <span>  <span class="va">day</span>,</span>
 <span>  <span class="va">hour</span>,</span>
 <span>  <span class="va">minutes</span>,</span>
 <span>  <span class="va">seconds</span>,</span>
+<span>  <span class="va">start</span>,</span>
+<span>  <span class="va">end</span>,</span>
+<span>  <span class="va">range</span>,</span>
 <span>  time <span class="op">=</span> <span class="st">"date"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -67,6 +67,30 @@
 <dd><p>data.frame with model or observation data</p></dd>
 
 
+<dt id="arg-year">year<a class="anchor" aria-label="anchor" href="#arg-year"></a></dt>
+<dd><p>numeric vector for selection</p></dd>
+
+
+<dt id="arg-month">month<a class="anchor" aria-label="anchor" href="#arg-month"></a></dt>
+<dd><p>numeric vector (1-12) for selection, can be abbreviated to 3 or more letters</p></dd>
+
+
+<dt id="arg-day">day<a class="anchor" aria-label="anchor" href="#arg-day"></a></dt>
+<dd><p>numeric vector (1-31) for selection, weekdays can be abbreviated to 3 or more letters, or weekday/weekend</p></dd>
+
+
+<dt id="arg-hour">hour<a class="anchor" aria-label="anchor" href="#arg-hour"></a></dt>
+<dd><p>numeric vector (0-23) for selection</p></dd>
+
+
+<dt id="arg-minutes">minutes<a class="anchor" aria-label="anchor" href="#arg-minutes"></a></dt>
+<dd><p>numeric vector (0-60) for selection</p></dd>
+
+
+<dt id="arg-seconds">seconds<a class="anchor" aria-label="anchor" href="#arg-seconds"></a></dt>
+<dd><p>numeric vector (0-60) for selection</p></dd>
+
+
 <dt id="arg-start">start<a class="anchor" aria-label="anchor" href="#arg-start"></a></dt>
 <dd><p>POSIXct or character (YYYY-MM-DD) with the initial date of selection</p></dd>
 
@@ -77,26 +101,6 @@
 
 <dt id="arg-range">range<a class="anchor" aria-label="anchor" href="#arg-range"></a></dt>
 <dd><p>pair of start/end or a data.frame with time (default is "date")</p></dd>
-
-
-<dt id="arg-year">year<a class="anchor" aria-label="anchor" href="#arg-year"></a></dt>
-<dd><p>numeric vector for selection</p></dd>
-
-
-<dt id="arg-month">month<a class="anchor" aria-label="anchor" href="#arg-month"></a></dt>
-<dd><p>numeric vector (1-12) for selection</p></dd>
-
-
-<dt id="arg-day">day<a class="anchor" aria-label="anchor" href="#arg-day"></a></dt>
-<dd><p>numeric vector (1-31) for selection, or weekday/weekend</p></dd>
-
-
-<dt id="arg-minutes">minutes<a class="anchor" aria-label="anchor" href="#arg-minutes"></a></dt>
-<dd><p>numeric vector (0-60) for selection</p></dd>
-
-
-<dt id="arg-seconds">seconds<a class="anchor" aria-label="anchor" href="#arg-seconds"></a></dt>
-<dd><p>numeric vector (0-60) for selection</p></dd>
 
 
 <dt id="arg-time">time<a class="anchor" aria-label="anchor" href="#arg-time"></a></dt>
@@ -215,6 +219,29 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :6.526  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:7.024  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :8.159  </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu">select</span><span class="op">(</span>data <span class="op">=</span> <span class="va">model</span>, day  <span class="op">=</span> <span class="st">'tue'</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       date                       Americana            SAndre      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :2012-01-03 00:00:00   Min.   : 0.01627   Min.   : 3.107  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:2012-01-03 11:45:00   1st Qu.: 5.51820   1st Qu.: 4.868  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :2012-01-06 23:30:00   Median :12.42998   Median :14.119  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :2012-01-06 23:30:00   Mean   :13.54270   Mean   :14.208  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:2012-01-10 11:15:00   3rd Qu.:17.70296   3rd Qu.:23.497  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :2012-01-10 23:00:00   Max.   :37.74826   Max.   :26.597  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      VVIbes     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :5.396  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:5.828  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :6.199  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :6.514  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:6.691  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :8.836  </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu">select</span><span class="op">(</span>data <span class="op">=</span> <span class="va">model</span>, day  <span class="op">=</span> <span class="st">'jan'</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       date       Americana       SAndre        VVIbes   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :NA    Min.   : NA   Min.   : NA   Min.   : NA  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:NA    1st Qu.: NA   1st Qu.: NA   1st Qu.: NA  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :NA    Median : NA   Median : NA   Median : NA  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :NaN   Mean   :NaN   Mean   :NaN   Mean   :NaN  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:NA    3rd Qu.: NA   3rd Qu.: NA   3rd Qu.: NA  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :NA    Max.   : NA   Max.   : NA   Max.   : NA  </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
