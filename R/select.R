@@ -3,14 +3,15 @@
 #' @description Utility function to select periods from a data.frame. This function is inspired by openair::selectByDate.
 #'
 #' @param data data.frame with model or observation data
+#' @param year numeric vector for selection
+#' @param month numeric vector (1-12) for selection, can be abbreviated to 3 or more letters
+#' @param day numeric vector (1-31) for selection, weekdays can be abbreviated to 3 or more letters, or weekday/weekend
+#' @param hour numeric vector (0-23) for selection
+#' @param minutes numeric vector (0-60) for selection
+#' @param seconds numeric vector (0-60) for selection
 #' @param start POSIXct or character (YYYY-MM-DD) with the initial date of selection
 #' @param end POSIXct or character (YYYY-MM-DD) with the initial date of selection
 #' @param range pair of start/end or a data.frame with time (default is "date")
-#' @param year numeric vector for selection
-#' @param month numeric vector (1-12) for selection, can be abbreviated to 3 letters
-#' @param day numeric vector (1-31) for selection, weekdays can be abbreviated to 3 letters, or weekday/weekend
-#' @param minutes numeric vector (0-60) for selection
-#' @param seconds numeric vector (0-60) for selection
 #' @param time name of the column for time (default is "date")
 #'
 #' @return data.frame
@@ -30,10 +31,12 @@
 #' summary(select(data = model, day = 6, hour = 12))
 #' summary(select(data = model, day  = 'weekday'))
 #' summary(select(data = model, day  = 'weekend'))
+#' summary(select(data = model, day  = 'tue'))
+#' summary(select(data = model, day  = 'jan'))
 
 select <- function (data,
-                    start, end, range,
                     year, month, day, hour, minutes, seconds,
+                    start, end, range,
                     time = "date")
 {
 
@@ -43,8 +46,6 @@ select <- function (data,
   hh <- function(x) as.numeric(format(x,"%H"))
   mi <- function(x) as.numeric(format(x,"%M"))
   ss <- function(x) as.numeric(format(x,"%S"))
-
-  weekday.names <- format(ISOdate(2000, 1, 3:9), "%A")
 
   if(!missing(range)){
     if(is.data.frame(range)){
@@ -105,6 +106,7 @@ select <- function (data,
       data <- data[which(dd(data[,time]) %in% day),]
     }
     else {
+      weekday.names <- format(ISOdate(2000, 1, 3:9), "%A")
       if (day[1] == "weekday") {
         days <- weekday.names[1:5]
       }

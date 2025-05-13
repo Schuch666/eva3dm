@@ -80,6 +80,6 @@ stat_p <- function(x, y, ...){
   return(table)
 }
 
-sat(mo = model_no2,ob = omi_no2,rname = 'NO2_statistical',eval_function = stat_p)
+sat(mo = model_no2,ob = omi_no2,rname = 'NO2_statistical_with_p',eval_function = stat_p)
 
 }

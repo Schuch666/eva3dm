@@ -6,36 +6,38 @@
 \usage{
 select(
   data,
-  start,
-  end,
-  range,
   year,
   month,
   day,
   hour,
   minutes,
   seconds,
+  start,
+  end,
+  range,
   time = "date"
 )
 }
 \arguments{
 \item{data}{data.frame with model or observation data}
 
+\item{year}{numeric vector for selection}
+
+\item{month}{numeric vector (1-12) for selection, can be abbreviated to 3 or more letters}
+
+\item{day}{numeric vector (1-31) for selection, weekdays can be abbreviated to 3 or more letters, or weekday/weekend}
+
+\item{hour}{numeric vector (0-23) for selection}
+
+\item{minutes}{numeric vector (0-60) for selection}
+
+\item{seconds}{numeric vector (0-60) for selection}
+
 \item{start}{POSIXct or character (YYYY-MM-DD) with the initial date of selection}
 
 \item{end}{POSIXct or character (YYYY-MM-DD) with the initial date of selection}
 
 \item{range}{pair of start/end or a data.frame with time (default is "date")}
-
-\item{year}{numeric vector for selection}
-
-\item{month}{numeric vector (1-12) for selection}
-
-\item{day}{numeric vector (1-31) for selection, or weekday/weekend}
-
-\item{minutes}{numeric vector (0-60) for selection}
-
-\item{seconds}{numeric vector (0-60) for selection}
 
 \item{time}{name of the column for time (default is "date")}
 }
@@ -56,6 +58,8 @@ summary(select(data = model, hour = 12))
 summary(select(data = model, day = 6, hour = 12))
 summary(select(data = model, day  = 'weekday'))
 summary(select(data = model, day  = 'weekend'))
+summary(select(data = model, day  = 'tue'))
+summary(select(data = model, day  = 'jan'))
 }
 \seealso{
 See \code{\link[eva3dm]{\%IN\%}} for selection based on position and model domains.
