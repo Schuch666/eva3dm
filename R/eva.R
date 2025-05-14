@@ -82,8 +82,7 @@
 eva <- function(mo, ob, rname = site, table = NULL,
                 site = 'ALL', wd = FALSE, fair = NULL,
                 cutoff = NA, cutoff_NME = NA, no_tz = FALSE,
-                nobs = 8, eval_function = stat,
-                select_time = nrow(ob) >= nrow(mo),
+                nobs = 8, eval_function = stat, select_time,
                 time = 'date', verbose = TRUE, ...){
 
   if(!is.data.frame(mo))
@@ -99,6 +98,10 @@ eva <- function(mo, ob, rname = site, table = NULL,
     ob <- as.data.frame(ob) # nocov
   if(length(class(mo)) > 1)
     mo <- as.data.frame(mo) # nocov
+
+  if(missing(select_time)){
+    select_time = nrow(ob) >= nrow(mo)
+  }
 
   if(select_time){
     ob <- select(data = ob, range = mo, time = time)

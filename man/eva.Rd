@@ -17,7 +17,7 @@ eva(
   no_tz = FALSE,
   nobs = 8,
   eval_function = stat,
-  select_time = nrow(ob) >= nrow(mo),
+  select_time,
   time = "date",
   verbose = TRUE,
   ...
