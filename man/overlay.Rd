@@ -8,10 +8,13 @@ overlay(
   p,
   z,
   col,
+  col2,
   lim = range(z, na.rm = TRUE),
   symmetry = TRUE,
   pch = 19,
+  pch2 = 1,
   cex = 1,
+  cex2 = 1.2 * cex,
   outside = TRUE,
   add = FALSE,
   plg = list(tic = "none", shrink = 1),
@@ -25,7 +28,9 @@ overlay(
 
 \item{z}{column name or a vector of values to plot}
 
-\item{col}{color}
+\item{col}{color for the point}
+
+\item{col2}{color for the outline}
 
 \item{lim}{range of values for scale}
 
@@ -33,7 +38,11 @@ overlay(
 
 \item{pch}{type of point}
 
+\item{pch2}{type of point for contour}
+
 \item{cex}{character expansion for the points}
+
+\item{cex2}{character expansion for the contour}
 
 \item{outside}{to include values outside range}
 
