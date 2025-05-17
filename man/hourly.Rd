@@ -38,12 +38,21 @@ data.frame with time and the hourly mean, min or max
 function to calculate Ozone Maximum Daily 8-hr Average or 8-hr moving Average for a data.frame
 }
 \examples{
+# in case there is connection issue
+load_data <- function(cond) {
+  message(paste("conection issue, loading pre-downloaded data"))
+  DATA <- readRDS(paste0(system.file("extdata",package="eva3dm"),
+                         "/riem_OAHR_jan_2012.Rds"))
+  return(DATA)
+}
+
 sites <- c("OAHR")
 for(site in sites){
-cat('downloading METAR from:',site,'...\n')
-DATA <- riem::riem_measures(station    = sites,
-                            date_start = "2012-01-01",
-                            date_end   = "2012-02-01")
+  cat('Trying to download METAR from:',site,'...\n')
+  DATA <- tryCatch(riem::riem_measures(station    = sites,
+                                       date_start = "2012-01-01",
+                                       date_end   = "2012-02-01"),
+                   error = load_data)
 }
 data_hourly_mean <- hourly(DATA,time = 'valid')
 data_hourly_min  <- hourly(DATA[1:7],time = 'valid',stat = min)
