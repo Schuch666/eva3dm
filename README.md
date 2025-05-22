@@ -13,7 +13,7 @@
 
 ## Introduction
 
-An R-package focusing on **EVA**luation of **3D** weather and air quality **M**odels, streamlining the entire workflow from data preparation to post-processing, statistical analysis, and visualization.
+An R-package focusing on **EVA**luation of **3D** weather and air quality **M**odels, streamlining the entire workflow from data preparation to post-processing, statistical analysis, and visualization **[1]**.
 
 Whether you're working with meteorological models like WRF or evaluating air quality simulations (WRF-Chem, CAMx, WACCM, etc), eva3dm provides a comprehensive toolkit to handle observational data, model outputs, and evaluation metrics in an efficient and reproducible manner.
 Key Features:
@@ -22,6 +22,8 @@ Key Features:
  - Statistical and categorical model evaluation
  - Custom plotting tools for spatial data and georeferencing evaluation results
  - Integration with other packages like `terra`, `ncdf4`, `qualR`, `riem` and `openair`
+
+**[1]** _Schuch, D., (2025). “eva3dm: A R-package for model evaluation of 3D weather and air quality models.” **Journal of Open Source Software**, 10(108), 7797, [doi:10.21105/joss.07797](https://doi.org/10.21105/joss.07797)_
 
 ## Instalation
 
