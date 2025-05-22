@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">eva3dm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.01</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,6 +16,10 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/workflow.html">Introduction to eva3dm</a></li>
+  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -67,36 +71,57 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">sites</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/sites_AQ_BR.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>lat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">22.72500</span>,<span class="op">-</span><span class="fl">23.64300</span>,<span class="op">-</span><span class="fl">20.34350</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                    lon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">47.34800</span>,<span class="op">-</span><span class="fl">46.49200</span>,<span class="op">-</span><span class="fl">40.31800</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                    row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Americana'</span>,<span class="st">'SAndre'</span>,<span class="st">'VVIbes'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                    stringsAsFactors <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">model</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/model.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obs</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/obs.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="eva.html">eva</a></span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model</span>, ob <span class="op">=</span> <span class="va">obs</span>, site <span class="op">=</span> <span class="st">'Americana'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># evaluation by station</span></span></span>
+<span class="r-in"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="eva.html">eva</a></span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model</span>, ob <span class="op">=</span> <span class="va">obs</span>, site <span class="op">=</span> <span class="st">"Americana"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Americana has 227 valid observations</span>
-<span class="r-in"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="eva.html">eva</a></span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model</span>, ob <span class="op">=</span> <span class="va">obs</span>, site <span class="op">=</span> <span class="st">'SAndre'</span>,table <span class="op">=</span> <span class="va">stats</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="eva.html">eva</a></span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model</span>, ob <span class="op">=</span> <span class="va">obs</span>, site <span class="op">=</span> <span class="st">"SAndre"</span>,table <span class="op">=</span> <span class="va">stats</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> SAndre has 207 valid observations</span>
-<span class="r-in"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="eva.html">eva</a></span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model</span>, ob <span class="op">=</span> <span class="va">obs</span>, site <span class="op">=</span> <span class="st">'VVIbes'</span>,table <span class="op">=</span> <span class="va">stats</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="eva.html">eva</a></span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model</span>, ob <span class="op">=</span> <span class="va">obs</span>, site <span class="op">=</span> <span class="st">"VVIbes"</span>,table <span class="op">=</span> <span class="va">stats</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> VVIbes has only 0 valid observations (lesser than 8 obs)</span>
+<span class="r-in"><span><span class="co"># evaluation using all stations</span></span></span>
+<span class="r-in"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="eva.html">eva</a></span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model</span>, ob <span class="op">=</span> <span class="va">obs</span>, site <span class="op">=</span> <span class="st">"ALL"</span>, table <span class="op">=</span> <span class="va">stats</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> combining all sites...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Americana  SAndre  VVIbes  ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ALL has 434 valid observations</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             n      Obs      Sim         r       IOA       FA2     RMSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Americana 227 40.92952 18.18197 0.6492022 0.5934335 0.4229075 32.47269</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> SAndre    207 60.62802 15.66744 0.6246762 0.4813952 0.1449275 59.21330</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> VVIbes      0       NA       NA        NA        NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ALL       434 50.32488 16.98265 0.5573867 0.5085711 0.2903226 47.15775</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                  MB       ME   NMB (%)  NME (%)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Americana -22.74754 24.10165 -55.57735 58.88575</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> SAndre    -44.96058 45.64932 -74.15808 75.29409</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> VVIbes           NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ALL       -33.34224 34.37900 -66.25398 68.31411</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">geo_stats</span> <span class="op">&lt;-</span> <span class="va">stats</span> <span class="op">%at%</span> <span class="va">sites</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> georeferencing stats at sites </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">geo_stats</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  class       : SpatVector </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  geometry    : none </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  dimensions  : 0, 0  (geometries, attributes)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  extent      : 0, 0, 0, 0  (xmin, xmax, ymin, ymax)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  geometry    : points </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  dimensions  : 3, 12  (geometries, attributes)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  extent      : -47.348, -40.318, -23.643, -20.3435  (xmin, xmax, ymin, ymax)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  coord. ref. :  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  names       :      site     n   Obs   Sim      r    IOA    FA2  RMSE     MB</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  type        :     &lt;chr&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;  &lt;num&gt;  &lt;num&gt;  &lt;num&gt; &lt;num&gt;  &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  values      : Americana   227 40.93 18.18 0.6492 0.5934 0.4229 32.47 -22.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   SAndre   207 60.63 15.67 0.6247 0.4814 0.1449 59.21 -44.96</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   VVIbes     0    NA    NA     NA     NA     NA    NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ME NMB (%) NME (%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  &lt;num&gt;   &lt;num&gt;   &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   24.1  -55.58   58.89</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  45.65  -74.16   75.29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     NA      NA      NA</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
