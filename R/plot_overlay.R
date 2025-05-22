@@ -4,11 +4,14 @@
 #'
 #' @param p SpatVector points
 #' @param z column name or a vector of values to plot
-#' @param col color
+#' @param col color for the point
+#' @param col2 color for the outline
 #' @param lim range of values for scale
 #' @param symmetry calculate symmetrical scale
 #' @param pch type of point
+#' @param pch2 type of point for contour
 #' @param cex character expansion for the points
+#' @param cex2 character expansion for the contour
 #' @param outside to include values outside range
 #' @param add add to existing plot
 #' @param plg list of parameters passed to terra::add_legend
@@ -40,11 +43,13 @@
 #' terra::lines(BR)
 #' terra::lines(sp, col = 'gray')
 #'
-overlay <- function(p,z,col,
+overlay <- function(p,z,col,col2,
                     lim      = range(z, na.rm = TRUE),
                     symmetry = TRUE,
                     pch      = 19,
+                    pch2     = 1,
                     cex      = 1.0,
+                    cex2     = 1.2 * cex,
                     outside  = TRUE,
                     add      = FALSE,
                     plg      = list(tic = 'none',shrink=1.00),
@@ -58,6 +63,9 @@ overlay <- function(p,z,col,
     z <- 'NMB (%)'       # nocov
   if(is.character(z)){
     z <- as.data.frame(p[,z])[,1] # nocov
+  }
+  if(missing(col2)){
+    col2 = 'black'
   }
 
   if(missing(col))
@@ -94,7 +102,23 @@ overlay <- function(p,z,col,
   colz   <- colz[-1]
   colz   <- colz[-length(colz)]
 
+  if(length(col2) > 1){
+    nlevels = length(col2)                                    # nocov
+    levels <- seq(lim[1],lim[2],length.out = nlevels)         # nocov
+    colz2  <- col2[cut(c(lim[1],z,lim[2]),nlevels,            # nocov
+                       include.lowest = TRUE,labels = FALSE)] # nocov
+    colz2  <- colz2[-1]                                       # nocov
+    colz2  <- colz2[-length(colz2)]                           # nocov
+  }else{
+    colz2 = col2
+  }
+
   ge <- terra::geom(p)
+  points(x = ge[,'x'],
+         y = ge[,'y'],
+         col = colz2,
+         pch = pch2,
+         cex = cex2, ... )
   points(x = ge[,'x'],
          y = ge[,'y'],
          col = colz,

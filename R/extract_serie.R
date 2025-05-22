@@ -5,7 +5,8 @@
 #' @param filelist list of files to be read
 #' @param point data.frame with lat/lon
 #' @param variable variable name
-#' @param field '4d' (defoult), '3d', '2d' or '2dz' see notes
+#' @param field '4d' (default), '3d', '2d' or '2dz' see notes
+#' @param level model level to be extracted
 #' @param prefix to output file, default is serie
 #' @param new TRUE, FALSE of 'check' see notes
 #' @param return.nearest return the data.frame of nearest points instead of extract the serie
@@ -38,13 +39,16 @@
 #' cat('Example 1: METAR site list\n')
 #' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_METAR.Rds"))
 #'
-#' cat('Example 2: AERONET site list\n')
+#' cat('Example 2: Integrated Surface Dataset (ISD) site list\n')
+#' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_ISD.Rds"))
+#'
+#' cat('Example 4: AERONET site list\n')
 #' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AERONET.Rds"))
 #'
-#' cat('Example 3: list of INMET stations on Brazil\n')
+#' cat('Example 5: list of INMET stations on Brazil\n')
 #' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_INMET.Rds"))
 #'
-#' cat('Example 4: list of Air Quality stations on Brazil\n')
+#' cat('Example 6: list of Air Quality stations on Brazil\n')
 #' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AQ_BR.Rds"))
 #'
 #' files    <- dir(path = system.file("extdata",package="eva3dm"),
@@ -57,7 +61,7 @@
 #' extract_serie(filelist = files, point = sites[1:3,],prefix = paste0(folder,'/serie'))
 #'
 
-extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
+extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 1,
                           prefix = 'serie',new = 'check', return.nearest = FALSE,
                           fast = FALSE, use_ij = FALSE,
                           latitude = 'XLAT',longitude = 'XLONG',
@@ -188,7 +192,11 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
 
   if(verbose){
     print(stations)
-    cat('reading',variable,':',filelist[1],'file 1 of',length(filelist),'\n')
+    if(level == 1){
+      cat('reading',variable,':',filelist[1],'file 1 of',length(filelist),'\n')
+    }else{
+      cat('reading',variable,':',filelist[1],'file 1 of',length(filelist),paste0('(model level ',level,')'),'\n') # nocov
+    }
   }
 
   if(use_TFLAG){
@@ -217,15 +225,25 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
     times  <- as.POSIXlt(TIME, tz = "UTC", format="%Y-%m-%d_%H:%M:%OS", optional=FALSE)
   }
 
-  if(field == '2d')            # 2d Field (x,y)
-    contagem  = NA             # nocov
-  if(field == '2dz')           # 3d Field (x,y,z)
-    contagem = c(-1,-1,1)      # nocov
-  if(field == '3d')            # 3d Field (x,y,t)
-    contagem  = NA             # nocov
+  if(field == '2d')                # 2d Field (x,y)
+    contagem  = NA                 # nocov
+  if(field == '2dz')               # 3d Field (x,y,z)
+    contagem = c(-1,-1,1)          # nocov
+  if(field == '3d')                # 3d Field (x,y,t)
+    contagem  = NA                 # nocov
   if(field == '4d')
-    contagem = c(-1,-1,1,-1)   # 4d Field (x,y,z,t)
-  var     <- ncvar_get(wrf,variable,count = contagem)
+    contagem = c(-1,-1,1,-1)       # 4d Field (x,y,z,t)
+
+  if(field == '2d')                # 2d Field (x,y)
+    comeco = NA                    # nocov
+  if(field == '2dz')               # 3d Field (x,y,z)
+    comeco = c(1,1,level)          # nocov
+  if(field == '3d')                # 3d Field (x,y,t)
+    comeco  = NA                   # nocov
+  if(field == '4d')
+    comeco = c(1,1,level,1)        # 4d Field (x,y,z,t)
+
+  var     <- ncvar_get(wrf,variable,count = contagem,start = comeco)
   nc_close(wrf)
 
   serie <- as.data.frame(times)
@@ -249,8 +267,14 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
 
   if(length(filelist) > 1){
     for(i in 2:length(filelist)){
-      if(verbose)
-        cat('reading',variable,':',filelist[i],'file',i,'of',length(filelist),'\n')
+
+      if(verbose){
+        if(level == 1){
+          cat('reading',variable,':',filelist[i],'file',i,'of',length(filelist),'\n')
+        }else{
+          cat('reading',variable,':',filelist[i],'file',i,'of',length(filelist),paste0('(model level ',level,')'),'\n') # nocov
+        }
+      }
 
       wrf   <- nc_open(filelist[i])
       lat   <- ncvar_get(wrf,latitude)
@@ -290,7 +314,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',
         times  <- as.POSIXlt(TIME, tz = "UTC", format="%Y-%m-%d_%H:%M:%OS", optional=FALSE)
       }
 
-      var      <- ncvar_get(wrf,variable,count = contagem)
+      var      <- ncvar_get(wrf,variable,count = contagem, start = comeco)
       nc_close(wrf)
 
       serie <- as.data.frame(times)

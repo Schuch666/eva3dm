@@ -9,6 +9,7 @@ extract_serie(
   point,
   variable = "o3",
   field = "4d",
+  level = 1,
   prefix = "serie",
   new = "check",
   return.nearest = FALSE,
@@ -29,7 +30,9 @@ extract_serie(
 
 \item{variable}{variable name}
 
-\item{field}{'4d' (defoult), '3d', '2d' or '2dz' see notes}
+\item{field}{'4d' (default), '3d', '2d' or '2dz' see notes}
+
+\item{level}{model level to be extracted}
 
 \item{prefix}{to output file, default is serie}
 
@@ -74,13 +77,16 @@ The site-list of two global data-sets (METAR and AERONET) are provided on exampl
 cat('Example 1: METAR site list\n')
 sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_METAR.Rds"))
 
-cat('Example 2: AERONET site list\n')
+cat('Example 2: Integrated Surface Dataset (ISD) site list\n')
+sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_ISD.Rds"))
+
+cat('Example 4: AERONET site list\n')
 sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AERONET.Rds"))
 
-cat('Example 3: list of INMET stations on Brazil\n')
+cat('Example 5: list of INMET stations on Brazil\n')
 sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_INMET.Rds"))
 
-cat('Example 4: list of Air Quality stations on Brazil\n')
+cat('Example 6: list of Air Quality stations on Brazil\n')
 sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AQ_BR.Rds"))
 
 files    <- dir(path = system.file("extdata",package="eva3dm"),

@@ -18,9 +18,9 @@ data.frame with common columns or a cropped SpatRaster
 results of 'd01 in d02' style syntax
 }
 \note{
-a message is always displayed to keep easy to track and debug issues (with the results and the evaluation process).
+A message is always displayed to keep easy to track and debug issues (with the results and the evaluation process).
 
-can be used to crop rast objects, such as arguments of sat() function
+Can be used to crop rast objects, such as arguments of sat() function
 }
 \examples{
 times <- seq(as.POSIXct('2024-01-01',tz = 'UTC'),
@@ -55,4 +55,8 @@ eva(mo = model_d01 \%IN\% model_d02, ob = observation, rname = 'd01 in d02')
 # or
 eva(mo = model_d01, ob = observation \%IN\% model_d02, rname = 'd01 in d02')
 
+
+}
+\seealso{
+See \code{\link[eva3dm]{select}} for selection based on time.
 }

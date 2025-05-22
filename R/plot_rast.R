@@ -175,11 +175,16 @@ plot_rast <- function(r,
       ax$side <- 1 # nocov
     }
     pax <- c(pax,ax)
+    plot_axes = TRUE
+  }else{
+    ax  <- list()     # nocov
+    plot_axes = FALSE # nocov
   }
 
   extra <- function(){
     if(grid){
-      terra::lines(terra::graticule(lon = vet_lon,lat = vet_lat,
+      terra::lines(terra::graticule(lon = seq(-180,180,by = grid_int),
+                                    lat = vet_lat,
                                     crs = terra::crs(r,proj=TRUE)),
                    lty = 3, col = grid_col,lwd = 1.2)
     }
@@ -224,7 +229,7 @@ plot_rast <- function(r,
 
     terra::plot(r_log, col = color,
                 plg = c(plg,arg), pax = pax,
-                axe = TRUE,
+                axe = plot_axes,
                 grid = FALSE,fun = extra,
                 range = c(min,max),
                 ...)
@@ -233,7 +238,7 @@ plot_rast <- function(r,
     b = as.numeric( terra::global(r2,'min',na.rm = TRUE) )
     if(!is.na(a) & a == b)
       plg=list()
-    terra::plot(r2, col = color, plg = plg, pax = pax,axe = TRUE,
+    terra::plot(r2, col = color, plg = plg, pax = pax,axe = plot_axes,
                 grid = FALSE,fun = extra, range = range, ...)
   }
 }
@@ -245,7 +250,7 @@ latlon <- function(r,int,e,tn = 100) {
   proj <-  terra::crs(r,proj=TRUE)
 
   # latitude
-  vet_lon <- seq(-80,80,by = int)
+  vet_lon <- c(-seq(80,int,by = -int),0,seq(int,80,by = int))
   lab_lon <- c(paste0(seq(80,int,by=-int),"\u00baS"),'0',
                paste0(seq(int,80,by=int),"\u00baN"))
 
@@ -259,7 +264,7 @@ latlon <- function(r,int,e,tn = 100) {
   tfcn         <- custom_approxfun(axis_coords[,2], ty)
 
   # longitude
-  vet_lat <- seq(-180,180,by = int)
+  vet_lat <- c(-seq(180,int,by = -int),0,seq(int,180,by = int))
   lab_lat <- c(paste0(seq(180,int,by=-int),"\u00baW"),'0',
                paste0(seq(int,180,by=int),"\u00baE"))
 

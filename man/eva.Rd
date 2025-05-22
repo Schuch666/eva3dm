@@ -17,6 +17,7 @@ eva(
   no_tz = FALSE,
   nobs = 8,
   eval_function = stat,
+  select_time,
   time = "date",
   verbose = TRUE,
   ...
@@ -46,6 +47,8 @@ eva(
 \item{nobs}{minimum number of valid observations, default is 8}
 
 \item{eval_function}{evaluation function (default is stat)}
+
+\item{select_time}{select the observation (ob) using time from model (mo) data.frame}
 
 \item{time}{name of the time column (containing time in POSIXct)}
 
@@ -100,6 +103,18 @@ print(table)
 # calculating categorical (using 2 for threshold) with a few observed values
 table <- eva(mo = model, ob = obs, site = "Americana",
              eval_function = cate, threshold = 10)
+print(table)
+
+# customizing the evaluation function: inclusion of p.value from stats::cor.test()
+stat_p <- function(x, y, ...){
+  table         <- eva3dm::stat(x, y, ...)
+  cor.result    <- stats::cor.test(x, y, ... )
+  table$p.value <- cor.result$p.value
+  table         <- table[,c(1:4,12,5:11)]
+  return(table)
+}
+
+table <- eva(mo = model, ob = obs, site = "Americana",eval_function = stat_p)
 print(table)
 
 }
