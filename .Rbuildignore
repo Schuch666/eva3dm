@@ -7,8 +7,9 @@
 ^man\figures\*.gif
 ^codecov\.yml$
 README.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
 ^paper.*
 ^joss*
 ^MIT
-^doc$
 ^Meta$
