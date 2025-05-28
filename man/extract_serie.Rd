@@ -20,6 +20,7 @@ extract_serie(
   use_TFLAG = FALSE,
   use_datesec = FALSE,
   id = "id",
+  remove_ch = FALSE,
   verbose = TRUE
 )
 }
@@ -53,6 +54,8 @@ extract_serie(
 \item{use_datesec}{use the variable date and datesec (WACCM / CAM-Chem) instead of Times (WRF)}
 
 \item{id}{name of the column with station names, if point is a SpatVector (points) from terra package}
+
+\item{remove_ch}{remove special characters on row.names}
 
 \item{verbose}{display additional information}
 }

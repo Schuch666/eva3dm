@@ -17,6 +17,7 @@
 #' @param use_TFLAG use the variable TFLAG (CMAQ / smoke) instead of Times (WRF)
 #' @param use_datesec use the variable date and datesec (WACCM / CAM-Chem) instead of Times (WRF)
 #' @param id name of the column with station names, if point is a SpatVector (points) from terra package
+#' @param remove_ch remove special characters on row.names
 #' @param verbose display additional information
 #'
 #' @return No return value
@@ -66,6 +67,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
                           fast = FALSE, use_ij = FALSE,
                           latitude = 'XLAT',longitude = 'XLONG',
                           use_TFLAG = FALSE,use_datesec = FALSE,id = 'id',
+                          remove_ch = FALSE,
                           verbose = TRUE){
 
   if(class(point) %in% 'SpatVector'){
@@ -77,6 +79,9 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
     row.names(new_p) <- new_id[,id]
     point  <- new_p
   }
+
+  if(remove_ch)
+    row.names(point) <- iconv(row.names(point), from = 'UTF-8', to = 'ASCII//TRANSLIT') # nocov
 
   output_file  <- paste0(prefix,'.',variable,'.Rds')
 

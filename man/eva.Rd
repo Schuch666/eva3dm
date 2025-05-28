@@ -19,6 +19,7 @@ eva(
   eval_function = stat,
   select_time,
   time = "date",
+  remove_ch = FALSE,
   verbose = TRUE,
   ...
 )
@@ -51,6 +52,8 @@ eva(
 \item{select_time}{select the observation (ob) using time from model (mo) data.frame}
 
 \item{time}{name of the time column (containing time in POSIXct)}
+
+\item{remove_ch}{remove special characters on column names}
 
 \item{verbose}{display additional information}
 

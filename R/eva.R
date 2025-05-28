@@ -19,6 +19,7 @@
 #' @param eval_function evaluation function (default is stat)
 #' @param select_time select the observation (ob) using time from model (mo) data.frame
 #' @param time name of the time column (containing time in POSIXct)
+#' @param remove_ch remove special characters on column names
 #' @param verbose display additional information
 #' @param ... arguments to be passing to stats and plot
 #'
@@ -83,7 +84,8 @@ eva <- function(mo, ob, rname = site, table = NULL,
                 site = 'ALL', wd = FALSE, fair = NULL,
                 cutoff = NA, cutoff_NME = NA, no_tz = FALSE,
                 nobs = 8, eval_function = stat, select_time,
-                time = 'date', verbose = TRUE, ...){
+                time = 'date', remove_ch = FALSE,
+                verbose = TRUE, ...){
 
   if(!is.data.frame(mo))
     stop('mo must be a data.frame') # nocov
@@ -105,6 +107,11 @@ eva <- function(mo, ob, rname = site, table = NULL,
 
   if(select_time){
     ob <- select(data = ob, range = mo, time = time)
+  }
+
+  if(remove_ch){
+    names(mo) <- iconv(names(mo), from = 'UTF-8', to = 'ASCII//TRANSLIT') # nocov
+    names(ob) <- iconv(names(ob), from = 'UTF-8', to = 'ASCII//TRANSLIT') # nocov
   }
 
   if(site == "ALL"){

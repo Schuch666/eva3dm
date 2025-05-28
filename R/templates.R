@@ -187,7 +187,7 @@ append = FALSE)
       cat(' folder ',paste0(root,'WRF/',case),': link wrf output files here!
  bash ',   paste0(root,'post-R_wrf.sh'),': post processing job script
  r-script',paste0(root,'extract_metar.R'),': source code to extract metar using eva3dm::extract_serie()
- r-script',paste0(root,'extract_inpet.R'),': source code to extract inmet using eva3dm::extract_serie()\n')
+ r-script',paste0(root,'extract_inmet.R'),': source code to extract inmet using eva3dm::extract_serie()\n')
   }
 
 ### SETUP of METEOROLOGY POST for 3 domains
@@ -659,8 +659,10 @@ if(template == 'METAR'){
              recursive = TRUE,
              showWarnings = FALSE)
 
-  cat('library("eva3dm")
+  cat(paste0('library("eva3dm")
 library("riem")
+
+setwd("',root,'")
 
 # set a folder to save the data start / end dates
 root_folder <- "METAR"
@@ -676,11 +678,16 @@ sites      <- extract_serie(filelist       = "wrfinput_d01",
                             return.nearest = T)
 
 for(site in row.names(sites)){
-  cat("downloading METAR from:",site,"...\\n")
+  cat("downloading METAR from:",site,grep(site,row.names(sites)),"of",length(row.names(sites)),"...\\n")
 
   DATA <- riem_measures(station    = site,
                         date_start = start_date,
-                        date_end   = end_date)
+                        date_end   = end_date,,
+                        latlon     = TRUE)
+  if(is.null(DATA)){
+    cat(\'skiping\', site,\'\\n\')
+    next
+  }
 
   DATA <- as.data.frame(DATA)
 
@@ -705,12 +712,12 @@ for(site in row.names(sites)){
 
 cat("download completed!")
 
-  ',
+  '),
 file = paste0(root,'download_METAR.R'),
 append = FALSE)
 
   if(verbose)
-    cat(' folder ',paste0(root),': copy wrfinput_d01 gere!
+    cat(' folder ',paste0(root),': copy wrfinput_d01 here!
  folder ',paste0(root,'METAR'),': destination folder
  r-script',paste0(root,'download_METAR.R'),': script that download metar data using riem package and information from eva3dm and wrfinput_d01 file\n')
 }
