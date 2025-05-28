@@ -64,6 +64,7 @@
 <span>  use_TFLAG <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  use_datesec <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  id <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>  remove_ch <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -132,6 +133,10 @@
 <dd><p>name of the column with station names, if point is a SpatVector (points) from terra package</p></dd>
 
 
+<dt id="arg-remove-ch">remove_ch<a class="anchor" aria-label="anchor" href="#arg-remove-ch"></a></dt>
+<dd><p>remove special characters on row.names</p></dd>
+
+
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>display additional information</p></dd>
 
@@ -195,7 +200,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> reading o3 : /home/runner/work/_temp/Library/eva3dm/extdata/wrf.day1.o3.nc file 1 of 3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> reading o3 : /home/runner/work/_temp/Library/eva3dm/extdata/wrf.day2.o3.nc file 2 of 3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> reading o3 : /home/runner/work/_temp/Library/eva3dm/extdata/wrf.day3.o3.nc file 3 of 3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> output: /tmp/RtmpPOqlt9/SERIE/serie.o3.Rds </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> output: /tmp/Rtmp6jWBgF/SERIE/serie.o3.Rds </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -208,7 +213,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer></div>
