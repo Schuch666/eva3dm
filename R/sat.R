@@ -69,9 +69,9 @@ sat <- function(mo,ob,rname, table = NULL,
 
   cut_boundary <- function(x, n,value = NA, verbose = FALSE){
 
-    if(verbose) cat(paste0('removing ',n,' points for the model (y) boundaryes ...\n'))
-
     if(n < 1) return(x) # nocov
+
+    if(verbose) cat(paste0('removing ',n,' points for the model (mo) lateral boundaryes ...\n'))
 
     if(nlyr(x) == 1){ # for 2d rast
       A       <- matrix(values(x),
@@ -97,10 +97,15 @@ sat <- function(mo,ob,rname, table = NULL,
     }
   }
 
+  if(n >= ncol(mo)/2 | n >= nrow(mo)/2){
+    warning('n is too small, setting n = 0')       # nocov
+    n = 0                                          # nocov
+  }
+
   model <- cut_boundary(mo, n = n, verbose = verbose)
 
   if(!skip_interp){
-    if(verbose) cat('interpolating obs. (x) to model grid (y) ...\n')
+    if(verbose) cat('interpolating obsservation (ob) to model grid (mo) ...\n')
     obser <- interp(x = ob, y = mo, method = method, mask = mask, verbose = verbose)
   }else{
     if(verbose) cat('skiping interpolation ...\n') # nocov
