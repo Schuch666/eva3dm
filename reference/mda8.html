@@ -75,6 +75,10 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>data.frame with time and the maximum daily 8-hr average</p>
     </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="ma8h.html">ma8h</a></code> for 8-hour Moving Average</p></div>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -83,11 +87,11 @@
 <span class="r-in"><span><span class="va">model</span>      <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="va">model_file</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">model_mda8</span> <span class="op">&lt;-</span> <span class="fu">mda8</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> processing hourly data ... </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> processing 8-hour moving avarage ... </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> processing maximum daily 8h average ... </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> processing daily maximum ... </span>
 <span class="r-in"><span><span class="va">model_8h</span>   <span class="op">&lt;-</span> <span class="fu"><a href="ma8h.html">ma8h</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> processing hourly data ... </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> processing 8-hour moving avarage ... </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> processing maximum daily 8h average ... </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">date</span>,<span class="va">model</span><span class="op">$</span><span class="va">Campinas</span>, pch <span class="op">=</span> <span class="fl">19</span>,</span></span>
 <span class="r-in"><span>     main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">O</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">~</span><span class="op">~</span><span class="st">'['</span><span class="op">*</span><span class="va">mu</span><span class="op">*</span><span class="va">g</span><span class="op">*</span><span class="va">m</span><span class="op">^</span><span class="op">-</span><span class="fl">3</span><span class="op">*</span><span class="st">']'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">model_8h</span><span class="op">$</span><span class="va">date</span>,<span class="va">model_8h</span><span class="op">$</span><span class="va">Campinas</span>, col <span class="op">=</span> <span class="st">'blue'</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span></span>
