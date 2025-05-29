@@ -8,6 +8,8 @@
 #' @param verbose display additional information
 #' @param ... parameters passed to hourly
 #'
+#' @seealso \code{\link{mda8}} for Maximum Daily 8-hour moving average
+#'
 #' @return data.frame with time and the 8-hour moving average
 #'
 #' @export
@@ -31,7 +33,7 @@ ma8h <- function(data, time = 'date', var, verbose = TRUE, ...) {
   }
 
   if(verbose)
-    cat('processing 8-hour moving avarage ... \n')
+    cat('processing maximum daily 8h average ... \n')
 
   moving_average <- function(x, n = 8) {
     if (n > length(x)) {
@@ -58,6 +60,6 @@ ma8h <- function(data, time = 'date', var, verbose = TRUE, ...) {
     output        <- cbind(output,new_var = data$roll_avg)
   }
   names(output) <- c(time,VARS)
-  class(output) <- c("data.frame","8h-hour moving avarage")
+  class(output) <- c("data.frame","maximum daily 8h average")
   return(output)
 }

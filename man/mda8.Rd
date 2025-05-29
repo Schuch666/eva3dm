@@ -37,3 +37,6 @@ legend('topleft',bty = 'n',
        legend = c('hourly','8h-mov average','MD8A'),
        col = c('black','blue','red'))
 }
+\seealso{
+\code{\link{ma8h}} for 8-hour Moving Average
+}

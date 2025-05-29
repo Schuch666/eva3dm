@@ -9,6 +9,8 @@
 #'
 #' @return data.frame with time and the maximum daily 8-hr average
 #'
+#' @seealso \code{\link{ma8h}} for 8-hour Moving Average
+#'
 #' @importFrom stats as.formula
 #' @export
 #'
@@ -28,13 +30,13 @@
 #'        legend = c('hourly','8h-mov average','MD8A'),
 #'        col = c('black','blue','red'))
 mda8 <- function(data, time = 'date', var, verbose = TRUE) {
-  if(!'8h-hour moving avarage' %in% class(data)){
+  if(!'8-hour moving avarage' %in% class(data)){
     ma8h <- ma8h(data = data, time = time, var = var, verbose = verbose)
   }else{
     ma8h <- data # nocov
   }
   if(verbose) cat('processing daily maximum ... \n')
   output <- daily(data = ma8h, time = time, var = var, verbose = FALSE, stat = max)
-  class(output) <- c("data.frame","maximum daily 8h avarage")
+  class(output) <- c("data.frame","maximum daily 8h average")
   return(output)
 }

@@ -36,3 +36,6 @@ legend('topleft',bty = 'n',
        legend = c('hourly','8h-mov average'),
        col = c('black','blue'))
 }
+\seealso{
+\code{\link{mda8}} for Maximum Daily 8-hour moving average
+}
