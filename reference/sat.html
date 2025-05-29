@@ -140,8 +140,8 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># generate the statistical indexes</span></span></span>
 <span class="r-in"><span><span class="fu">sat</span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model_no2</span>,ob <span class="op">=</span> <span class="va">omi_no2</span>,rname <span class="op">=</span> <span class="st">'NO2_statistical'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> removing 6 points for the model (y) boundaryes ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> interpolating obs. (x) to model grid (y) ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> removing 6 points for the model (mo) lateral boundaryes ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> interpolating obsservation (ob) to model grid (mo) ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     n      Obs      Sim         r       IOA       FA2    RMSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NO2_statistical 11664 3.334283 4.267475 0.4689121 0.3358893 0.6685528 4.98183</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        MB       ME  NMB (%)  NME (%)</span>
@@ -150,8 +150,8 @@
 <span class="r-in"><span><span class="co"># generate categorical evaluation using 3.0 as threshold</span></span></span>
 <span class="r-in"><span><span class="fu">sat</span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model_no2</span>,ob <span class="op">=</span> <span class="va">omi_no2</span>,rname <span class="op">=</span> <span class="st">'NO2_categorical'</span>,</span></span>
 <span class="r-in"><span>    eval_function <span class="op">=</span> <span class="va">cate</span>, threshold <span class="op">=</span> <span class="fl">3.0</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> removing 6 points for the model (y) boundaryes ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> interpolating obs. (x) to model grid (y) ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> removing 6 points for the model (mo) lateral boundaryes ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> interpolating obsservation (ob) to model grid (mo) ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     n      Obs      Sim thr        A      CSI      POD        B</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NO2_categorical 11664 3.334283 4.267475   3 83.04184 69.81074 85.49533 107.9626</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      FAR      HSS      PSS</span>
@@ -167,8 +167,8 @@
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">sat</span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model_no2</span>,ob <span class="op">=</span> <span class="va">omi_no2</span>,rname <span class="op">=</span> <span class="st">'NO2_statistical_with_p'</span>,eval_function <span class="op">=</span> <span class="va">stat_p</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> removing 6 points for the model (y) boundaryes ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> interpolating obs. (x) to model grid (y) ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> removing 6 points for the model (mo) lateral boundaryes ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> interpolating obsservation (ob) to model grid (mo) ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                            n      Obs      Sim         r p.value       IOA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NO2_statistical_with_p 11664 3.334283 4.267475 0.4689121       0 0.3358893</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                              FA2    RMSE        MB       ME  NMB (%)  NME (%)</span>
