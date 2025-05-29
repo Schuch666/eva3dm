@@ -27,7 +27,7 @@
 #'
 #' @import terra
 #'
-#' @note color scale includes: 'eva3r' (default), 'eva4', 'blues' and 'diff'
+#' @note color scales including: 'eva3', 'eva4', 'blues', 'diff', and 'rain'. Also reverse version with addition of a r ('eva3r' is the default).
 #'
 #' @export
 #'
@@ -90,6 +90,18 @@ plot_rast <- function(r,
       color <- color(ncolor) # nocov
     }
   }
+  if(color[1] == 'eva3')
+    # eva 3 colors reverse
+    color <- c("#AD7AD7","#A670CF","#9F67C7","#995EBF","#9255B7",
+               "#8C4CAF","#8542A7","#7F39A0","#783098","#722790",
+               "#6E228C","#732E97","#783AA2","#7D47AD","#8253B9",
+               "#875FC4","#8C6BCF","#9178DA","#9684E6","#9B90F1",
+               "#9C95F4","#948DED","#8D86E5","#857EDD","#7E77D5",
+               "#766FCE","#6F68C6","#6760BE","#6059B6","#5851AF",
+               "#5B57A8","#6365A1","#6B739A","#748294","#7C908D",
+               "#849E86","#8DAC80","#95BA79","#9DC872","#A6D76C",
+               "#A1D466","#99CC60","#90C55B","#88BE55","#80B650",
+               "#78AF4A","#6FA844","#67A03F","#5F9939","#579234")
   if(color[1] == 'eva3r')
     # eva 3 colors reverse
     color <- rev(c("#AD7AD7","#A670CF","#9F67C7","#995EBF","#9255B7",
@@ -116,6 +128,19 @@ plot_rast <- function(r,
                "#C7B249","#DDB94D","#F4C052","#EDB44D","#E6A948",
                "#DF9D43","#D9923E","#D28639","#CB7B34","#C5702F")
 
+  if(color[1] == 'eva4r')
+    # eva 4 colors
+    color <- rev(c("#AD7AD7","#A36DCC","#9A60C1","#9153B6","#8846AB",
+                   "#7F39A0","#762C94","#6D208A","#743199","#7B42A9",
+                   "#8253B9","#8964C8","#9075D8","#9786E8","#9F98F8",
+                   "#948DED","#8A83E2","#7F78D7","#756ECC","#6A63C1",
+                   "#6059B6","#564FAC","#6162A2","#6D7699","#798A90",
+                   "#849E86","#90B27D","#9CC674","#A8DA6B","#9CCF63",
+                   "#90C55B","#85BB53","#79B04B","#6EA643","#629C3B",
+                   "#579234","#6D9838","#839F3C","#9AA540","#B0AC45",
+                   "#C7B249","#DDB94D","#F4C052","#EDB44D","#E6A948",
+                   "#DF9D43","#D9923E","#D28639","#CB7B34","#C5702F"))
+
   if(color[1] == 'blues')
     # desaturated blue
     color <- c("#08306B","#133A72","#1F4479","#2B4E81","#375888",
@@ -140,6 +165,41 @@ plot_rast <- function(r,
                "#FEFAE6","#FDF0B4","#FDDA7C","#FEBC48",
                "#FB992F","#F7762B","#E84E29","#D72828",
                "#B81B22","#97161A","#921519")
+  if(color[1] == 'diffr')
+    # diff including dark_blue - cyan - white - orange - dark_red
+    color <- rev(c("#1B2C62","#204385","#265CA9","#4082C2",
+                   "#5DA9DB","#80C4EA","#A4DDF7","#C1E7F8",
+                   "#DEF2FA","#F2FAFD","#FFFFFF","#FFFFFF",
+                   "#FEFAE6","#FDF0B4","#FDDA7C","#FEBC48",
+                   "#FB992F","#F7762B","#E84E29","#D72828",
+                   "#B81B22","#97161A","#921519"))
+
+  if(color[1] == 'rain')
+    # diff including crean - litgh_blue - dark_blue
+    color <- c("#FFFAEB","#F5F5EB","#ECF0EB","#E3ECEC","#DAE7EC",
+               "#D1E3ED","#C7DEED","#BED9EE","#B5D5EE","#ACD0EF",
+               "#A3CCEF","#99C7F0","#90C2F0","#87BEF1","#7EB9F1",
+               "#77B4F1","#74AFEE","#71AAEC","#6DA5EA","#6AA0E7",
+               "#679BE5","#6396E3","#6091E0","#5D8CDE","#5A87DC",
+               "#5681DA","#537CD7","#5077D5","#4C72D3","#496DD0",
+               "#4668CE","#4363CC","#3F5ECA","#3C59C7","#3954C5",
+               "#354FC3","#324AC0","#2F44BE","#2C3FBC","#283AB9",
+               "#2535B7","#2230B5","#1E2BB3","#1B26B0","#1821AE",
+               "#151CAC","#1117A9","#0E12A7","#0B0DA5","#0808A3")
+
+  if(color[1] == 'rainr')
+    # diff including crean - litgh_blue - dark_blue
+    color <- rev(c("#FFFAEB","#F5F5EB","#ECF0EB","#E3ECEC","#DAE7EC",
+                   "#D1E3ED","#C7DEED","#BED9EE","#B5D5EE","#ACD0EF",
+                   "#A3CCEF","#99C7F0","#90C2F0","#87BEF1","#7EB9F1",
+                   "#77B4F1","#74AFEE","#71AAEC","#6DA5EA","#6AA0E7",
+                   "#679BE5","#6396E3","#6091E0","#5D8CDE","#5A87DC",
+                   "#5681DA","#537CD7","#5077D5","#4C72D3","#496DD0",
+                   "#4668CE","#4363CC","#3F5ECA","#3C59C7","#3954C5",
+                   "#354FC3","#324AC0","#2F44BE","#2C3FBC","#283AB9",
+                   "#2535B7","#2230B5","#1E2BB3","#1B26B0","#1821AE",
+                   "#151CAC","#1117A9","#0E12A7","#0B0DA5","#0808A3"))
+
   # nocov end
   e_o     <- ext(r)
   Points  <- vect(cbind(x = e_o[1:2], y = e_o[3:4]),
