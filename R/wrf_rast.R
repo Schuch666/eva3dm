@@ -65,7 +65,7 @@ wrf_rast <- function(file = file.choose(),
     POL   <- ncdf4::ncvar_get(wrf,name, ... )
   }
   if(verbose) cat(paste0('reading ',name,' from ', file,'\n'))      # nocov
-  if(verbose) cat(paste("creating RAST for",name,'\n'))             # nocov
+  if(verbose) cat(paste("creating SpatRaster for",name,'\n'))       # nocov
 
   if(missing(map)){                                                 # nocov
     coord_file = file                                               # nocov
@@ -192,11 +192,11 @@ wrf_rast <- function(file = file.choose(),
     if(length(dim(POL)) == 4){ # nocov start
       if(missing(times)){
         if(verbose)
-          cat('eva3dm::wrf_rast support 3d SpatRaster, using all times and level',level,'\n')
+          cat('eva3dm::wrf_rast support 3d SpatRaster, using all times and level',level,'see eva3dm::wrf_sds\n')
         POL <- POL[,,level,,drop = TRUE]
       }else{
         if(verbose)
-          cat('eva3dm::wrf_rast support 3d SpatRaster, using all levels and time',times,'\n')
+          cat('eva3dm::wrf_rast support 3d SpatRaster, using all levels and time',times,'see eva3dm::wrf_sds\n')
         POL <- POL[,,,times,drop = TRUE]
       }
     }
