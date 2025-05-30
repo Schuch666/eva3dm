@@ -19,7 +19,7 @@
 #'  - WRF (model post-process for METAR + INMET)\cr
 #'  - WRF-Chem (model post-process for METAR, AQS in Brazil and AERONET)\cr
 #'  - EXP (model post-process for one experimental site including PBL variables)\cr
-#'  - METAR (download observations)\cr
+#'  - METAR (download METAR observations from )\cr
 #'  - MET (evaluation of meteorology)\cr
 #'  - AQ (evaluation of air quality)\cr
 #'  - PSA (model post-processing with CDO for satellite evaluation)\cr
@@ -2156,7 +2156,7 @@ all_sites <- data.frame(lat = c(cetesb_sites$lat, rio_sites$lat),
                         row.names = c(cetesb_sites$name, rio_sites$name),
                         stringsAsFactors = FALSE)
 
-saveRDS(all_sites,paste0(folder,"/site-list.Rds")) # in São Paulo and Rio de Janeiro states
+saveRDS(all_sites,paste0(folder,"/site-list.Rds")) # in Sao Paulo and Rio de Janeiro states
 
 ## to save QUALAR CREDENTIALS
 ## https://qualar.cetesb.sp.gov.br/qualar
@@ -2169,7 +2169,7 @@ saveRDS(all_sites,paste0(folder,"/site-list.Rds")) # in São Paulo and Rio de Ja
 START <- "25/06/2018"
 END   <- "02/08/2018"
 
-## to download data for the state of São Paulo from CETESB"s Qualar network
+## to download data for the state of Sao Paulo from CETESB"s Qualar network
 for(PAR in c("O3","NO","NO2","NOx","SO2","CO","MP2.5","MP10","TEMP","UR","VV","DV")){
 
   # get parameters (pol and met) for each AQS
@@ -2225,8 +2225,8 @@ for(i in 1:length(PAR)){
 
 cat("NOTES:
 ------
-CETESB QUALAR system describes midnight as 24:00, and the first hour of each day starts at 1:00. qualR transform it to get the time in 00-23 hour notation, for that reason you’ll get NA at 00:00 of your first downloaded day. So, consider download one day before your study period.
-To pad-out with NA when there is a missing date, qualR tricks the date information, an assume it’s on UTC (when in reality it’s on America/Sao_Paulo time). This avoids problems with merging data frames and also with Daylight saving time (DST) issues. Beware of this,when dealing with study periods that include DST. It always a good idea, to double check by retrieving the suspicious date from CETESB QUALAR system.
+CETESB QUALAR system describes midnight as 24:00, and the first hour of each day starts at 1:00. qualR transform it to get the time in 00-23 hour notation, for that reason you\'ll get NA at 00:00 of your first downloaded day. So, consider download one day before your study period.
+To pad-out with NA when there is a missing date, qualR tricks the date information, an assume it\'s on UTC (when in reality it\'s on America/Sao_Paulo time). This avoids problems with merging data frames and also with Daylight saving time (DST) issues. Beware of this,when dealing with study periods that include DST. It always a good idea, to double check by retrieving the suspicious date from CETESB QUALAR system.
 Take into account that in CETESB data, the hourly averaged is the mean until the hour. That is, a concentration value for 22:00 is the mean from 21:01 to 22:00.
 Consider the previous three points if you need to change from local time to UTC.
 Currently, MonitorAr only has data until March, 2021.
