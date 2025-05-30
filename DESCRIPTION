@@ -1,8 +1,8 @@
 Package: eva3dm
 Type: Package
 Title: Evaluation of 3D Meteorological and Air Quality Models
-Version: 1.01
-Date: 2025-05-22
+Version: 1.10
+Date: 2025-05-30
 Description: Provides tools for post-process, evaluate and visualize results from 3d Meteorological and Air Quality models against point observations (i.e. surface stations) and grid (i.e. satellite) observations.
 Authors@R: c(
   person(given = "Daniel",

@@ -47,7 +47,8 @@ Templates types available:\cr
  - MET (evaluation of meteorology)\cr
  - AQ (evaluation of air quality)\cr
  - PSA (model post-processing with CDO for satellite evaluation)\cr
- - SAT (evaluation of precipitation using GPCP satellite)
+ - SAT (evaluation of precipitation using GPCP satellite)\cr
+ - AQS_BR (evaluation of precipitation using GPCP satellite)\cr
 }
 \examples{
 temp <- file.path(tempdir(),"POST")

@@ -23,7 +23,8 @@
 #'  - MET (evaluation of meteorology)\cr
 #'  - AQ (evaluation of air quality)\cr
 #'  - PSA (model post-processing with CDO for satellite evaluation)\cr
-#'  - SAT (evaluation of precipitation using GPCP satellite)
+#'  - SAT (evaluation of precipitation using GPCP satellite)\cr
+#'  - AQS_BR (download data from air quality stations at Sao Paulo and Rio de Janeiro)\cr
 #'
 #' @examples
 #' temp <- file.path(tempdir(),"POST")
@@ -2132,5 +2133,110 @@ echo "done!"
     cat(' bash ',   paste0(root,'post-sate.sh'),': post processing for satellite evaluation using CDO\n')
 }
 
+
+### SETUP to download data from all stations from Qualar network/CETESB (Sao Paulo) and Monitor AR network (Rio de Janeiro) in Brazil
+if(template == 'AQS_BR'){
+  dir.create(path = paste0(root,'AQS_BR/'),
+             recursive = TRUE,
+             showWarnings = FALSE)
+
+  cat(paste0('library(qualR)
+## more info : https://docs.ropensci.org/qualR
+
+# SET the OUTPUT FOLDER
+folder <- "',paste0(root,'AQS_BR/'),'"
+dir.create(path = folder,showWarnings = FALSE,recursive = TRUE)
+
+## SAVE THE SITE-LIST
+cetesb_sites <- cetesb_aqs
+rio_sites    <- monitor_ar_aqs
+
+all_sites <- data.frame(lat = c(cetesb_sites$lat, rio_sites$lat),
+                        lon = c(cetesb_sites$lon, rio_sites$lon),
+                        row.names = c(cetesb_sites$name, rio_sites$name),
+                        stringsAsFactors = FALSE)
+
+saveRDS(all_sites,paste0(folder,"/site-list.Rds")) # in São Paulo and Rio de Janeiro states
+
+## to save QUALAR CREDENTIALS
+## https://qualar.cetesb.sp.gov.br/qualar
+# library(usethis)
+# edit_r_environ()
+# include user and password credentials on the file
+# QUALAR_USER="underschuch@gmail.com"
+# QUALAR_PASS="666"
+
+START <- "25/06/2018"
+END   <- "02/08/2018"
+
+## to download data for the state of São Paulo from CETESB"s Qualar network
+for(PAR in c("O3","NO","NO2","NOx","SO2","CO","MP2.5","MP10","TEMP","UR","VV","DV")){
+
+  # get parameters (pol and met) for each AQS
+  all_o3 <- lapply(cetesb_aqs$code, cetesb_retrieve_param,
+                   username   = Sys.getenv("QUALAR_USER"),
+                   password   = Sys.getenv("QUALAR_PASS"),
+                   parameters = PAR,
+                   start_date = START,
+                   end_date   = END)
+
+  # convert the list in data.frame
+  all_o3_csv <- do.call(rbind, all_o3) # columns 1:date 2:variable 3:station_name
+
+  # processing for eva3dm::eva()
+  output        <- data.frame(time = all_o3[[1]][,1]) # data is common for all stations
+  for(i in 1:length(all_o3)){
+    output      <- cbind(output,all_o3[[i]][,2])
+  }
+  names(output) <- c("date",unique(all_o3_csv[,3]))
+  saveRDS(output, paste0(folder,"/cetesb_",PAR,".Rds"))
+}
+
+cat("NOTE: DV (or wind direction) = 777 ou 666 are calm winds, use NA!\\n")
+
+## to download data for the state of Rio de Janeiro Monitor AR network
+for(PAR in c("O3","NO","NO2","NOx","SO2","CO","PM2_5","PM10","Temp","UR","Vel_Vento","Dir_Vento","Chuva")){
+
+  # get parameters (pol and met) for each AQS
+  rio_all <- lapply(rio_sites$code, monitor_ar_retrieve_param,
+                    parameters = PAR,
+                    start_date = START,
+                    end_date   = END)
+
+  # convert the list in data.frame
+  rio_csv <- do.call(rbind, rio_all) # columns 1:date 2:variable 3:station_name
+
+  # processing for eva3dm::eva()
+  output        <- data.frame(time = all_o3[[1]][,1]) # data is common for all stations
+  for(i in 1:length(all_o3)){
+    output      <- cbind(output,all_o3[[i]][,2])
+  }
+  names(output) <- c("date",unique(all_o3_csv[,3]))
+  saveRDS(output, paste0(folder,"/monitor_ar_",PAR,".Rds"))
+}
+
+#  to keep the same filename from CETESB data
+PAR = c("Vel_Vento","Dir_Vento","PM2_5","Temp")
+NEW = c("VV","DV","PM2.5","TEMP")
+for(i in 1:length(PAR)){
+  file.rename(from = paste0(folder,"/monitor_ar_",PAR[i],".Rds"),
+              to =   paste0(folder,"/monitor_ar_",NEW[i],".Rds"))
+}
+
+cat("NOTES:
+------
+CETESB QUALAR system describes midnight as 24:00, and the first hour of each day starts at 1:00. qualR transform it to get the time in 00-23 hour notation, for that reason you’ll get NA at 00:00 of your first downloaded day. So, consider download one day before your study period.
+To pad-out with NA when there is a missing date, qualR tricks the date information, an assume it’s on UTC (when in reality it’s on America/Sao_Paulo time). This avoids problems with merging data frames and also with Daylight saving time (DST) issues. Beware of this,when dealing with study periods that include DST. It always a good idea, to double check by retrieving the suspicious date from CETESB QUALAR system.
+Take into account that in CETESB data, the hourly averaged is the mean until the hour. That is, a concentration value for 22:00 is the mean from 21:01 to 22:00.
+Consider the previous three points if you need to change from local time to UTC.
+Currently, MonitorAr only has data until March, 2021.
+")
+'),
+      file = paste0(root,'download_AQS_BR.R'),
+      append = FALSE)
+
+  if(verbose)
+    cat(' R-Script ',   paste0(root,'download_AQS_BR.R'),': download data from Qualar network/CETESB (Sao Paulo) and Monitor AR network (Rio de Janeiro)\n')
+}
 
 }
