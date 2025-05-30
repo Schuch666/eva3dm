@@ -52,15 +52,15 @@ daily <- function(data, time = 'date', var, stat = mean, min_offset = 0,
   }else{
     numeric_data     <- data # nocov
   }
-  hourly_average     <- aggregate(numeric_data,
+  daily_average     <- aggregate(numeric_data,
                                   by = list(data$daily_internal),
                                   FUN = stat,
                                   na.rm = TRUE)
-  colnames(hourly_average)[1] <- time
-  for(i in 1:ncol(hourly_average)){
-    hourly_average[is.nan(hourly_average[,i])     ,i] = NA
-    hourly_average[is.infinite(hourly_average[,i]),i] = NA
+  colnames(daily_average)[1] <- time
+  for(i in 1:ncol(daily_average)){
+    daily_average[is.nan(daily_average[,i])     ,i] = NA
+    daily_average[is.infinite(daily_average[,i]),i] = NA
   }
-  class(hourly_average) <- c("data.frame","daily")
-  return(hourly_average)
+  class(daily_average) <- c("data.frame","daily")
+  return(daily_average)
 }
