@@ -90,6 +90,7 @@ plot_rast <- function(r,
       color <- color(ncolor) # nocov
     }
   }
+  # nocov start
   if(color[1] == 'eva3')
     # eva 3 colors reverse
     color <- c("#AD7AD7","#A670CF","#9F67C7","#995EBF","#9255B7",
@@ -114,7 +115,6 @@ plot_rast <- function(r,
                    "#849E86","#8DAC80","#95BA79","#9DC872","#A6D76C",
                    "#A1D466","#99CC60","#90C55B","#88BE55","#80B650",
                    "#78AF4A","#6FA844","#67A03F","#5F9939","#579234"))
-  # nocov start
   if(color[1] == 'eva4')
     # eva 4 colors
     color <- c("#AD7AD7","#A36DCC","#9A60C1","#9153B6","#8846AB",
