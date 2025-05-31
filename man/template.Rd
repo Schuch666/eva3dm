@@ -43,12 +43,12 @@ Templates types available:\cr
  - WRF (model post-process for METAR + INMET)\cr
  - WRF-Chem (model post-process for METAR, AQS in Brazil and AERONET)\cr
  - EXP (model post-process for one experimental site including PBL variables)\cr
- - METAR (download observations)\cr
+ - METAR (download METAR observations from )\cr
  - MET (evaluation of meteorology)\cr
  - AQ (evaluation of air quality)\cr
  - PSA (model post-processing with CDO for satellite evaluation)\cr
  - SAT (evaluation of precipitation using GPCP satellite)\cr
- - AQS_BR (evaluation of precipitation using GPCP satellite)\cr
+ - AQS_BR (download data from air quality stations at Sao Paulo and Rio de Janeiro)\cr
 }
 \examples{
 temp <- file.path(tempdir(),"POST")
