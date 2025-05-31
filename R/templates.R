@@ -25,6 +25,7 @@
 #'  - PSA (model post-processing with CDO for satellite evaluation)\cr
 #'  - SAT (evaluation of precipitation using GPCP satellite)\cr
 #'  - AQS_BR (download data from air quality stations at Sao Paulo and Rio de Janeiro)\cr
+#'  - INMET (pre-processing of automatic and conventional meteorological data from INMET)\cr
 #'
 #' @examples
 #' temp <- file.path(tempdir(),"POST")
@@ -2237,6 +2238,120 @@ Currently, MonitorAr only has data until March, 2021.
 
   if(verbose)
     cat(' R-Script ',   paste0(root,'download_AQS_BR.R'),': download data from Qualar network/CETESB (Sao Paulo) and Monitor AR network (Rio de Janeiro)\n')
+}
+
+### script to process INMET stations
+if(template == 'INMET'){
+  dir.create(path = paste0(root,'INMET/automatica/'),
+             recursive = TRUE,
+             showWarnings = FALSE)
+  dir.create(path = paste0(root,'INMET/convencional/'),
+             recursive = TRUE,
+             showWarnings = FALSE)
+
+  cat(paste0('library(eva3dm)
+
+folder <- "',paste0(root,'INMET/'),'"
+setwd(folder)
+
+files <- dir(path = "INMET/automatica/",pattern = ".csv",full.names = TRUE)
+
+for(i in 1:length(files)){
+  cat("* file",i,"of",length(files),files[i],"\n")
+
+  header       <- read.csv2(files[i],nrows = 8,header = F,stringsAsFactors = F)
+  station_code <- as.character(header$V1[2])
+  station_code <- substr(x     = station_code,
+                         start = nchar(station_code) - 3,
+                         stop  = nchar(station_code))
+  cat("station code:",station_code,"\n")
+
+  DATA <- read.csv2(file = files[i],skip = 9,dec = ",",stringsAsFactors = F,na.strings = "null")
+  if(nrow(DATA) == 0)
+    next
+  DATA <- DATA[-23]
+  names(DATA) <- c("date", "hour",
+                   "rain",
+                   "pres","press_mar","press_max","press_min",
+                   "rad",
+                   "cpu_temp",
+                   "temp","Dew_point","temp_max","temp_min","DP_max","DP_min",
+                   "Bateria",
+                   "RU_max","RU_min","RU",
+                   "WD","gust","WS")
+
+  datas <- as.POSIXct(x = paste(DATA$date,DATA$hour),tz = "GMT")
+
+  for(VAR in c("rain","temp","rad","RU","WS","WD")){
+    OBS   <- data.frame(site  = rep(station_code,length(datas)),
+                        date  = datas,
+                        par   = rep(VAR,length(datas)),
+                        value = as.numeric(DATA[,VAR]),
+                        stringsAsFactors = F)
+
+    filename <- paste0("INMET_",station_code,"_",VAR,".Rds")
+    cat("saving",VAR,":",filename,"...\n")
+    saveRDS(OBS,filename)
+  }
+}
+'),
+      file = paste0(root,'process_INMET_auto.R'),
+      append = FALSE)
+
+  cat(paste0('library(eva3dm)
+
+folder <- "',paste0(root,'INMET/'),'"
+setwd(folder)
+
+files <- dir(path = "INMET/convencional/",pattern = ".csv",full.names = TRUE)
+
+for(i in 1:length(files)){
+  cat("* file",i,"of",length(files),files[i],"\n")
+
+  header       <- read.csv2(files[i],nrows = 8,header = F,stringsAsFactors = F)
+  station_code <- as.character(header$V1[2])
+  station_code <- substr(x     = station_code,
+                         start = nchar(station_code) - 4,
+                         stop  = nchar(station_code))
+  cat("station code:",station_code,"\n")
+
+  DATA <- read.csv2(file = files[i],skip = 9,dec = ",",stringsAsFactors = F,na.strings = "null")
+  if(nrow(DATA) == 0)
+    next
+  DATA <- DATA[-17]
+  names(DATA) <- c("dia", "hora",
+                   "nuvem_alta","nuvem_baixa","nuvem_media",
+                   "nebulosidade",
+                   "rain",
+                   "pres","press_mar",
+                   "temp","dew_point","dew_point",
+                   "RU","WD","WS","visibiliadade")
+
+  datas <- as.POSIXct(x = paste0(DATA$dia," ",as.numeric(DATA$hora)/100,":00"),tz = "GMT")
+
+  for(VAR in c("rain","temp","RU","WS","WD")){
+    OBS   <- data.frame(site  = rep(station_code,length(datas)),
+                        date  = datas,
+                        par   = rep(VAR,length(datas)),
+                        value = as.numeric(DATA[,VAR]),
+                        stringsAsFactors = F)
+
+    filename <- paste0("INMET_",station_code,"_",VAR,".Rds")
+    cat("saving",VAR,":",filename,"...\n")
+    saveRDS(OBS,filename)
+  }
+}
+'),
+      file = paste0(root,'process_INMET_conv.R'),
+      append = FALSE)
+
+  if(verbose){
+    cat(' R-Script ',   paste0(root,'process_INMET_auto.R'),': script to process INMET automatic stations\n')
+    cat(' R-Script ',   paste0(root,'process_INMET_conv.R'),': script to process INMET conventional stations\n')
+    cat(' folder ',     paste0(root,'INMET/automatica/'),   ': place INMET data from automatic stations \n')
+    cat(' folder ',     paste0(root,'INMET/convencional/'), ': place INMET data from conventional stations \n')
+    cat(' folder ',     paste0(root,'INMET/'),              ': output folder\n')
+  }
 }
 
 }
