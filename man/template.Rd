@@ -50,6 +50,7 @@ Templates types available:\cr
  - SAT (evaluation of precipitation using GPCP satellite)\cr
  - AQS_BR (download data from air quality stations at Sao Paulo and Rio de Janeiro)\cr
  - INMET (pre-processing of automatic and conventional meteorological data from INMET)\cr
+ - merge (merge INMET data and merge METAR data)\cr
 }
 \examples{
 temp <- file.path(tempdir(),"POST")

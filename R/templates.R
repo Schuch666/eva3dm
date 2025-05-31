@@ -26,6 +26,7 @@
 #'  - SAT (evaluation of precipitation using GPCP satellite)\cr
 #'  - AQS_BR (download data from air quality stations at Sao Paulo and Rio de Janeiro)\cr
 #'  - INMET (pre-processing of automatic and conventional meteorological data from INMET)\cr
+#'  - merge (merge INMET data and merge METAR data)\cr
 #'
 #' @examples
 #' temp <- file.path(tempdir(),"POST")
@@ -2131,7 +2132,7 @@ echo "done!"
       append = FALSE)
 
   if(verbose)
-    cat(' bash ',   paste0(root,'post-sate.sh'),': post processing for satellite evaluation using CDO\n')
+    cat(' bash ', paste0(root,'post-sate.sh'),': post processing for satellite evaluation using CDO\n')
 }
 
 
@@ -2237,7 +2238,7 @@ Currently, MonitorAr only has data until March, 2021.
       append = FALSE)
 
   if(verbose)
-    cat(' R-Script ',   paste0(root,'download_AQS_BR.R'),': download data from Qualar network/CETESB (Sao Paulo) and Monitor AR network (Rio de Janeiro)\n')
+    cat(' R-Script ',paste0(root,'download_AQS_BR.R'),': download data from Qualar network/CETESB (Sao Paulo) and Monitor AR network (Rio de Janeiro)\n')
 }
 
 ### script to process INMET stations
@@ -2346,11 +2347,89 @@ for(i in 1:length(files)){
       append = FALSE)
 
   if(verbose){
-    cat(' R-Script ',   paste0(root,'process_INMET_auto.R'),': script to process INMET automatic stations\n')
-    cat(' R-Script ',   paste0(root,'process_INMET_conv.R'),': script to process INMET conventional stations\n')
-    cat(' folder ',     paste0(root,'INMET/automatica/'),   ': place INMET data from automatic stations \n')
-    cat(' folder ',     paste0(root,'INMET/convencional/'), ': place INMET data from conventional stations \n')
-    cat(' folder ',     paste0(root,'INMET/'),              ': output folder\n')
+    cat(' R-Script ', paste0(root,'process_INMET_auto.R'),': script to process INMET automatic stations\n')
+    cat(' R-Script ', paste0(root,'process_INMET_conv.R'),': script to process INMET conventional stations\n')
+    cat(' folder ',   paste0(root,'INMET/automatica/'),   ': place INMET data from automatic stations \n')
+    cat(' folder ',   paste0(root,'INMET/convencional/'), ': place INMET data from conventional stations \n')
+    cat(' folder ',   paste0(root,'INMET/'),              ': output folder\n')
+  }
+}
+
+### script to merge INMET stations in one file, and merge METAR stations in one file
+if(template == 'merge'){
+  cat(paste0('library(eva3dm)
+
+cat("mergin all INMET data\\n")
+
+output_prefix <- "INMET_all_stations"
+
+data_folder <- "',paste0(root,'INMET/'),'"
+
+for(VAR in c("rain","temp","rad","RU","WS","WD")){
+  output_name <- paste0(output_prefix,"_",VAR,".Rds")
+  files <- dir(path = data_folder,pattern = VAR,full.names = T)
+  files <- grep(files,pattern = output_prefix,value = TRUE,invert = TRUE)
+
+  obs   <- data.frame(date = as.POSIXct("1666-01-01", tz = "GMT"),stringsAsFactors = F)
+  for(i in 1:length(files)){
+    cat("opening",files[i],i,"of",length(files),"\n")
+    new   <- readRDS(files[i])
+    site  <- new$site[1]
+    new   <- new[,c(2,4)]
+    names(new) <- c("date",site)
+    new <- new[!duplicated(new$date), ]
+    obs <- merge(obs, new, by = "date", all = TRUE)
+  }
+  obs <- obs[-1,]
+  cat("OUPUT:",paste0(data_folder,"/",output_name),"\n")
+  saveRDS(object = obs,file = paste0(data_folder,"/",output_name))
+}
+'),
+      file = paste0(root,'merge_INMET.R'),
+      append = FALSE)
+
+  cat(paste0('library(eva3dm)
+
+cat("mergin all METAR data\\n")
+
+output_prefix <- "METAR_all_stations"
+
+data_folder <- "',paste0(root,'METAR/'),'"
+
+files <- dir(path = data_folder,pattern = "METAR",full.names = T)
+files <- grep(files,pattern = output_prefix,value = TRUE,invert = TRUE)
+
+for(VAR in c("T2","RH","WS","WD","rain")){
+  output_name <- paste0(output_prefix,"_",VAR,".Rds")
+
+  obs   <- data.frame(date = as.POSIXct("1666-01-01", tz = "GMT"),stringsAsFactors = F)
+  for(i in 1:length(files)){
+    cat("opening",files[i],i,"of",length(files),"\n")
+
+    new   <- readRDS(files[i])
+    new   <- new[!duplicated(new$date), ]
+    site  <- new$site[1]
+    if(!VAR %in% names(new))
+      next
+    new   <- new[,c("date",VAR)]
+    names(new) <- c("date",site)
+
+    obs <- merge(obs, new, by = "date", all = TRUE)
+  }
+  obs <- obs[-1,]
+  cat("OUTPUT:",paste0(data_folder,"/",output_name),"\n")
+  saveRDS(object = obs,file = paste0(data_folder,"/",output_name))
+}
+
+'),
+      file = paste0(root,'merge_METAR.R'),
+      append = FALSE)
+
+  if(verbose){
+    cat(' R-Script ', paste0(root,'merge_INMET.R'),': script to merge INMET observations\n')
+    cat(' R-Script ', paste0(root,'merge_METAR.R'),': script to merge METAR observations\n')
+    cat(' folder ',   paste0(root,'INMET/'),       ': place all INMET data (input and output)\n')
+    cat(' folder ',   paste0(root,'METAR/'),       ': place all METAR data (input and output)\n')
   }
 }
 
