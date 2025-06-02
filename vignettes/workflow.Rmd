@@ -45,13 +45,22 @@ METAR  <- data.frame(date = seq.POSIXt(as.POSIXct(start_date),
                                        as.POSIXct(end_date), 
                                        by = "hour"))
 for(site in sites){
-  cat("downloading METAR from:",site,"...\n")
+  cat('Trying to download METAR from:',site,'...\n')
 
-  DATA <- riem_measures(station    = site,
-                        date_start = start_date,
-                        date_end   = end_date,
-                        elev       = FALSE,
-                        latlon     = FALSE)
+  DATA <- tryCatch(riem::riem_measures(station    = site,
+                                       date_start = start_date,
+                                       date_end   = end_date,
+                                       elev       = FALSE,
+                                       latlon     = FALSE),
+                   error = NULL)
+  
+  if(is.null(DATA)){
+    cat('fail to download, loading some data ...\n')
+    METAR <- readRDS(paste0(system.file("extdata",package="eva3dm"),
+                            "/METAR_MASP_jan_2016.Rds"))
+    break
+  }
+  
   DATA <- data.frame(date = DATA$valid,
                      T2   = DATA$tmpf)
   names(DATA) <- c('date', site)
@@ -61,7 +70,6 @@ for(site in sites){
                        all   = T, 
                        sort  = TRUE)
 }
-
 ```
 Lets check if the observations are ok
 
