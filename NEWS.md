@@ -1,6 +1,16 @@
 NEWS
 ===========
 
+# eva3dm 1.00 2025-06-02
+- Added new function to select() time-series by time
+- Added new Vignette for evaluation of time-series
+- Added many new templates()
+- Improvement of plots and messages
+- Documentation updates and merged with JOSS brand
+
+# eva3dm 1.00 2025-04-17
+- Accepted for publication at JOSS: Schuch, D., (2025). eva3dm: A R-package for model evaluation of 3D weather and air quality models. Journal of Open Source Software, 10(108), 7797, https://doi.org/10.21105/joss.07797
+
 # eva3dm 0.99
 - package on CRAN
 
