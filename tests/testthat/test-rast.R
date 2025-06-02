@@ -13,7 +13,7 @@ test_that("rast based functions are ok", {
   # save the original data in the copy
   rast_to_netcdf(r = r, file=copy, name='XLAT')
 
-  plot_rast(r, range = c(-100,100), unit = 'test',grid = TRUE, add_range = TRUE)
+  plot_rast(r, range = c(-100,100), unit = 'test',grid = TRUE, add_range = TRUE,scale = 1)
   rr = -r
 
   plot_rast(rr, log = TRUE, proj = TRUE)
