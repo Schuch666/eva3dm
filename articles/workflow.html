@@ -107,13 +107,22 @@ Report (METAR).</p>
 <span>                                       <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="va">end_date</span><span class="op">)</span>, </span>
 <span>                                       by <span class="op">=</span> <span class="st">"hour"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="kw">for</span><span class="op">(</span><span class="va">site</span> <span class="kw">in</span> <span class="va">sites</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"downloading METAR from:"</span>,<span class="va">site</span>,<span class="st">"...\n"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Trying to download METAR from:'</span>,<span class="va">site</span>,<span class="st">'...\n'</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">DATA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/riem/reference/riem_measures.html" class="external-link">riem_measures</a></span><span class="op">(</span>station    <span class="op">=</span> <span class="va">site</span>,</span>
-<span>                        date_start <span class="op">=</span> <span class="va">start_date</span>,</span>
-<span>                        date_end   <span class="op">=</span> <span class="va">end_date</span>,</span>
-<span>                        elev       <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                        latlon     <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="va">DATA</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch</a></span><span class="op">(</span><span class="fu">riem</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/riem/reference/riem_measures.html" class="external-link">riem_measures</a></span><span class="op">(</span>station    <span class="op">=</span> <span class="va">site</span>,</span>
+<span>                                       date_start <span class="op">=</span> <span class="va">start_date</span>,</span>
+<span>                                       date_end   <span class="op">=</span> <span class="va">end_date</span>,</span>
+<span>                                       elev       <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                                       latlon     <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>                   error <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">DATA</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'fail to download, loading some data ...\n'</span><span class="op">)</span></span>
+<span>    <span class="va">METAR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/serialize.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,</span>
+<span>                            <span class="st">"/METAR_MASP_jan_2016.Rds"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="kw">break</span></span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
 <span>  <span class="va">DATA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>date <span class="op">=</span> <span class="va">DATA</span><span class="op">$</span><span class="va">valid</span>,</span>
 <span>                     T2   <span class="op">=</span> <span class="va">DATA</span><span class="op">$</span><span class="va">tmpf</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">DATA</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'date'</span>, <span class="va">site</span><span class="op">)</span></span>
@@ -123,13 +132,13 @@ Report (METAR).</p>
 <span>                       all   <span class="op">=</span> <span class="cn">T</span>, </span>
 <span>                       sort  <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="co">#&gt; downloading METAR from: SBGR ...</span></span>
-<span><span class="co">#&gt; downloading METAR from: SBKP ...</span></span>
-<span><span class="co">#&gt; downloading METAR from: SBMT ...</span></span>
-<span><span class="co">#&gt; downloading METAR from: SBSJ ...</span></span>
-<span><span class="co">#&gt; downloading METAR from: SBSP ...</span></span>
-<span><span class="co">#&gt; downloading METAR from: SBST ...</span></span>
-<span><span class="co">#&gt; downloading METAR from: SBTA ...</span></span></code></pre></div>
+<span><span class="co">#&gt; Trying to download METAR from: SBGR ...</span></span>
+<span><span class="co">#&gt; Trying to download METAR from: SBKP ...</span></span>
+<span><span class="co">#&gt; Trying to download METAR from: SBMT ...</span></span>
+<span><span class="co">#&gt; Trying to download METAR from: SBSJ ...</span></span>
+<span><span class="co">#&gt; Trying to download METAR from: SBSP ...</span></span>
+<span><span class="co">#&gt; Trying to download METAR from: SBST ...</span></span>
+<span><span class="co">#&gt; Trying to download METAR from: SBTA ...</span></span></code></pre></div>
 <p>Lets check if the observations are ok</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">METAR</span><span class="op">$</span><span class="va">date</span>, <span class="va">METAR</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, ty <span class="op">=</span> <span class="st">'l'</span>,xlab <span class="op">=</span> <span class="st">''</span>,ylab <span class="op">=</span> <span class="st">'T2'</span>, main <span class="op">=</span> <span class="st">'METAR OBS'</span><span class="op">)</span></span></code></pre></div>
