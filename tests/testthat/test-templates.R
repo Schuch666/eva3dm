@@ -4,7 +4,7 @@ test_that("template works", {
 
   template(root = f, template = 'WRF',scheduler = "PBS") # WRF post process
   template(root = f, template = 'WRF-3')                 # WRF post process for 3 domain
-  template(root = f, template = 'CAMx')                  # CAMx post process (?)
+  template(root = f, template = 'CAMx')                  # CAMx post process
   template(root = f, template = 'WRF-Chem')              # WRF-Chem post process
   template(root = f, template = 'EXP')                   # WRF-Chem post process
   template(root = f, template = 'METAR')                 # download METAR
@@ -15,7 +15,7 @@ test_that("template works", {
   template(root = f, template = 'PSA')                   # CDO sat pros processing
   template(root = f, template = 'AQS_BR')                # download aqs for SP and RJ
   template(root = f, template = 'INMET')                 # process conventional and automatic INMET stations
-  template(root = f, template = 'merge')                 # template to merge all INMET and METAR observations
+  template(root = f, template = 'merge')                 # template to merge all INMET observations and METAR observations
 
   expect_equal(length(f), 1)
 })

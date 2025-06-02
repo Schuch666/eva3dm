@@ -17,6 +17,7 @@ test_that("sat / cate / io / in-rast are ok!", {
              o,
              rname = 'NO2_categorical',
              eval_function = cate,
+             scale = 1,
              threshold = 3.0,
              verbose = T)
 

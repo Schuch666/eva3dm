@@ -11,6 +11,7 @@
 #' @param n number of points from the boundary removed, default is 5
 #' @param min minimum value cutoff
 #' @param max maximum value cutoff
+#' @param scale multiplier for model and observation (after min/max cutoff)
 #' @param method passed to terra::resample
 #' @param eval_function evaluation function (default is stat)
 #' @param mask optional SpatVector to mask the results
@@ -50,7 +51,7 @@
 #' @export
 
 sat <- function(mo,ob,rname, table = NULL,
-                n = 6, min = NA, max = NA,
+                n = 6, min = NA, max = NA, scale,
                 method = 'bilinear', eval_function = stat,
                 mask, skip_interp = FALSE, verbose = TRUE, ...){
 
@@ -121,6 +122,13 @@ sat <- function(mo,ob,rname, table = NULL,
     if(verbose) cat('seting max value to',max,'\n')
     model[model > max] = NA
     obser[obser > max] = NA
+  }
+
+  if(!missing(scale)){
+    if(verbose)
+      cat('using scale=',scale,'\n')
+    mo = scale * mo
+    ob = scale * ob
   }
 
   model <- as.vector(model)

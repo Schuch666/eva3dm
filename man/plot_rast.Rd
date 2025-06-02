@@ -21,6 +21,7 @@ plot_rast(
   ndig = 2,
   log = FALSE,
   range,
+  scale,
   min = -3,
   max,
   unit,
@@ -60,11 +61,13 @@ plot_rast(
 
 \item{range}{range of original values to plot}
 
-\item{min}{minimum log value for log scale (defoul is -3)}
+\item{scale}{variable multiplier (not affect min/max/range)}
+
+\item{min}{minimum log value for log scale (default is -3)}
 
 \item{max}{maximum log value for log scale}
 
-\item{unit}{title for color bar (defoult is )}
+\item{unit}{title for color bar}
 
 \item{...}{arguments to be passing to terra::plot}
 }

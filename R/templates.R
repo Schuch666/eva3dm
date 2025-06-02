@@ -17,10 +17,13 @@
 #'
 #' @note Templates types available:\cr
 #'  - WRF (model post-process for METAR + INMET)\cr
+#'  - WRF-3 (model post-process for METAR + INMET for triple nested domains)\cr
 #'  - WRF-Chem (model post-process for METAR, AQS in Brazil and AERONET)\cr
 #'  - EXP (model post-process for one experimental site including PBL variables)\cr
-#'  - METAR (download METAR observations from )\cr
+#'  - CAMx (post-process for triple tested domains)
+#'  - METAR (download METAR observations from ASOS)\cr
 #'  - MET (evaluation of meteorology)\cr
+#'  - MET-3 (evaluation of meteorology for triple nested domains)\cr
 #'  - AQ (evaluation of air quality)\cr
 #'  - PSA (model post-processing with CDO for satellite evaluation)\cr
 #'  - SAT (evaluation of precipitation using GPCP satellite)\cr
@@ -2258,14 +2261,14 @@ setwd(folder)
 files <- dir(path = "INMET/automatica/",pattern = ".csv",full.names = TRUE)
 
 for(i in 1:length(files)){
-  cat("* file",i,"of",length(files),files[i],"\n")
+  cat("* file",i,"of",length(files),files[i],"\\n")
 
   header       <- read.csv2(files[i],nrows = 8,header = F,stringsAsFactors = F)
   station_code <- as.character(header$V1[2])
   station_code <- substr(x     = station_code,
                          start = nchar(station_code) - 3,
                          stop  = nchar(station_code))
-  cat("station code:",station_code,"\n")
+  cat("station code:",station_code,"\\n")
 
   DATA <- read.csv2(file = files[i],skip = 9,dec = ",",stringsAsFactors = F,na.strings = "null")
   if(nrow(DATA) == 0)
@@ -2291,7 +2294,7 @@ for(i in 1:length(files)){
                         stringsAsFactors = F)
 
     filename <- paste0("INMET_",station_code,"_",VAR,".Rds")
-    cat("saving",VAR,":",filename,"...\n")
+    cat("saving",VAR,":",filename,"...\\n")
     saveRDS(OBS,filename)
   }
 }
@@ -2307,14 +2310,14 @@ setwd(folder)
 files <- dir(path = "INMET/convencional/",pattern = ".csv",full.names = TRUE)
 
 for(i in 1:length(files)){
-  cat("* file",i,"of",length(files),files[i],"\n")
+  cat("* file",i,"of",length(files),files[i],"\\n")
 
   header       <- read.csv2(files[i],nrows = 8,header = F,stringsAsFactors = F)
   station_code <- as.character(header$V1[2])
   station_code <- substr(x     = station_code,
                          start = nchar(station_code) - 4,
                          stop  = nchar(station_code))
-  cat("station code:",station_code,"\n")
+  cat("station code:",station_code,"\\n")
 
   DATA <- read.csv2(file = files[i],skip = 9,dec = ",",stringsAsFactors = F,na.strings = "null")
   if(nrow(DATA) == 0)
@@ -2338,7 +2341,7 @@ for(i in 1:length(files)){
                         stringsAsFactors = F)
 
     filename <- paste0("INMET_",station_code,"_",VAR,".Rds")
-    cat("saving",VAR,":",filename,"...\n")
+    cat("saving",VAR,":",filename,"...\\n")
     saveRDS(OBS,filename)
   }
 }
@@ -2357,6 +2360,13 @@ for(i in 1:length(files)){
 
 ### script to merge INMET stations in one file, and merge METAR stations in one file
 if(template == 'merge'){
+  dir.create(path = paste0(root,'INMET/'),
+             recursive = TRUE,
+             showWarnings = FALSE)
+  dir.create(path = paste0(root,'METAR/'),
+             recursive = TRUE,
+             showWarnings = FALSE)
+
   cat(paste0('library(eva3dm)
 
 cat("mergin all INMET data\\n")
@@ -2372,7 +2382,7 @@ for(VAR in c("rain","temp","rad","RU","WS","WD")){
 
   obs   <- data.frame(date = as.POSIXct("1666-01-01", tz = "GMT"),stringsAsFactors = F)
   for(i in 1:length(files)){
-    cat("opening",files[i],i,"of",length(files),"\n")
+    cat("opening",files[i],i,"of",length(files),"\\n")
     new   <- readRDS(files[i])
     site  <- new$site[1]
     new   <- new[,c(2,4)]
@@ -2381,7 +2391,7 @@ for(VAR in c("rain","temp","rad","RU","WS","WD")){
     obs <- merge(obs, new, by = "date", all = TRUE)
   }
   obs <- obs[-1,]
-  cat("OUPUT:",paste0(data_folder,"/",output_name),"\n")
+  cat("OUPUT:",paste0(data_folder,"/",output_name),"\\n")
   saveRDS(object = obs,file = paste0(data_folder,"/",output_name))
 }
 '),
@@ -2404,7 +2414,7 @@ for(VAR in c("T2","RH","WS","WD","rain")){
 
   obs   <- data.frame(date = as.POSIXct("1666-01-01", tz = "GMT"),stringsAsFactors = F)
   for(i in 1:length(files)){
-    cat("opening",files[i],i,"of",length(files),"\n")
+    cat("opening",files[i],i,"of",length(files),"\\n")
 
     new   <- readRDS(files[i])
     new   <- new[!duplicated(new$date), ]
@@ -2417,7 +2427,7 @@ for(VAR in c("T2","RH","WS","WD","rain")){
     obs <- merge(obs, new, by = "date", all = TRUE)
   }
   obs <- obs[-1,]
-  cat("OUTPUT:",paste0(data_folder,"/",output_name),"\n")
+  cat("OUTPUT:",paste0(data_folder,"/",output_name),"\\n")
   saveRDS(object = obs,file = paste0(data_folder,"/",output_name))
 }
 

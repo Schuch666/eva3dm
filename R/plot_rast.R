@@ -17,10 +17,11 @@
 #' @param add_range add legend with max, average and min r values
 #' @param ndig number of digits for legend_range
 #' @param range range of original values to plot
+#' @param scale variable multiplier (not affect min/max/range)
 #' @param log TRUE to plot in log-scale
-#' @param min minimum log value for log scale (defoul is -3)
+#' @param min minimum log value for log scale (default is -3)
 #' @param max maximum log value for log scale
-#' @param unit title for color bar (defoult is )
+#' @param unit title for color bar
 #' @param ... arguments to be passing to terra::plot
 #'
 #' @return No return value
@@ -55,6 +56,7 @@ plot_rast <- function(r,
                       ndig = 2,
                       log = FALSE,
                       range,
+                      scale,
                       min = -3,
                       max,
                       unit,
@@ -70,6 +72,11 @@ plot_rast <- function(r,
     latlon = TRUE  # nocov
   }else{
     latlon = FALSE # nocov
+  }
+
+  if(!missing(scale)){
+    unit <- terra::units(r)[1]
+    r = scale * r
   }
 
   if(!missing(range) & !log){
@@ -258,10 +265,12 @@ plot_rast <- function(r,
   }
 
   if(missing(unit)){
-    plg = c(plg,list(title = terra::units(r)[1]))
-  }else{
-    plg = c(plg,list(title = unit))
+    unit <- terra::units(r)[1]
   }
+  if(!missing(scale)){
+    unit <- paste0(unit,' \u00D7',scale)
+  }
+  plg = c(plg,list(title = unit))
 
   if(log){
     Rlog10 <- function(r,min){

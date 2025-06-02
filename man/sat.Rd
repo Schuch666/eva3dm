@@ -12,6 +12,7 @@ sat(
   n = 6,
   min = NA,
   max = NA,
+  scale,
   method = "bilinear",
   eval_function = stat,
   mask,
@@ -34,6 +35,8 @@ sat(
 \item{min}{minimum value cutoff}
 
 \item{max}{maximum value cutoff}
+
+\item{scale}{multiplier for model and observation (after min/max cutoff)}
 
 \item{method}{passed to terra::resample}
 

@@ -10,8 +10,9 @@ plot_diff(
   col,
   absolute = TRUE,
   relative = TRUE,
-  lim_1 = NA,
-  lim_2 = NA,
+  lim_a = NA,
+  lim_r = NA,
+  scale,
   unit = c(units(x), expression("\%")),
   ...
 )
@@ -27,9 +28,11 @@ plot_diff(
 
 \item{relative}{to plot relative difference}
 
-\item{lim_1}{range of values for scale}
+\item{lim_a}{range of values for absolute scale}
 
-\item{lim_2}{calculate symmetrical scale}
+\item{lim_r}{range of values for relative scale}
+
+\item{scale}{variable multiplier for absolute difference}
 
 \item{unit}{annotation for units}
 

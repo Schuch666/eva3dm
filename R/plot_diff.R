@@ -7,8 +7,9 @@
 #' @param col color
 #' @param absolute to plot absolute difference
 #' @param relative to plot relative difference
-#' @param lim_1 range of values for scale
-#' @param lim_2 calculate symmetrical scale
+#' @param lim_a range of values for absolute scale
+#' @param lim_r range of values for relative scale
+#' @param scale variable multiplier for absolute difference
 #' @param unit annotation for units
 #' @param ... arguments to be passing to plot_raster
 #'
@@ -30,7 +31,7 @@
 plot_diff <- function(x,y,col,
                       absolute = TRUE,
                       relative = TRUE,
-                      lim_1 = NA, lim_2 = NA,
+                      lim_a = NA, lim_r = NA, scale,
                       unit = c(units(x),expression("%")),
                       ...){
 
@@ -45,26 +46,26 @@ plot_diff <- function(x,y,col,
   diff <- x - y
 
   if(absolute){
-    if(is.na(lim_1))
-      lim_1 = as.numeric(global(diff,'range',na.rm = TRUE))
+    if(is.na(lim_a))
+      lim_a = as.numeric(global(diff,'range',na.rm = TRUE))
 
-    lim_1[1] <- -max(abs(range(lim_1)))
-    lim_1[2] <- max(abs(range(lim_1)))
+    lim_a[1] <- -max(abs(range(lim_a)))
+    lim_a[2] <- max(abs(range(lim_a)))
 
-    plot_rast(diff, color = col,range = lim_1,
+    plot_rast(diff, color = col,range = lim_a, scale = scale,
               plg = list(tic = 'none', shrink=0.98, title = unit[1]),
               ...)
   }
   if(relative){
     rel  <- 100 * diff / (y + 0.00000000001)
 
-    if(is.na(lim_2))
-      lim_2 = as.numeric(global(rel,'range',na.rm = TRUE))
+    if(is.na(lim_r))
+      lim_r = as.numeric(global(rel,'range',na.rm = TRUE))
 
-    lim_2[1] <- -max(abs(range(lim_2)))
-    lim_2[2] <- max(abs(range(lim_2)))
+    lim_r[1] <- -max(abs(range(lim_r)))
+    lim_r[2] <- max(abs(range(lim_r)))
 
-    plot_rast(rel, color = col,range = lim_2,
+    plot_rast(rel, color = col,range = lim_r,
               plg = list(tic = 'none', shrink=0.98, title = unit[2]),
               ...)
   }
