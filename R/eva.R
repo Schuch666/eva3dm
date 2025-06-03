@@ -9,7 +9,7 @@
 #' @param ob data.frame with observation data
 #' @param rname row name of the output (default is site argument)
 #' @param table data.frame to append the results
-#' @param site name of the stations or "ALL" (default), see notes
+#' @param site name of the station or "ALL" (default) or "complete", see notes
 #' @param wd default is FALSE, see notes
 #' @param fair model data.frame (or list of names) to perform a fair comparison, see notes
 #' @param cutoff minimum (optionally the maximum) valid value for observation
@@ -31,6 +31,8 @@
 #'
 #' @note If site == 'ALL' (default) all the columns from observations are combined in one column
 #' (same for observation) and all the columns are evaluated together.
+#'
+#' @note If site == 'complete' a internal loop, calls recursively eva() to evaluate all sites in the first argument (model) and using all sites (see "ALL").
 #'
 #' @note Special thanks to Kiarash and Libo to help to test the wind direction option.
 #'
@@ -112,6 +114,16 @@ eva <- function(mo, ob, rname = site, table = NULL,
   if(remove_ch){
     names(mo) <- iconv(names(mo), from = 'UTF-8', to = 'ASCII//TRANSLIT') # nocov
     names(ob) <- iconv(names(ob), from = 'UTF-8', to = 'ASCII//TRANSLIT') # nocov
+  }
+
+  if(site == 'complete'){
+    sites  <- names(model)[!names(model) %in% time]
+    RESULT <- data.frame()
+    for(s in sites){
+      RESULT <- eva(mo = mo, ob = ob,table = RESULT, site = s, ... )
+    }
+    RESULT <- eva(mo = mo, ob = ob,table = RESULT, site = 'ALL', ... )
+    return(RESULT)
   }
 
   if(site == "ALL"){

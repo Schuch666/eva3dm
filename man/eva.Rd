@@ -33,7 +33,7 @@ eva(
 
 \item{table}{data.frame to append the results}
 
-\item{site}{name of the stations or "ALL" (default), see notes}
+\item{site}{name of the station or "ALL" (default) or "complete", see notes}
 
 \item{wd}{default is FALSE, see notes}
 
@@ -75,6 +75,8 @@ for wind direction a rotation of 360 (or -360) is applied to minimize the wind d
 
 If site == 'ALL' (default) all the columns from observations are combined in one column
 (same for observation) and all the columns are evaluated together.
+
+If site == 'complete' a internal loop, calls recursively eva() to evaluate all sites in the first argument (model) and using all sites (see "ALL").
 
 Special thanks to Kiarash and Libo to help to test the wind direction option.
 }
