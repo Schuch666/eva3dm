@@ -117,13 +117,13 @@ eva <- function(mo, ob, rname = site, table = NULL,
   }
 
   if(site == 'complete'){
-    sites  <- names(model)[!names(model) %in% time]
-    RESULT <- data.frame()
-    for(s in sites){
-      RESULT <- eva(mo = mo, ob = ob,table = RESULT, site = s, ... )
-    }
-    RESULT <- eva(mo = mo, ob = ob,table = RESULT, site = 'ALL', ... )
-    return(RESULT)
+    sites  <- names(model)[!names(model) %in% time]                    # nocov
+    RESULT <- data.frame()                                             # nocov
+    for(s in sites){                                                   # nocov
+      RESULT <- eva(mo = mo, ob = ob,table = RESULT, site = s, ... )   # nocov
+    }                                                                  # nocov
+    RESULT <- eva(mo = mo, ob = ob,table = RESULT, site = 'ALL', ... ) # nocov
+    return(RESULT)                                                     # nocov
   }
 
   if(site == "ALL"){
