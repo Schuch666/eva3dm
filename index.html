@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">eva3dm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,12 +38,6 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/workflow.html">Introduction to eva3dm</a></li>
-  </ul>
-</li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -73,29 +67,12 @@
 </div>
 <!-- badges: start -->
 
-<div class="section level2">
-<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h2>
-<p>An R-package focusing on <strong>EVA</strong>luation of <strong>3D</strong> weather and air quality <strong>M</strong>odels, streamlining the entire workflow from data preparation to post-processing, statistical analysis, and visualization <strong>[1]</strong>.</p>
-<p>Whether you’re working with meteorological models like WRF or evaluating air quality simulations (WRF-Chem, CAMx, WACCM, etc), eva3dm provides a comprehensive toolkit to handle observational data, model outputs, and evaluation metrics in an efficient and reproducible manner. Key Features: - Pre-processing of observational and model data - Post-processing tools for extracting time-series, calculating derived variables (e.g., accumulated rain, humidity variables and wind variables), and preparing data for analysis - Statistical and categorical model evaluation - Custom plotting tools for spatial data and georeferencing evaluation results - Integration with other packages like <code>terra</code>, <code>ncdf4</code>, <code>qualR</code>, <code>riem</code> and <code>openair</code></p>
-<p><strong>[1]</strong> <em>Schuch, D., (2025). “eva3dm: A R-package for model evaluation of 3D weather and air quality models.” <strong>Journal of Open Source Software</strong>, 10(108), 7797, <a href="https://doi.org/10.21105/joss.07797" class="external-link">doi:10.21105/joss.07797</a></em></p>
-</div>
-<div class="section level2">
-<h2 id="instalation">Instalation<a class="anchor" aria-label="anchor" href="#instalation"></a>
-</h2>
-<p>Open a R session and type the following command on the terminal to install the official version from CRAN:</p>
-<p><code>install.packages("eva3dm")</code></p>
-<p>the last version can be installed directly from github (using the <code>remotes</code> package, in this example):</p>
-<p><code>remotes::install_github("schuch666/eva3dm")</code></p>
-<p>All the functions include examples in the <a href="https://schuch666.github.io/eva3dm/">documentation</a>.</p>
-</div>
-<div class="section level2">
-<h2 id="recomended-workflow">Recomended Workflow<a class="anchor" aria-label="anchor" href="#recomended-workflow"></a>
-</h2>
+<!-- badges: end -->
+<p>An R-package focusing on <strong>EVA</strong>luation of <strong>3D</strong> weather and air quality <strong>M</strong>odels.</p>
 <p>The following workflow is recommended:</p>
 <p><strong>1. Pre-processing of observations</strong>:</p>
 <ul>
-<li><p>Download of observations, time-series of meteorological variables can be obtained from the METAR (METeorological Aerodrome Report) can be downloaded using the R-package <a href="https://docs.ropensci.org/riem/" class="external-link">riem</a> or via the <a href="https://mesonet.agron.iastate.edu/request/download.phtml" class="external-link">Iowa State University</a> site, time-series of pollutant concentrations from Brazil can be downloaded using the R-package <a href="https://github.com/ropensci/qualR" class="external-link">qualR</a>, or <a href="https://qualar.cetesb.sp.gov.br/qualar" class="external-link">QUALAR</a> and <a href="https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore" class="external-link">MonitorAir</a> sites, and a range of satellite products are available at <a href="https://giovanni.gsfc.nasa.gov/giovanni/" class="external-link">NASA giovanni</a> website.</p></li>
+<li><p>Download of observations, METAR can be downloaded using the R-package <a href="https://docs.ropensci.org/riem/" class="external-link">riem</a> or via the <a href="https://mesonet.agron.iastate.edu/request/download.phtml" class="external-link">Iowa State University</a> site, Air Quality data for Brazil can be downloaded using the R-package <a href="https://github.com/ropensci/qualR" class="external-link">qualR</a>, or <a href="https://qualar.cetesb.sp.gov.br/qualar" class="external-link">QUALAR</a> and <a href="https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore" class="external-link">MonitorAir</a> sites, and a range of satellite products are available at <a href="https://giovanni.gsfc.nasa.gov/giovanni/" class="external-link">NASA giovanni</a> website.</p></li>
 <li><p>QA of the observation data.</p></li>
 <li><p>Process observation data for evaluation.</p></li>
 <li><p>Process of site-list if plan to extract time-series from the model.</p></li>
@@ -104,7 +81,6 @@
 <p><strong>3. Model Evaluation</strong>: The functions <code><a href="reference/eva.html">eva()</a></code> (to evaluate time-series) and <code><a href="reference/sat.html">sat()</a></code> (to evaluate against satellite products) can be used to perform statistical (more details in <code><a href="reference/stat.html">stat()</a></code>) and categorical (more details in <code><a href="reference/cate.html">cate()</a></code>) evaluation;</p>
 <p><strong>4. Visualization</strong>: try some of the visualization functions from this package or other packages.</p>
 <p>This package includes:</p>
-</div>
 <div class="section level2">
 <h2 id="model-post-processing-functions">Model Post-processing functions:<a class="anchor" aria-label="anchor" href="#model-post-processing-functions"></a>
 </h2>
@@ -143,18 +119,6 @@
 <p>✔ <code><a href="reference/legend_range.html">legend_range()</a></code> custom legend, display max, min and average;</p>
 <p>✔ <code><a href="reference/template.html">template()</a></code> function that create post-processing and evaluation scripts;</p>
 </div>
-<div class="section level2">
-<h2 id="speciall-functions">Speciall functions:<a class="anchor" aria-label="anchor" href="#speciall-functions"></a>
-</h2>
-<p>✔ <code>%at%</code> combine a table (with results from <code><a href="reference/eva.html">eva()</a></code> or <code><a href="reference/sat.html">sat()</a></code> for example) with a table with geographical coordinates. The goal of this function is to georeference and visualize the statistical results.</p>
-<p>✔ <code>%IN%</code> filter a table (with model/observations time-series) based on a second table (using the column names). Also can be used to crop a <code>SpatRaster</code> based on a second <code>SpatRaster</code>. The goal is to be used to perform fair comparison of different evaluations (using the same number of observation).</p>
-</div>
-<div class="section level2">
-<h2 id="contributing-to-eva3dm">Contributing to <code>eva3dm</code>
-<a class="anchor" aria-label="anchor" href="#contributing-to-eva3dm"></a>
-</h2>
-<p>If you like to contribute to <code>eva3dm</code> take a look at the <a href="https://github.com/schuch666/eva3dm/blob/JOSS/CONTRIBUTING.md" class="external-link">contribution guidelines</a> page and by participating in this project you agree to abide the <a href="https://github.com/schuch666/eva3dm/blob/JOSS/CODE_OF_CONDUCT.md" class="external-link">code of conduct</a> terms.</p>
-</div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
@@ -174,13 +138,6 @@
 </ul>
 </div>
 
-<div class="community">
-<h2 data-toc-skip>Community</h2>
-<ul class="list-unstyled">
-<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
-<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
-</ul>
-</div>
 
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
@@ -199,14 +156,12 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://raw.githubusercontent.com/Schuch666/eva3dm/refs/heads/JOSS/MIT" class="external-link"><img src="https://img.shields.io/github/license/hyperium/hyper.svg" alt="Licence:MIT"></a></li>
-<li><a href="https://codecov.io/github/schuch666/eva3dm" class="external-link"><img src="https://codecov.io/github/schuch666/eva3dm/graph/badge.svg?token=E14U1GNK6R" alt="codecov"></a></li>
+<li><a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/github/license/hyperium/hyper.svg" alt="Licence:MIT"></a></li>
+<li><a href="https://github.com/schuch666/eva3dm/actions" class="external-link"><img src="https://github.com/schuch666/eva3dm/workflows/cod-cov/badge.svg" alt="Cod-cov status"></a></li>
+<li><a href="https://codecov.io/github/schuch666/eva3dm" class="external-link"><img src="https://img.shields.io/codecov/c/github/schuch666/eva3dm/master.svg" alt="Coverage Status"></a></li>
 <li><a href="https://github.com/schuch666/eva3dm/actions" class="external-link"><img src="https://github.com/schuch666/eva3dm/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://schuch666.github.io/eva3dm/"><img src="https://github.com/schuch666/eva3dm/workflows/site/badge.svg" alt="Site build status"></a></li>
-<li><a href="http://cran.r-project.org/web/packages/eva3dm" class="external-link"><img src="http://www.r-pkg.org/badges/version/eva3dm" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://cran.r-project.org/web/checks/check_results_eva3dm.html" class="external-link"><img src="https://badges.cranchecks.info/worst/eva3dm.svg" alt="cran checks"></a></li>
-<li><a href="https://doi.org/10.21105/joss.07797" class="external-link"><img src="https://joss.theoj.org/papers/10.21105/joss.07797/status.svg" alt="DOI"></a></li>
-<li><a href="https://doi.org/10.5281/zenodo.15213216" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.15213216.svg" alt="DOI"></a></li>
+<li><a href="https://schuch666.github.io/eva3dm/"><img src="https://github.com/schuch666/eva3dm/workflows/site/badge.svg" alt="Site build status"></a></li>
 </ul>
 </div>
 

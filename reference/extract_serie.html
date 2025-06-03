@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">eva3dm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,10 +16,6 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/workflow.html">Introduction to eva3dm</a></li>
-  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -38,7 +34,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Extract time series of wrf file list of lat/lon</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Schuch666/eva3dm/blob/main/R/extract_serie.R" class="external-link"><code>R/extract_serie.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Schuch666/eva3dm/blob/%E3%81%A1%E3%81%8B%E3%81%AE%E3%81%93%E3%81%AE%E3%81%93%E3%81%AE%E3%81%93%E3%81%93%E3%81%97%E3%81%9F%E3%82%93%E3%81%9F%E3%82%93/R/extract_serie.R" class="external-link"><code>R/extract_serie.R</code></a></small>
       <div class="d-none name"><code>extract_serie.Rd</code></div>
     </div>
 
@@ -53,7 +49,6 @@
 <span>  <span class="va">point</span>,</span>
 <span>  variable <span class="op">=</span> <span class="st">"o3"</span>,</span>
 <span>  field <span class="op">=</span> <span class="st">"4d"</span>,</span>
-<span>  level <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  prefix <span class="op">=</span> <span class="st">"serie"</span>,</span>
 <span>  new <span class="op">=</span> <span class="st">"check"</span>,</span>
 <span>  return.nearest <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -64,7 +59,6 @@
 <span>  use_TFLAG <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  use_datesec <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  id <span class="op">=</span> <span class="st">"id"</span>,</span>
-<span>  remove_ch <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -86,11 +80,7 @@
 
 
 <dt id="arg-field">field<a class="anchor" aria-label="anchor" href="#arg-field"></a></dt>
-<dd><p>'4d' (default), '3d', '2d' or '2dz' see notes</p></dd>
-
-
-<dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
-<dd><p>model level to be extracted</p></dd>
+<dd><p>'4d' (defoult), '3d', '2d' or '2dz' see notes</p></dd>
 
 
 <dt id="arg-prefix">prefix<a class="anchor" aria-label="anchor" href="#arg-prefix"></a></dt>
@@ -133,10 +123,6 @@
 <dd><p>name of the column with station names, if point is a SpatVector (points) from terra package</p></dd>
 
 
-<dt id="arg-remove-ch">remove_ch<a class="anchor" aria-label="anchor" href="#arg-remove-ch"></a></dt>
-<dd><p>remove special characters on row.names</p></dd>
-
-
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>display additional information</p></dd>
 
@@ -160,20 +146,16 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Example 1: METAR site list</span>
 <span class="r-in"><span><span class="va">sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/sites_METAR.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 2: Integrated Surface Dataset (ISD) site list\n'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Example 2: Integrated Surface Dataset (ISD) site list</span>
-<span class="r-in"><span><span class="va">sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/sites_ISD.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 4: AERONET site list\n'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Example 4: AERONET site list</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 2: AERONET site list\n'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Example 2: AERONET site list</span>
 <span class="r-in"><span><span class="va">sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/sites_AERONET.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 5: list of INMET stations on Brazil\n'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Example 5: list of INMET stations on Brazil</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 3: list of INMET stations on Brazil\n'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Example 3: list of INMET stations on Brazil</span>
 <span class="r-in"><span><span class="va">sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/sites_INMET.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 6: list of Air Quality stations on Brazil\n'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Example 6: list of Air Quality stations on Brazil</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 4: list of Air Quality stations on Brazil\n'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Example 4: list of Air Quality stations on Brazil</span>
 <span class="r-in"><span><span class="va">sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/sites_AQ_BR.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">files</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,</span></span>
@@ -200,7 +182,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> reading o3 : /home/runner/work/_temp/Library/eva3dm/extdata/wrf.day1.o3.nc file 1 of 3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> reading o3 : /home/runner/work/_temp/Library/eva3dm/extdata/wrf.day2.o3.nc file 2 of 3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> reading o3 : /home/runner/work/_temp/Library/eva3dm/extdata/wrf.day3.o3.nc file 3 of 3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> output: /tmp/RtmphQ6ZUZ/SERIE/serie.o3.Rds </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> output: /tmp/Rtmp3kBKa5/SERIE/serie.o3.Rds </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

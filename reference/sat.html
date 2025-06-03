@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">eva3dm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,10 +16,6 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/workflow.html">Introduction to eva3dm</a></li>
-  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -38,7 +34,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Functions to model evaluation using satellite</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Schuch666/eva3dm/blob/main/R/sat.R" class="external-link"><code>R/sat.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Schuch666/eva3dm/blob/%E3%81%A1%E3%81%8B%E3%81%AE%E3%81%93%E3%81%AE%E3%81%93%E3%81%AE%E3%81%93%E3%81%93%E3%81%97%E3%81%9F%E3%82%93%E3%81%9F%E3%82%93/R/sat.R" class="external-link"><code>R/sat.R</code></a></small>
       <div class="d-none name"><code>sat.Rd</code></div>
     </div>
 
@@ -56,11 +52,9 @@
 <span>  n <span class="op">=</span> <span class="fl">6</span>,</span>
 <span>  min <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  max <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  <span class="va">scale</span>,</span>
 <span>  method <span class="op">=</span> <span class="st">"bilinear"</span>,</span>
 <span>  eval_function <span class="op">=</span> <span class="va">stat</span>,</span>
 <span>  <span class="va">mask</span>,</span>
-<span>  skip_interp <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -98,10 +92,6 @@
 <dd><p>maximum value cutoff</p></dd>
 
 
-<dt id="arg-scale">scale<a class="anchor" aria-label="anchor" href="#arg-scale"></a></dt>
-<dd><p>multiplier for model and observation (after min/max cutoff)</p></dd>
-
-
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>passed to terra::resample</p></dd>
 
@@ -112,10 +102,6 @@
 
 <dt id="arg-mask">mask<a class="anchor" aria-label="anchor" href="#arg-mask"></a></dt>
 <dd><p>optional SpatVector to mask the results</p></dd>
-
-
-<dt id="arg-skip-interp">skip_interp<a class="anchor" aria-label="anchor" href="#arg-skip-interp"></a></dt>
-<dd><p>skip the interpolation step</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
@@ -138,46 +124,29 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">model_no2</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">model_o3</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                              <span class="st">"/camx_no2.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">omi_no2</span>   <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span><span class="va">omi_o3</span>   <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                              <span class="st">"/omi_no2.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># generate the statistical indexes</span></span></span>
-<span class="r-in"><span><span class="fu">sat</span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model_no2</span>,ob <span class="op">=</span> <span class="va">omi_no2</span>,rname <span class="op">=</span> <span class="st">'NO2_statistical'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> removing 6 points for the model (mo) lateral boundaryes ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> interpolating obsservation (ob) to model grid (mo) ...</span>
+<span class="r-in"><span><span class="fu">sat</span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model_o3</span>,ob <span class="op">=</span> <span class="va">omi_o3</span>,rname <span class="op">=</span> <span class="st">'NO2_statistical'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> removing 6 points for the model (y) boundaryes ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> interpolating obs. (x) to model grid (y)...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     n      Obs      Sim         r       IOA       FA2    RMSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NO2_statistical 11664 3.334283 4.267475 0.4689121 0.3358893 0.6685528 4.98183</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        MB       ME  NMB (%)  NME (%)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NO2_statistical 0.9331919 2.165081 27.98778 64.93393</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># generate categorical evaluation using 3.0 as threshold</span></span></span>
-<span class="r-in"><span><span class="fu">sat</span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model_no2</span>,ob <span class="op">=</span> <span class="va">omi_no2</span>,rname <span class="op">=</span> <span class="st">'NO2_categorical'</span>,</span></span>
+<span class="r-in"><span><span class="fu">sat</span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model_o3</span>,ob <span class="op">=</span> <span class="va">omi_o3</span>,rname <span class="op">=</span> <span class="st">'NO2_categorical'</span>,</span></span>
 <span class="r-in"><span>    eval_function <span class="op">=</span> <span class="va">cate</span>, threshold <span class="op">=</span> <span class="fl">3.0</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> removing 6 points for the model (mo) lateral boundaryes ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> interpolating obsservation (ob) to model grid (mo) ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> removing 6 points for the model (y) boundaryes ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> interpolating obs. (x) to model grid (y)...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     n      Obs      Sim thr        A      CSI      POD        B</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NO2_categorical 11664 3.334283 4.267475   3 83.04184 69.81074 85.49533 107.9626</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      FAR      HSS      PSS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NO2_categorical 20.81025 66.05674 66.45827</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># customizing the evaluation function: inclusion of p.value from stats::cor.test()</span></span></span>
-<span class="r-in"><span><span class="va">stat_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span><span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="va">table</span>         <span class="op">&lt;-</span> <span class="fu">eva3dm</span><span class="fu">::</span><span class="fu"><a href="stat.html">stat</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">cor.result</span>    <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span> <span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">table</span><span class="op">$</span><span class="va">p.value</span> <span class="op">&lt;-</span> <span class="va">cor.result</span><span class="op">$</span><span class="va">p.value</span></span></span>
-<span class="r-in"><span>  <span class="va">table</span>         <span class="op">&lt;-</span> <span class="va">table</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,<span class="fl">12</span>,<span class="fl">5</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span><span class="op">]</span></span></span>
-<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">table</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">sat</span><span class="op">(</span>mo <span class="op">=</span> <span class="va">model_no2</span>,ob <span class="op">=</span> <span class="va">omi_no2</span>,rname <span class="op">=</span> <span class="st">'NO2_statistical_with_p'</span>,eval_function <span class="op">=</span> <span class="va">stat_p</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> removing 6 points for the model (mo) lateral boundaryes ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> interpolating obsservation (ob) to model grid (mo) ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            n      Obs      Sim         r p.value       IOA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NO2_statistical_with_p 11664 3.334283 4.267475 0.4689121       0 0.3358893</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                              FA2    RMSE        MB       ME  NMB (%)  NME (%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NO2_statistical_with_p 0.6685528 4.98183 0.9331919 2.165081 27.98778 64.93393</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
