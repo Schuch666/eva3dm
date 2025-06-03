@@ -1,6 +1,10 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://schuch666.github.io/eva3dm/404.html</loc></url>
+<url><loc>https://schuch666.github.io/eva3dm/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://schuch666.github.io/eva3dm/CONTRIBUTING.html</loc></url>
 <url><loc>https://schuch666.github.io/eva3dm/LICENSE-text.html</loc></url>
+<url><loc>https://schuch666.github.io/eva3dm/articles/index.html</loc></url>
+<url><loc>https://schuch666.github.io/eva3dm/articles/workflow.html</loc></url>
 <url><loc>https://schuch666.github.io/eva3dm/authors.html</loc></url>
 <url><loc>https://schuch666.github.io/eva3dm/index.html</loc></url>
 <url><loc>https://schuch666.github.io/eva3dm/news/index.html</loc></url>
@@ -31,6 +35,7 @@
 <url><loc>https://schuch666.github.io/eva3dm/reference/read_stat.html</loc></url>
 <url><loc>https://schuch666.github.io/eva3dm/reference/rh2q.html</loc></url>
 <url><loc>https://schuch666.github.io/eva3dm/reference/sat.html</loc></url>
+<url><loc>https://schuch666.github.io/eva3dm/reference/select.html</loc></url>
 <url><loc>https://schuch666.github.io/eva3dm/reference/stat.html</loc></url>
 <url><loc>https://schuch666.github.io/eva3dm/reference/template.html</loc></url>
 <url><loc>https://schuch666.github.io/eva3dm/reference/uv2wd.html</loc></url>
