@@ -5,6 +5,7 @@ test_that("template works", {
   template(root = f, template = 'WRF',scheduler = "PBS") # WRF post process
   template(root = f, template = 'WRF-3')                 # WRF post process for 3 domain
   template(root = f, template = 'CAMx')                  # CAMx post process
+  template(root = f, template = 'CAMx-3')                # CAMx post process
   template(root = f, template = 'WRF-Chem')              # WRF-Chem post process
   template(root = f, template = 'EXP')                   # WRF-Chem post process
   template(root = f, template = 'METAR')                 # download METAR
