@@ -69,7 +69,7 @@
 
 
 <dt id="arg-template">template<a class="anchor" aria-label="anchor" href="#arg-template"></a></dt>
-<dd><p>template type (see notes)</p></dd>
+<dd><p>Character; One of  of the following:</p><table class="table table"><tr><td><strong>argument</strong></td><td><strong>TYPE</strong></td><td><strong>MODEL</strong></td><td><strong>OBSERVATION</strong></td><td>WRF</td></tr><tr><td>post-process</td><td>WRF</td><td>METAR and INMET</td><td>WRF-3</td><td>post-process</td></tr><tr><td>WRF triple nested</td><td>METAR</td><td>WRF-Chem</td><td>post-process</td><td>WRF-Chem</td></tr><tr><td>METAR, AQS in Brazil and AERONET</td><td>EXP</td><td>post-process</td><td>WRF-Chem</td><td>METAR, PBL variables and composition</td></tr><tr><td>CAMX</td><td>post-process</td><td>CAMx</td><td>AERONET</td><td>CAMX-3</td></tr><tr><td>post-process</td><td>CAMx triple nested</td><td>AERONET</td><td>PSA</td><td>post-process</td></tr><tr><td>WRF</td><td>Satellite</td><td>SAT</td><td>evaluation</td><td>WRF</td></tr><tr><td>Satellite (GPCP)</td><td>MET</td><td>evaluation</td><td>WRF</td><td>METAR</td></tr><tr><td>MET-3</td><td>evaluation</td><td>WRF triple nested</td><td>METAR</td><td>AQ</td></tr><tr><td>evaluation</td><td>WRF or CAMx</td><td>O3, Max O3 and PM2.5</td><td>AQS_BR</td><td>download</td></tr><tr><td>any</td><td>AQS in Brazil for SP and RJ</td><td>METAR</td><td>downlaad</td><td>any</td></tr><tr><td>METAR from ASOS</td><td>INMET</td><td>pre-processing</td><td>any</td><td>INMET (automatic and conventional)</td></tr><tr><td>merge</td><td>pre-processing</td><td>any</td><td>merge INMET (automatic and conventional)</td><td></td></tr></table></dd>
 
 
 <dt id="arg-case">case<a class="anchor" aria-label="anchor" href="#arg-case"></a></dt>
@@ -100,33 +100,15 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>no value returned, create folders and other template scripts</p>
     </div>
-    <div class="section level2">
-    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>Templates types available:<br>
- - WRF (model post-process for METAR + INMET)<br>
- - WRF-3 (model post-process for METAR + INMET for triple nested domains)<br>
- - WRF-Chem (model post-process for METAR, AQS in Brazil and AERONET)<br>
- - EXP (model post-process for one experimental site including PBL variables)<br>
- - CAMx (post-process for triple tested domains)
- - METAR (download METAR observations from ASOS)<br>
- - MET (evaluation of meteorology)<br>
- - MET-3 (evaluation of meteorology for triple nested domains)<br>
- - AQ (evaluation of air quality)<br>
- - PSA (model post-processing with CDO for satellite evaluation)<br>
- - SAT (evaluation of precipitation using GPCP satellite)<br>
- - AQS_BR (download data from air quality stations at Sao Paulo and Rio de Janeiro)<br>
- - INMET (pre-processing of automatic and conventional meteorological data from INMET)<br>
- - merge (merge INMET data and merge METAR data)<br></p>
-    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"POST"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">template</span><span class="op">(</span>root <span class="op">=</span> <span class="va">temp</span>,template <span class="op">=</span> <span class="st">'WRF'</span>, case <span class="op">=</span> <span class="st">'WRF-only'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  folder  /tmp/RtmpSNWW32/POST/WRF/WRF-only : link wrf output files here!</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  bash  /tmp/RtmpSNWW32/POST/post-R_wrf.sh : post processing job script</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  r-script /tmp/RtmpSNWW32/POST/extract_metar.R : source code to extract metar using eva3dm::extract_serie()</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  r-script /tmp/RtmpSNWW32/POST/extract_inmet.R : source code to extract inmet using eva3dm::extract_serie()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  folder  /tmp/RtmpTKXsk2/POST/WRF/WRF-only : link wrf output files here!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  bash  /tmp/RtmpTKXsk2/POST/post-R_wrf.sh : post processing job script</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  r-script /tmp/RtmpTKXsk2/POST/extract_metar.R : source code to extract metar using eva3dm::extract_serie()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  r-script /tmp/RtmpTKXsk2/POST/extract_inmet.R : source code to extract inmet using eva3dm::extract_serie()</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
