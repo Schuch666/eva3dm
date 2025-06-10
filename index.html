@@ -111,14 +111,15 @@
 <p>✔ <code><a href="reference/extract_serie.html">extract_serie()</a></code> extract and save time-series from WRF outputs and input files (and compatible NetCDF files);</p>
 <p>✔ <code><a href="reference/extract_mean.html">extract_mean()</a></code> extract, average (or max, min, etc) and save variables in a NetCDF file;</p>
 <p>✔ <code><a href="reference/extract_max_8h.html">extract_max_8h()</a></code> extract, calculate maximum (or avarage, max, min) 8h average and save variables in a NetCDF file;</p>
-<p>✔ <code><a href="reference/wrf_rast.html">wrf_rast()</a></code> extract variables and create <code>SpatRaster</code> or <code>SpatVector</code> from WRF files (and compatible NetCDF files) and the contrapart <code><a href="reference/rast_to_netcdf.html">rast_to_netcdf()</a></code> that converts <code>rast</code> to an array compatible to a NetCDF WRF file;</p>
+<p>✔ <code><a href="reference/wrf_rast.html">wrf_rast()</a></code> extract variables and create <code>SpatRaster</code> or <code>SpatVector</code> from WRF files (and compatible NetCDF files) and the contrapart <code><a href="reference/rast_to_netcdf.html">rast_to_netcdf()</a></code> that converts <code>rast</code> to an array compatible to a NetCDF WRF file.</p>
 </div>
 <div class="section level2">
 <h2 id="data-pre-processing-functions">Data pre-processing functions:<a class="anchor" aria-label="anchor" href="#data-pre-processing-functions"></a>
 </h2>
+<p>✔ <code><a href="reference/select.html">select()</a></code> function to select time-series (data.frame) based on time;</p>
 <p>✔ <code><a href="reference/mda8.html">mda8()</a></code>, <code><a href="reference/ma8h.html">ma8h()</a></code>, <code><a href="reference/hourly.html">hourly()</a></code>, and <code><a href="reference/daily.html">daily()</a></code> process and calculate calculate time-series;</p>
-<p>✔ <code><a href="reference/rh2q.html">rh2q()</a></code>, <code><a href="reference/q2rh.html">q2rh()</a></code>, that convert humidity units.</p>
-<p>✔ <code><a href="reference/uv2ws.html">uv2ws()</a></code>, <code><a href="reference/uv2wd.html">uv2wd()</a></code>, that convert model wind components into wind speed and velocity.</p>
+<p>✔ <code><a href="reference/rh2q.html">rh2q()</a></code>, <code><a href="reference/q2rh.html">q2rh()</a></code>, that convert humidity units;</p>
+<p>✔ <code><a href="reference/uv2ws.html">uv2ws()</a></code>, <code><a href="reference/uv2wd.html">uv2wd()</a></code>, that convert model wind components into wind speed and velocity;</p>
 <p>✔ <code><a href="reference/rain.html">rain()</a></code> to calculate hourly precipitation from model accumulated precipitation variables.</p>
 </div>
 <div class="section level2">
@@ -142,11 +143,7 @@
 <p>✔ <code><a href="reference/overlay.html">overlay()</a></code> custom plot to overlay points or plot point-data,<code>%at%</code> can be used to georeference the evaluation results;</p>
 <p>✔ <code><a href="reference/legend_range.html">legend_range()</a></code> custom legend, display max, min and average;</p>
 <p>✔ <code><a href="reference/template.html">template()</a></code> function that create post-processing and evaluation scripts;</p>
-</div>
-<div class="section level2">
-<h2 id="speciall-functions">Speciall functions:<a class="anchor" aria-label="anchor" href="#speciall-functions"></a>
-</h2>
-<p>✔ <code>%at%</code> combine a table (with results from <code><a href="reference/eva.html">eva()</a></code> or <code><a href="reference/sat.html">sat()</a></code> for example) with a table with geographical coordinates. The goal of this function is to georeference and visualize the statistical results.</p>
+<p>✔ <code>%at%</code> combine a table (with results from <code><a href="reference/eva.html">eva()</a></code> or <code><a href="reference/sat.html">sat()</a></code> for example) with a table with geographical coordinates. The goal of this function is to georeference and visualize the statistical results;</p>
 <p>✔ <code>%IN%</code> filter a table (with model/observations time-series) based on a second table (using the column names). Also can be used to crop a <code>SpatRaster</code> based on a second <code>SpatRaster</code>. The goal is to be used to perform fair comparison of different evaluations (using the same number of observation).</p>
 </div>
 <div class="section level2">
