@@ -21,7 +21,7 @@
 #'  - WRF-Chem (model post-process for METAR, AQS in Brazil and AERONET)\cr
 #'  - EXP (model post-process for one experimental site including PBL variables)\cr
 #'  - CAMx (post-process for triple tested domains)
-#'  - METAR (download METAR observations from ASOS)\cr
+#'  - METAR (download METAR and other meteorological observations from ASOS)\cr
 #'  - MET (evaluation of meteorology)\cr
 #'  - MET-3 (evaluation of meteorology for triple nested domains)\cr
 #'  - AQ (evaluation of air quality)\cr
@@ -30,6 +30,7 @@
 #'  - AQS_BR (download data from air quality stations at Sao Paulo and Rio de Janeiro)\cr
 #'  - INMET (pre-processing of automatic and conventional meteorological data from INMET)\cr
 #'  - merge (merge INMET data and merge METAR data)\cr
+#'  - ISD (process METAR and other meteorological data from ISD)\cr
 #'
 #' @examples
 #' temp <- file.path(tempdir(),"POST")
@@ -2440,6 +2441,124 @@ for(VAR in c("T2","RH","WS","WD","rain")){
     cat(' R-Script ', paste0(root,'merge_METAR.R'),': script to merge METAR observations\n')
     cat(' folder ',   paste0(root,'INMET/'),       ': place all INMET data (input and output)\n')
     cat(' folder ',   paste0(root,'METAR/'),       ': place all METAR data (input and output)\n')
+  }
+}
+
+### script to process meteorological data (.csv) downloaded from ISD
+if(template == 'ISD'){
+  dir.create(path = paste0(root,'ISD/raw'),
+             recursive = TRUE,
+             showWarnings = FALSE)
+  dir.create(path = paste0(root,'ISD/Rds'),
+             recursive = TRUE,
+             showWarnings = FALSE)
+
+  cat(paste0('input_folder <- "',paste0(root,'ISD/raw/'),'"
+out_folder   <- "',paste0(root,'ISD/Rds/'),'"
+
+calculate_full_humidity <- function(temp_C, dew_point_C, pressure_hPa = 1013.25) {
+
+  # if pressure is missing, consider standard atmosphere
+  pressure_hPa[is.na(pressure_hPa)] = 1013.25
+
+  # Constants
+  A    <- 17.67
+  B    <- 243.5
+  RdRv <- 0.622  # Ratio of gas constants for dry air to water vapor
+
+  # Saturation vapor pressure (hPa)
+  e_s <- 6.112 * exp((A * temp_C) / (temp_C + B))
+
+  # Actual vapor pressure from dew point (hPa)
+  e <- 6.112 * exp((A * dew_point_C) / (dew_point_C + B))
+
+  # Relative Humidity (%)
+  RH <- (e / e_s) * 100
+
+  # Absolute Humidity (g/m³)
+  AH <- (216.7 * e) / (temp_C + 273.15)
+
+  # Mixing Ratio (w) in g/kg
+  w <- RdRv * (e / (pressure_hPa - e)) * 1000  # g/kg
+
+  # Specific Humidity (q) in g/kg
+  q <- (w / (1 + (w / 1000)))  # g/kg
+
+  return(list(
+    Relative_Humidity_percent = RH,
+    Absolute_Humidity_g_m3 = AH,
+    Mixing_Ratio_g_per_kg = w,
+    Specific_Humidity_g_per_kg = q
+  ))
+}
+
+input_files  <- dir(path = input_folder, full.names = TRUE)
+file_names   <- dir(path = input_folder, full.names = FALSE)
+output_files <- paste0(out_folder,"ISD_",substr(file_names,1,11),".Rds")
+
+files <- dir(path = input_folder,pattern = ".csv",full.names = TRUE)
+
+site_list <- data.frame()
+for(i in 1:length(files)){
+  cat("listing ISD site",i,"from",length(files),"...\\n")
+  data      <- read.csv(files[i], nrows = 2)
+  station   <- data.frame(ID        = data$STATION[1],
+                          name      = data$NAME[1],
+                          lon       = data$LONGITUDE[1],
+                          lat       = data$LATITUDE[1],
+                          elevation = data$ELEVATION[1],
+                          type      = data$REPORT_TYPE[1],
+                          source    = data$SOURCE[1],
+                          stringsAsFactors = FALSE)
+  site_list <- rbind(site_list,station)
+}
+row.names(site_list) <- site_list$ID  # put ID in row.names
+site_list            <- site_list[-1] # remove ID
+
+saveRDS(site_list,paste0(out_folder,"site_list_ISD.Rds"))
+
+for(i in 1:length(input_files)){
+  cat("processing ISD data",i,"from",length(input_files),"...\\n")
+  data    <- read.csv(input_files[i])
+  if(nrow(data) < 1) next()
+  station <- data.frame(date   = as.POSIXct(data$DATE, format = "%Y-%m-%dT%H:%M:%OS",tz = "UTC"),
+                        name   = data$STATION,
+                        long   = data$NAME,
+                        WS     = as.numeric(substr(data$WND,start = 9,stop = 12))/ 10, ## 0.1 x m/s
+                        WD     = as.numeric(substr(data$WND,start = 1,stop = 3)),      ## degree north
+                        T2     = as.numeric(substr(data$TMP,start = 1,stop = 5)) / 10, ## 0.1 C
+                        DEW    = as.numeric(substr(data$DEW,start = 1,stop = 5)) / 10, ## 0.1 C
+                        PRESS  = as.numeric(substr(data$SLP,start = 1,stop = 5)) / 10, ## 0.1 C hpa
+                        stringsAsFactors = FALSE)
+
+  station$T2[     station$T2   >= 100   ] = NA
+  station$DEW[    station$DEW  >= 100   ] = NA
+  station$WS[     station$WS   >= 100   ] = NA
+  station$WD[     station$WD   >  360   ] = NA
+  station$WS[     station$WS   <= 0     ] = NA
+  station$WD[     station$WS   <= 0     ] = NA
+  station$PRESS[  station$PRESS >= 9999 ] = NA
+
+  humid <- calculate_full_humidity(temp_C       = station$T2,
+                                   dew_point_C  = station$DEW,
+                                   pressure_hPa = station$PRESS)
+
+  station$RU <- humid$Relative_Humidity_percent
+  station$Q2 <- humid$Specific_Humidity_g_per_kg
+
+  saveRDS(station,paste0(output_files[i]))
+
+  # print( summary(station) )
+}
+cat("completed!")
+'),
+      file = paste0(root,'process_isd.R'),
+      append = FALSE)
+
+  if(verbose){
+    cat(' R-Script ', paste0(root,'process_isd.R'),': script to process meteorological observations and site-list from ISD\n')
+    cat(' folder ',   paste0(root,'ISD/raw/'),     ': input folder (.csv)\n')
+    cat(' folder ',   paste0(root,'ISD/Rds/'),     ': output folder (.Rds)\n')
   }
 }
 

@@ -45,7 +45,7 @@ Templates types available:\cr
  - WRF-Chem (model post-process for METAR, AQS in Brazil and AERONET)\cr
  - EXP (model post-process for one experimental site including PBL variables)\cr
  - CAMx (post-process for triple tested domains)
- - METAR (download METAR observations from ASOS)\cr
+ - METAR (download METAR and other meteorological observations from ASOS)\cr
  - MET (evaluation of meteorology)\cr
  - MET-3 (evaluation of meteorology for triple nested domains)\cr
  - AQ (evaluation of air quality)\cr
@@ -54,6 +54,7 @@ Templates types available:\cr
  - AQS_BR (download data from air quality stations at Sao Paulo and Rio de Janeiro)\cr
  - INMET (pre-processing of automatic and conventional meteorological data from INMET)\cr
  - merge (merge INMET data and merge METAR data)\cr
+ - ISD (process METAR and other meteorological data from ISD)\cr
 }
 \examples{
 temp <- file.path(tempdir(),"POST")

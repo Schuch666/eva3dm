@@ -16,6 +16,7 @@ test_that("template works", {
   template(root = f, template = 'AQS_BR')                # download aqs for SP and RJ
   template(root = f, template = 'INMET')                 # process conventional and automatic INMET stations
   template(root = f, template = 'merge')                 # template to merge all INMET observations and METAR observations
+  template(root = f, template = 'ISD')                   # process ISD observations
 
   expect_equal(length(f), 1)
 })
