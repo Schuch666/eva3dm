@@ -36,8 +36,11 @@ wrf_sds(
 \item{...}{extra arguments passed to ncdf4::ncvar_get}
 }
 \value{
-SpatRasterDataset object (terra from package)
+SpatRasterDataset object (terra from package), each time-step is considered one subdatasets and each layer is one nlyr.
 }
 \description{
 Creates a SpatRasterDataset (terra R-package) object from a variable from wrf file (or another compatible NetCDF) for all times and levels
+}
+\note{
+the convention adopted to select specific times and atmospheric layers on wrf_sds is sds[time,layer] to keep consistence with sds.
 }

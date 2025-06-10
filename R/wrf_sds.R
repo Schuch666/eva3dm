@@ -12,7 +12,9 @@
 #' @param verbose display additional information
 #' @param ... extra arguments passed to ncdf4::ncvar_get
 #'
-#' @return SpatRasterDataset object (terra from package)
+#' @return SpatRasterDataset object (terra from package), each time-step is considered one subdatasets and each layer is one nlyr.
+#'
+#' @note The convention adopted to select specific times and atmospheric layers on wrf_sds is sds[time,layer] to keep consistence with sds.
 #'
 #' @import terra ncdf4
 #' @importFrom utils menu
