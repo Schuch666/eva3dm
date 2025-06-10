@@ -1,8 +1,8 @@
 #' Model statistical evaluation
 #'
 #' @description Statistical (or categorical) evaluation from 2 data.frames. The input data.frames (model and observation)
-#' must contain a "date" column (containing POSIXlt). The function perform some simple case tests and
-#' perform the time pairing of observations and model data and can calculate the statistical evaluation or
+#' must contain a time column (containing POSIXlt). The function perform pre-conditioning of the data,
+#' data pairing (using the time column) of the observations and model and calculate the metrics for statistical or
 #' categorical evaluation.
 #'
 #' @param mo data.frame with model data
@@ -23,11 +23,11 @@
 #' @param verbose display additional information
 #' @param ... arguments to be passing to stats and plot
 #'
-#' @return data.frame with statistical values from stat or cate functions.
+#' @return data.frame with statistical metric
 #'
-#' @note fair can be a data.frame or a character string to be used for the analysis, alternatively the function %IN% can be used: model_d01 %IN% model_d02 instead.
+#' @note Fair argument can be a data.frame or a character string to be used for the analysis, alternatively the function %IN% can be used instead, for example model_d01 %IN% model_d02.
 #'
-#' @note for wind direction a rotation of 360 (or -360) is applied to minimize the wind direction difference.
+#' @note If wd = TRUE, used for wind direction, a rotation of 360 (or -360) is applied to minimize the wind direction difference.
 #'
 #' @note If site == 'ALL' (default) all the columns from observations are combined in one column
 #' (same for observation) and all the columns are evaluated together.
@@ -36,7 +36,7 @@
 #'
 #' @note Special thanks to Kiarash and Libo to help to test the wind direction option.
 #'
-#' @seealso \code{\link{stat}} for additional information about the statistical evaluation and \code{\link{cate}} for categorical evaluation.
+#' @seealso \code{\link{stat}} for additional information about the statistical metrics and \code{\link{cate}} for categorical metrics, and check the example with the custom evaluation function (inclusion of p.value from stats::cor.test()).
 #'
 #' @export
 #'
@@ -65,7 +65,7 @@
 #'              eval_function = cate, threshold = 2)
 #' print(table)
 #'
-#' # calculating categorical (using 2 for threshold) with a few observed values
+#' # calculating categorical (using 10 for threshold) with a few observed values
 #' table <- eva(mo = model, ob = obs, site = "Americana",
 #'              eval_function = cate, threshold = 10)
 #' print(table)
