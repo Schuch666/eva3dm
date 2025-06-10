@@ -7,3 +7,6 @@ inst/doc
 /doc/
 /Meta/
 eva3dm.Rproj
+*.DS_Store
+*/*.DS_Store
+eva3dm 2

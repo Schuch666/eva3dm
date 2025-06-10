@@ -42,7 +42,7 @@ The following workflow is recommended:
 
 **1. Pre-processing of observations**:
 
-- Download of observations, time-series of meteorological variables can be obtained from the METAR (METeorological Aerodrome Report) can be downloaded using the R-package [riem](https://docs.ropensci.org/riem/) or via the [Iowa State University](https://mesonet.agron.iastate.edu/request/download.phtml) site, time-series of pollutant concentrations from Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites, and a range of satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website.
+- Download of observations, time-series of meteorological variables can be obtained from the METAR (METeorological Aerodrome Report) can be downloaded using the R-package [riem](https://docs.ropensci.org/riem/), or via the [Iowa State University ASOS/AWOS](https://mesonet.agron.iastate.edu/request/download.phtml) and [NOAA ISD](https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database) websites, time-series of pollutant concentrations from Brazil can be downloaded using the R-package [qualR](https://github.com/ropensci/qualR), or [QUALAR](https://qualar.cetesb.sp.gov.br/qualar) and [MonitorAir](https://www.data.rio/datasets/dados-hor%C3%A1rios-do-monitoramento-da-qualidade-do-ar-monitorar/explore) sites, and a range of satellite products are available at [NASA giovanni](https://giovanni.gsfc.nasa.gov/giovanni/) website.
 
 - QA of the observation data.
 
@@ -66,15 +66,17 @@ This package includes:
 
 ✔ `extract_max_8h()` extract, calculate maximum (or avarage, max, min) 8h average and save variables in a NetCDF file;
 
-✔ `wrf_rast()` extract variables and create `SpatRaster` or `SpatVector` from WRF files (and compatible NetCDF files) and the contrapart `rast_to_netcdf()` that converts `rast` to an array compatible to a NetCDF WRF file;
+✔ `wrf_rast()` extract variables and create `SpatRaster` or `SpatVector` from WRF files (and compatible NetCDF files) and the contrapart `rast_to_netcdf()` that converts `rast` to an array compatible to a NetCDF WRF file.
 
 ## Data pre-processing functions:
 
+✔ `select()` function to select time-series (data.frame) based on time;
+
 ✔ `mda8()`, `ma8h()`, `hourly()`, and `daily()` process and calculate calculate time-series;
 
-✔ `rh2q()`, `q2rh()`, that convert humidity units.
+✔ `rh2q()`, `q2rh()`, that convert humidity units;
 
-✔ `uv2ws()`, `uv2wd()`, that convert model wind components into wind speed and velocity.
+✔ `uv2ws()`, `uv2wd()`, that convert model wind components into wind speed and velocity;
 
 ✔ `rain()` to calculate hourly precipitation from model accumulated precipitation variables.
 
@@ -110,9 +112,7 @@ This package includes:
 
 ✔ `template()` function that create post-processing and evaluation scripts;
 
-## Speciall functions:
-
-✔ `%at%` combine a table (with results from `eva()` or `sat()` for example) with a table with geographical coordinates. The goal of this function is to georeference and visualize the statistical results.
+✔ `%at%` combine a table (with results from `eva()` or `sat()` for example) with a table with geographical coordinates. The goal of this function is to georeference and visualize the statistical results;
 
 ✔ `%IN%` filter a table (with model/observations time-series) based on a second table (using the column names). Also can be used to crop a `SpatRaster` based on a second `SpatRaster`. The goal is to be used to perform fair comparison of different evaluations (using the same number of observation).
 

@@ -18,7 +18,26 @@ template(
 \arguments{
 \item{root}{directory to create the template}
 
-\item{template}{template type (see notes)}
+\item{template}{Character; One of  of the following:
+\tabular{lllll}{
+  \strong{argument}\tab \strong{TYPE}\tab \strong{MODEL}\tab \strong{OBSERVATION}\cr
+  WRF\tab post-process \tab WRF \tab METAR and INMET\cr
+  WRF-3\tab post-process \tab WRF triple nested \tab METAR\cr
+  WRF-Chem\tab post-process \tab WRF-Chem \tab METAR, AQS in Brazil and AERONET\cr
+  EXP\tab post-process \tab WRF-Chem \tab METAR, PBL variables and composition\cr
+  CAMX\tab post-process \tab CAMx \tab AERONET \cr
+  CAMX-3\tab post-process \tab CAMx triple nested \tab AERONET \cr
+  PSA\tab post-process \tab WRF \tab Satellite\cr
+  SAT\tab evaluation \tab WRF \tab Satellite (GPCP)\cr
+  MET\tab evaluation \tab WRF \tab METAR\cr
+  MET-3\tab evaluation \tab WRF triple nested \tab METAR\cr
+  AQ\tab evaluation \tab WRF or CAMx \tab O3, Max O3 and PM2.5\cr
+  AQS_BR\tab download \tab any \tab AQS in Brazil for SP and RJ\cr
+  METAR\tab downlaad \tab any \tab METAR from ASOS\cr
+  INMET\tab pre-processing \tab any \tab INMET (automatic and conventional)\cr
+  merge\tab pre-processing \tab any \tab merge INMET (automatic and conventional)\cr
+  ISD\tab pre-processing \tab any \tab METAR\cr
+}}
 
 \item{case}{case to be evaluated}
 
@@ -37,24 +56,6 @@ no value returned, create folders and other template scripts
 }
 \description{
 Create templates of code (r-scripts and bash job-submission script) to read, post-process and evaluate model results.
-}
-\note{
-Templates types available:\cr
- - WRF (model post-process for METAR + INMET)\cr
- - WRF-3 (model post-process for METAR + INMET for triple nested domains)\cr
- - WRF-Chem (model post-process for METAR, AQS in Brazil and AERONET)\cr
- - EXP (model post-process for one experimental site including PBL variables)\cr
- - CAMx (post-process for triple tested domains)
- - METAR (download METAR and other meteorological observations from ASOS)\cr
- - MET (evaluation of meteorology)\cr
- - MET-3 (evaluation of meteorology for triple nested domains)\cr
- - AQ (evaluation of air quality)\cr
- - PSA (model post-processing with CDO for satellite evaluation)\cr
- - SAT (evaluation of precipitation using GPCP satellite)\cr
- - AQS_BR (download data from air quality stations at Sao Paulo and Rio de Janeiro)\cr
- - INMET (pre-processing of automatic and conventional meteorological data from INMET)\cr
- - merge (merge INMET data and merge METAR data)\cr
- - ISD (process METAR and other meteorological data from ISD)\cr
 }
 \examples{
 temp <- file.path(tempdir(),"POST")
