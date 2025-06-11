@@ -3,6 +3,7 @@
 export("%IN%")
 export("%at%")
 export(atr)
+export(calculate_column)
 export(cate)
 export(daily)
 export(eva)

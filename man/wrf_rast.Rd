@@ -45,7 +45,7 @@ wrf_rast(
 \item{...}{extra arguments passed to ncdf4::ncvar_get}
 }
 \value{
-SpatRaster object (terra package)
+SpatRaster object (from terra package)
 }
 \description{
 Creates a SpatRaster (terra R-package) object from a variable from wrf file (or another compatible NetCDF)

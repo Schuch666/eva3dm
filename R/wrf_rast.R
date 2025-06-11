@@ -15,7 +15,7 @@
 #' @param verbose display additional information
 #' @param ... extra arguments passed to ncdf4::ncvar_get
 #'
-#' @return SpatRaster object (terra package)
+#' @return SpatRaster object (from terra package)
 #'
 #' @import terra ncdf4
 #' @importFrom utils menu
