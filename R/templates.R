@@ -12,7 +12,8 @@
 #'   EXP\tab post-process \tab WRF-Chem \tab METAR, PBL variables and composition\cr
 #'   CAMX\tab post-process \tab CAMx \tab AERONET \cr
 #'   CAMX-3\tab post-process \tab CAMx triple nested \tab AERONET \cr
-#'   PSA\tab post-process \tab WRF \tab Satellite\cr
+#'   NCO\tab post-process \tab WRF \tab Satellite\cr
+#'   terra\tab post-process \tab WRF \tab Satellite\cr
 #'   SAT\tab evaluation \tab WRF \tab Satellite (GPCP)\cr
 #'   MET\tab evaluation \tab WRF \tab METAR\cr
 #'   MET-3\tab evaluation \tab WRF triple nested \tab METAR\cr
@@ -2065,7 +2066,7 @@ append = FALSE)
 }
 
 ### SETUP for post process WRF for satellite evaluation
-if(template == 'PSA'){
+if(template == 'NCO'){
   dir.create(path = paste0(root,'WRF/',case),
              recursive = TRUE,
              showWarnings = FALSE)
@@ -2537,6 +2538,73 @@ cat("completed!")
     cat(' R-Script ', paste0(root,'process_isd.R'),': script to process meteorological observations and site-list from ISD\n')
     cat(' folder ',   paste0(root,'ISD/raw/'),     ': input folder (.csv)\n')
     cat(' folder ',   paste0(root,'ISD/Rds/'),     ': output folder (.Rds)\n')
+  }
+}
+
+### script to process WRF for satellite evaluation using terra R-package
+if(template == 'terra'){
+  dir.create(path = paste0(root,'WRF/',case),
+             recursive = TRUE,
+             showWarnings = FALSE)
+
+  cat(paste0('library(eva3dm)
+library(terra)
+
+setwd("',root,'")
+
+years ="2018"     # year to be processed
+months="07"       # month to be processed
+domain="d01"      # domain to be processed
+output="WRF/',case,'" # input and output folder
+
+inputf <- dir(path = output, pattern = paste0("wrfout_",domain,"_"),full.names = TRUE)
+VAR2D  <- c("RAINC","RAINNC","HGT",                                    # meteorological
+            "GLW","GSW","LWCF","SWCF","SWDOWN","OLR")                  # radiation variables
+VAR3D  <- c("PB","P","T","PHB","PH",                                   # meteorological
+            "QNDROP","CCN5","CLDFRA","TAUCLDI","TAUCLDC","QCLOUD",     # cloud variables
+            "TAUAER1","TAUAER2","TAUAER3","TAUAER4",                   # optical
+            "ALT","co","no2","form","so2","o3")                        # column concentration
+
+# VAR2D <- "skip"
+# VAR3D <- "skip"
+
+for(year in years)
+for(month in months){
+  cat("processing WRF-Chem output for",year,"-",month,"\\n")
+  cat("processing 2D variables ...\\n")
+
+  input <- grep(paste0(year,"-",month),inputf,value = T)
+
+  for(VAR in VAR2D){
+    if(!VAR %in% vars(input)){
+      cat(VAR,"not found\\n")
+      next
+    }
+    output_file <- paste0(output,"/WRF.",domain,".",VAR,".nc")
+    R           <- wrf_rast(file = input, name = VAR, verbose = TRUE)
+    cat("saving", output_file,"\\n")
+    writeCDF(x = R, varname = VAR,filename = output_file, overwrite=TRUE, compression=9)
+  }
+  cat("processing 3D variables ...\\n")
+  for(VAR in VAR3D){
+    if(!VAR %in% vars(input)){
+      cat(VAR,"not found\\n")
+      next
+    }
+    output_file <- paste0(output,"/WRF.",domain,".",VAR,".nc")
+    SDS         <- wrf_sds(file = input, name = VAR, verbose = TRUE)
+    cat("saving", output_file,"\\n")
+    writeCDF(x = SDS, filename = output_file, overwrite=TRUE, compression=9)
+  }
+}
+cat("done!")
+'),
+      file = paste0(root,'post-R_terra.R'),
+      append = FALSE)
+
+  if(verbose){
+    cat(' R-Script ', paste0(root,'post-R_terra.R'),': script to process WRF outputs using terra for satelite evaluation\n')
+    cat(' folder ',   paste0(root,'WRF/',case),     ': input and output folder\n')
   }
 }
 

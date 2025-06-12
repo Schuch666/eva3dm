@@ -27,7 +27,8 @@ template(
   EXP\tab post-process \tab WRF-Chem \tab METAR, PBL variables and composition\cr
   CAMX\tab post-process \tab CAMx \tab AERONET \cr
   CAMX-3\tab post-process \tab CAMx triple nested \tab AERONET \cr
-  PSA\tab post-process \tab WRF \tab Satellite\cr
+  NCO\tab post-process \tab WRF \tab Satellite\cr
+  terra\tab post-process \tab WRF \tab Satellite\cr
   SAT\tab evaluation \tab WRF \tab Satellite (GPCP)\cr
   MET\tab evaluation \tab WRF \tab METAR\cr
   MET-3\tab evaluation \tab WRF triple nested \tab METAR\cr
