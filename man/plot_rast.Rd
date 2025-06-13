@@ -78,7 +78,7 @@ No return value
 Custon plot for SpatRaster (terra R-package) object based on terra package
 }
 \note{
-color scales including: 'eva3', 'eva4', 'blues', 'diff', and 'rain'. Also reverse version with addition of a r ('eva3r' is the default).
+color scales including: 'eva3', 'eva4', 'blues', 'diff', 'rain', 'pur', 'blackpur' and 'acid'. Also reverse version with addition of a r ('eva3r' is the default).
 }
 \examples{
 wrf <- paste(system.file("extdata", package = "eva3dm"),

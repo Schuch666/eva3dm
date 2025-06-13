@@ -46,12 +46,12 @@ calculate_column <- function(file = file.choose(),
   }
   if(verbose) cat(paste0('integrating vertically ',name,' from ', file,'\n')) # nocov
 
-  if(missing(map)){                                                           # nocov
-    coord_file = file                                                         # nocov
-  }else{                                                                      # nocov
-    coord_file = met                                                          # nocov
-    if(verbose) cat('using meterological variables from',met,'file\n')        # nocov
-  }
+  # if(missing(map)){                                                           # nocov
+  #   coord_file = file                                                         # nocov
+  # }else{                                                                      # nocov
+  #   coord_file = met                                                          # nocov
+  #   if(verbose) cat('using meterological variables from',met,'file\n')        # nocov
+  # }
 
   return()
 }

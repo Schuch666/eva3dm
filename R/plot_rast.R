@@ -28,7 +28,7 @@
 #'
 #' @import terra
 #'
-#' @note color scales including: 'eva3', 'eva4', 'blues', 'diff', and 'rain'. Also reverse version with addition of a r ('eva3r' is the default).
+#' @note color scales including: 'eva3', 'eva4', 'blues', 'diff', 'rain', 'pur', 'blackpur' and 'acid'. Also reverse version with addition of a r ('eva3r' is the default).
 #'
 #' @export
 #'
@@ -206,6 +206,84 @@ plot_rast <- function(r,
                    "#354FC3","#324AC0","#2F44BE","#2C3FBC","#283AB9",
                    "#2535B7","#2230B5","#1E2BB3","#1B26B0","#1821AE",
                    "#151CAC","#1117A9","#0E12A7","#0B0DA5","#0808A3"))
+
+  if(color[1] == 'pur')
+    # red-purple - blue purple - gray - white
+    color <- rev(c("#6E228C","#742A93","#7A339B","#813CA2","#8745AA",
+                   "#8E4EB2","#9457B9","#9B60C1","#A169C9","#A772D0",
+                   "#AB79D6","#A274D2","#9970CE","#916CC9","#8868C5",
+                   "#7F64C1","#7760BD","#6E5BB9","#6557B5","#5D53B1",
+                   "#5A53B1","#615AB8","#6861BF","#6F68C6","#766FCD",
+                   "#7D76D5","#847DDC","#8B84E3","#928BEA","#9992F1",
+                   "#9E97F0","#A19BEB","#A59FE5","#A8A4E0","#ABA8DA",
+                   "#AFACD5","#B2B0CF","#B6B4CA","#B9B8C4","#BDBDBF",
+                   "#C3C3C3","#C9C9C9","#D0D0D0","#D7D7D7","#DDDDDD",
+                   "#E4E4E4","#EBEBEB","#F1F1F1","#F8F8F8","#FFFFFF"))
+
+  if(color[1] == 'purr')
+    # red-purple - blue purple - gray - white reversed
+    color <- c("#6E228C","#742A93","#7A339B","#813CA2","#8745AA",
+               "#8E4EB2","#9457B9","#9B60C1","#A169C9","#A772D0",
+               "#AB79D6","#A274D2","#9970CE","#916CC9","#8868C5",
+               "#7F64C1","#7760BD","#6E5BB9","#6557B5","#5D53B1",
+               "#5A53B1","#615AB8","#6861BF","#6F68C6","#766FCD",
+               "#7D76D5","#847DDC","#8B84E3","#928BEA","#9992F1",
+               "#9E97F0","#A19BEB","#A59FE5","#A8A4E0","#ABA8DA",
+               "#AFACD5","#B2B0CF","#B6B4CA","#B9B8C4","#BDBDBF",
+               "#C3C3C3","#C9C9C9","#D0D0D0","#D7D7D7","#DDDDDD",
+               "#E4E4E4","#EBEBEB","#F1F1F1","#F8F8F8","#FFFFFF")
+
+  if(color[1] == 'blackpur')
+    # diff version of pur, instead of change hue, use black
+    color <- rev(c("#000000","#07060E","#0E0D1C","#15132A","#1C1A39",
+                   "#232147","#2B2755","#322E64","#393472","#403B80",
+                   "#47428E","#4F489D","#564FAB","#5C55B3","#615AB8",
+                   "#6760BE","#6C65C4","#726BC9","#7770CF","#7D76D5",
+                   "#837CDA","#8881E0","#8E87E5","#938CEB","#9992F1",
+                   "#9D96F1","#A09AED","#A29DE8","#A5A0E4","#A8A4E0",
+                   "#ABA7DB","#AEAAD7","#B0AED2","#B3B1CE","#B6B4CA",
+                   "#B9B8C5","#BBBBC1","#BFBFBF","#C4C4C4","#C9C9C9",
+                   "#CFCFCF","#D4D4D4","#D9D9D9","#DFDFDF","#E4E4E4",
+                   "#E9E9E9","#EFEFEF","#F4F4F4","#F9F9F9","#FFFFFF"))
+
+  if(color[1] == 'blackpurr')
+    # diff version of purr, instead of change hue, use black
+    color <- c("#000000","#07060E","#0E0D1C","#15132A","#1C1A39",
+               "#232147","#2B2755","#322E64","#393472","#403B80",
+               "#47428E","#4F489D","#564FAB","#5C55B3","#615AB8",
+               "#6760BE","#6C65C4","#726BC9","#7770CF","#7D76D5",
+               "#837CDA","#8881E0","#8E87E5","#938CEB","#9992F1",
+               "#9D96F1","#A09AED","#A29DE8","#A5A0E4","#A8A4E0",
+               "#ABA7DB","#AEAAD7","#B0AED2","#B3B1CE","#B6B4CA",
+               "#B9B8C5","#BBBBC1","#BFBFBF","#C4C4C4","#C9C9C9",
+               "#CFCFCF","#D4D4D4","#D9D9D9","#DFDFDF","#E4E4E4",
+               "#E9E9E9","#EFEFEF","#F4F4F4","#F9F9F9","#FFFFFF")
+
+  if(color[1] == 'acid')
+    # diff version of pur, instead of change hue go for alien-blood green
+    color <- c("#35BD13","#3AC119","#3FC51F","#44CA25","#49CE2C",
+               "#4FD232","#54D738","#59DB3F","#5EE045","#63E44B",
+               "#67E452","#66D55C","#64C666","#62B66F","#61A779",
+               "#5F9782","#5D888C","#5C7996","#5A699F","#585AA9",
+               "#5A53B1","#615AB8","#6861BF","#6F68C6","#766FCD",
+               "#7D76D5","#847DDC","#8B84E3","#928BEA","#9992F1",
+               "#9E97F0","#A19BEB","#A59FE5","#A8A4E0","#ABA8DA",
+               "#AFACD5","#B2B0CF","#B6B4CA","#B9B8C4","#BDBDBF",
+               "#C3C3C3","#C9C9C9","#D0D0D0","#D7D7D7","#DDDDDD",
+               "#E4E4E4","#EBEBEB","#F1F1F1","#F8F8F8","#FFFFFF")
+
+  if(color[1] == 'acidr')
+    # diff version of purr, instead of change hue go for alien-blood green
+    color <- rev(c("#35BD13","#3AC119","#3FC51F","#44CA25","#49CE2C",
+                   "#4FD232","#54D738","#59DB3F","#5EE045","#63E44B",
+                   "#67E452","#66D55C","#64C666","#62B66F","#61A779",
+                   "#5F9782","#5D888C","#5C7996","#5A699F","#585AA9",
+                   "#5A53B1","#615AB8","#6861BF","#6F68C6","#766FCD",
+                   "#7D76D5","#847DDC","#8B84E3","#928BEA","#9992F1",
+                   "#9E97F0","#A19BEB","#A59FE5","#A8A4E0","#ABA8DA",
+                   "#AFACD5","#B2B0CF","#B6B4CA","#B9B8C4","#BDBDBF",
+                   "#C3C3C3","#C9C9C9","#D0D0D0","#D7D7D7","#DDDDDD",
+                   "#E4E4E4","#EBEBEB","#F1F1F1","#F8F8F8","#FFFFFF"))
 
   # nocov end
   e_o     <- ext(r)
