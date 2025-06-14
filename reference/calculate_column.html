@@ -48,7 +48,14 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_column</span><span class="op">(</span>file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.choose.html" class="external-link">file.choose</a></span><span class="op">(</span><span class="op">)</span>, name <span class="op">=</span> <span class="cn">NA</span>, <span class="va">met</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_column</span><span class="op">(</span></span>
+<span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.choose.html" class="external-link">file.choose</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  met <span class="op">=</span> <span class="va">file</span>,</span>
+<span>  DU <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -67,12 +74,16 @@
 <dd><p>(optional) WRF output file for meteorological variables</p></dd>
 
 
+<dt id="arg-du">DU<a class="anchor" aria-label="anchor" href="#arg-du"></a></dt>
+<dd><p>true to change the units from 'molecules cm-1' to 'DU'</p></dd>
+
+
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>display additional information</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>extra arguments passed to ncdf4::ncvar_get (eva3dm::wrf_rast and eva3dm::wrf_sds)</p></dd>
+<dd><p>extra arguments passed to ncdf4::ncvar_get</p></dd>
 
 </dl></div>
     <div class="section level2">
