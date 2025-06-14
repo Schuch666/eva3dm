@@ -34,5 +34,5 @@ test_that("rast based functions are ok", {
 
   plot_diff(r,r2)
 
-  expect_equal(dim(r_ncdf), c(99,149,1))
+  expect_equal(dim(r_ncdf), c(149,99,1))
 })

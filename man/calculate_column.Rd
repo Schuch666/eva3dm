@@ -4,7 +4,14 @@
 \alias{calculate_column}
 \title{Calculate column concentration of trace gases form WRF-Chem}
 \usage{
-calculate_column(file = file.choose(), name = NA, met, verbose = FALSE, ...)
+calculate_column(
+  file = file.choose(),
+  name = NA,
+  met = file,
+  DU = FALSE,
+  verbose = FALSE,
+  ...
+)
 }
 \arguments{
 \item{file}{WRF output file}
@@ -13,9 +20,11 @@ calculate_column(file = file.choose(), name = NA, met, verbose = FALSE, ...)
 
 \item{met}{(optional) WRF output file for meteorological variables}
 
+\item{DU}{true to change the units from 'molecules cm-1' to 'DU'}
+
 \item{verbose}{display additional information}
 
-\item{...}{extra arguments passed to ncdf4::ncvar_get (eva3dm::wrf_rast and eva3dm::wrf_sds)}
+\item{...}{extra arguments passed to ncdf4::ncvar_get}
 }
 \value{
 SpatRaster object (from terra package).

@@ -43,7 +43,7 @@ rast_to_netcdf <- function(r,file,name, unit = units(r), XY = FALSE, verbose = T
   }
 
   N_times <- dim(r)[3]
-  a       <- array(NA,c(dim(r)[1],dim(r)[2],N_times))
+  a       <- array(NA,c(dim(r)[2],dim(r)[1],N_times)) # double check this part !!!!!
   if(N_times == 1){
     a[,,1]  <- as.matrix(rev(r[[1]]))
   }else{
