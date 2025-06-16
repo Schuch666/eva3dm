@@ -72,10 +72,11 @@ calculate_column <- function(file = file.choose(),
     return(dz)
   }
 
-  avo     = 6.02E+23
-  rfac    = 8.314
-  dobfac  = 2.687E+16
-  fac2    = avo/rfac * 1E-4 * 1E-6
+  avo        = 6.02E+23   # Avogadro s number
+  R_ideal    = 8.314      # Ideal gas constant
+  gas_cons   = 1E-6       # Conversion constant: ppm to mol/mol
+  m2_cm2     = 1E4        # Conversion constant: m2 to cm2
+  final_cons = avo / R_ideal * gas_cons / m2_cm2
 
   wrf <- ncdf4::nc_open(file)
   on.exit(nc_close(wrf))
@@ -86,21 +87,14 @@ calculate_column <- function(file = file.choose(),
   P2   <- ncdf4::ncvar_get(wrf,'P',   verbose = verbose)
   Temp <- ncdf4::ncvar_get(wrf,'T',   verbose = verbose)
 
-  # PHB  <- eixport::wrf_get(file = met, name = 'PHB', verbose = verbose)
-  # PH   <- eixport::wrf_get(file = met, name = 'PH',  verbose = verbose)
-  # P1   <- eixport::wrf_get(file = met, name = 'PB',  verbose = verbose)
-  # P2   <- eixport::wrf_get(file = met, name = 'P',   verbose = verbose)
-  # Temp <- eixport::wrf_get(file = met, name = 'T',   verbose = verbose)
-  # # VAR  <- eixport::wrf_get(file = file, name = 'o3',  verbose = TRUE)
-
   r    <- wrf_rast(file = file, name = name, verbose = TRUE)
   VAR  <- rast_to_netcdf(r)
 
-  P    <- P1 + P2
-  Temp <- (Temp+300)*((P/10000)^0.286)
-  dz   <- calculate_DZ(PHB,PH)
+  P    <- P1 + P2                        # total pressure [pa]
+  Temp <- (Temp+300)*((P/10000)^0.286)   # temperature    [ K]
+  dz   <- calculate_DZ(PHB,PH)           # calculate dz   [ m]
 
-  VAR  <- fac2 * VAR * dz * (P/Temp)
+  VAR  <- final_cons * VAR * dz * (P/Temp) #  [molecules cm-2]
 
   if(is.matrix(VAR)){
     r[]       <- rev(c(VAR))
@@ -115,14 +109,13 @@ calculate_column <- function(file = file.choose(),
   }
   r <- sum(r, na.rm = TRUE)
 
-  # if(DU){
-  #   VAR <- VAR / dobfac
-  #   cat('DU\n')
-  #   # units
-  # }else{
-  #   cat('molecules cm-1\n')
-  #   # units
-  # }
+  if(DU){
+    du  = 2.687E+16  # Conversion constant: molecules cm-2 to DU
+    VAR <- VAR / du
+    units(r) <- 'DU'
+  }else{
+    units(r) <- 'molecules cm-2'
+  }
 
   return(r)
 }
