@@ -29,7 +29,7 @@
 ma8h <- function(data, time = 'date', var, verbose = TRUE, ...) {
 
   if(!'hourly' %in% class(data)){
-    data <- hourly(data,time = time, var = var, verbose = verbose, ...)
+    data <- hourly(data,time = time, verbose = verbose, ...)
   }
 
   if(verbose)

@@ -10,6 +10,9 @@ test_that("mda8 / ma8h / hourly / daily are ok!", {
   model_houry <- hourly(model_data)
   model_daily <- daily(model_data)
 
+  model_m <- monthly(model_daily)
+  model_y <- yearly(model_daily)
+
   expect_equal(dim(model_daily)[1],
                dim(model_houry)[1]/24)
 })

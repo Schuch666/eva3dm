@@ -36,7 +36,7 @@ mda8 <- function(data, time = 'date', var, verbose = TRUE) {
     ma8h <- data # nocov
   }
   if(verbose) cat('processing daily maximum ... \n')
-  output <- daily(data = ma8h, time = time, var = var, verbose = FALSE, stat = max)
+  output <- daily(data = ma8h, time = time, verbose = FALSE, stat = max)
   class(output) <- c("data.frame","maximum daily 8h average")
   return(output)
 }

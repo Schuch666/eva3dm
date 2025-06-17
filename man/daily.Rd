@@ -7,7 +7,6 @@
 daily(
   data,
   time = "date",
-  var,
   stat = mean,
   min_offset = 0,
   hour_offset = 0,
@@ -19,8 +18,6 @@ daily(
 \item{data}{data.frame with time column and variable columns to be processed}
 
 \item{time}{name of the time column (default is date) in POSIXct}
-
-\item{var}{name of the columns to be calculated}
 
 \item{stat}{function of the statistics to calculate (default is mean)}
 

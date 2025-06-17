@@ -2,6 +2,7 @@ NEWS
 ===========
 # eva3dm 1.20 2025-06-17
 - new function to calculate column concentration
+- new functions monthly and yearly
 
 # eva3dm 1.11 2025-06-02
 - New CRAN version

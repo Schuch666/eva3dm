@@ -4,7 +4,6 @@
 #'
 #' @param data data.frame with time column and variable columns to be processed
 #' @param time name of the time column (default is date) in POSIXct
-#' @param var name of the columns to be calculated
 #' @param stat function of the statistics to calculate (default is mean)
 #' @param min_offset minutes of observation from previous hour (default is 0)
 #' @param hour_offset hours of observation from previous day (default is 0)
@@ -37,7 +36,7 @@
 #' data_daily_min  <- daily(DATA[1:7],time = 'valid',stat = min)
 #' data_daily_max  <- daily(DATA[1:7],time = 'valid',stat = max)
 #'
-daily <- function(data, time = 'date', var, stat = mean, min_offset = 0,
+daily <- function(data, time = 'date', stat = mean, min_offset = 0,
                   hour_offset = 0, numerical = TRUE, verbose = TRUE) {
 
   if(verbose) cat('processing daily statistcis ... \n')
