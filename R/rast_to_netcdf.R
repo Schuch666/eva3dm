@@ -43,14 +43,14 @@ rast_to_netcdf <- function(r,file,name, unit = units(r), XY = FALSE, verbose = T
   }
 
   N_times <- dim(r)[3]
-  a       <- array(NA,c(dim(r)[2],dim(r)[1],N_times)) # double check this part !!!!!
+  a       <- array(NA,c(dim(r)[2],dim(r)[1],N_times))
   if(N_times == 1){
     a[,,1]  <- as.matrix(rev(r[[1]]))
   }else{
-    for(i in 1:N_times){                                         # nocov
-      a[,,i]  <- as.matrix(flip(r[[i]], direction = 'vertical')) # nocov
+    for(i in 1:N_times){                                           # nocov
+      a[,,i]  <- as.matrix(flip(r[[i]], direction = 'horizontal')) # nocov
     }
-    if(revert) a[,,1:N_times] <- a[,,N_times:1]                  # nocov
+    if(revert) a[,,1:N_times] <- a[,,N_times:1]                    # nocov
   }
 
   if(!missing(file) & !missing(name)){

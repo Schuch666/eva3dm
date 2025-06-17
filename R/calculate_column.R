@@ -2,14 +2,18 @@
 #'
 #' @description Read output from WRF model and calculate the column of trace gases.
 #'
-#' @param file WRF output file
-#' @param name trace gas name
-#' @param met (optional) WRF output file for meteorological variables
-#' @param DU true to change the units from 'molecules cm-1' to 'DU'
+#' @param file WRF output file, see notes
+#' @param name trace gas name to be integrated
+#' @param met (optional) WRF output file for meteorological variables, see notes
+#' @param DU true to change the output units from 'molecules cm-1' to 'DU'
 #' @param verbose display additional information
 #' @param ... extra arguments passed to ncdf4::ncvar_get
 #'
 #' @return SpatRaster object (from terra package).
+#'
+#' @note files in file should contain Times, XLAT, XLONG variables in addition to the concentration to be integrated, the variable should include at least 3 dimensions including vertical.
+#'
+#' @note met is a optional file, it should have containing PHB, PH, PB, P, and T variables with the same dimension of the concentration integrated.
 #'
 #' @import terra ncdf4
 #' @importFrom utils menu
@@ -18,41 +22,27 @@
 #'
 
 calculate_column <- function(file = file.choose(),
-                             name = NA,
-                             met = file,
+                             name,
+                             met,
                              DU = FALSE,
-                             verbose = FALSE,
+                             verbose = TRUE,
                              ...){
 
-  # if(missing(name)){
-  #   if(name == 'time'){
-  #     wrf <- ncdf4::nc_open(file)                                                       # nocov
-  #     if(verbose)                                                                       # nocov
-  #       cat(paste0('reading Times from ', file,'\n'))                                   # nocov
-  #     TIME <- ncdf4::ncvar_get(wrf,'Times')                                             # nocov
-  #     TIME <- as.POSIXlt(TIME, tz = "UTC", format="%Y-%m-%d_%H:%M:%OS", optional=FALSE) # nocov
-  #     if(verbose)                                                                       # nocov
-  #       cat('returning Times in POSIXct\n')                                             # nocov
-  #     return(TIME)                                                                      # nocov
-  #   }
-  # }
+  wrf <- ncdf4::nc_open(file)
+  on.exit(nc_close(wrf))
 
-  # wrf <- ncdf4::nc_open(file)
-  #
-  # if(is.na(name)){                                                  # nocov start
-  #   name  <- menu(names(wrf$var), title = "Choose the variable:")
-  #   POL   <- ncdf4::ncvar_get(wrf, names(wrf$var)[name], ... )
-  #   name  <- names(wrf$var)[name]                                   # nocov end
-  # }else{
-  #   POL   <- ncdf4::ncvar_get(wrf,name, ... )
-  # }
-  # if(verbose) cat(paste0('reading ',name,' from ', file,'\n'))      # nocov
-  # if(verbose) cat(paste("creating SpatRaster for",name,'\n'))       # nocov
+  if(missing(met)){
+    met     <- file
+    wrf_met <- wrf
+  }else{
+    wrf_met <- ncdf4::nc_open(met)
+    on.exit(nc_close(wrf_met))
+  }
 
-  # if(missing(met)){                                                           # nocov
-  #   met = file                                                                # nocov
-  #   if(verbose) cat('using meterological variables from',met,'file\n')        # nocov
-  # }
+  if(missing(name)){                                               # nocov start
+    n    <- menu(names(wrf$var), title = "Choose the variable:")
+    name <- names(wrf$var)[n]                                      # nocov end
+  }
 
   calculate_DZ <- function(PHB,PH, g = 9.817){
     Z      <- (PHB+PH)/g
@@ -72,46 +62,47 @@ calculate_column <- function(file = file.choose(),
     return(dz)
   }
 
+  f3 <- function(a, wh){
+    dims <- seq_len(length(dim(a)))
+    dims <- setdiff(dims, wh)
+    x    <- apply(apply(a, dims, rev), dims, t)
+    return(x)
+  }
+
   avo        = 6.02E+23   # Avogadro s number
   R_ideal    = 8.314      # Ideal gas constant
   gas_cons   = 1E-6       # Conversion constant: ppm to mol/mol
   m2_cm2     = 1E4        # Conversion constant: m2 to cm2
   final_cons = avo / R_ideal * gas_cons / m2_cm2
 
-  wrf <- ncdf4::nc_open(file)
-  on.exit(nc_close(wrf))
+  if(verbose) cat(paste0('reading meteorology from ', met,'\n'))
+  PHB  <- ncdf4::ncvar_get(wrf_met,'PHB', verbose = FALSE)
+  PH   <- ncdf4::ncvar_get(wrf_met,'PH',  verbose = FALSE)
+  P1   <- ncdf4::ncvar_get(wrf_met,'PB',  verbose = FALSE)
+  P2   <- ncdf4::ncvar_get(wrf_met,'P',   verbose = FALSE)
+  Temp <- ncdf4::ncvar_get(wrf_met,'T',   verbose = FALSE)
 
-  PHB  <- ncdf4::ncvar_get(wrf,'PHB', verbose = verbose)
-  PH   <- ncdf4::ncvar_get(wrf,'PH',  verbose = verbose)
-  P1   <- ncdf4::ncvar_get(wrf,'PB',  verbose = verbose)
-  P2   <- ncdf4::ncvar_get(wrf,'P',   verbose = verbose)
-  Temp <- ncdf4::ncvar_get(wrf,'T',   verbose = verbose)
-
-  r    <- wrf_rast(file = file, name = name, verbose = TRUE)
+  if(verbose) cat(paste0('reading ',name,' from ', file,'\n'))
+  r    <- wrf_rast(file = file, name = name, verbose = FALSE)
   VAR  <- rast_to_netcdf(r)
 
   P    <- P1 + P2                        # total pressure [pa]
-  Temp <- (Temp+300)*((P/10000)^0.286)   # temperature    [ K]
+  Temp <- (Temp+300)*((P/100000)^0.286)  # temperature    [ K]
   dz   <- calculate_DZ(PHB,PH)           # calculate dz   [ m]
 
-  VAR  <- final_cons * VAR * dz * (P/Temp) #  [molecules cm-2]
+  VAR  = final_cons * VAR * (P/Temp) * dz  #  [molecules cm-2]
 
-  if(is.matrix(VAR)){
-    r[]       <- rev(c(VAR))
-  }else if(length(dim(VAR)) == 3){
-    f2 <- function(a, wh){
-      dims <- seq_len(length(dim(a)))                # nocov
-      dims <- setdiff(dims, wh)                      # nocov
-      x    <- apply(apply(a, dims, rev), dims, t)    # nocov
-      return(x)                                      # nocov
-    }
-    r[]       <- c(f2(VAR,1))
+  if(length(dim(VAR)) == 3){               #  XLAT XLONG LEVEL
+    r[]       <- c(f3(VAR,1))
   }
-  r <- sum(r, na.rm = TRUE)
+  times_r  <- time(r)
+  r        <- sum(r, na.rm = TRUE)
+  names(r) <- paste0(name,'_column')
+  time(r)  <- times_r[1]
 
   if(DU){
     du  = 2.687E+16  # Conversion constant: molecules cm-2 to DU
-    VAR <- VAR / du
+    r   <- r / du
     units(r) <- 'DU'
   }else{
     units(r) <- 'molecules cm-2'

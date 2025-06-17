@@ -6,21 +6,21 @@
 \usage{
 calculate_column(
   file = file.choose(),
-  name = NA,
-  met = file,
+  name,
+  met,
   DU = FALSE,
-  verbose = FALSE,
+  verbose = TRUE,
   ...
 )
 }
 \arguments{
-\item{file}{WRF output file}
+\item{file}{WRF output file, see notes}
 
-\item{name}{trace gas name}
+\item{name}{trace gas name to be integrated}
 
-\item{met}{(optional) WRF output file for meteorological variables}
+\item{met}{(optional) WRF output file for meteorological variables, see notes}
 
-\item{DU}{true to change the units from 'molecules cm-1' to 'DU'}
+\item{DU}{true to change the output units from 'molecules cm-1' to 'DU'}
 
 \item{verbose}{display additional information}
 
@@ -31,4 +31,9 @@ SpatRaster object (from terra package).
 }
 \description{
 Read output from WRF model and calculate the column of trace gases.
+}
+\note{
+files in file should contain Times, XLAT, XLONG variables in addition to the concentration to be integrated, the variable should include at least 3 dimensions including vertical.
+
+met is a optional file, it should have containing PHB, PH, PB, P, and T variables with the same dimension of the concentration integrated.
 }
