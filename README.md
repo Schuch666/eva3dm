@@ -66,13 +66,15 @@ This package includes:
 
 ✔ `extract_max_8h()` extract, calculate maximum (or avarage, max, min) 8h average and save variables in a NetCDF file;
 
+✔ `calculate_column()` Calculate the column concentration of trace gases from WRF-Chem;
+
 ✔ `wrf_rast()` extract variables and create `SpatRaster` or `SpatVector` from WRF files (and compatible NetCDF files) and the contrapart `rast_to_netcdf()` that converts `rast` to an array compatible to a NetCDF WRF file.
 
 ## Data pre-processing functions:
 
 ✔ `select()` function to select time-series (data.frame) based on time;
 
-✔ `mda8()`, `ma8h()`, `hourly()`, and `daily()` process and calculate calculate time-series;
+✔ `mda8()`, `ma8h()`, `hourly()`, `daily()`, `monthly()`, and `yearly()` process and calculate calculate time-series;
 
 ✔ `rh2q()`, `q2rh()`, that convert humidity units;
 
