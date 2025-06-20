@@ -9,6 +9,8 @@ calculate_column(
   name,
   met,
   DU = FALSE,
+  flip_v = FALSE,
+  flip_h = FALSE,
   verbose = TRUE,
   ...
 )
@@ -21,6 +23,10 @@ calculate_column(
 \item{met}{(optional) WRF output file for meteorological variables, see notes}
 
 \item{DU}{true to change the output units from 'molecules cm-1' to 'DU'}
+
+\item{flip_v}{passed to wrf_rast}
+
+\item{flip_h}{passed to wrf_rast}
 
 \item{verbose}{display additional information}
 
