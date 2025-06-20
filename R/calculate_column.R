@@ -6,6 +6,8 @@
 #' @param name trace gas name to be integrated
 #' @param met (optional) WRF output file for meteorological variables, see notes
 #' @param DU true to change the output units from 'molecules cm-1' to 'DU'
+#' @param flip_v passed to wrf_rast
+#' @param flip_h passed to wrf_rast
 #' @param verbose display additional information
 #' @param ... extra arguments passed to ncdf4::ncvar_get
 #'
@@ -25,6 +27,8 @@ calculate_column <- function(file = file.choose(),
                              name,
                              met,
                              DU = FALSE,
+                             flip_v = FALSE,
+                             flip_h = FALSE,
                              verbose = TRUE,
                              ...){
 
@@ -52,7 +56,7 @@ calculate_column <- function(file = file.choose(),
         dz[,,i] = Z[,,i+1] - Z[,,i]
       }
     }else if(length(dim(Z)) == 4){            # this is a version for 4d (XYZT)
-      dz     <- array(0,c(dim(Z)[1],dim(Z)[2],dim(Z)[3]-1), dim(Z)[4])
+      dz     <- array(0,c(dim(Z)[1],dim(Z)[2],dim(Z)[3]-1,dim(Z)[4]))
       for(i in 1:(dim(Z)[3]-1)){
         dz[,,i,] = Z[,,i+1,] - Z[,,i,]
       }
@@ -82,8 +86,10 @@ calculate_column <- function(file = file.choose(),
   P2   <- ncdf4::ncvar_get(wrf_met,'P',   verbose = FALSE)
   Temp <- ncdf4::ncvar_get(wrf_met,'T',   verbose = FALSE)
 
-  if(verbose) cat(paste0('reading ',name,' from ', file,'\n'))
-  r    <- wrf_rast(file = file, name = name, verbose = FALSE)
+  # if(verbose) cat(paste0('reading ',name,' from ', file,'\n'))
+  r    <- wrf_rast(file = file, name = name,
+                   flip_v = flip_v, flip_h = flip_v,
+                   verbose = verbose)
   VAR  <- rast_to_netcdf(r)
 
   P    <- P1 + P2                        # total pressure [pa]
