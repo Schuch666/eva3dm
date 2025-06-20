@@ -144,8 +144,27 @@ eva <- function(mo, ob, rname = site, table = NULL,
     combination_model <- data.frame()
     combination_obs   <- data.frame()
     a_number          <- 666 * 60 * 60 * 24 * 365 + 161 * 60 * 60 * 24
+    n_stations        = 0
+    n_skiped          = 0
     for(i in seq_along(common_sites)){
-      if(verbose) cat(common_sites[i],' ')
+      A <- mo[[common_sites[i]]]
+      B <- ob[[common_sites[i]]]
+      to_run = TRUE
+      if(suppressWarnings( max(A,na.rm = T) ) == suppressWarnings( min(A,na.rm = TRUE)) ){
+        to_run = FALSE
+      }
+      if(suppressWarnings( max(B,na.rm = T) ) == suppressWarnings( min(B,na.rm = TRUE)) ){
+        to_run = FALSE
+      }
+      if(length(B[!is.na(B)]) > nobs & to_run){
+        if(verbose) cat(paste0(common_sites[i],'(ok) '))
+        n_stations = n_stations + 1
+      }else{
+        if(verbose) cat(paste0(common_sites[i],'(skiped) '))
+        n_skiped   = n_skiped + 1
+        next
+      }
+
       new_mo            <- data.frame(date = mo[,time],
                                       ALL  = mo[[common_sites[i]]])
       new_mo$date       <- new_mo$date + (i- 1) * a_number
@@ -156,7 +175,7 @@ eva <- function(mo, ob, rname = site, table = NULL,
       new_ob$date       <- new_ob$date + (i - 1) * a_number
       combination_obs   <- rbind(combination_obs, new_ob)
     }
-    if(verbose) cat('...\n')
+    if(verbose) cat('...\n','total:', n_stations,'stations with valid data,',n_skiped,'stations not included\n')
     mo <- combination_model
     ob <- combination_obs
   }else{
@@ -196,7 +215,7 @@ eva <- function(mo, ob, rname = site, table = NULL,
     if(verbose) cat(site,'contains only zeros (or constant values) and NA values for model\n')
     to_run = FALSE
   }
-  if(suppressWarnings(  max(B,na.rm = T) ) == suppressWarnings( min(B,na.rm = TRUE)) ){
+  if(suppressWarnings( max(B,na.rm = T) ) == suppressWarnings( min(B,na.rm = TRUE)) ){
     if(verbose) cat(site,'contains only zeros (or constant values) and NA values for observations\n')
     to_run = FALSE
   }
