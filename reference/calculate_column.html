@@ -81,11 +81,11 @@
 
 
 <dt id="arg-flip-v">flip_v<a class="anchor" aria-label="anchor" href="#arg-flip-v"></a></dt>
-<dd><p>passed to wrf_rast</p></dd>
+<dd><p>passed to wrf_rast, see notes</p></dd>
 
 
 <dt id="arg-flip-h">flip_h<a class="anchor" aria-label="anchor" href="#arg-flip-h"></a></dt>
-<dd><p>passed to wrf_rast</p></dd>
+<dd><p>passed to wrf_rast, see notes</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
@@ -93,7 +93,7 @@
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>extra arguments passed to ncdf4::ncvar_get</p></dd>
+<dd><p>extra arguments passed to eva3dm::wrf_rast or eva3dm::wrf_sds</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -104,6 +104,7 @@
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p>files in file should contain Times, XLAT, XLONG variables in addition to the concentration to be integrated, the variable should include at least 3 dimensions including vertical.</p>
 <p>met is a optional file, it should have containing PHB, PH, PB, P, and T variables with the same dimension of the concentration integrated.</p>
+<p>post processing can affect the orientation of the variables, the arguments flip_v and flip_h and other arguments from eva3dm::wrf_rast and eva3dm::wrf_sds can be used to take effect into account.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
