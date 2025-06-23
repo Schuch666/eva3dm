@@ -6,16 +6,18 @@
 #' @param name trace gas name to be integrated
 #' @param met (optional) WRF output file for meteorological variables, see notes
 #' @param DU true to change the output units from 'molecules cm-1' to 'DU'
-#' @param flip_v passed to wrf_rast
-#' @param flip_h passed to wrf_rast
+#' @param flip_v passed to wrf_rast, see notes
+#' @param flip_h passed to wrf_rast, see notes
 #' @param verbose display additional information
-#' @param ... extra arguments passed to ncdf4::ncvar_get
+#' @param ... extra arguments passed to eva3dm::wrf_rast or eva3dm::wrf_sds
 #'
 #' @return SpatRaster object (from terra package).
 #'
 #' @note files in file should contain Times, XLAT, XLONG variables in addition to the concentration to be integrated, the variable should include at least 3 dimensions including vertical.
 #'
 #' @note met is a optional file, it should have containing PHB, PH, PB, P, and T variables with the same dimension of the concentration integrated.
+#'
+#' @note post processing can affect the orientation of the variables, the arguments flip_v and flip_h and other arguments from eva3dm::wrf_rast and eva3dm::wrf_sds can be used to take effect into account.
 #'
 #' @import terra ncdf4
 #' @importFrom utils menu
@@ -33,7 +35,7 @@ calculate_column <- function(file = file.choose(),
                              ...){
 
   wrf <- ncdf4::nc_open(file)
-  on.exit(nc_close(wrf))
+  on.exit(ncdf4::nc_close(wrf))
 
   if(missing(met)){
     met     <- file
@@ -73,6 +75,13 @@ calculate_column <- function(file = file.choose(),
     return(x)
   }
 
+  f4 <- function(x){
+    x <- as.array(x)
+    x <- aperm(x, c(2,1,3,4))
+    x <- x[rev(seq_len(dim(x)[1])),,,]
+    return(x)
+  }
+
   avo        = 6.02E+23   # Avogadro s number
   R_ideal    = 8.314      # Ideal gas constant
   gas_cons   = 1E-6       # Conversion constant: ppm to mol/mol
@@ -86,11 +95,25 @@ calculate_column <- function(file = file.choose(),
   P2   <- ncdf4::ncvar_get(wrf_met,'P',   verbose = FALSE)
   Temp <- ncdf4::ncvar_get(wrf_met,'T',   verbose = FALSE)
 
-  # if(verbose) cat(paste0('reading ',name,' from ', file,'\n'))
-  r    <- wrf_rast(file = file, name = name,
-                   flip_v = flip_v, flip_h = flip_v,
-                   verbose = verbose)
-  VAR  <- rast_to_netcdf(r)
+  if(length(dim(Temp)) == 3){
+    r    <- wrf_rast(file    = file,
+                     name    = name,
+                     flip_v  = flip_v,
+                     flip_h  = flip_v,
+                     verbose = verbose, ... )
+    VAR  <- rast_to_netcdf(r)
+  }else if(length(dim(Temp)) == 4){
+    sds <- wrf_sds(file    = file,
+                   name    = name,
+                   flip_v  = flip_v,
+                   flip_h  = flip_v,
+                   verbose = verbose, ... )
+    VAR <- f4(sds)
+  }else if(length(dim(Temp)) <= 2){
+    stop('insuficient meteorological input')  # less data than needed / include more data
+  }else{
+    stop('meteorological input not suported') # dimension not supported / reduce data
+  }
 
   P    <- P1 + P2                        # total pressure [pa]
   Temp <- (Temp+300)*((P/100000)^0.286)  # temperature    [ K]
@@ -99,12 +122,25 @@ calculate_column <- function(file = file.choose(),
   VAR  = final_cons * VAR * (P/Temp) * dz  #  [molecules cm-2]
 
   if(length(dim(VAR)) == 3){               #  XLAT XLONG LEVEL
-    r[]       <- c(f3(VAR,1))
+    r[]      <- c(f3(VAR,1))
+    times_r  <- time(r)
+    r        <- sum(r, na.rm = TRUE)
+    names(r) <- paste0(name,'_column')
+    time(r)  <- times_r[1]
   }
-  times_r  <- time(r)
-  r        <- sum(r, na.rm = TRUE)
-  names(r) <- paste0(name,'_column')
-  time(r)  <- times_r[1]
+  if(length(dim(VAR)) == 4){               #  XLAT XLONG LEVEL TIME
+    times_r   <- time(sds[,1])
+    make_rast <- function(i = 1, x = sds){
+      r   <- sds[[i,]]
+      r[] <- c(f3(VAR[,,,i],1))
+      r   <- sum(r, na.rm = TRUE)
+      names(r) <- paste0(name,'_column')
+      return(r)
+    }
+    r_list   <- lapply(X = 1:length(times_r),FUN = make_rast)
+    r        <- terra::rast(r_list)
+    time(r)  <- times_r
+  }
 
   if(DU){
     du  = 2.687E+16  # Conversion constant: molecules cm-2 to DU
@@ -113,6 +149,5 @@ calculate_column <- function(file = file.choose(),
   }else{
     units(r) <- 'molecules cm-2'
   }
-
   return(r)
 }

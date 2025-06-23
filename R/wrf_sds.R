@@ -203,6 +203,8 @@ wrf_sds <- function(file = file.choose(),
     r[]       <- c(f2(x,1))
     names(r)  <- paste(name,'level',formatC(1:dim(r)[3],width = 2, format = "d", flag = "0"),sep="_")
     if(u != 0) units(r) <- u
+    if(flip_h) r <- terra::flip(r,direction='horizontal') # nocov
+    if(flip_v) r <- terra::flip(r,direction='vertical')   # nocov
     return(r)
   }
   r_list <- lapply(X = 1:dim(POL)[4],FUN = make_rast)
@@ -226,9 +228,6 @@ wrf_sds <- function(file = file.choose(),
   if(mem_order %in% c('XY','XY ')) r <- terra::flip(r,direction ='horizontal')
 
   nc_close(wrf)
-
-  if(flip_h) r <- terra::flip(r,direction='horizontal') # nocov
-  if(flip_v) r <- terra::flip(r,direction='vertical')   # nocov
 
   if(latlon){
     return(terra::project(x = r,y = "+proj=longlat +datum=WGS84 +no_defs",method = method)) # nocov

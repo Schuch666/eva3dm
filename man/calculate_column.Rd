@@ -24,13 +24,13 @@ calculate_column(
 
 \item{DU}{true to change the output units from 'molecules cm-1' to 'DU'}
 
-\item{flip_v}{passed to wrf_rast}
+\item{flip_v}{passed to wrf_rast, see notes}
 
-\item{flip_h}{passed to wrf_rast}
+\item{flip_h}{passed to wrf_rast, see notes}
 
 \item{verbose}{display additional information}
 
-\item{...}{extra arguments passed to ncdf4::ncvar_get}
+\item{...}{extra arguments passed to eva3dm::wrf_rast or eva3dm::wrf_sds}
 }
 \value{
 SpatRaster object (from terra package).
@@ -42,4 +42,6 @@ Read output from WRF model and calculate the column of trace gases.
 files in file should contain Times, XLAT, XLONG variables in addition to the concentration to be integrated, the variable should include at least 3 dimensions including vertical.
 
 met is a optional file, it should have containing PHB, PH, PB, P, and T variables with the same dimension of the concentration integrated.
+
+post processing can affect the orientation of the variables, the arguments flip_v and flip_h and other arguments from eva3dm::wrf_rast and eva3dm::wrf_sds can be used to take effect into account.
 }
