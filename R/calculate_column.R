@@ -28,7 +28,7 @@
 calculate_column <- function(file = file.choose(),
                              name,
                              met,
-                             DU = FALSE,
+                             DU,
                              flip_v = FALSE,
                              flip_h = FALSE,
                              verbose = TRUE,
@@ -37,7 +37,7 @@ calculate_column <- function(file = file.choose(),
   wrf <- ncdf4::nc_open(file)
   on.exit(ncdf4::nc_close(wrf))
 
-  if(missing(met)){
+  if(missing(met)){        # nocov start
     met     <- file
     wrf_met <- wrf
   }else{
@@ -45,10 +45,20 @@ calculate_column <- function(file = file.choose(),
     on.exit(nc_close(wrf_met))
   }
 
-  if(missing(name)){                                               # nocov start
+  if(missing(name)){
     n    <- menu(names(wrf$var), title = "Choose the variable:")
-    name <- names(wrf$var)[n]                                      # nocov end
+    name <- names(wrf$var)[n]
   }
+
+  if(missing(DU)){
+    if(name == 'o3'){
+      if(verbose)
+        cat('output unit set to DU for o3\n')
+      DU = TRUE
+    }else{
+      DU = FALSE
+    }
+  }                       # nocov end
 
   calculate_DZ <- function(PHB,PH, g = 9.817){
     Z      <- (PHB+PH)/g

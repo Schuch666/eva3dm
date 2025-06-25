@@ -8,7 +8,7 @@ calculate_column(
   file = file.choose(),
   name,
   met,
-  DU = FALSE,
+  DU,
   flip_v = FALSE,
   flip_h = FALSE,
   verbose = TRUE,
