@@ -25,6 +25,7 @@ plot_rast(
   min = -3,
   max,
   unit,
+  mask,
   ...
 )
 }
@@ -68,6 +69,8 @@ plot_rast(
 \item{max}{maximum log value for log scale}
 
 \item{unit}{title for color bar}
+
+\item{mask}{optional SpatVector to mask the plot}
 
 \item{...}{arguments to be passing to terra::plot}
 }

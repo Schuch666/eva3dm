@@ -22,6 +22,7 @@
 #' @param min minimum log value for log scale (default is -3)
 #' @param max maximum log value for log scale
 #' @param unit title for color bar
+#' @param mask optional SpatVector to mask the plot
 #' @param ... arguments to be passing to terra::plot
 #'
 #' @return No return value
@@ -60,6 +61,7 @@ plot_rast <- function(r,
                       min = -3,
                       max,
                       unit,
+                      mask,
                       ...){
 
   if(missing(r))
@@ -339,7 +341,11 @@ plot_rast <- function(r,
   }
 
   if(proj){
-    r <- project(r,"+proj=longlat +datum=WGS84 +no_defs")
+    r2 <- project(r2,"+proj=longlat +datum=WGS84 +no_defs")
+  }
+  if(!missing(mask)){
+    mask_proj  <- terra::project(mask,r2)          # nocov
+    r2         <- terra::mask(r2,mask = mask_proj) # nocov
   }
 
   if(missing(unit)){

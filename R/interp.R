@@ -5,7 +5,7 @@
 #' @param x rast to be interpolated
 #' @param y target rast of the interpolation
 #' @param method passed to terra::resample
-#' @param mask optional SpatVector to mask the results
+#' @param mask optional SpatVector to mask a region of the data
 #' @param verbose display additional information (not used)
 #'
 #' @return SpatRaster (terra package)
