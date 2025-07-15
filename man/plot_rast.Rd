@@ -26,6 +26,7 @@ plot_rast(
   max,
   unit,
   mask,
+  fill = FALSE,
   ...
 )
 }
@@ -71,6 +72,8 @@ plot_rast(
 \item{unit}{title for color bar}
 
 \item{mask}{optional SpatVector to mask the plot}
+
+\item{fill}{filling NAs}
 
 \item{...}{arguments to be passing to terra::plot}
 }

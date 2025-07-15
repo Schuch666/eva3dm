@@ -14,6 +14,7 @@ plot_diff(
   lim_r = NA,
   scale,
   unit = c(units(x), expression("\%")),
+  fill = FALSE,
   ...
 )
 }
@@ -35,6 +36,8 @@ plot_diff(
 \item{scale}{variable multiplier for absolute difference}
 
 \item{unit}{annotation for units}
+
+\item{fill}{filling NAs}
 
 \item{...}{arguments to be passing to plot_raster}
 }

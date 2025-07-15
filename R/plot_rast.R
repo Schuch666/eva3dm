@@ -23,6 +23,7 @@
 #' @param max maximum log value for log scale
 #' @param unit title for color bar
 #' @param mask optional SpatVector to mask the plot
+#' @param fill filling NAs
 #' @param ... arguments to be passing to terra::plot
 #'
 #' @return No return value
@@ -62,6 +63,7 @@ plot_rast <- function(r,
                       max,
                       unit,
                       mask,
+                      fill = FALSE,
                       ...){
 
   if(missing(r))
@@ -80,6 +82,9 @@ plot_rast <- function(r,
     unit <- terra::units(r)[1]
     r = scale * r
   }
+
+  if(fill)
+    r <- gap_fill(r)
 
   if(!missing(range) & !log){
     r2 <- r
@@ -491,4 +496,15 @@ custom_approxfun <- function(x, y, method = "linear", rule = 1) {
   }
 
   return(interpolate)
+}
+
+gap_fill <- function(r){
+  to_fill <- any(is.na(values(r)))
+  w       <- 1
+  while(to_fill) {
+    w       <- w + 2
+    r       <- focal(r, w = w, fun = mean, na.policy = "only", na.rm = T)
+    to_fill <- any(is.na(values(r)))
+  }
+  return(r)
 }
