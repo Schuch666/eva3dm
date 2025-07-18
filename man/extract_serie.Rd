@@ -86,11 +86,29 @@ sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_ISD.Rds"
 cat('Example 4: AERONET site list\n')
 sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AERONET.Rds"))
 
-cat('Example 5: list of INMET stations on Brazil\n')
+cat('Example 5: list of INMET stations in Brazil\n')
 sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_INMET.Rds"))
 
-cat('Example 6: list of Air Quality stations on Brazil\n')
+cat('Example 6: list of Air Quality stations in Brazil\n')
 sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AQ_BR.Rds"))
+
+cat('Example 7: list of AQM stations in US\n')
+sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AQS.Rds"))
+
+cat('Example 8: list of CASTNET stations in rural areas of US/Canada\n')
+sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_CASTNET.Rds"))
+
+cat('Example 9: list of Longterm European Program (EMEP) stations\n')
+sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_EMEP.Rds"))
+
+cat('Example 10: list of FLUXNET stations\n')
+sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_FLUXNET.Rds"))
+
+cat('Example 11: list of IMPROVE stations\n')
+sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_IMPROVE.Rds"))
+
+cat('Example 12: list of TOAR stations\n')
+sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_TOAR.Rds"))
 
 files    <- dir(path = system.file("extdata",package="eva3dm"),
                 pattern = 'wrf.day',
