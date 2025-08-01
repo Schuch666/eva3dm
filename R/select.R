@@ -49,7 +49,7 @@ select <- function (data,
 
   if(!missing(range)){
     if(is.data.frame(range)){
-      range <- base::range(range[,time])
+      range <- base::range(range[,time], na.rm = TRUE)
       start <- range[1]
       end   <- range[2]
     }else{
@@ -79,7 +79,7 @@ select <- function (data,
       data <- data[which(mm(data[,time]) %in% month),]
     }
     else {
-      data <- subset(data, substr(tolower(format(date,"%B")), 1, 3) %in% substr(tolower(month), 1,3))
+      data <- data[substr(tolower(format(data[[time]], "%B")), 1, 3) %in% substr(tolower(month), 1, 3), ]
     }
   }
   if (!missing(hour)) {
@@ -113,7 +113,7 @@ select <- function (data,
       if (day[1] == "weekend") {
         days <- weekday.names[6:7]
       }
-      data <- subset(data, substr(tolower(format(date,"%A")), 1, 3) %in% substr(tolower(days), 1, 3))
+      data <- data[substr(tolower(format(data[[time]], "%A")), 1, 3) %in% substr(tolower(days), 1, 3), ]
     }
   }
   return(data)
