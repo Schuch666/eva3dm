@@ -61,12 +61,12 @@ select <- function (data,
   if (!missing(start)) {
     if(is.character(start))
       start <- as.POSIXct(start)
-    data  <- subset(data, format(data[,time],"%s") >= format(start,"%s"))
+    data <- data[data[[time]] >= start, ]
   }
   if (!missing(end)) {
     if(is.character(end))
       end  <- as.POSIXct(end)
-    data <- subset(data, format(data[,time],"%s") <= format(end,"%s"))
+    data <- data[data[[time]] <= end, ]
   }
   if (!missing(year)) {
     data <- data[which(yy(data[,time]) %in% year), ]

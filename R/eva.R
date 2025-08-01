@@ -104,7 +104,7 @@ eva <- function(mo, ob, rname = site, table = NULL,
     mo <- as.data.frame(mo) # nocov
 
   if(missing(select_time)){
-    select_time = nrow(ob) >= nrow(mo)
+    select_time = nrow(ob) > nrow(mo)
   }
 
   if(select_time){
