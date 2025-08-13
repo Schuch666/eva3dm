@@ -18,6 +18,7 @@ plot_rast(
   grid_int = int,
   grid_col = "#666666",
   add_range = FALSE,
+  show.mean = TRUE,
   ndig = 2,
   log = FALSE,
   range,
@@ -56,6 +57,8 @@ plot_rast(
 \item{grid_col}{color for grid lines}
 
 \item{add_range}{add legend with max, average and min r values}
+
+\item{show.mean}{show the average on legend, default TRUE}
 
 \item{ndig}{number of digits for legend_range}
 

@@ -108,7 +108,7 @@ eva <- function(mo, ob, rname = site, table = NULL,
   }
 
   if(select_time){
-    ob <- select(data = ob, range = mo, time = time)
+    ob <- select(data = ob, range = mo, time = time) # nocov
   }
 
   if(remove_ch){

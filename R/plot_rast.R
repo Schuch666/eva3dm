@@ -15,6 +15,7 @@
 #' @param grid_int interval of grid lines
 #' @param grid_col color for grid lines
 #' @param add_range add legend with max, average and min r values
+#' @param show.mean show the average on legend, default TRUE
 #' @param ndig number of digits for legend_range
 #' @param range range of original values to plot
 #' @param scale variable multiplier (not affect min/max/range)
@@ -55,6 +56,7 @@ plot_rast <- function(r,
                       grid_int = int,
                       grid_col = "#666666",
                       add_range = FALSE,
+                      show.mean = TRUE,
                       ndig = 2,
                       log = FALSE,
                       range,
@@ -341,7 +343,7 @@ plot_rast <- function(r,
                    lty = 3, col = grid_col,lwd = 1.2)
     }
     if(add_range)
-      legend_range(r,dig = c(ndig,ndig,ndig))
+      legend_range(r,dig = c(ndig,ndig,ndig), show.mean = show.mean)
     terra::add_box()
   }
 

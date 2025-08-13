@@ -30,12 +30,17 @@
 #' plot_diff(A,B,int = 2)
 
 plot_diff <- function(x,y,col,
-                      absolute = TRUE,
-                      relative = TRUE,
+                      absolute = FALSE,
+                      relative = FALSE,
                       lim_a = NA, lim_r = NA, scale,
                       unit = c(units(x),expression("%")),
                       fill = FALSE,
                       ...){
+
+  if(absolute == FALSE & relative == FALSE){
+    absolute = TRUE
+    relative = TRUE
+  }
 
   if(missing(col))
     col <- c("#1B2C62","#204385","#265CA9","#4082C2",
@@ -60,7 +65,7 @@ plot_diff <- function(x,y,col,
   }
   if(relative){
     if(fill){
-      rel  <- 100 * diff / y
+      rel  <- 100 * diff / y                      # nocov
     }else{
       rel  <- 100 * diff / (y + 0.00000000001)
     }
