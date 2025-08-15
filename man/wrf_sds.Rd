@@ -44,3 +44,14 @@ Creates a SpatRasterDataset (terra R-package) object from a variable from wrf fi
 \note{
 The convention adopted to select specific times and atmospheric layers on wrf_sds is sds[time,layer] to keep consistence with sds.
 }
+\examples{
+file <- paste0(system.file("extdata",package="eva3dm"),"/wrf_4d_o3_Boston.nc")
+O34d <- wrf_sds(file,'o3',verbose = TRUE)
+
+# selecting one time, keeping multiple layers
+O34d[1,]
+
+# selecting one layer, keeping multiple times
+O34d[,1]
+
+}

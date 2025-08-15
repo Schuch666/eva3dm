@@ -22,6 +22,10 @@
 #' @import terra ncdf4
 #' @importFrom utils menu
 #'
+#' @examples
+#' file <- paste0(system.file("extdata",package="eva3dm"),"/wrf_column_o3_Boston.nc")
+#' O3_column <- calculate_column(file,'o3', verbose = TRUE)
+#'
 #' @export
 #'
 
@@ -67,13 +71,13 @@ calculate_column <- function(file = file.choose(),
       for(i in 1:(dim(Z)[3]-1)){
         dz[,,i] = Z[,,i+1] - Z[,,i]
       }
-    }else if(length(dim(Z)) == 4){            # this is a version for 4d (XYZT)
-      dz     <- array(0,c(dim(Z)[1],dim(Z)[2],dim(Z)[3]-1,dim(Z)[4]))
-      for(i in 1:(dim(Z)[3]-1)){
-        dz[,,i,] = Z[,,i+1,] - Z[,,i,]
+    }else if(length(dim(Z)) == 4){            # this is a version for 4d (XYZT) # nocov
+      dz     <- array(0,c(dim(Z)[1],dim(Z)[2],dim(Z)[3]-1,dim(Z)[4]))           # nocov
+      for(i in 1:(dim(Z)[3]-1)){                                                # nocov
+        dz[,,i,] = Z[,,i+1,] - Z[,,i,]                                          # nocov
       }
     }else{
-      stop('dimention not suported')
+      stop('dimention not suported') # nocov
     }
     return(dz)
   }
@@ -86,10 +90,10 @@ calculate_column <- function(file = file.choose(),
   }
 
   f4 <- function(x){
-    x <- as.array(x)
-    x <- aperm(x, c(2,1,3,4))
-    x <- x[rev(seq_len(dim(x)[1])),,,]
-    return(x)
+    x <- as.array(x)                      # nocov
+    x <- aperm(x, c(2,1,3,4))             # nocov
+    x <- x[rev(seq_len(dim(x)[1])),,,]    # nocov
+    return(x)                             # nocov
   }
 
   avo        = 6.02E+23   # Avogadro s number
@@ -112,17 +116,17 @@ calculate_column <- function(file = file.choose(),
                      flip_h  = flip_v,
                      verbose = verbose, ... )
     VAR  <- rast_to_netcdf(r)
-  }else if(length(dim(Temp)) == 4){
-    sds <- wrf_sds(file    = file,
-                   name    = name,
-                   flip_v  = flip_v,
-                   flip_h  = flip_v,
-                   verbose = verbose, ... )
-    VAR <- f4(sds)
-  }else if(length(dim(Temp)) <= 2){
-    stop('insuficient meteorological input')  # less data than needed / include more data
+  }else if(length(dim(Temp)) == 4){         # nocov
+    sds <- wrf_sds(file    = file,          # nocov
+                   name    = name,          # nocov
+                   flip_v  = flip_v,        # nocov
+                   flip_h  = flip_v,        # nocov
+                   verbose = verbose, ... ) # nocov
+    VAR <- f4(sds)                          # nocov
+  }else if(length(dim(Temp)) <= 2){         # nocov
+    stop('insuficient meteorological input')  # less data than needed / include more data # nocov
   }else{
-    stop('meteorological input not suported') # dimension not supported / reduce data
+    stop('meteorological input not suported') # dimension not supported / reduce data # nocov
   }
 
   P    <- P1 + P2                        # total pressure [pa]
@@ -138,18 +142,18 @@ calculate_column <- function(file = file.choose(),
     names(r) <- paste0(name,'_column')
     time(r)  <- times_r[1]
   }
-  if(length(dim(VAR)) == 4){               #  XLAT XLONG LEVEL TIME
-    times_r   <- time(sds[,1])
-    make_rast <- function(i = 1, x = sds){
-      r   <- sds[[i,]]
-      r[] <- c(f3(VAR[,,,i],1))
-      r   <- sum(r, na.rm = TRUE)
-      names(r) <- paste0(name,'_column')
-      return(r)
-    }
-    r_list   <- lapply(X = 1:length(times_r),FUN = make_rast)
-    r        <- terra::rast(r_list)
-    time(r)  <- times_r
+  if(length(dim(VAR)) == 4){               #  XLAT XLONG LEVEL TIME   # nocov
+    times_r   <- time(sds[,1])                                        # nocov
+    make_rast <- function(i = 1, x = sds){                            # nocov
+      r   <- sds[[i,]]                                                # nocov
+      r[] <- c(f3(VAR[,,,i],1))                                       # nocov
+      r   <- sum(r, na.rm = TRUE)                                     # nocov
+      names(r) <- paste0(name,'_column')                              # nocov
+      return(r)                                                       # nocov
+    }                                                                 # nocov
+    r_list   <- lapply(X = 1:length(times_r),FUN = make_rast)         # nocov
+    r        <- terra::rast(r_list)                                   # nocov
+    time(r)  <- times_r                                               # nocov
   }
 
   if(DU){
@@ -157,7 +161,7 @@ calculate_column <- function(file = file.choose(),
     r   <- r / du
     units(r) <- 'DU'
   }else{
-    units(r) <- 'molecules cm-2'
+    units(r) <- 'molecules cm-2' # nocov
   }
   return(r)
 }

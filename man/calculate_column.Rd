@@ -45,3 +45,8 @@ met is a optional file, it should have containing PHB, PH, PB, P, and T variable
 
 post processing can affect the orientation of the variables, the arguments flip_v and flip_h and other arguments from eva3dm::wrf_rast and eva3dm::wrf_sds can be used to take effect into account.
 }
+\examples{
+file <- paste0(system.file("extdata",package="eva3dm"),"/wrf_column_o3_Boston.nc")
+O3_column <- calculate_column(file,'o3', verbose = TRUE)
+
+}

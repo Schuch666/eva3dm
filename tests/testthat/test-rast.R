@@ -35,5 +35,8 @@ test_that("rast based functions are ok", {
 
   plot_diff(r,r2)
 
+  O34d <- wrf_sds(paste0(system.file("extdata",package="eva3dm"),"/wrf_4d_o3_Boston.nc"),'o3')
+  O3_column <- calculate_column(paste0(system.file("extdata",package="eva3dm"),"/wrf_column_o3_Boston.nc"),'o3')
+
   expect_equal(dim(r_ncdf), c(149,99,1))
 })

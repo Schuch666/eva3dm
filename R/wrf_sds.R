@@ -19,6 +19,16 @@
 #' @import terra ncdf4
 #' @importFrom utils menu
 #'
+#' @examples
+#' file <- paste0(system.file("extdata",package="eva3dm"),"/wrf_4d_o3_Boston.nc")
+#' O34d <- wrf_sds(file,'o3',verbose = TRUE)
+#'
+#' # selecting one time, keeping multiple layers
+#' O34d[1,]
+#'
+#' # selecting one layer, keeping multiple times
+#' O34d[,1]
+#'
 #' @export
 #'
 
@@ -88,11 +98,11 @@ wrf_sds <- function(file = file.choose(),
 
   # Reverse column order to get UL in UL
   if(length(dim(inNCLon)) == 3){ # for special case of lat/lon has more dimensions
-    x <- as.vector(inNCLon[, ncol(inNCLon):1,]) # nocov
-    y <- as.vector(inNCLat[, ncol(inNCLat):1,]) # nocov
+    x <- as.vector(inNCLon[, ncol(inNCLon):1,])
+    y <- as.vector(inNCLat[, ncol(inNCLat):1,])
   }else{
-    x <- as.vector(inNCLon[,ncol(inNCLon):1])
-    y <- as.vector(inNCLat[,ncol(inNCLat):1])
+    x <- as.vector(inNCLon[,ncol(inNCLon):1])   # nocov
+    y <- as.vector(inNCLat[,ncol(inNCLat):1])   # nocov
   }
   rm(inNCLon,inNCLat)
 
@@ -225,7 +235,7 @@ wrf_sds <- function(file = file.choose(),
   names(r) <- paste0(name,'_',1:length(TIME),'h')
 
   mem_order <- ncdf4::ncatt_get(nc = wrf,varid = name, attname = 'MemoryOrder')$value
-  if(mem_order %in% c('XY','XY ')) r <- terra::flip(r,direction ='horizontal')
+  if(mem_order %in% c('XY','XY ')) r <- terra::flip(r,direction ='horizontal')        # nocov
 
   nc_close(wrf)
 
