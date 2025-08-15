@@ -56,6 +56,8 @@ The following workflow is recommended:
 
 **4. Visualization**: try some of the visualization functions from this package or other packages.
 
+The function `template()` can help to setup folders and scripts from steps 1-4 for different models, observations datasets and evaluation types.
+
 This package includes:
 
 ## Model Post-processing functions:

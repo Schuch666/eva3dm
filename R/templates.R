@@ -5,7 +5,7 @@
 #' @param root directory to create the template
 #' @param template Character; One of  of the following:
 #' \tabular{lllll}{
-#'   \strong{argument}\tab \strong{TYPE}\tab \strong{MODEL}\tab \strong{OBSERVATION}\cr
+#'   \strong{argument}\tab \strong{TYPE}\tab \strong{MODEL/OBS}\tab \strong{OBSERVATION}\cr
 #'   WRF\tab post-process \tab WRF \tab METAR and INMET\cr
 #'   WRF-3\tab post-process \tab WRF triple nested \tab METAR\cr
 #'   WRF-Chem\tab post-process \tab WRF-Chem \tab METAR, AQS in Brazil and AERONET\cr
@@ -18,11 +18,11 @@
 #'   MET\tab evaluation \tab WRF \tab METAR\cr
 #'   MET-3\tab evaluation \tab WRF triple nested \tab METAR\cr
 #'   AQ\tab evaluation \tab WRF or CAMx \tab O3, Max O3 and PM2.5\cr
-#'   AQS_BR\tab download \tab any \tab AQS in Brazil for SP and RJ\cr
-#'   METAR\tab downlaad \tab any \tab METAR from ASOS\cr
-#'   INMET\tab pre-processing \tab any \tab INMET (automatic and conventional)\cr
-#'   merge\tab pre-processing \tab any \tab merge INMET (automatic and conventional)\cr
-#'   ISD\tab pre-processing \tab any \tab METAR\cr
+#'   AQS_BR\tab download \tab observations \tab AQS in Brazil for SP and RJ\cr
+#'   METAR\tab downlaad \tab observations \tab METAR from ASOS\cr
+#'   INMET\tab pre-processing \tab observations \tab INMET (automatic and conventional)\cr
+#'   merge\tab pre-processing \tab observations \tab merge INMET (automatic and conventional)\cr
+#'   ISD\tab pre-processing \tab observations \tab METAR\cr
 #'}
 #' @param case case to be evaluated
 #' @param env name of the conda environment
