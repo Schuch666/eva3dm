@@ -1,6 +1,11 @@
 #' Calculate column concentration of trace gases form WRF-Chem
 #'
 #' @description Read output from WRF model and calculate the column of trace gases.
+#' The column concentration \eqn{ C_{\mathrm{column}}} is computed as:
+#'
+#' \deqn{ C_{\mathrm{column}} = \frac{N_{A}}{R} \int_{\text{surface}}^{\text{model\_top}} C \frac{P}{T} \, dz }
+#'
+#' where \eqn{C} is the pollutant concentration, \eqn{N_{A}} is Avogadro's number, \eqn{R} is the universal gas constant, \eqn{P} is the pressure [Pa], \eqn{T} is the temperature [K], and \eqn{dz} is the layer thickness [m].
 #'
 #' @param file WRF output file, see notes
 #' @param name trace gas name to be integrated
