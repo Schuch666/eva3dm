@@ -31,7 +31,7 @@
 #'
 #' @import terra
 #'
-#' @note color scales including: 'eva3', 'eva4', 'blues', 'diff', 'rain', 'pur', 'blackpur' and 'acid'. Also reverse version with addition of a r ('eva3r' is the default).
+#' @note color scales including: 'eva3', 'eva4', 'blues', 'diff', 'rain', 'pur', 'blackpur', 'acid', and 'regime'. Also reverse version with addition of a r ('eva3r' is the default).
 #'
 #' @export
 #'
@@ -293,6 +293,32 @@ plot_rast <- function(r,
                    "#AFACD5","#B2B0CF","#B6B4CA","#B9B8C4","#BDBDBF",
                    "#C3C3C3","#C9C9C9","#D0D0D0","#D7D7D7","#DDDDDD",
                    "#E4E4E4","#EBEBEB","#F1F1F1","#F8F8F8","#FFFFFF"))
+
+  if(color[1] == 'regime')
+    # based on eva colors, but separation for green using gray
+    color <- c("#579234","#5B9535","#5F9937","#639D39","#67A13B",
+               "#6BA53D","#6FA93F","#73AD41","#77B143","#7CB545",
+               "#80B947","#84BC49","#88C04B","#8CC44D","#90C84E",
+               "#94CC50","#98D052","#9DD454","#A1D856","#9ECD5D",
+               "#99BF66","#95B16E","#90A377","#8C957F","#888888",
+               "#625BB8","#655EBB","#6861BE","#6B64C1","#6D66C4",
+               "#7069C7","#736CC9","#766FCC","#7871CF","#7B74D2",
+               "#7E77D5","#8079D7","#827BD9","#847DDB","#867FDE",
+               "#8881E0","#8B84E2","#8D86E4","#8F88E6","#918AE9",
+               "#938CEB","#958EED","#9790EF","#9992F1","#9C95F4")
+
+  if(color[1] == 'regimer')
+    # based on eva colors, but separation for green using gray
+    color <- rev(c("#579234","#5B9535","#5F9937","#639D39","#67A13B",
+                   "#6BA53D","#6FA93F","#73AD41","#77B143","#7CB545",
+                   "#80B947","#84BC49","#88C04B","#8CC44D","#90C84E",
+                   "#94CC50","#98D052","#9DD454","#A1D856","#9ECD5D",
+                   "#99BF66","#95B16E","#90A377","#8C957F","#888888",
+                   "#625BB8","#655EBB","#6861BE","#6B64C1","#6D66C4",
+                   "#7069C7","#736CC9","#766FCC","#7871CF","#7B74D2",
+                   "#7E77D5","#8079D7","#827BD9","#847DDB","#867FDE",
+                   "#8881E0","#8B84E2","#8D86E4","#8F88E6","#918AE9",
+                   "#938CEB","#958EED","#9790EF","#9992F1","#9C95F4"))
 
   # nocov end
   e_o     <- ext(r)
