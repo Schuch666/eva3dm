@@ -5,7 +5,7 @@
 #' @param filelist list of files to be read
 #' @param point data.frame with time (POSIXct), lat, lon, alt
 #' @param vars variable names
-#' @param model 'WRF' (default) of 'UFS'
+#' @param model 'WRF' (default) or 'UFS'
 #' @param include_indices to include t,i,j,k indices
 #' @param include_model to include model time, latitude, longitude and altitude
 #' @param include_distances include the distance from the center of the grid to the observations
