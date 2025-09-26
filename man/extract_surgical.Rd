@@ -25,7 +25,7 @@ extract_surgical(
 
 \item{vars}{variable names}
 
-\item{model}{'WRF' (default) of 'UFS'}
+\item{model}{'WRF' (default) or 'UFS'}
 
 \item{tol}{tolerance in seconds}
 

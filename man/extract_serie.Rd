@@ -17,8 +17,7 @@ extract_serie(
   use_ij = FALSE,
   latitude = "XLAT",
   longitude = "XLONG",
-  use_TFLAG = FALSE,
-  use_datesec = FALSE,
+  model = "WRF",
   id = "id",
   remove_ch = FALSE,
   verbose = TRUE
@@ -49,9 +48,7 @@ extract_serie(
 
 \item{longitude}{name of longitude coordinate variable in the netcdf}
 
-\item{use_TFLAG}{use the variable TFLAG (CMAQ / smoke) instead of Times (WRF)}
-
-\item{use_datesec}{use the variable date and datesec (WACCM / CAM-Chem) instead of Times (WRF)}
+\item{model}{"WRF" (default), "CAMx" (CAMx, CMAQ and smoke files), and "WACCM" (WACCM and CAM-Chem)}
 
 \item{id}{name of the column with station names, if point is a SpatVector (points) from terra package}
 
@@ -70,9 +67,11 @@ The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3r
 
 new = TRUE create a new file, new = FALSE append the data in a old file, and new = 'check' check if the file exist and append if the file exist and create if the file doesnt exist
 
-FOR CAMx time-series, use the options: use_TFLAG=T, latitude='latitude', longitude='longitude', new=T
+FOR CAMx time-series, use the options: model='CAMx', latitude='latitude', longitude='longitude', new=T
 
-FOR WACCM time-series, use the options: use_datesec=T, latitude='lat', longitude='lon', new=T
+FOR WACCM time-series, use the options: model='WACCM', latitude='lat', longitude='lon', new=T
+
+FOR UFS time-series, use the options: model='UFS', latitude='lat', longitude='lon', new=T
 
 The site-list of two global data-sets (METAR and AERONET) are provided on examples and site-list for stations on Brazil (INMET and Air Quality stations).
 }

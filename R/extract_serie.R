@@ -257,6 +257,15 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
   }
 
   if(field == '2d')                # 2d Field (x,y)
+    contagem  = NA                 # nocov
+  if(field == '2dz')               # 3d Field (x,y,z)
+    contagem = c(-1,-1,1)          # nocov
+  if(field == '3d')                # 3d Field (x,y,t)
+    contagem  = NA                 # nocov
+  if(field == '4d')
+    contagem = c(-1,-1,1,-1)       # 4d Field (x,y,z,t)
+
+  if(field == '2d')                # 2d Field (x,y)
     comeco = NA                    # nocov
   if(field == '2dz')               # 3d Field (x,y,z)
     comeco = c(1,1,level)          # nocov
@@ -310,9 +319,12 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
         lon   <- lon[,,1,1,drop = T]  # nocov
       }
 
-      if(use_TFLAG){
+      if(model == 'WRF'){
+        TIME   <- ncvar_get(wrf,'Times')
+        times  <- as.POSIXlt(TIME, tz = "UTC", format="%Y-%m-%d_%H:%M:%OS", optional=FALSE)
+      }else if(model == 'CAMx'){
         TFLAG <- ncvar_get(wrf,'TFLAG')                                      # nocov
-        TFLAG <- TFLAG[,1,,drop = T]                                         # nocov
+        TFLAG <- TFLAG[,1,,drop = TRUE]                                      # nocov
         year  <- as.numeric(substr(x = TFLAG[1,],start = 1,stop = 4))        # nocov
         jday  <- as.numeric(substr(x = TFLAG[1,],start = 5,stop = 7))        # nocov
         day   <- as.Date(paste0(year,jday),format = '%Y%j')                  # nocov
@@ -321,7 +333,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
         date_time <- paste0(as.character(day),' ',hour,':00:00')             # nocov
         times     <- as.POSIXlt(date_time, tz = "UTC",                       # nocov
                                 format="%Y-%m-%d %H:%M:%OS", optional=FALSE) # nocov
-      } else if(use_datesec){
+      }else if(model == 'WACCM'){
         date      <- ncvar_get(nc = wrf, 'date')                             # nocov
         datesec   <- ncvar_get(nc = wrf, 'datesec')                          # nocov
         year      <- substr(x = date,start = 1,stop = 4)                     # nocov
@@ -331,9 +343,11 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
                             datesec/3600,':00:00')                           # nocov
         times     <- as.POSIXct(date_time, tz = "UTC",                       # nocov
                                 format="%Y-%m-%d %H:%M:%OS", optional=FALSE) # nocov
-      } else {
-        TIME   <- ncvar_get(wrf,'Times')
-        times  <- as.POSIXlt(TIME, tz = "UTC", format="%Y-%m-%d_%H:%M:%OS", optional=FALSE)
+      }else if(model == 'UFS'){
+        time_var    <- ncvar_get(wrf, "time")
+        time_units  <- ncatt_get(wrf, "time", "units")$value
+        ref_time    <- sub("hours since ", "", time_units)
+        times       <- as.POSIXct(ref_time, format = "%Y-%m-%d %H:%M:%S", tz = "UTC") + time_var * 3600
       }
 
       var      <- ncvar_get(wrf,variable,count = contagem, start = comeco)
