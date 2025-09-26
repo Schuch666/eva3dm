@@ -61,8 +61,7 @@
 <span>  use_ij <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  latitude <span class="op">=</span> <span class="st">"XLAT"</span>,</span>
 <span>  longitude <span class="op">=</span> <span class="st">"XLONG"</span>,</span>
-<span>  use_TFLAG <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  use_datesec <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"WRF"</span>,</span>
 <span>  id <span class="op">=</span> <span class="st">"id"</span>,</span>
 <span>  remove_ch <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -121,12 +120,8 @@
 <dd><p>name of longitude coordinate variable in the netcdf</p></dd>
 
 
-<dt id="arg-use-tflag">use_TFLAG<a class="anchor" aria-label="anchor" href="#arg-use-tflag"></a></dt>
-<dd><p>use the variable TFLAG (CMAQ / smoke) instead of Times (WRF)</p></dd>
-
-
-<dt id="arg-use-datesec">use_datesec<a class="anchor" aria-label="anchor" href="#arg-use-datesec"></a></dt>
-<dd><p>use the variable date and datesec (WACCM / CAM-Chem) instead of Times (WRF)</p></dd>
+<dt id="arg-model">model<a class="anchor" aria-label="anchor" href="#arg-model"></a></dt>
+<dd><p>"WRF" (default), "CAMx" (CAMx, CMAQ and smoke files), and "WACCM" (WACCM and CAM-Chem)</p></dd>
 
 
 <dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
@@ -149,8 +144,9 @@
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p>The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3rd dimention (z).</p>
 <p>new = TRUE create a new file, new = FALSE append the data in a old file, and new = 'check' check if the file exist and append if the file exist and create if the file doesnt exist</p>
-<p>FOR CAMx time-series, use the options: use_TFLAG=T, latitude='latitude', longitude='longitude', new=T</p>
-<p>FOR WACCM time-series, use the options: use_datesec=T, latitude='lat', longitude='lon', new=T</p>
+<p>FOR CAMx time-series, use the options: model='CAMx', latitude='latitude', longitude='longitude', new=T</p>
+<p>FOR WACCM time-series, use the options: model='WACCM', latitude='lat', longitude='lon', new=T</p>
+<p>FOR UFS time-series, use the options: model='UFS', latitude='lat', longitude='lon', new=T</p>
 <p>The site-list of two global data-sets (METAR and AERONET) are provided on examples and site-list for stations on Brazil (INMET and Air Quality stations).</p>
     </div>
 
