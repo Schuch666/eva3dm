@@ -5,7 +5,14 @@
 #' @param filelist list of files to be read
 #' @param point data.frame with lat/lon
 #' @param variable variable name
-#' @param field '4d' (default), '3d', '2d' or '2dz' see notes
+#' @param field '4d' (default), '2dz', '2dz', '2d' or 'xyzt', 'xyz', 'xyz', and 'xy' see notes
+#' \tabular{lll}{
+#'   \strong{Field}\tab \strong{Dimensions}\tab \strong{Notes} \cr
+#'   3dt  \tab xyzt \tab WRF dimensions for 3D array with multiple times\cr
+#'   2dt  \tab xyt  \tab WRF dimensions for 2D array with multiple times \cr
+#'   2dz  \tab xyz  \tab WRF dimensions for 3D array with single time\cr
+#'   2d   \tab xy   \tab WRF dimensions for 2D array with single time\cr
+#' }
 #' @param level model level to be extracted
 #' @param prefix to output file, default is serie
 #' @param new TRUE, FALSE of 'check' see notes
@@ -13,23 +20,17 @@
 #' @param fast faster calculation of grid distances but less precise
 #' @param model "WRF" (default), "CAMx" (CAMx, CMAQ and smoke files), and "WACCM" (WACCM and CAM-Chem)
 #' @param use_ij logical, use i and j from input instead of calculate
-#' @param latitude name of latitude coordinate variable in the netcdf
-#' @param longitude name of longitude coordinate variable in the netcdf
 #' @param id name of the column with station names, if point is a SpatVector (points) from terra package
 #' @param remove_ch remove special characters on row.names
 #' @param verbose display additional information
 #'
 #' @return No return value
 #'
-#' @note The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3rd dimention (z).
+#' @note The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3rd dimention (z), this is based on WRF outputs format and the array order from ncdf4.
 #'
 #' @note new = TRUE create a new file, new = FALSE append the data in a old file, and new = 'check' check if the file exist and append if the file exist and create if the file doesnt exist
 #'
-#' @note FOR CAMx time-series, use the options: model='CAMx', latitude='latitude', longitude='longitude', new=T
-#'
-#' @note FOR WACCM time-series, use the options: model='WACCM', latitude='lat', longitude='lon', new=T
-#'
-#' @note FOR UFS time-series, use the options: model='UFS', latitude='lat', longitude='lon', new=T
+#' @note The option field '3d' was removed, a new option should be used instead (2dt or 2dz).
 #'
 #' @note The site-list of two global data-sets (METAR and AERONET) are provided on examples and site-list for stations on Brazil (INMET and Air Quality stations).
 #'
@@ -84,7 +85,6 @@
 extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 1,
                           prefix = 'serie',new = 'check', return.nearest = FALSE,
                           fast = FALSE, use_ij = FALSE,
-                          latitude = 'XLAT',longitude = 'XLONG',
                           model = "WRF",id = 'id',
                           remove_ch = FALSE,
                           verbose = TRUE){
@@ -109,6 +109,19 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
   }
 
   if(verbose) cat('extracting series of',variable,'field',field,'for',nrow(point),'points\n')
+
+  if(model == 'WRF'){
+    latitude  = 'XLAT'
+    longitude = 'XLONG'
+  }else if( model == 'CAMx'){                 # nocov
+    latitude  = 'latitude'                    # nocov
+    longitude = 'longitude'                   # nocov
+  }else if( model %in% c("WACCM","UFS")){     # nocov
+    latitude  = 'lat'                         # nocov
+    longitude = 'lon'                         # nocov
+  }else{                                      # nocov
+    stop(paste(model,'model not supported!')) # nocov
+  }
 
   wrf   <- nc_open(filelist[1])
   lat   <- ncvar_get(wrf,latitude)
@@ -226,7 +239,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
   if(model == 'WRF'){
     TIME   <- ncvar_get(wrf,'Times')
     times  <- as.POSIXlt(TIME, tz = "UTC", format="%Y-%m-%d_%H:%M:%OS", optional=FALSE)
-  }else if(model == 'CAMx'){
+  }else if(model == 'CAMx'){                                             # nocov
     TFLAG <- ncvar_get(wrf,'TFLAG')                                      # nocov
     TFLAG <- TFLAG[,1,,drop = TRUE]                                      # nocov
     year  <- as.numeric(substr(x = TFLAG[1,],start = 1,stop = 4))        # nocov
@@ -237,7 +250,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
     date_time <- paste0(as.character(day),' ',hour,':00:00')             # nocov
     times     <- as.POSIXlt(date_time, tz = "UTC",                       # nocov
                             format="%Y-%m-%d %H:%M:%OS", optional=FALSE) # nocov
-  }else if(model == 'WACCM'){
+  }else if(model == 'WACCM'){                                            # nocov
     date      <- ncvar_get(nc = wrf, 'date')                             # nocov
     datesec   <- ncvar_get(nc = wrf, 'datesec')                          # nocov
     year      <- substr(x = date,start = 1,stop = 4)                     # nocov
@@ -247,32 +260,35 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
                         datesec/3600,':00:00')                           # nocov
     times     <- as.POSIXct(date_time, tz = "UTC",                       # nocov
                             format="%Y-%m-%d %H:%M:%OS", optional=FALSE) # nocov
-  }else if(model == 'UFS'){
-    time_var    <- ncvar_get(wrf, "time")
-    time_units  <- ncatt_get(wrf, "time", "units")$value
-    ref_time    <- sub("hours since ", "", time_units)
-    times       <- as.POSIXct(ref_time, format = "%Y-%m-%d %H:%M:%S", tz = "UTC") + time_var * 3600
-  }else{
-    stop(paste(model,'model not supported!'))
+  }else if(model == 'UFS'){                                              # nocov
+    time_var    <- ncvar_get(wrf, "time")                                # nocov
+    time_units  <- ncatt_get(wrf, "time", "units")$value                 # nocov
+    ref_time    <- sub("hours since ", "", time_units)                   # nocov
+    times       <- as.POSIXct(ref_time, format = "%Y-%m-%d %H:%M:%S", tz = "UTC") + time_var * 3600 # nocov
+  }else{                                                                 # nocov
+    stop(paste(model,'model not supported!'))                            # nocov
   }
 
-  if(field == '2d')                # 2d Field (x,y)
-    contagem  = NA                 # nocov
-  if(field == '2dz')               # 3d Field (x,y,z)
-    contagem = c(-1,-1,1)          # nocov
-  if(field == '3d')                # 3d Field (x,y,t)
-    contagem  = NA                 # nocov
-  if(field == '4d')
-    contagem = c(-1,-1,1,-1)       # 4d Field (x,y,z,t)
+  if(field %in% c('2d','xy','yx') ){                # 2d Field (x,y)
+    contagem  = NA                                  # nocov
+  }else if(field %in% c('2dz','xyz','yxz')){        # 3d Field (x,y,z)
+    contagem = c(-1,-1,1)                           # nocov
+  }else if(field %in% c('2dt','xyt','yxt')){        # 3d Field (x,y,t)
+    contagem  = NA                                  # nocov
+  }else if(field %in% c('4d','3dz','xyzt','yxzt')){
+    contagem = c(-1,-1,1,-1)                        # 4d Field (x,y,z,t)
+  }else{
+    stop('argument field ',field,' not suported!')  # nocov
+  }
 
-  if(field == '2d')                # 2d Field (x,y)
-    comeco = NA                    # nocov
-  if(field == '2dz')               # 3d Field (x,y,z)
-    comeco = c(1,1,level)          # nocov
-  if(field == '3d')                # 3d Field (x,y,t)
-    comeco  = NA                   # nocov
-  if(field == '4d')
-    comeco = c(1,1,level,1)        # 4d Field (x,y,z,t)
+  if(field %in% c('2d','xy','yx'))            # 2d Field (x,y)
+    comeco = NA                               # nocov
+  if(field %in% c('2dz','xyz','yxz'))         # 3d Field (x,y,z)
+    comeco = c(1,1,level)                     # nocov
+  if(field %in% c('2dt','xyt','yxt'))         # 3d Field (x,y,t)
+    comeco  = NA                              # nocov
+  if(field %in% c('4d','3dz','xyzt','yxzt'))
+    comeco = c(1,1,level,1)                   # 4d Field (x,y,z,t)
 
   var     <- ncvar_get(wrf,variable,count = contagem,start = comeco)
   nc_close(wrf)
@@ -322,7 +338,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
       if(model == 'WRF'){
         TIME   <- ncvar_get(wrf,'Times')
         times  <- as.POSIXlt(TIME, tz = "UTC", format="%Y-%m-%d_%H:%M:%OS", optional=FALSE)
-      }else if(model == 'CAMx'){
+      }else if(model == 'CAMx'){                                             # nocov
         TFLAG <- ncvar_get(wrf,'TFLAG')                                      # nocov
         TFLAG <- TFLAG[,1,,drop = TRUE]                                      # nocov
         year  <- as.numeric(substr(x = TFLAG[1,],start = 1,stop = 4))        # nocov
@@ -333,7 +349,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
         date_time <- paste0(as.character(day),' ',hour,':00:00')             # nocov
         times     <- as.POSIXlt(date_time, tz = "UTC",                       # nocov
                                 format="%Y-%m-%d %H:%M:%OS", optional=FALSE) # nocov
-      }else if(model == 'WACCM'){
+      }else if(model == 'WACCM'){                                            # nocov
         date      <- ncvar_get(nc = wrf, 'date')                             # nocov
         datesec   <- ncvar_get(nc = wrf, 'datesec')                          # nocov
         year      <- substr(x = date,start = 1,stop = 4)                     # nocov
@@ -343,11 +359,11 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
                             datesec/3600,':00:00')                           # nocov
         times     <- as.POSIXct(date_time, tz = "UTC",                       # nocov
                                 format="%Y-%m-%d %H:%M:%OS", optional=FALSE) # nocov
-      }else if(model == 'UFS'){
-        time_var    <- ncvar_get(wrf, "time")
-        time_units  <- ncatt_get(wrf, "time", "units")$value
-        ref_time    <- sub("hours since ", "", time_units)
-        times       <- as.POSIXct(ref_time, format = "%Y-%m-%d %H:%M:%S", tz = "UTC") + time_var * 3600
+      }else if(model == 'UFS'){                                              # nocov
+        time_var    <- ncvar_get(wrf, "time")                                # nocov
+        time_units  <- ncatt_get(wrf, "time", "units")$value                 # nocov
+        ref_time    <- sub("hours since ", "", time_units)                   # nocov
+        times       <- as.POSIXct(ref_time, format = "%Y-%m-%d %H:%M:%S", tz = "UTC") + time_var * 3600 # nocov
       }
 
       var      <- ncvar_get(wrf,variable,count = contagem, start = comeco)

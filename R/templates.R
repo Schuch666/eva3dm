@@ -98,24 +98,24 @@ date
 
 echo \'extracting METAR time-series...\'
 
-Rscript extract_metar.R $dir T2     3d &
+Rscript extract_metar.R $dir T2     2dt &
 Rscript extract_metar.R $dir P      4d &
-Rscript extract_metar.R $dir Q2     3d &
-Rscript extract_metar.R $dir U10    3d &
-Rscript extract_metar.R $dir V10    3d &
-Rscript extract_metar.R $dir RAINC  3d &
-Rscript extract_metar.R $dir RAINNC 3d &
+Rscript extract_metar.R $dir Q2     2dt &
+Rscript extract_metar.R $dir U10    2dt &
+Rscript extract_metar.R $dir V10    2dt &
+Rscript extract_metar.R $dir RAINC  2dt &
+Rscript extract_metar.R $dir RAINNC 2dt &
 
 echo \'extracting INMET time-series...\'
 
-Rscript extract_inmet.R $dir T2      3d &
-Rscript extract_inmet.R $dir Q2      3d &
-Rscript extract_inmet.R $dir U10     3d &
-Rscript extract_inmet.R $dir V10     3d &
-Rscript extract_inmet.R $dir RAINNC  3d &
-Rscript extract_inmet.R $dir RAINC   3d &
+Rscript extract_inmet.R $dir T2      2dt &
+Rscript extract_inmet.R $dir Q2      2dt &
+Rscript extract_inmet.R $dir U10     2dt &
+Rscript extract_inmet.R $dir V10     2dt &
+Rscript extract_inmet.R $dir RAINNC  2dt &
+Rscript extract_inmet.R $dir RAINC   2dt &
 Rscript extract_inmet.R $dir P       4d &
-Rscript extract_inmet.R $dir SWDOWN  3d &
+Rscript extract_inmet.R $dir SWDOWN  2dt &
 
 wait
 
@@ -220,13 +220,13 @@ date
 
 echo \'extracting METAR time-series...\'
 
-Rscript extract_metar.R $dir T2     3d &
+Rscript extract_metar.R $dir T2     2dt &
 Rscript extract_metar.R $dir P      4d &
-Rscript extract_metar.R $dir Q2     3d &
-Rscript extract_metar.R $dir U10    3d &
-Rscript extract_metar.R $dir V10    3d &
-Rscript extract_metar.R $dir RAINC  3d &
-Rscript extract_metar.R $dir RAINNC 3d &
+Rscript extract_metar.R $dir Q2     2dt &
+Rscript extract_metar.R $dir U10    2dt &
+Rscript extract_metar.R $dir V10    2dt &
+Rscript extract_metar.R $dir RAINC  2dt &
+Rscript extract_metar.R $dir RAINNC 2dt &
 
 wait
 
@@ -319,20 +319,20 @@ date
 
 echo \'extracting METAR time-series ...\'
 
-Rscript extract_metar.R $dir T2     3d &
+Rscript extract_metar.R $dir T2     2dt &
 Rscript extract_metar.R $dir P      4d &
-Rscript extract_metar.R $dir Q2     3d &
-Rscript extract_metar.R $dir U10    3d &
-Rscript extract_metar.R $dir V10    3d &
-Rscript extract_metar.R $dir RAINC  3d &
-Rscript extract_metar.R $dir RAINNC 3d &
+Rscript extract_metar.R $dir Q2     2dt &
+Rscript extract_metar.R $dir U10    2dt &
+Rscript extract_metar.R $dir V10    2dt &
+Rscript extract_metar.R $dir RAINC  2dt &
+Rscript extract_metar.R $dir RAINNC 2dt &
 
 echo \'extracting AQ time-series for meteorology ...\'
-Rscript extract_aq.R $dir T2 3d  &
-Rscript extract_aq.R $dir Q2 3d  &
+Rscript extract_aq.R $dir T2 2dt  &
+Rscript extract_aq.R $dir Q2 2dt  &
 Rscript extract_aq.R $dir P      &
-Rscript extract_aq.R $dir U10 3d &
-Rscript extract_aq.R $dir V10 3d &
+Rscript extract_aq.R $dir U10 2dt &
+Rscript extract_aq.R $dir V10 2dt &
 
 echo \'extracting AQ time-series for species ...\'
 Rscript extract_aq.R $dir o3        &
@@ -528,11 +528,11 @@ echo \'folder:\' $dir
 date
 
 echo \'extracting AQ time-series for meteorology ...\'
-Rscript extract_exp.R $dir T2 3d  &
-Rscript extract_exp.R $dir Q2 3d  &
+Rscript extract_exp.R $dir T2 2dt  &
+Rscript extract_exp.R $dir Q2 2dt  &
 Rscript extract_exp.R $dir P      &
-Rscript extract_exp.R $dir U10 3d &
-Rscript extract_exp.R $dir V10 3d &
+Rscript extract_exp.R $dir U10 2dt &
+Rscript extract_exp.R $dir V10 2dt &
 
 echo \'extracting AQ time-series for species ...\'
 Rscript extract_exp.R $dir o3        &
@@ -595,13 +595,13 @@ Rscript extract_exp.R $dir ASOA      &
 wait
 echo \'extracting PBL variables...\'
 
-Rscript extract_exp.R $dir PBLH   3d &
-Rscript extract_exp.R $dir LH     3d &
-Rscript extract_exp.R $dir HFX    3d &
-Rscript extract_exp.R $dir QFX    3d &
-Rscript extract_exp.R $dir UST    3d &
-Rscript extract_exp.R $dir RAINNC 3d &
-Rscript extract_exp.R $dir RAINC  3d &
+Rscript extract_exp.R $dir PBLH   2dt &
+Rscript extract_exp.R $dir LH     2dt &
+Rscript extract_exp.R $dir HFX    2dt &
+Rscript extract_exp.R $dir QFX    2dt &
+Rscript extract_exp.R $dir UST    2dt &
+Rscript extract_exp.R $dir RAINNC 2dt &
+Rscript extract_exp.R $dir RAINC  2dt &
 
 wait
 
@@ -1723,8 +1723,7 @@ extract_serie(filelist = files,
               point    = stations,
               variable = var,
               field    = ndim,
-              latitude = "latitude",
-              longitude = "longitude",
+              model    = "CAMx",
               use_TFLAG = T,
               prefix   = "aeronet.d01")
 
@@ -1824,8 +1823,7 @@ extract_serie(filelist = files,
               point    = stations,
               variable = var,
               field    = ndim,
-              latitude = "latitude",
-              longitude = "longitude",
+              model    = "CAMx",
               use_TFLAG = T,
               prefix   = "aeronet.d01")
 
@@ -1836,8 +1834,7 @@ extract_serie(filelist = files,
               point    = stations,
               variable = var,
               field    = ndim,
-              latitude = "latitude",
-              longitude = "longitude",
+              model    = "CAMx",
               use_TFLAG = T,
               prefix   = "aeronet.d02")
 
@@ -1848,8 +1845,7 @@ extract_serie(filelist = files,
               point    = stations,
               variable = var,
               field    = ndim,
-              latitude = "latitude",
-              longitude = "longitude",
+              model    = "CAMx",
               use_TFLAG = T,
               prefix   = "aeronet.d03")
 
