@@ -59,8 +59,6 @@
 <span>  return.nearest <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  fast <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  use_ij <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  latitude <span class="op">=</span> <span class="st">"XLAT"</span>,</span>
-<span>  longitude <span class="op">=</span> <span class="st">"XLONG"</span>,</span>
 <span>  model <span class="op">=</span> <span class="st">"WRF"</span>,</span>
 <span>  id <span class="op">=</span> <span class="st">"id"</span>,</span>
 <span>  remove_ch <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -85,7 +83,7 @@
 
 
 <dt id="arg-field">field<a class="anchor" aria-label="anchor" href="#arg-field"></a></dt>
-<dd><p>'4d' (default), '3d', '2d' or '2dz' see notes</p></dd>
+<dd><p>'4d' (default), '2dz', '2dz', '2d' or 'xyzt', 'xyz', 'xyz', and 'xy' see notes</p><table class="table table"><tr><td><strong>Field</strong></td><td><strong>Dimensions</strong></td><td><strong>Notes</strong></td></tr><tr><td>3dt</td><td>xyzt</td><td>WRF dimensions for 3D array with multiple times</td></tr><tr><td>2dt</td><td>xyt</td><td>WRF dimensions for 2D array with multiple times</td></tr><tr><td>2dz</td><td>xyz</td><td>WRF dimensions for 3D array with single time</td></tr><tr><td>2d</td><td>xy</td><td>WRF dimensions for 2D array with single time</td></tr></table></dd>
 
 
 <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
@@ -112,14 +110,6 @@
 <dd><p>logical, use i and j from input instead of calculate</p></dd>
 
 
-<dt id="arg-latitude">latitude<a class="anchor" aria-label="anchor" href="#arg-latitude"></a></dt>
-<dd><p>name of latitude coordinate variable in the netcdf</p></dd>
-
-
-<dt id="arg-longitude">longitude<a class="anchor" aria-label="anchor" href="#arg-longitude"></a></dt>
-<dd><p>name of longitude coordinate variable in the netcdf</p></dd>
-
-
 <dt id="arg-model">model<a class="anchor" aria-label="anchor" href="#arg-model"></a></dt>
 <dd><p>"WRF" (default), "CAMx" (CAMx, CMAQ and smoke files), and "WACCM" (WACCM and CAM-Chem)</p></dd>
 
@@ -142,11 +132,9 @@
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3rd dimention (z).</p>
+    <p>The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3rd dimention (z), this is based on WRF outputs format and the array order from ncdf4.</p>
 <p>new = TRUE create a new file, new = FALSE append the data in a old file, and new = 'check' check if the file exist and append if the file exist and create if the file doesnt exist</p>
-<p>FOR CAMx time-series, use the options: model='CAMx', latitude='latitude', longitude='longitude', new=T</p>
-<p>FOR WACCM time-series, use the options: model='WACCM', latitude='lat', longitude='lon', new=T</p>
-<p>FOR UFS time-series, use the options: model='UFS', latitude='lat', longitude='lon', new=T</p>
+<p>The option field '3d' was removed, a new option should be used instead (2dt or 2dz).</p>
 <p>The site-list of two global data-sets (METAR and AERONET) are provided on examples and site-list for stations on Brazil (INMET and Air Quality stations).</p>
     </div>
 
