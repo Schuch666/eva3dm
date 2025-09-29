@@ -275,7 +275,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
     contagem = c(-1,-1,1)                           # nocov
   }else if(field %in% c('2dt','xyt','yxt')){        # 3d Field (x,y,t)
     contagem  = NA                                  # nocov
-  }else if(field %in% c('4d','3dz','xyzt','yxzt')){
+  }else if(field %in% c('4d','3dt','2dzt','xyzt','yxzt')){
     contagem = c(-1,-1,1,-1)                        # 4d Field (x,y,z,t)
   }else{
     stop('argument field ',field,' not suported!')  # nocov
@@ -287,7 +287,7 @@ extract_serie <- function(filelist, point, variable = 'o3',field = '4d',level = 
     comeco = c(1,1,level)                     # nocov
   if(field %in% c('2dt','xyt','yxt'))         # 3d Field (x,y,t)
     comeco  = NA                              # nocov
-  if(field %in% c('4d','3dz','xyzt','yxzt'))
+  if(field %in% c('4d','3dt','2dzt','xyzt','yxzt'))
     comeco = c(1,1,level,1)                   # 4d Field (x,y,z,t)
 
   var     <- ncvar_get(wrf,variable,count = contagem,start = comeco)
