@@ -5,7 +5,7 @@
 #' @param filelist list of files to be read
 #' @param point data.frame with lat/lon
 #' @param variable variable name
-#' @param field '4d' (default), '2dz', '2dz', '2d' or 'xyzt', 'xyz', 'xyz', and 'xy' see notes
+#' @param field dimension of the variable, '4d' (default), '2dz', '2dz', '2d' or 'xyzt', 'xyz', 'xyz', and 'xy' see notes
 #' \tabular{lll}{
 #'   \strong{Field}\tab \strong{Dimensions}\tab \strong{Notes} \cr
 #'   3dt  \tab xyzt \tab WRF dimensions for 3D array with multiple times\cr
@@ -26,7 +26,7 @@
 #'
 #' @return No return value
 #'
-#' @note The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3rd dimention (z), this is based on WRF outputs format and the array order from ncdf4.
+#' @note The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3rd dimension (z), this is based on WRF outputs format and the array order from ncdf4.
 #'
 #' @note new = TRUE create a new file, new = FALSE append the data in a old file, and new = 'check' check if the file exist and append if the file exist and create if the file doesnt exist
 #'
