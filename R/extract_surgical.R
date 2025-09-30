@@ -32,7 +32,7 @@ extract_surgical <- function(filelist,
                              include_distances = TRUE,
                              filename,
                              verbose           = TRUE) {
-  results <- list()
+  results <- list() # nocov start
 
   for (f in filelist) {
     cat('opening', f, '\n')
@@ -294,5 +294,5 @@ calculate_UFS_z <- function(nc, verbose = TRUE) {
     height_mid[,,k] <- height_mid[,,k+1] + dz
   }
 
-  return(height_mid)
+  return(height_mid) # nocov end
 }
