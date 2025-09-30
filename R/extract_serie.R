@@ -7,13 +7,13 @@
 #' @param variable variable name
 #' @param field dimension of the variable, '4d' (default), '2dz', '2dz', '2d' or 'xyzt', 'xyz', 'xyz', and 'xy' see notes
 #' \tabular{lll}{
-#'   \strong{Field}\tab \strong{Dimensions}\tab \strong{Notes} \cr
+#'   \strong{Field}\tab \strong{Dimensions}\tab \strong{Example} \cr
 #'   3dt  \tab xyzt \tab WRF dimensions for 3D array with multiple times\cr
 #'   2dt  \tab xyt  \tab WRF dimensions for 2D array with multiple times \cr
 #'   2dz  \tab xyz  \tab WRF dimensions for 3D array with single time\cr
 #'   2d   \tab xy   \tab WRF dimensions for 2D array with single time\cr
 #' }
-#' @param level model level to be extracted
+#' @param level model level (index) to be extracted
 #' @param prefix to output file, default is serie
 #' @param new TRUE, FALSE of 'check' see notes
 #' @param return.nearest return the data.frame of nearest points instead of extract the serie
@@ -26,7 +26,7 @@
 #'
 #' @return No return value
 #'
-#' @note The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3rd dimension (z), this is based on WRF outputs format and the array order from ncdf4.
+#' @note The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3rd dimension (z), this should be based how ncdf4 R-package reads the model output.
 #'
 #' @note new = TRUE create a new file, new = FALSE append the data in a old file, and new = 'check' check if the file exist and append if the file exist and create if the file doesnt exist
 #'

@@ -12,16 +12,12 @@
 #'
 #' @export
 #'
-get_distances <- function(lat1, long1, lat2, long2,R = 6371) {
-  deg2rad <- function(deg) {
-    return(deg * (pi/180))
-  }
-  d_lat <- deg2rad(lat2 - lat1)
-  d_long <- deg2rad(long2 - long1)
-  a <- sin(d_lat/2) * sin(d_lat/2) +
-       cos(deg2rad(lat1)) * cos(deg2rad(lat2)) *
-       sin(d_long/2) * sin(d_long/2)
-  c1 <- 2 * atan2(sqrt(a), sqrt(1-a))
-  d <- R * c1; # Distance in km
+get_distances <- function(lat1, long1, lat2, long2, R = 6371) {
+  lat1   <- lat1 * pi/180
+  lat2   <- lat2 * pi/180
+  d_lat  <- lat2 - lat1
+  d_long <- (long2 - long1) * pi/180
+  a      <- sin(d_lat/2)^2 + cos(lat1) * cos(lat2) * sin(d_long/2)^2
+  d      <- R * 2 * atan2(sqrt(a), sqrt(1 - a))
   return(d)
 }
