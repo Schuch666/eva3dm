@@ -83,11 +83,11 @@
 
 
 <dt id="arg-field">field<a class="anchor" aria-label="anchor" href="#arg-field"></a></dt>
-<dd><p>'4d' (default), '2dz', '2dz', '2d' or 'xyzt', 'xyz', 'xyz', and 'xy' see notes</p><table class="table table"><tr><td><strong>Field</strong></td><td><strong>Dimensions</strong></td><td><strong>Notes</strong></td></tr><tr><td>3dt</td><td>xyzt</td><td>WRF dimensions for 3D array with multiple times</td></tr><tr><td>2dt</td><td>xyt</td><td>WRF dimensions for 2D array with multiple times</td></tr><tr><td>2dz</td><td>xyz</td><td>WRF dimensions for 3D array with single time</td></tr><tr><td>2d</td><td>xy</td><td>WRF dimensions for 2D array with single time</td></tr></table></dd>
+<dd><p>dimension of the variable, '4d' (default), '2dz', '2dz', '2d' or 'xyzt', 'xyz', 'xyz', and 'xy' see notes</p><table class="table table"><tr><td><strong>Field</strong></td><td><strong>Dimensions</strong></td><td><strong>Example</strong></td></tr><tr><td>3dt</td><td>xyzt</td><td>WRF dimensions for 3D array with multiple times</td></tr><tr><td>2dt</td><td>xyt</td><td>WRF dimensions for 2D array with multiple times</td></tr><tr><td>2dz</td><td>xyz</td><td>WRF dimensions for 3D array with single time</td></tr><tr><td>2d</td><td>xy</td><td>WRF dimensions for 2D array with single time</td></tr></table></dd>
 
 
 <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
-<dd><p>model level to be extracted</p></dd>
+<dd><p>model level (index) to be extracted</p></dd>
 
 
 <dt id="arg-prefix">prefix<a class="anchor" aria-label="anchor" href="#arg-prefix"></a></dt>
@@ -132,7 +132,7 @@
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3rd dimention (z), this is based on WRF outputs format and the array order from ncdf4.</p>
+    <p>The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3rd dimension (z), this should be based how ncdf4 R-package reads the model output.</p>
 <p>new = TRUE create a new file, new = FALSE append the data in a old file, and new = 'check' check if the file exist and append if the file exist and create if the file doesnt exist</p>
 <p>The option field '3d' was removed, a new option should be used instead (2dt or 2dz).</p>
 <p>The site-list of two global data-sets (METAR and AERONET) are provided on examples and site-list for stations on Brazil (INMET and Air Quality stations).</p>
