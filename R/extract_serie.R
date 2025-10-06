@@ -32,7 +32,7 @@
 #'
 #' @note The option field '3d' was removed, a new option should be used instead (2dt or 2dz).
 #'
-#' @note The site-list of two global data-sets (METAR and AERONET) are provided on examples and site-list for stations on Brazil (INMET and Air Quality stations).
+#' @note The site-list of two global data-sets (METAR/ISD and AERONET) are provided on examples and site-list for stations on Brazil (INMET and Air Quality stations). Site-lists for other regions (US, Canada, Europa, etc) are provided as additional examples.
 #'
 #' @import ncdf4 terra
 #'
@@ -43,6 +43,7 @@
 #' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_METAR.Rds"))
 #'
 #' cat('Example 2: Integrated Surface Dataset (ISD) site list\n')
+#' # row.names are a combination of State Code,	County Code	and Site Number (2,3 and 4 digits)
 #' sites <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_ISD.Rds"))
 #'
 #' cat('Example 4: AERONET site list\n')
