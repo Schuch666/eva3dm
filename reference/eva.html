@@ -73,6 +73,7 @@ categorical evaluation.</p>
 <span>  <span class="va">select_time</span>,</span>
 <span>  time <span class="op">=</span> <span class="st">"date"</span>,</span>
 <span>  remove_ch <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  clean <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -140,6 +141,10 @@ categorical evaluation.</p>
 
 <dt id="arg-remove-ch">remove_ch<a class="anchor" aria-label="anchor" href="#arg-remove-ch"></a></dt>
 <dd><p>remove special characters on column names</p></dd>
+
+
+<dt id="arg-clean">clean<a class="anchor" aria-label="anchor" href="#arg-clean"></a></dt>
+<dd><p>remove rows when number of observations &lt; nobs, for site="complete"</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
