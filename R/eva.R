@@ -20,6 +20,7 @@
 #' @param select_time select the observation (ob) using time from model (mo) data.frame
 #' @param time name of the time column (containing time in POSIXct)
 #' @param remove_ch remove special characters on column names
+#' @param clean remove rows when number of observations < nobs, for site="complete"
 #' @param verbose display additional information
 #' @param ... arguments to be passing to stats and plot
 #'
@@ -86,7 +87,7 @@ eva <- function(mo, ob, rname = site, table = NULL,
                 site = 'ALL', wd = FALSE, fair = NULL,
                 cutoff = NA, cutoff_NME = NA, no_tz = FALSE,
                 nobs = 8, eval_function = stat, select_time,
-                time = 'date', remove_ch = FALSE,
+                time = 'date', remove_ch = FALSE, clean = TRUE,
                 verbose = TRUE, ...){
 
   if(!is.data.frame(mo))
@@ -123,6 +124,7 @@ eva <- function(mo, ob, rname = site, table = NULL,
       RESULT <- eva(mo = mo, ob = ob,table = RESULT, site = s, ... )   # nocov
     }                                                                  # nocov
     RESULT <- eva(mo = mo, ob = ob,table = RESULT, site = 'ALL', ... ) # nocov
+    if(clean) RESULT <- RESULT[ RESULT$n > nobs, ]                     # nocov
     return(RESULT)                                                     # nocov
   }
 

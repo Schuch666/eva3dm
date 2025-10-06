@@ -20,6 +20,7 @@ eva(
   select_time,
   time = "date",
   remove_ch = FALSE,
+  clean = TRUE,
   verbose = TRUE,
   ...
 )
@@ -54,6 +55,8 @@ eva(
 \item{time}{name of the time column (containing time in POSIXct)}
 
 \item{remove_ch}{remove special characters on column names}
+
+\item{clean}{remove rows when number of observations < nobs, for site="complete"}
 
 \item{verbose}{display additional information}
 
