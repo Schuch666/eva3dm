@@ -135,7 +135,7 @@
     <p>The field argument '4d' or '2dz' is used to read a 4d/3d variable droping the 3rd dimension (z), this should be based how ncdf4 R-package reads the model output.</p>
 <p>new = TRUE create a new file, new = FALSE append the data in a old file, and new = 'check' check if the file exist and append if the file exist and create if the file doesnt exist</p>
 <p>The option field '3d' was removed, a new option should be used instead (2dt or 2dz).</p>
-<p>The site-list of two global data-sets (METAR and AERONET) are provided on examples and site-list for stations on Brazil (INMET and Air Quality stations).</p>
+<p>The site-list of two global data-sets (METAR/ISD and AERONET) are provided on examples and site-list for stations on Brazil (INMET and Air Quality stations). Site-lists for other regions (US, Canada, Europa, etc) are provided as additional examples.</p>
     </div>
 
     <div class="section level2">
@@ -146,6 +146,7 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 2: Integrated Surface Dataset (ISD) site list\n'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Example 2: Integrated Surface Dataset (ISD) site list</span>
+<span class="r-in"><span><span class="co"># row.names are a combination of State Code,  County Code  and Site Number (2,3 and 4 digits)</span></span></span>
 <span class="r-in"><span><span class="va">sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,package<span class="op">=</span><span class="st">"eva3dm"</span><span class="op">)</span>,<span class="st">"/sites_ISD.Rds"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">'Example 4: AERONET site list\n'</span><span class="op">)</span></span></span>
