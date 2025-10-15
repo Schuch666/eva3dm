@@ -22,7 +22,7 @@
 #'   METAR\tab downlaad \tab observations \tab METAR from ASOS\cr
 #'   INMET\tab pre-processing \tab observations \tab INMET (automatic and conventional)\cr
 #'   merge\tab pre-processing \tab observations \tab merge INMET (automatic and conventional)\cr
-#'   ISD\tab pre-processing \tab observations \tab METAR\cr
+#'   ISD\tab pre-processing \tab observations \tab METAR from ISD\cr
 #'}
 #' @param case case to be evaluated
 #' @param env name of the conda environment
