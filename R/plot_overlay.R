@@ -16,6 +16,7 @@
 #' @param add add to existing plot
 #' @param plg list of parameters passed to terra::add_legend
 #' @param pax list of parameters passed to graphics::axis
+#' @param unit used title in terra::add_legend
 #' @param expand to expand the plot region
 #' @param ... arguments to be passing to terra::plot
 #'
@@ -54,8 +55,12 @@ overlay <- function(p,z,col,col2,
                     add      = FALSE,
                     plg      = list(tic = 'none',shrink=1.00),
                     pax      = list(),
+                    unit,
                     expand   = 1.15,
                     ...){
+
+  if(!missing(unit))
+    plg = c(plg,list(title = unit)) # nocov
 
   if(missing(p))
     stop('p is missing') # nocov
