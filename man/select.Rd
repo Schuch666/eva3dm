@@ -12,6 +12,7 @@ select(
   hour,
   minutes,
   seconds,
+  julian,
   start,
   end,
   range,
@@ -32,6 +33,8 @@ select(
 \item{minutes}{numeric vector (0-60) for selection}
 
 \item{seconds}{numeric vector (0-60) for selection}
+
+\item{julian}{Julian day (1-366)}
 
 \item{start}{POSIXct or character (YYYY-MM-DD) with the initial date of selection}
 
