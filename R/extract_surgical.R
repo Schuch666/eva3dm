@@ -1,9 +1,9 @@
-#' Extract time series from a list model files using time, latitude, longitude, and altitude.
+#' Extract time series from a list model files using time UTC, latitude, longitude, and altitude (meters).
 #'
-#' @description Read output from WRF model and calculate the column of trace gases.
+#' @description Read output from a list of model (WRF or UFS) and calculate the column of trace gases.
 #'
 #' @param filelist list of files to be read
-#' @param point data.frame with time (POSIXct), lat, lon, alt
+#' @param point data.frame with time (POSIXct in UTC), lat (numeric in degrees), lon (numeric in degrees), alt (numeric in meters)
 #' @param vars variable names
 #' @param model 'WRF' (default) or 'UFS'
 #' @param include_indices to include t,i,j,k indices

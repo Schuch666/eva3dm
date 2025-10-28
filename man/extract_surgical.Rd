@@ -2,7 +2,7 @@
 % Please edit documentation in R/extract_surgical.R
 \name{extract_surgical}
 \alias{extract_surgical}
-\title{Extract time series from a list model files using time, latitude, longitude, and altitude.}
+\title{Extract time series from a list model files using time UTC, latitude, longitude, and altitude (meters).}
 \usage{
 extract_surgical(
   filelist,
@@ -21,7 +21,7 @@ extract_surgical(
 \arguments{
 \item{filelist}{list of files to be read}
 
-\item{point}{data.frame with time (POSIXct), lat, lon, alt}
+\item{point}{data.frame with time (POSIXct in UTC), lat (numeric in degrees), lon (numeric in degrees), alt (numeric in meters)}
 
 \item{vars}{variable names}
 
@@ -45,5 +45,5 @@ extract_surgical(
 data.frame
 }
 \description{
-Read output from WRF model and calculate the column of trace gases.
+Read output from a list of model (WRF or UFS) and calculate the column of trace gases.
 }
