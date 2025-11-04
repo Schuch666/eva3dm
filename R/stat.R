@@ -180,14 +180,11 @@ stat <- function(model, observation,
 
   Obs	  = mean(observation, na.rm = TRUE)
   Mod	  = mean(model, na.rm = TRUE)
-  MB	  = mean(model-observation)
-  MAGE	= mean(abs(model-observation))
-  MNB	  = mean((model-observation)/observation)
-  MNGE	= mean(abs(model-observation)/observation)
+  MB	  = mean(model-observation, na.rm = TRUE)
+  MAGE	= mean(abs(model-observation), na.rm = TRUE)
+  MNB	  = mean((model-observation)/observation, na.rm = TRUE)
+  MNGE	= mean(abs(model-observation)/observation, na.rm = TRUE)
   NMB	  = 100 * (Mod-Obs)/Obs
-  s     = model + observation
-  # MFB   = 200 * mean(model/s - observation/s )
-  # MFE   = 200 * mean(abs( model/s - observation/s ))
 
   if(is.na(cutoff_NME[[1]])){
     NME	  = 100 * MAGE / Obs
@@ -206,10 +203,7 @@ stat <- function(model, observation,
                                      FA2  = FA2(model,observation),
                                      RMSE = sqrt(mean((observation - model)^2)),
                                      MB   = MB,
-                                     ME   = MAGE,
-                                     # GE   = MAGE,
-                                     # `MFB (%)` = MFB,
-                                     # `MFE (%)` = MFE,
+                                     ME   = MAGE, # GE
                                      `NMB (%)` = NMB,
                                      `NME (%)` = NME))
 
