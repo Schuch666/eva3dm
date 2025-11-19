@@ -81,7 +81,7 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://schuch666.github.io/eva3dm/">eva3dm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/riem/" class="external-link">riem</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; terra 1.8.70</span></span></code></pre></div>
+<span><span class="co">#&gt; terra 1.8.80</span></span></code></pre></div>
 <p>The recommended workflow to evaluate your model results will include
 4 steps:</p>
 <ol style="list-style-type: decimal">
@@ -142,7 +142,7 @@ Report (METAR).</p>
 <p>Lets check if the observations are ok</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">METAR</span><span class="op">$</span><span class="va">date</span>, <span class="va">METAR</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, ty <span class="op">=</span> <span class="st">'l'</span>,xlab <span class="op">=</span> <span class="st">''</span>,ylab <span class="op">=</span> <span class="st">'T2'</span>, main <span class="op">=</span> <span class="st">'METAR OBS'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="workflow_files/figure-html/check-1.png" width="672"></p>
+<p><img src="workflow_files/figure-html/check-1.png" class="r-plt" width="672"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">METAR</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                  date SBGR SBKP SBMT SBSJ SBSP SBST SBTA</span></span>
@@ -163,7 +163,7 @@ evaluation against hourly data.</p>
 <span><span class="co">#&gt; processing hourly data ...</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">METAR</span><span class="op">$</span><span class="va">date</span>, <span class="va">METAR</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, ty <span class="op">=</span> <span class="st">'l'</span>,xlab <span class="op">=</span> <span class="st">''</span>,ylab <span class="op">=</span> <span class="st">'T2'</span>, main <span class="op">=</span> <span class="st">'METAR processed OBS'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="workflow_files/figure-html/observation-1.png" width="672"></p>
+<p><img src="workflow_files/figure-html/observation-1.png" class="r-plt" width="672"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">METAR</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                  date SBGR SBKP SBMT SBSJ     SBSP SBST SBTA</span></span>
@@ -260,7 +260,7 @@ data need to be georeferenced using <code>%at%</code>.</p>
 <span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">BR</span><span class="op">)</span></span>
 <span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">masp</span>, col <span class="op">=</span> <span class="st">'gray'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/legend_range.html">legend_range</a></span><span class="op">(</span><span class="va">spatial_table</span><span class="op">$</span><span class="va">MB</span>,y <span class="op">=</span> <span class="va">table</span><span class="op">[</span><span class="st">"ALL"</span>,<span class="st">"MB"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p><img src="workflow_files/figure-html/visualize-1.png" width="672">
+<p><img src="workflow_files/figure-html/visualize-1.png" class="r-plt" width="672">
 The WRF-Chem temperature in this example showed a very low MB, except
 for the SBSJ station (MB=-0.7), which is in the criteria for acceptable
 performance (|MB| &lt; 0.5) and the criteria for evaluation for complex
@@ -279,7 +279,7 @@ documentation of <code><a href="../reference/stat.html">stat()</a></code> functi
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
