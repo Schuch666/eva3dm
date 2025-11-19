@@ -48,7 +48,7 @@ overlay <- function(p,z,col,col2,
                     lim      = range(z, na.rm = TRUE),
                     symmetry = TRUE,
                     pch      = 19,
-                    pch2     = 1,
+                    pch2     = NA,
                     cex      = 1.0,
                     cex2     = 1.2 * cex,
                     outside  = TRUE,
@@ -58,6 +58,9 @@ overlay <- function(p,z,col,col2,
                     unit,
                     expand   = 1.15,
                     ...){
+
+  if(is.na(pch2) && pch == 19)
+    pch2 = 1                      # nocov
 
   if(!missing(unit))
     plg = c(plg,list(title = unit)) # nocov
