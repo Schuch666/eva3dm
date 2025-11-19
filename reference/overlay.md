@@ -14,7 +14,7 @@ overlay(
   lim = range(z, na.rm = TRUE),
   symmetry = TRUE,
   pch = 19,
-  pch2 = 1,
+  pch2 = NA,
   cex = 1,
   cex2 = 1.2 * cex,
   outside = TRUE,
