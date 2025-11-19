@@ -14,6 +14,7 @@
 #' @param grid add grid (graticule style)
 #' @param grid_int interval of grid lines
 #' @param grid_col color for grid lines
+#' @param grid_lwd lwd for the grid lines
 #' @param add_range add legend with max, average and min r values
 #' @param show.mean show the average on legend, default TRUE
 #' @param ndig number of digits for legend_range
@@ -55,6 +56,7 @@ plot_rast <- function(r,
                       grid = FALSE,
                       grid_int = int,
                       grid_col = "#666666",
+                      grid_lwd = 1.2,
                       add_range = FALSE,
                       show.mean = TRUE,
                       ndig = 2,
@@ -366,7 +368,7 @@ plot_rast <- function(r,
       terra::lines(terra::graticule(lon = seq(-180,180,by = grid_int),
                                     lat = vet_lat,
                                     crs = terra::crs(r,proj=TRUE)),
-                   lty = 3, col = grid_col,lwd = 1.2)
+                   lty = 3, col = grid_col,lwd = grid_lwd)
     }
     if(add_range)
       legend_range(r,dig = c(ndig,ndig,ndig), show.mean = show.mean)

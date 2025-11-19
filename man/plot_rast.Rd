@@ -17,6 +17,7 @@ plot_rast(
   grid = FALSE,
   grid_int = int,
   grid_col = "#666666",
+  grid_lwd = 1.2,
   add_range = FALSE,
   show.mean = TRUE,
   ndig = 2,
@@ -55,6 +56,8 @@ plot_rast(
 \item{grid_int}{interval of grid lines}
 
 \item{grid_col}{color for grid lines}
+
+\item{grid_lwd}{lwd for the grid lines}
 
 \item{add_range}{add legend with max, average and min r values}
 
