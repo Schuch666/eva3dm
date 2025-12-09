@@ -5,7 +5,7 @@ function to calculate Ozone 8-hour moving average for a data.frame
 ## Usage
 
 ``` r
-ma8h(data, time = "date", var, verbose = TRUE, ...)
+ma8h(data, time = "date", var, n = 8, verbose = TRUE, ...)
 ```
 
 ## Arguments
@@ -21,6 +21,10 @@ ma8h(data, time = "date", var, verbose = TRUE, ...)
 - var:
 
   name of the columns to be calculated
+
+- n:
+
+  custom time window (n = 8 for 8-hour average)
 
 - verbose:
 
@@ -47,7 +51,7 @@ model_file <- paste(system.file("extdata", package = "eva3dm"),
 model      <- readRDS(model_file)
 model_8h   <- ma8h(model)
 #> processing hourly data ... 
-#> processing maximum daily 8h average ... 
+#> processing 8-hour moving average ... 
 plot(model$date,model$Campinas, pch = 19,
      main = expression(O[3]~~'['*mu*g*m^-3*']'))
 points(model_8h$date,model_8h$Campinas, col = 'blue', pch = 19)

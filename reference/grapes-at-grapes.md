@@ -68,7 +68,7 @@ print(geo_stats)
 #>  geometry    : points 
 #>  dimensions  : 3, 12  (geometries, attributes)
 #>  extent      : -47.348, -40.318, -23.643, -20.3435  (xmin, xmax, ymin, ymax)
-#>  coord. ref. :  
+#>  coord. ref. : +proj=longlat +datum=WGS84 +no_defs 
 #>  names       :      site     n   Obs   Sim      r    IOA    FA2  RMSE     MB
 #>  type        :     <chr> <num> <num> <num>  <num>  <num>  <num> <num>  <num>
 #>  values      : Americana   227 40.93 18.18 0.6492 0.5934 0.4229 32.47 -22.75

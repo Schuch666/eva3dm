@@ -51,10 +51,10 @@ dir.create(file.path(tempdir(), "stats"))
 write_stat(file    = paste0(file.path(tempdir(), "stats"),'/sample.txt'),
            stat    = sample,
            verbose = TRUE)
-#> writing /tmp/RtmpZ60SLa/stats/sample.txt 
+#> writing /tmp/RtmpUurXnw/stats/sample.txt 
 
 write_stat(file    = paste0(file.path(tempdir(), "stats"),'/sample.csv'),
            stat    = sample,
            verbose = TRUE)
-#> writing /tmp/RtmpZ60SLa/stats/sample.csv 
+#> writing /tmp/RtmpUurXnw/stats/sample.csv 
 ```
