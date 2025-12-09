@@ -4,7 +4,7 @@
 \alias{ma8h}
 \title{Calculate 8-hour moving average}
 \usage{
-ma8h(data, time = "date", var, verbose = TRUE, ...)
+ma8h(data, time = "date", var, n = 8, verbose = TRUE, ...)
 }
 \arguments{
 \item{data}{data.frame with time column and variable columns to be processed}
@@ -12,6 +12,8 @@ ma8h(data, time = "date", var, verbose = TRUE, ...)
 \item{time}{name of the time column (default is date) in POSIXct}
 
 \item{var}{name of the columns to be calculated}
+
+\item{n}{custom time window (n = 8 for 8-hour average)}
 
 \item{verbose}{display additional information}
 

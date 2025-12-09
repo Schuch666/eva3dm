@@ -5,6 +5,7 @@
 #' @param data data.frame with time column and variable columns to be processed
 #' @param time name of the time column (default is date) in POSIXct
 #' @param var name of the columns to be calculated
+#' @param n custom time window (n = 8 for 8-hour average)
 #' @param verbose display additional information
 #' @param ... parameters passed to hourly
 #'
@@ -26,16 +27,16 @@
 #'        pch = 19,
 #'        legend = c('hourly','8h-mov average'),
 #'        col = c('black','blue'))
-ma8h <- function(data, time = 'date', var, verbose = TRUE, ...) {
+ma8h <- function(data, time = 'date', var, n = 8, verbose = TRUE, ...) {
 
   if(!'hourly' %in% class(data)){
     data <- hourly(data,time = time, verbose = verbose, ...)
   }
 
   if(verbose)
-    cat('processing maximum daily 8h average ... \n')
+    cat(paste0('processing ',n,'-hour moving average ... \n'))
 
-  moving_average <- function(x, n = 8) {
+  moving_average <- function(x, n = n) {
     if (n > length(x)) {
        stop("Window size 'n' should be less than or equal to the length of the vector 'x'.") # nocov
      }
@@ -52,11 +53,9 @@ ma8h <- function(data, time = 'date', var, verbose = TRUE, ...) {
   }
   var           <- VARS[1]
   data$roll_avg <- moving_average(data[[var]], n = 8)
-  # data$roll_avg <- terra::roll(data[[var]],8,mean,'around',na.rm=T)
   output        <- data[,c(time,'roll_avg')]
   for(var in VARS[-1]){
     data$roll_avg <- moving_average(data[[var]], n = 8)
-    # data$roll_avg <- terra::roll(data[[var]],8,mean,'around',na.rm=T)
     output        <- cbind(output,new_var = data$roll_avg)
   }
   names(output) <- c(time,VARS)
