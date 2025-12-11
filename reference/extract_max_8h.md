@@ -75,5 +75,5 @@ extract_max_8h(filelist = wrf_file,
 #> reading: /home/runner/work/_temp/Library/eva3dm/extdata/test_small_o3.nc file 1 of 1 
 #> min: 2.010639e-13 mean: 23.42075 max: 99.85495 
 #> total times: 24 
-#> output: /tmp/RtmpUurXnw/MDA8/mean.o3.nc 
+#> output: /tmp/Rtmpr7adMJ/MDA8/mean.o3.nc 
 ```
