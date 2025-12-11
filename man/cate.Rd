@@ -68,8 +68,5 @@ par(oldpar)
 
 }
 \references{
-Yu, S., Mathur, R., Schere, K., Kang, D., Pleim, J., Young, J., ... & Rao, S. T. (2008).
-Evaluation of real‐time PM2. 5 forecasts and process analysis for PM2. 5 formation over
-the eastern United States using the Eta‐CMAQ forecast model during the 2004 ICARTT study.
-Journal of Geophysical Research: Atmospheres, 113(D6).
+Gandin, L. S., & Murphy, A. H. (1992). Equitable skill scores for categorical forecasts. Monthly weather review, 120(2), 361-370.
 }
