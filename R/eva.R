@@ -167,6 +167,11 @@ eva <- function(mo, ob, rname = site, table = NULL,
         next
       }
 
+      if (length(mo[[common_sites[i]]]) == 0) {
+        cat("Skipping column with no data: ", common_sites[i],'\n')
+        next
+      }
+
       new_mo            <- data.frame(date = mo[,time],
                                       ALL  = mo[[common_sites[i]]])
       new_mo$date       <- new_mo$date + (i- 1) * a_number
