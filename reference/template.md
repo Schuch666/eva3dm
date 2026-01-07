@@ -78,8 +78,8 @@ no value returned, create folders and other template scripts
 ``` r
 temp <- file.path(tempdir(),"POST")
 template(root = temp,template = 'WRF', case = 'WRF-only')
-#>  folder  /tmp/Rtmpr7adMJ/POST/WRF/WRF-only : link wrf output files here!
-#>  bash  /tmp/Rtmpr7adMJ/POST/post-R_wrf.sh : post processing job script
-#>  r-script /tmp/Rtmpr7adMJ/POST/extract_metar.R : source code to extract metar using eva3dm::extract_serie()
-#>  r-script /tmp/Rtmpr7adMJ/POST/extract_inmet.R : source code to extract inmet using eva3dm::extract_serie()
+#>  folder  /tmp/RtmpaeF4uU/POST/WRF/WRF-only : link wrf output files here!
+#>  bash  /tmp/RtmpaeF4uU/POST/post-R_wrf.sh : post processing job script
+#>  r-script /tmp/RtmpaeF4uU/POST/extract_metar.R : source code to extract metar using eva3dm::extract_serie()
+#>  r-script /tmp/RtmpaeF4uU/POST/extract_inmet.R : source code to extract inmet using eva3dm::extract_serie()
 ```
