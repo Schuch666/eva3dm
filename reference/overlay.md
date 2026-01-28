@@ -111,6 +111,7 @@ p    <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_AQ_BR.Rds
 p$id      <- row.names(p)
 point     <- terra::vect(p)
 point$NMB <- 1:45 - 20 # some values to plot
+#> Warning: [$<-] replacement is not a multiple of the number of rows
 
 terra::plot(BR, main = 'add points',xlim = c(-52,-37),ylim = c(-25,-18))
 terra::lines(BR)

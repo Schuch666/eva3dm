@@ -1,5 +1,9 @@
 # Changelog
 
+## eva3dm 1.30 2026-01-15
+
+- added vignette to satellite evaluation
+
 ## eva3dm 1.20 2025-06-17
 
 - new function to calculate column concentration

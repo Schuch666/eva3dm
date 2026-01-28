@@ -4,7 +4,7 @@
 library(eva3dm)
 library(riem)
 library(terra)
-#> terra 1.8.86
+#> terra 1.8.93
 ```
 
 The recommended workflow to evaluate your model results will include 4

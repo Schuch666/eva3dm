@@ -72,5 +72,5 @@ extract_mean(filelist = wrf_file,prefix = paste0(file.path(tempdir(),"MEAN"),'/m
 #> reading: /home/runner/work/_temp/Library/eva3dm/extdata/wrf.day1.o3.nc file 1 of 1 
 #> min: 2.123069e-05 mean: 0.007767247 max: 0.03175572 
 #> total times: 1 
-#> output: /tmp/RtmpaeF4uU/MEAN/mean.o3.nc 
+#> output: /tmp/RtmpAvG1Uw/MEAN/mean.o3.nc 
 ```
