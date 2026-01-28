@@ -15,10 +15,10 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(eva3dm)
-library(riem)
-library(terra)
-library(maps)
+# library(eva3dm)
+# library(riem)
+# library(terra)
+# library(maps)
 ```
 
 ## Basis of the evaluation for regular data
