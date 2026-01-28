@@ -1,0 +1,46 @@
+---
+title: "Satellite Evaluation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Satellite evaluation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(eva3dm)
+library(riem)
+library(terra)
+library(maps)
+```
+
+## Basis of the evaluation for regular data
+
+Model evaluation is commonly performed using time series derived either from in situ sensors, which represent a fixed point in space, or from gridded datasets, which represent spatial averages over a region. Time series from fixed monitoring stations can be processed using extract_serie(), while data from moving platforms (e.g., aircraft or ships) should be handled with extract_surgical(). The extracted data can then be evaluated using the eva() function (see the first vignette for a detailed workflow).
+
+When evaluating 3D model output using satellite products or other gridded observational datasets, several additional aspects must be considered:
+1. Differences in coordinate reference systems
+2. Differences in spatial resolution and grid alignment
+3. Reduced representativeness of model results near domain boundaries
+4. Whether the evaluated variable must be derived and/or vertically integrated
+5. The presence of scale factors and valid data ranges
+6. Temporal representativeness and consistency
+
+Differences in coordinate reference systems, resolution, and grid positioning can be addressed using geoprocessing tools. The interp() function provides the necessary spatial interpolation to map observational data onto the model grid.
+
+In many geophysical modeling systems, results near the model boundaries are strongly influenced by boundary conditions and are therefore not representative of the interior domain. For this reason, grid cells close to the boundaries are excluded from the evaluation.
+
+After these steps, the user should ensure that the remaining data are compatible: units must be consistent, values should fall within valid ranges, and the temporal resolution of the model and observations (e.g., hourly, daily, or monthly) must be comparable.
+
+All the considerations are taken into account in the sat() function used to.
+
+## Evaluation of UFS-CMAQ using ERA5 reanalisys
+
+
