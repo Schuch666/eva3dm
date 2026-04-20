@@ -34,41 +34,43 @@ The recommended workflow to evaluate your model results will include 4 steps:
 The exact steps needed for evaluation will be different for different models, different observation data-sets, and different variables. However, in this vignette is presented an example of evaluation of temperature at surface level (T2) from WRF-Chem for a simulation at 3-km of resolution for January 2016 using data from METeorological Aerodrome Report (METAR).
 
 1 - Pre-processing of observations:
-We are using the r-package `riem` to download METAR data:
+We are using the r-package `riem` to download METAR data, or load some pre-downloaded raw data:
 
 ```{r metar}
-start_date  <- "2016-01-01"
-end_date    <- "2016-02-01"
-sites       <- c("SBGR","SBKP","SBMT","SBSJ","SBSP","SBST","SBTA")
-
-METAR  <- data.frame(date = seq.POSIXt(as.POSIXct(start_date), 
-                                       as.POSIXct(end_date), 
-                                       by = "hour"))
-for(site in sites){
-  cat('Trying to download METAR from:',site,'...\n')
-
-  DATA <- tryCatch(riem::riem_measures(station    = site,
-                                       date_start = start_date,
-                                       date_end   = end_date,
-                                       elev       = FALSE,
-                                       latlon     = FALSE),
-                   error = NULL)
+download = FALSE
+if(download){
+  start_date  <- "2016-01-01"
+  end_date    <- "2016-02-01"
+  sites       <- c("SBGR","SBKP","SBMT","SBSJ","SBSP","SBST","SBTA")
   
-  if(is.null(DATA)){
-    cat('fail to download, loading some data ...\n')
-    METAR <- readRDS(paste0(system.file("extdata",package="eva3dm"),
-                            "/METAR_MASP_jan_2016.Rds"))
-    break
+  METAR  <- data.frame(date = seq.POSIXt(as.POSIXct(start_date), 
+                                         as.POSIXct(end_date), 
+                                         by = "hour"))
+  for(site in sites){
+    cat('Trying to download METAR from:',site,'...\n')
+  
+    DATA <- tryCatch(riem::riem_measures(station    = site,
+                                         date_start = start_date,
+                                         date_end   = end_date,
+                                         elev       = FALSE,
+                                         latlon     = FALSE),
+                     error = NULL)
+    
+    DATA <- data.frame(date = DATA$valid,
+                       T2   = DATA$tmpf)
+    
+    names(DATA) <- c('date', site)
+    METAR       <- merge(x     = METAR, 
+                         y     = DATA, 
+                         by    = "date", 
+                         all   = T, 
+                         sort  = TRUE)
   }
+}else{
+  sites <- c("SBGR","SBKP","SBMT","SBSJ","SBSP","SBST","SBTA")
+  METAR <- readRDS(paste0(system.file("extdata",package="eva3dm"),
+                              "/METAR_MASP_jan_2016.Rds"))
   
-  DATA <- data.frame(date = DATA$valid,
-                     T2   = DATA$tmpf)
-  names(DATA) <- c('date', site)
-  METAR       <- merge(x     = METAR, 
-                       y     = DATA, 
-                       by    = "date", 
-                       all   = T, 
-                       sort  = TRUE)
 }
 ```
 Lets check if the observations are ok
