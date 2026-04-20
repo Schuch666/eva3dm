@@ -68,10 +68,10 @@ eva(mo = model_d01_in_d02, ob = observation, rname = 'd01 in d02')
 #> site_1(ok) site_3(ok) ...
 #>  total: 2 stations with valid data, 0 stations not included
 #> ALL has 50 valid observations
-#>             n      Obs      Sim         r      IOA FA2     RMSE MB ME  NMB (%)
-#> d01 in d02 50 9.838131 11.83813 0.6844013 0.508409   1 2.236068  2  2 20.32906
+#>             n      Obs      Sim         r       IOA FA2     RMSE MB ME  NMB (%)
+#> d01 in d02 50 9.789513 11.78951 0.7278543 0.5573628   1 2.236068  2  2 20.43003
 #>             NME (%)
-#> d01 in d02 20.32906
+#> d01 in d02 20.43003
 
 # or single line
 eva(mo = model_d01 %IN% model_d02, ob = observation, rname = 'd01 in d02')
@@ -80,10 +80,10 @@ eva(mo = model_d01 %IN% model_d02, ob = observation, rname = 'd01 in d02')
 #> site_1(ok) site_3(ok) ...
 #>  total: 2 stations with valid data, 0 stations not included
 #> ALL has 50 valid observations
-#>             n      Obs      Sim         r      IOA FA2     RMSE MB ME  NMB (%)
-#> d01 in d02 50 9.838131 11.83813 0.6844013 0.508409   1 2.236068  2  2 20.32906
+#>             n      Obs      Sim         r       IOA FA2     RMSE MB ME  NMB (%)
+#> d01 in d02 50 9.789513 11.78951 0.7278543 0.5573628   1 2.236068  2  2 20.43003
 #>             NME (%)
-#> d01 in d02 20.32906
+#> d01 in d02 20.43003
 # or
 eva(mo = model_d01, ob = observation %IN% model_d02, rname = 'd01 in d02')
 #> using observation in model_d02 
@@ -91,9 +91,9 @@ eva(mo = model_d01, ob = observation %IN% model_d02, rname = 'd01 in d02')
 #> site_1(ok) site_3(ok) ...
 #>  total: 2 stations with valid data, 0 stations not included
 #> ALL has 50 valid observations
-#>             n      Obs      Sim         r      IOA FA2     RMSE MB ME  NMB (%)
-#> d01 in d02 50 9.838131 11.83813 0.6844013 0.508409   1 2.236068  2  2 20.32906
+#>             n      Obs      Sim         r       IOA FA2     RMSE MB ME  NMB (%)
+#> d01 in d02 50 9.789513 11.78951 0.7278543 0.5573628   1 2.236068  2  2 20.43003
 #>             NME (%)
-#> d01 in d02 20.32906
+#> d01 in d02 20.43003
 
 ```
