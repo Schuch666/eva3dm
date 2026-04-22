@@ -26,13 +26,13 @@ and air quality models.” *The Journal of Open Source Software*, 6.
     }
 
 Schuch D (2026). *eva3dm: Evaluation of 3D Meteorological and Air
-Quality Models*. R package version 1.30,
+Quality Models*. R package version 1.20,
 <https://schuch666.github.io/eva3dm/>.
 
     @Manual{,
       title = {eva3dm: Evaluation of 3D Meteorological and Air Quality Models},
       author = {Daniel Schuch},
       year = {2026},
-      note = {R package version 1.30},
+      note = {R package version 1.20},
       url = {https://schuch666.github.io/eva3dm/},
     }
