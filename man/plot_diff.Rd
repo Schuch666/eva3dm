@@ -12,6 +12,7 @@ plot_diff(
   relative = FALSE,
   lim_a = NA,
   lim_r = NA,
+  asymmetric = FALSE,
   scale,
   unit = c(units(x), expression("\%")),
   fill = FALSE,
@@ -32,6 +33,8 @@ plot_diff(
 \item{lim_a}{range of values for absolute scale}
 
 \item{lim_r}{range of values for relative scale}
+
+\item{asymmetric}{to alow asymmetric scales (different positive and negative limits)}
 
 \item{scale}{variable multiplier for absolute difference}
 

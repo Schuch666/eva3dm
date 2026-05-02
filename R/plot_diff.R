@@ -9,6 +9,7 @@
 #' @param relative to plot relative difference
 #' @param lim_a range of values for absolute scale
 #' @param lim_r range of values for relative scale
+#' @param asymmetric to alow asymmetric scales (different positive and negative limits)
 #' @param scale variable multiplier for absolute difference
 #' @param unit annotation for units
 #' @param fill filling NAs
@@ -32,8 +33,8 @@
 plot_diff <- function(x,y,col,
                       absolute = FALSE,
                       relative = FALSE,
-                      lim_a = NA, lim_r = NA, scale,
-                      unit = c(units(x),expression("%")),
+                      lim_a = NA, lim_r = NA, asymmetric = FALSE,
+                      scale, unit = c(units(x),expression("%")),
                       fill = FALSE,
                       ...){
 
@@ -53,11 +54,14 @@ plot_diff <- function(x,y,col,
   diff <- x - y
 
   if(absolute){
-    if(is.na(lim_a))
+    if(is.na(lim_a[1]))
       lim_a = as.numeric(global(diff,'range',na.rm = TRUE))
 
-    lim_a[1] <- -max(abs(range(lim_a)))
-    lim_a[2] <- max(abs(range(lim_a)))
+    if(!asymmetric){
+      print('test')
+      lim_a[1] <- -max(abs(range(lim_a)))
+      lim_a[2] <- max(abs(range(lim_a)))
+    }
 
     plot_rast(diff, color = col,range = lim_a, scale = scale,
               plg = list(tic = 'none', shrink=0.98, title = unit[1]),
@@ -70,11 +74,13 @@ plot_diff <- function(x,y,col,
       rel  <- 100 * diff / (y + 0.00000000001)
     }
 
-    if(is.na(lim_r))
+    if(is.na(lim_r[1]))
       lim_r = as.numeric(global(rel,'range',na.rm = TRUE))
 
-    lim_r[1] <- -max(abs(range(lim_r)))
-    lim_r[2] <- max(abs(range(lim_r)))
+    if(!asymmetric){
+      lim_r[1] <- -max(abs(range(lim_r)))
+      lim_r[2] <- max(abs(range(lim_r)))
+    }
 
     plot_rast(rel, color = col,range = lim_r,
               plg = list(tic = 'none', shrink=0.98, title = unit[2]),

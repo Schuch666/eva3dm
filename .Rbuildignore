@@ -13,3 +13,5 @@ CONTRIBUTING.md
 ^Meta$
 ^eva3dm 2$
 ^doc$
+^\.positai$
+^\.claude$
