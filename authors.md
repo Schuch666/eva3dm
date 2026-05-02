@@ -12,7 +12,7 @@ Source:
 
 Schuch D (2025). “eva3dm: A R-package for model evaluation of 3D weather
 and air quality models.” *The Journal of Open Source Software*, 6.
-[doi:10.21105/joss.07797](https://doi.org/10.21105/joss.07797),
+[doi:10.21105/joss.07797](https://doi.org/10.21105/joss.07797).
 <https://joss.theoj.org/papers/10.21105/joss.07797>.
 
     @Article{,

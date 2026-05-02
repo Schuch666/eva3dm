@@ -14,6 +14,7 @@ plot_diff(
   relative = FALSE,
   lim_a = NA,
   lim_r = NA,
+  asymmetric = FALSE,
   scale,
   unit = c(units(x), expression("%")),
   fill = FALSE,
@@ -51,6 +52,10 @@ plot_diff(
 
   range of values for relative scale
 
+- asymmetric:
+
+  to alow asymmetric scales (different positive and negative limits)
+
 - scale:
 
   variable multiplier for absolute difference
@@ -74,11 +79,13 @@ No return value
 ## Examples
 
 ``` r
+
 folder <- system.file("extdata",package="eva3dm")
 wrf    <- paste0(folder,"/wrfinput_d01")
 A      <- wrf_rast(wrf,'XLAT')
 terra::units(A) <- 'degrees'
 B      <- wrf_rast(wrf,'XLONG')
 plot_diff(A,B,int = 2)
+#> [1] "test"
 
 ```

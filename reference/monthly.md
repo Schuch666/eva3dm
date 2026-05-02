@@ -58,6 +58,7 @@ data.frame with time and the monthly mean, min or max
 ## Examples
 
 ``` r
+
 times <- seq(as.POSIXct('2024-01-01',tz = 'UTC'),
              as.POSIXct('2024-12-31',tz = 'UTC'),
              by = 'hour')

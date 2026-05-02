@@ -1,6 +1,7 @@
 # Introduction to eva3dm
 
 ``` r
+
 library(eva3dm)
 library(riem)
 library(terra)
@@ -29,6 +30,7 @@ Report (METAR).
 download METAR data, or load some pre-downloaded raw data:
 
 ``` r
+
 download = FALSE
 if(download){
   start_date  <- "2016-01-01"
@@ -69,12 +71,14 @@ if(download){
 Lets check if the observations are ok
 
 ``` r
+
 plot(METAR$date, METAR[,2], ty = 'l',xlab = '',ylab = 'T2', main = 'METAR OBS')
 ```
 
 ![](intro_files/figure-html/check-1.png)
 
 ``` r
+
 head(METAR)
 #>                  date SBGR SBKP SBMT SBSJ SBSP SBST SBTA
 #> 1 2016-01-01 00:00:00 75.2 71.6 75.2 77.0 77.0   NA   NA
@@ -93,6 +97,7 @@ perform a evaluation against hourly data.
 
 ``` r
 
+
 METAR[,-1] <- 5/9 * (METAR[,-1]-32)
 METAR      <- hourly(METAR)
 #> processing hourly data ...
@@ -103,6 +108,7 @@ plot(METAR$date, METAR[,2], ty = 'l',xlab = '',ylab = 'T2', main = 'METAR proces
 ![](intro_files/figure-html/observation-1.png)
 
 ``` r
+
 head(METAR)
 #>                  date SBGR SBKP SBMT SBSJ     SBSP SBST SBTA
 #> 1 2016-01-01 00:00:00   24   22   24   25 25.00000   NA   NA
@@ -118,6 +124,7 @@ surface station is needed, a list of all METAR stations is available in
 eva3dm package.
 
 ``` r
+
 site_list <- readRDS(paste0(system.file("extdata",package="eva3dm"),"/sites_METAR.Rds"))
 head(site_list)
 #>                      station_name      lat      lon elev      begin  end
@@ -141,6 +148,7 @@ An finally, the temperature extracted from the model is converted from
 Kelvin to Celsius.
 
 ``` r
+
 ## to extract time-series from WRF-Chem model
 ## wrf_files <- dir(pattern = "wrfout_d03")
 ## extract_serie(filelist = wrf_files, point = site_list, variable="T2", prefix="model.d03", field="3d")
@@ -164,6 +172,7 @@ used to calculate the statistical indexes from time-series for
 individual stations or all stations combined.
 
 ``` r
+
 table <- data.frame()
 for(site in sites){
   table <- eva(mo = model_d03, ob = METAR, site = site, table = table)
@@ -208,6 +217,7 @@ can be used to plot the results from
 However, first the data need to be georeferenced using `%at%`.
 
 ``` r
+
 spatial_table <- table %at% site_list
 #> georeferencing table at site_list
 overlay(spatial_table, z = 'MB', main = 'T2 main bias (MB)',expand = 1.6,lim = 0.1)

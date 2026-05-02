@@ -43,6 +43,7 @@ No return value
 ## Examples
 
 ``` r
+
 sample <- read_stat(paste0(system.file("extdata", package = "eva3dm"),"/sample.csv"),
                     verbose = TRUE)
 #> reading /home/runner/work/_temp/Library/eva3dm/extdata/sample.csv 
@@ -51,10 +52,10 @@ dir.create(file.path(tempdir(), "stats"))
 write_stat(file    = paste0(file.path(tempdir(), "stats"),'/sample.txt'),
            stat    = sample,
            verbose = TRUE)
-#> writing /tmp/RtmpDjRjmy/stats/sample.txt 
+#> writing /tmp/RtmperOe2U/stats/sample.txt 
 
 write_stat(file    = paste0(file.path(tempdir(), "stats"),'/sample.csv'),
            stat    = sample,
            verbose = TRUE)
-#> writing /tmp/RtmpDjRjmy/stats/sample.csv 
+#> writing /tmp/RtmperOe2U/stats/sample.csv 
 ```

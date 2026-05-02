@@ -27,6 +27,7 @@ SpatVector (terra package)
 ## Examples
 
 ``` r
+
 sites <- data.frame(lat = c(-22.72500,-23.64300,-20.34350),
                     lon = c(-47.34800,-46.49200,-40.31800),
                     row.names = c('Americana','SAndre','VVIbes'),
